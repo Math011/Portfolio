@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Vidéo en background */
+.background-video {
+  position: fixed;       /* Pour qu’elle reste en place derrière tout le contenu */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;           /* Pour qu’elle soit derrière tout le reste */
+}
+
+/* Contenu par-dessus la vidéo */
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+}
