@@ -16,17 +16,23 @@ function App() {
 
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('accueil');
+  const directionRef = useRef(1); // 1 = avance, -1 = recule
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     let animationId;
+    let lastVideoTime = 0;
 
-    // Scroll déclenche la vidéo
-    const handleWheel = () => {
+    // Scroll déclenche la vidéo et détermine la direction
+    const handleWheel = (e) => {
       lastScrollTimeRef.current = performance.now();
 
+      // Direction du scroll : bas = avance (1), haut = recule (-1)
+      directionRef.current = e.deltaY > 0 ? 1 : -1;
+
+      // La vidéo joue dans les deux cas
       if (video.paused) {
         video.play();
       }
@@ -49,12 +55,22 @@ function App() {
       rafRef.current = requestAnimationFrame(checkScrollStop);
     };
 
-    // Met à jour la barre à 60fps pour une progression fluide
+    // Met à jour la barre à 60fps selon la direction
     const updateProgress = () => {
-      if (video.duration) {
-        const currentProgress = (video.currentTime / video.duration) * 100;
-        setProgress(currentProgress);
+      if (video.duration && !video.paused) {
+        // Calcule le delta de temps de la vidéo
+        const videoTimeDelta = video.currentTime - lastVideoTime;
+        
+        // Ignore si la vidéo a bouclé (delta négatif trop grand)
+        if (Math.abs(videoTimeDelta) < 0.5) {
+          // Convertit en pourcentage et applique la direction
+          const progressDelta = (videoTimeDelta / video.duration) * 100 * directionRef.current;
+          
+          setProgress(prev => Math.max(0, Math.min(100, prev + progressDelta)));
+        }
       }
+      
+      lastVideoTime = video.currentTime;
       animationId = requestAnimationFrame(updateProgress);
     };
 
