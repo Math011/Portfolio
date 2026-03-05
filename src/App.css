@@ -101,7 +101,6 @@ body, html, #root {
   height: 100%;
   background: linear-gradient(to right, #F4D03F, #F7DC6F, #F8C471);
   border-radius: 4px;
-  transition: width 0.5s ease;
   box-shadow: 0 0 10px rgba(248, 196, 113, 0.6);
   position: relative;
 }

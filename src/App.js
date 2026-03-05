@@ -1,77 +1,84 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import './App.css';
 
+// Défini en dehors du composant car il ne change jamais
+const journeySteps = [
+  { id: 'accueil', label: 'Accueil', position: 20, icon: '🏠' },
+  { id: 'propos', label: 'À propos', position: 40, icon: '👨‍💻' },
+  { id: 'projects', label: 'Projets', position: 60, icon: '🚀' },
+  { id: 'contact', label: 'Contact', position: 80, icon: '📬' }
+];
+
 function App() {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const scrollTimeoutRef = useRef(null);
-  const [videoProgress, setVideoProgress] = useState(0);
+  const lastScrollTimeRef = useRef(0);
+  const rafRef = useRef(null);
+
+  const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('accueil');
 
-  // Sections du parcours - positions en pourcentage de la durée vidéo
-  const journeySteps = [
-    { id: 'accueil', label: 'Accueil', position: 20, icon: '🏠' },
-    { id: 'propos', label: 'À propos', position: 40, icon: '👨‍💻' },
-    { id: 'projects', label: 'Projets', position: 60, icon: '🚀' },
-    { id: 'contact', label: 'Contact', position: 80, icon: '📬' }
-  ];
-
   useEffect(() => {
-    const handleScroll = () => {
-      if (videoRef.current) {
-        if (!isPlaying) {
-          videoRef.current.play();
-          setIsPlaying(true);
-        }
+    const video = videoRef.current;
+    if (!video) return;
 
-        if (scrollTimeoutRef.current) {
-          clearTimeout(scrollTimeoutRef.current);
-        }
+    let animationId;
 
-        scrollTimeoutRef.current = setTimeout(() => {
-          videoRef.current.pause();
-          setIsPlaying(false);
-        }, 200);
+    // Scroll déclenche la vidéo
+    const handleWheel = () => {
+      lastScrollTimeRef.current = performance.now();
+
+      if (video.paused) {
+        video.play();
+      }
+
+      if (!rafRef.current) {
+        checkScrollStop();
       }
     };
 
-    // Mise à jour de la progression vidéo
-    const handleVideoTimeUpdate = () => {
-      if (videoRef.current) {
-        const currentTime = videoRef.current.currentTime;
-        const duration = videoRef.current.duration;
-        const progress = (currentTime / duration) * 100;
-        setVideoProgress(progress);
+    // Arrête la vidéo quand on arrête de scroller
+    const checkScrollStop = () => {
+      const now = performance.now();
 
-        // Déterminer la section active basée sur la progression vidéo
-        const currentStep = journeySteps.find(step => 
-          progress >= step.position - 10 && progress <= step.position + 10
-        );
-        setActiveSection(currentStep ? currentStep.id : 'accueil');
+      if (now - lastScrollTimeRef.current > 200) {
+        video.pause();
+        rafRef.current = null;
+        return;
       }
+
+      rafRef.current = requestAnimationFrame(checkScrollStop);
     };
 
-    // Écoute à la fois scroll (au cas où) et wheel
-    window.addEventListener('wheel', handleScroll);
-    window.addEventListener('scroll', handleScroll);
+    // Met à jour la barre à 60fps pour une progression fluide
+    const updateProgress = () => {
+      if (video.duration) {
+        const currentProgress = (video.currentTime / video.duration) * 100;
+        setProgress(currentProgress);
+      }
+      animationId = requestAnimationFrame(updateProgress);
+    };
 
-    // Écoute de la progression vidéo
-    if (videoRef.current) {
-      videoRef.current.addEventListener('timeupdate', handleVideoTimeUpdate);
-    }
+    // Démarre la boucle d'animation
+    animationId = requestAnimationFrame(updateProgress);
+
+    window.addEventListener('wheel', handleWheel);
 
     return () => {
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      if (videoRef.current) {
-        videoRef.current.removeEventListener('timeupdate', handleVideoTimeUpdate);
-      }
+      window.removeEventListener('wheel', handleWheel);
+      cancelAnimationFrame(animationId);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [isPlaying]);
+  }, []);
+
+  // Mise à jour de la section active
+  useEffect(() => {
+    const currentStep = journeySteps
+      .slice()
+      .reverse()
+      .find(step => progress >= step.position);
+
+    setActiveSection(currentStep?.id || 'accueil');
+  }, [progress]);
 
   return (
     <div className="app-container">
@@ -80,18 +87,18 @@ function App() {
         <div className="progress-bar">
           <div 
             className="progress-fill"
-            style={{ width: `${videoProgress}%` }}
+            style={{ width: `${progress}%` }}
           />
           
           {/* Étapes du trajet */}
-          {journeySteps.map((step, index) => (
+          {journeySteps.map((step) => (
             <div
               key={step.id}
               className="progress-step"
               style={{ left: `${step.position}%` }}
             >
               <div className={`step-icon ${
-                videoProgress >= step.position 
+                progress >= step.position 
                   ? 'step-active' 
                   : 'step-inactive'
               }`}>
@@ -99,7 +106,7 @@ function App() {
               </div>
               <div className="step-label">
                 <span className={`label-text ${
-                  videoProgress >= step.position 
+                  activeSection === step.id 
                     ? 'label-active' 
                     : 'label-inactive'
                 }`}>
@@ -127,10 +134,6 @@ function App() {
           loop
         />
       </section>
-      
-      <div className="content">
-        {/* Contenu futur ici */}
-      </div>
     </div>
   );
 }
