@@ -101,7 +101,6 @@ body, html, #root {
   height: 100%;
   background: linear-gradient(to right, #F4D03F, #F7DC6F, #F8C471);
   border-radius: 4px;
-  transition: width 0.5s ease;
   box-shadow: 0 0 10px rgba(248, 196, 113, 0.6);
   position: relative;
 }
@@ -130,6 +129,12 @@ body, html, #root {
   transform: translateX(-50%) translateY(-50%);
   transition: all 0.4s ease;
   z-index: 11;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.progress-step:hover .step-icon {
+  transform: scale(1.15);
 }
 
 .step-icon {
@@ -147,6 +152,11 @@ body, html, #root {
   box-shadow: 
     0 3px 12px rgba(0, 0, 0, 0.2),
     inset 0 1px 3px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.label-text {
+  cursor: pointer;
 }
 
 .step-active {
