@@ -18,6 +18,25 @@ function App() {
   const [activeSection, setActiveSection] = useState('accueil');
   const directionRef = useRef(1); // 1 = avance, -1 = recule
   const progressRef = useRef(0); // Track progress pour vérifier les limites
+  const targetPositionRef = useRef(null); // Position cible lors d'un clic
+  const isFastForwardRef = useRef(false); // Mode avance rapide
+
+  // Fonction pour naviguer vers une section
+  const navigateToSection = (targetPosition) => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const currentProgress = progressRef.current;
+    if (targetPosition === currentProgress) return;
+
+    directionRef.current = targetPosition > currentProgress ? 1 : -1;
+    targetPositionRef.current = targetPosition;
+    isFastForwardRef.current = true;
+
+    if (video.paused) {
+      video.play();
+    }
+  };
 
   useEffect(() => {
     const video = videoRef.current;
@@ -29,6 +48,10 @@ function App() {
     // Scroll déclenche la vidéo et détermine la direction
     const handleWheel = (e) => {
       lastScrollTimeRef.current = performance.now();
+
+      // Si on scroll, on arrête le mode avance rapide
+      isFastForwardRef.current = false;
+      targetPositionRef.current = null;
 
       // Direction du scroll : bas = avance (1), haut = recule (-1)
       const direction = e.deltaY > 0 ? 1 : -1;
@@ -74,11 +97,29 @@ function App() {
         
         // Ignore si la vidéo a bouclé (delta négatif trop grand)
         if (Math.abs(videoTimeDelta) < 0.5) {
+          // Vitesse normale ou rapide (x4)
+          const speedMultiplier = isFastForwardRef.current ? 4 : 1;
+          
           // Convertit en pourcentage et applique la direction
-          const progressDelta = (videoTimeDelta / video.duration) * 100 * directionRef.current;
+          const progressDelta = (videoTimeDelta / video.duration) * 100 * directionRef.current * speedMultiplier;
           
           setProgress(prev => {
-            const newProgress = Math.max(0, Math.min(100, prev + progressDelta));
+            let newProgress = Math.max(0, Math.min(100, prev + progressDelta));
+            
+            // Si on est en mode avance rapide, vérifie si on a atteint la cible
+            if (isFastForwardRef.current && targetPositionRef.current !== null) {
+              const target = targetPositionRef.current;
+              const reachedTarget = (directionRef.current > 0 && newProgress >= target) ||
+                                    (directionRef.current < 0 && newProgress <= target);
+              
+              if (reachedTarget) {
+                newProgress = target;
+                isFastForwardRef.current = false;
+                targetPositionRef.current = null;
+                video.pause();
+              }
+            }
+            
             progressRef.current = newProgress;
             return newProgress;
           });
@@ -128,19 +169,25 @@ function App() {
               className="progress-step"
               style={{ left: `${step.position}%` }}
             >
-              <div className={`step-icon ${
-                progress >= step.position 
-                  ? 'step-active' 
-                  : 'step-inactive'
-              }`}>
+              <div 
+                className={`step-icon ${
+                  progress >= step.position 
+                    ? 'step-active' 
+                    : 'step-inactive'
+                }`}
+                onClick={() => navigateToSection(step.position)}
+              >
                 {step.icon}
               </div>
               <div className="step-label">
-                <span className={`label-text ${
-                  activeSection === step.id 
-                    ? 'label-active' 
-                    : 'label-inactive'
-                }`}>
+                <span 
+                  className={`label-text ${
+                    activeSection === step.id 
+                      ? 'label-active' 
+                      : 'label-inactive'
+                  }`}
+                  onClick={() => navigateToSection(step.position)}
+                >
                   {step.label}
                 </span>
               </div>

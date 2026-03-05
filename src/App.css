@@ -129,6 +129,7 @@ body, html, #root {
   transform: translateX(-50%) translateY(-50%);
   transition: all 0.4s ease;
   z-index: 11;
+  pointer-events: auto;
 }
 
 .step-icon {
@@ -146,6 +147,15 @@ body, html, #root {
   box-shadow: 
     0 3px 12px rgba(0, 0, 0, 0.2),
     inset 0 1px 3px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.step-icon:hover {
+  transform: scale(1.15);
+}
+
+.label-text {
+  cursor: pointer;
 }
 
 .step-active {
