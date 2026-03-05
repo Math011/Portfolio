@@ -17,6 +17,7 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('accueil');
   const directionRef = useRef(1); // 1 = avance, -1 = recule
+  const progressRef = useRef(0); // Track progress pour vérifier les limites
 
   useEffect(() => {
     const video = videoRef.current;
@@ -30,11 +31,21 @@ function App() {
       lastScrollTimeRef.current = performance.now();
 
       // Direction du scroll : bas = avance (1), haut = recule (-1)
-      directionRef.current = e.deltaY > 0 ? 1 : -1;
+      const direction = e.deltaY > 0 ? 1 : -1;
+      directionRef.current = direction;
 
-      // La vidéo joue dans les deux cas
-      if (video.paused) {
-        video.play();
+      // Vérifie si la barre peut bouger dans cette direction
+      const currentProgress = progressRef.current;
+      const canMove = (direction > 0 && currentProgress < 100) || 
+                      (direction < 0 && currentProgress > 0);
+
+      // La vidéo ne joue que si la barre peut bouger
+      if (canMove) {
+        if (video.paused) {
+          video.play();
+        }
+      } else {
+        video.pause();
       }
 
       if (!rafRef.current) {
@@ -66,7 +77,11 @@ function App() {
           // Convertit en pourcentage et applique la direction
           const progressDelta = (videoTimeDelta / video.duration) * 100 * directionRef.current;
           
-          setProgress(prev => Math.max(0, Math.min(100, prev + progressDelta)));
+          setProgress(prev => {
+            const newProgress = Math.max(0, Math.min(100, prev + progressDelta));
+            progressRef.current = newProgress;
+            return newProgress;
+          });
         }
       }
       
