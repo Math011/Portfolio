@@ -11,6 +11,7 @@ const useVideoScroll = (videoRef) => {
 
   const [progress, setProgress] = useState(0);
 
+  // Fonction pour naviguer vers une section
   const navigateToSection = (targetPosition) => {
     const video = videoRef.current;
     if (!video) return;
@@ -46,7 +47,6 @@ const useVideoScroll = (videoRef) => {
       const canMove = (direction > 0 && currentProgress < 100) || 
                       (direction < 0 && currentProgress > 0);
 
-      // Ne change la direction et ne lance la vidéo que si on peut bouger
       if (canMove) {
         directionRef.current = direction;
         if (video.paused) {
@@ -76,10 +76,10 @@ const useVideoScroll = (videoRef) => {
         const videoTimeDelta = video.currentTime - lastVideoTime;
         
         if (Math.abs(videoTimeDelta) < 0.5) {
-          const speedMultiplier = isFastForwardRef.current ? 4 : 1;
+          const baseSpeed = 0.5;
+          const speedMultiplier = isFastForwardRef.current ? 4 : baseSpeed;
           const progressDelta = (videoTimeDelta / video.duration) * 100 * directionRef.current * speedMultiplier;
           
-          // Met à jour la progression cible
           let newProgress = Math.max(0, Math.min(100, progressRef.current + progressDelta));
           
           // Pause la vidéo si on atteint les limites
@@ -107,12 +107,9 @@ const useVideoScroll = (videoRef) => {
       
       // Lissage de la progression affichée
       const diff = progressRef.current - smoothProgressRef.current;
-      if (Math.abs(diff) > 0.01) {
-        smoothProgressRef.current += diff * 0.15;
+      if (Math.abs(diff) > 0.001) {
+        smoothProgressRef.current += diff * 0.2;
         setProgress(smoothProgressRef.current);
-      } else if (smoothProgressRef.current !== progressRef.current) {
-        smoothProgressRef.current = progressRef.current;
-        setProgress(progressRef.current);
       }
       
       lastVideoTime = video.currentTime;

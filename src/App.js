@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ProgressBar from './components/ProgressBar';
 import BackgroundVideo from './components/BackgroundVideo';
+import HomeMenu from './components/RoadElement/HomeMenu';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -27,6 +28,10 @@ function App() {
         activeSection={activeSection}
         onNavigate={navigateToSection}
       />
+
+      {/* Éléments de la route */}
+      <HomeMenu progress={progress} />
+
       <BackgroundVideo 
         ref={videoRef}
         src="/paysages_tout_9sec.mp4"
