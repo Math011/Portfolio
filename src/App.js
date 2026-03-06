@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import ProgressBar from './components/ProgressBar';
 import BackgroundVideo from './components/BackgroundVideo';
 import HomeMenu from './components/RoadElement/HomeMenu';
+import AboutMenu from './components/RoadElement/AboutMenu';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -31,6 +32,7 @@ function App() {
 
       {/* Éléments de la route */}
       <HomeMenu progress={progress} />
+      <AboutMenu progress={progress} />
 
       <BackgroundVideo 
         ref={videoRef}
