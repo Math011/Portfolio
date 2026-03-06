@@ -7,6 +7,7 @@ const useVideoScroll = (videoRef) => {
   const progressRef = useRef(0);
   const targetPositionRef = useRef(null);
   const isFastForwardRef = useRef(false);
+  const smoothProgressRef = useRef(0);
 
   const [progress, setProgress] = useState(0);
 
@@ -40,22 +41,21 @@ const useVideoScroll = (videoRef) => {
       targetPositionRef.current = null;
 
       const direction = e.deltaY > 0 ? 1 : -1;
-      directionRef.current = direction;
-
+      
       const currentProgress = progressRef.current;
       const canMove = (direction > 0 && currentProgress < 100) || 
                       (direction < 0 && currentProgress > 0);
 
+      // Ne change la direction et ne lance la vidéo que si on peut bouger
       if (canMove) {
+        directionRef.current = direction;
         if (video.paused) {
           video.play();
         }
-      } else {
-        video.pause();
-      }
-
-      if (!rafRef.current) {
-        checkScrollStop();
+        
+        if (!rafRef.current) {
+          checkScrollStop();
+        }
       }
     };
 
@@ -79,26 +79,40 @@ const useVideoScroll = (videoRef) => {
           const speedMultiplier = isFastForwardRef.current ? 4 : 1;
           const progressDelta = (videoTimeDelta / video.duration) * 100 * directionRef.current * speedMultiplier;
           
-          setProgress(prev => {
-            let newProgress = Math.max(0, Math.min(100, prev + progressDelta));
+          // Met à jour la progression cible
+          let newProgress = Math.max(0, Math.min(100, progressRef.current + progressDelta));
+          
+          // Pause la vidéo si on atteint les limites
+          if ((newProgress >= 100 && directionRef.current > 0) || 
+              (newProgress <= 0 && directionRef.current < 0)) {
+            video.pause();
+          }
+          
+          if (isFastForwardRef.current && targetPositionRef.current !== null) {
+            const target = targetPositionRef.current;
+            const reachedTarget = (directionRef.current > 0 && newProgress >= target) ||
+                                  (directionRef.current < 0 && newProgress <= target);
             
-            if (isFastForwardRef.current && targetPositionRef.current !== null) {
-              const target = targetPositionRef.current;
-              const reachedTarget = (directionRef.current > 0 && newProgress >= target) ||
-                                    (directionRef.current < 0 && newProgress <= target);
-              
-              if (reachedTarget) {
-                newProgress = target;
-                isFastForwardRef.current = false;
-                targetPositionRef.current = null;
-                video.pause();
-              }
+            if (reachedTarget) {
+              newProgress = target;
+              isFastForwardRef.current = false;
+              targetPositionRef.current = null;
+              video.pause();
             }
-            
-            progressRef.current = newProgress;
-            return newProgress;
-          });
+          }
+          
+          progressRef.current = newProgress;
         }
+      }
+      
+      // Lissage de la progression affichée
+      const diff = progressRef.current - smoothProgressRef.current;
+      if (Math.abs(diff) > 0.01) {
+        smoothProgressRef.current += diff * 0.15;
+        setProgress(smoothProgressRef.current);
+      } else if (smoothProgressRef.current !== progressRef.current) {
+        smoothProgressRef.current = progressRef.current;
+        setProgress(progressRef.current);
       }
       
       lastVideoTime = video.currentTime;
@@ -106,7 +120,7 @@ const useVideoScroll = (videoRef) => {
     };
 
     animationId = requestAnimationFrame(updateProgress);
-    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener('wheel', handleWheel);
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
