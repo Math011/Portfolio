@@ -4,7 +4,7 @@ import './AboutMenu.css';
 const AboutMenu = ({ progress }) => {
   // Visible entre 20% et 40% (section À propos)
   const startProgress = 27;
-  const endProgress = 45;
+  const endProgress = 43;
   
   if (progress < startProgress || progress >= endProgress) return null;
 

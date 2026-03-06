@@ -5,8 +5,8 @@ import './ProjectsMenu.css';
 const ProjectsMenu = ({ progress }) => {
   // Section Projets : 40% à 60%
   // 4 projets répartis sur cette plage
-  const sectionStart = 45;
-  const sectionEnd =67;
+  const sectionStart = 44;
+  const sectionEnd =62;
   const sectionRange = sectionEnd - sectionStart;
   const projectDuration = sectionRange / projects.length;
 
