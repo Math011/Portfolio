@@ -5,6 +5,7 @@ import HomeMenu from './components/RoadElement/HomeMenu';
 import AboutMenu from './components/RoadElement/AboutMenu';
 import ProjectsMenu from './components/RoadElement/ProjectsMenu';
 import ContactMenu from './components/RoadElement/ContactMenu';
+import FinishMenu from './components/RoadElement/FinishMenu';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -16,6 +17,13 @@ function App() {
 
   // Mise à jour de la section active
   useEffect(() => {
+
+    // À 100%, aucune section n'est active (on est à l'arrivée)
+    if (progress >= 100) {
+      setActiveSection(null);
+      return;
+    }
+    
     const currentStep = journeySteps
       .slice()
       .reverse()
@@ -37,6 +45,7 @@ function App() {
       <AboutMenu progress={progress} />
       <ProjectsMenu progress={progress} />
       <ContactMenu progress={progress} />
+      <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
 
       <BackgroundVideo 
         ref={videoRef}

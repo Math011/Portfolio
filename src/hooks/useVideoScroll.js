@@ -9,16 +9,17 @@ const useVideoScroll = (videoRef) => {
   const targetPositionRef = useRef(null);
   const isFastForwardRef = useRef(false);
   const smoothProgressRef = useRef(0);
+  const isAtEndRef = useRef(false);
 
   const [progress, setProgress] = useState(0);
 
   // Calcule le multiplicateur de vitesse selon la section
   const getSectionSpeedModifier = (currentProgress) => {
-
+    // Titre "Mes Projets" : 42% à 45% (ralentit de 2/4)
     if (currentProgress >= 42 && currentProgress < 45) {
       return 2 / 4.5;
     }
-    // Section Projets : 40% à 60%
+    // Section Projets : 45% à 62%
     if (currentProgress >= 45 && currentProgress < 62) {
       // Ralentit selon le nombre de projets
       return 2 / projects.length;
@@ -30,6 +31,11 @@ const useVideoScroll = (videoRef) => {
   const navigateToSection = (targetPosition) => {
     const video = videoRef.current;
     if (!video) return;
+
+    // Reset isAtEnd si on navigue ailleurs
+    if (targetPosition < 100) {
+      isAtEndRef.current = false;
+    }
 
     const currentProgress = progressRef.current;
     if (targetPosition === currentProgress) return;
@@ -51,14 +57,23 @@ const useVideoScroll = (videoRef) => {
     let lastVideoTime = 0;
 
     const handleWheel = (e) => {
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const currentProgress = progressRef.current;
+      
+      // Bloque uniquement le scroll vers le haut si on est à la fin
+      if (isAtEndRef.current && direction > 0) {
+        return;
+      }
+      
+      // Reset isAtEnd si on scroll vers le bas (reculer)
+      if (direction < 0 && isAtEndRef.current) {
+        isAtEndRef.current = false;
+      }
+      
       lastScrollTimeRef.current = performance.now();
-
       isFastForwardRef.current = false;
       targetPositionRef.current = null;
-
-      const direction = e.deltaY > 0 ? 1 : -1;
       
-      const currentProgress = progressRef.current;
       const canMove = (direction > 0 && currentProgress < 100) || 
                       (direction < 0 && currentProgress > 0);
 
@@ -88,6 +103,14 @@ const useVideoScroll = (videoRef) => {
 
     const updateProgress = () => {
       if (video.duration && !video.paused) {
+        // Si on est à la fin et on essaie d'avancer, pause immédiate
+        if (isAtEndRef.current && directionRef.current > 0) {
+          video.pause();
+          lastVideoTime = video.currentTime;
+          animationId = requestAnimationFrame(updateProgress);
+          return;
+        }
+        
         const videoTimeDelta = video.currentTime - lastVideoTime;
         
         if (Math.abs(videoTimeDelta) < 0.5) {
@@ -98,9 +121,20 @@ const useVideoScroll = (videoRef) => {
           
           let newProgress = Math.max(0, Math.min(100, progressRef.current + progressDelta));
           
-          // Pause la vidéo si on atteint les limites
-          if ((newProgress >= 100 && directionRef.current > 0) || 
-              (newProgress <= 0 && directionRef.current < 0)) {
+          // Bloque à 100% et marque comme terminé
+          if (newProgress >= 100) {
+            newProgress = 100;
+            isAtEndRef.current = true;
+            smoothProgressRef.current = 100;
+            setProgress(100);
+            video.pause();
+            lastVideoTime = video.currentTime;
+            animationId = requestAnimationFrame(updateProgress);
+            return;
+          }
+          
+          // Pause la vidéo si on atteint 0%
+          if (newProgress <= 0 && directionRef.current < 0) {
             video.pause();
           }
           
@@ -121,11 +155,13 @@ const useVideoScroll = (videoRef) => {
         }
       }
       
-      // Lissage de la progression affichée
-      const diff = progressRef.current - smoothProgressRef.current;
-      if (Math.abs(diff) > 0.001) {
-        smoothProgressRef.current += diff * 0.2;
-        setProgress(smoothProgressRef.current);
+      // Lissage de la progression affichée (sauf si à la fin)
+      if (!isAtEndRef.current) {
+        const diff = progressRef.current - smoothProgressRef.current;
+        if (Math.abs(diff) > 0.001) {
+          smoothProgressRef.current += diff * 0.2;
+          setProgress(smoothProgressRef.current);
+        }
       }
       
       lastVideoTime = video.currentTime;
