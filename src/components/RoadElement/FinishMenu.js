@@ -1,7 +1,10 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './FinishMenu.css';
 
 const FinishMenu = ({ progress, onRestart }) => {
+  const { t } = useLanguage();
+  
   // Visible entre 85% et 100%
   const startProgress = 88;
   const endProgress = 100;
@@ -56,13 +59,13 @@ const FinishMenu = ({ progress, onRestart }) => {
         }}
       >
         <div className="finish-flag">🏁</div>
-        <h2 className="finish-title">Vous êtes arrivé à destination !</h2>
-        <p className="finish-subtitle">Merci d'avoir parcouru mon portfolio</p>
+        <h2 className="finish-title">{t('finishTitle')}</h2>
+        <p className="finish-subtitle">{t('finishSubtitle')}</p>
         <button 
           className="finish-restart"
           onClick={onRestart}
         >
-          Recommencer le voyage
+          {t('finishRestart')}
         </button>
       </div>
     </div>

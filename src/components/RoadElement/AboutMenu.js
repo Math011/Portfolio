@@ -1,7 +1,10 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './AboutMenu.css';
 
 const AboutMenu = ({ progress }) => {
+  const { t } = useLanguage();
+  
   // Section à propos : 20% → 40%
   const titleStart = 23;
   const titleEnd = 30;
@@ -50,20 +53,19 @@ const AboutMenu = ({ progress }) => {
       {/* Titre */}
       {titleStyles && (
         <h2 className="about-section-title" style={titleStyles}>
-          À propos de moi
+          {t('aboutTitle')}
         </h2>
       )}
       
       {/* Carte */}
       {cardStyles && (
         <div className="about-card" style={cardStyles}>
-          <h2 className="about-title">À propos</h2>
+          <h2 className="about-title">{t('about')}</h2>
           <p className="about-description">
-            Passionné par le développement web, je crée des expériences 
-            digitales uniques et innovantes.
+            {t('aboutDescription')}
           </p>
           <a href="/about" className="about-link">
-            En savoir plus →
+            {t('aboutLink')}
           </a>
         </div>
       )}

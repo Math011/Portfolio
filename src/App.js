@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { LanguageProvider } from './contexts/LanguageContext';
 import ProgressBar from './components/ProgressBar';
 import BackgroundVideo from './components/BackgroundVideo';
 import HomeMenu from './components/RoadElement/HomeMenu';
@@ -7,6 +8,7 @@ import ProjectsMenu from './components/RoadElement/ProjectsMenu';
 import ContactMenu from './components/RoadElement/ContactMenu';
 import FinishMenu from './components/RoadElement/FinishMenu';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -57,27 +59,30 @@ function App() {
   }, [progress]);
 
   return (
-    <div className="app-container">
-      <LoadingScreen isLoading={isLoading} />
+    <LanguageProvider>
+      <div className="app-container">
+        <LoadingScreen isLoading={isLoading} />
+        <LanguageSwitcher />
 
-      <ProgressBar 
-        progress={progress}
-        activeSection={activeSection}
-        onNavigate={navigateToSection}
-      />
+        <ProgressBar 
+          progress={progress}
+          activeSection={activeSection}
+          onNavigate={navigateToSection}
+        />
 
-      {/* Éléments de la route */}
-      <HomeMenu progress={progress} />
-      <AboutMenu progress={progress} />
-      <ProjectsMenu progress={progress} />
-      <ContactMenu progress={progress} />
-      <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
+        {/* Éléments de la route */}
+        <HomeMenu progress={progress} />
+        <AboutMenu progress={progress} />
+        <ProjectsMenu progress={progress} />
+        <ContactMenu progress={progress} />
+        <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
 
-      <BackgroundVideo 
-        ref={videoRef}
-        src="/paysages_tout_9sec.mp4"
-      />
-    </div>
+        <BackgroundVideo 
+          ref={videoRef}
+          src="/paysages_tout_9sec.mp4"
+        />
+      </div>
+    </LanguageProvider>
   );
 }
 

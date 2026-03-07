@@ -1,7 +1,10 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './LoadingScreen.css';
 
 const LoadingScreen = ({ isLoading }) => {
+  const { t } = useLanguage();
+  
   if (!isLoading) return null;
 
   return (
@@ -10,7 +13,7 @@ const LoadingScreen = ({ isLoading }) => {
         <div className="loading-road">
           <div className="loading-line"></div>
         </div>
-        <p className="loading-text">Chargement...</p>
+        <p className="loading-text">{t('loading')}</p>
       </div>
     </div>
   );

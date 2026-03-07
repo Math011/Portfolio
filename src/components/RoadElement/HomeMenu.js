@@ -1,7 +1,10 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './HomeMenu.css';
 
 const HomeMenu = ({ progress }) => {
+  const { t } = useLanguage();
+  
   // Fonction pour calculer les styles d'un texte
   const getTextStyles = (startProgress, endProgress) => {
     if (progress < startProgress || progress >= endProgress) return null;
@@ -44,19 +47,19 @@ const HomeMenu = ({ progress }) => {
     <div className="home-menu">
       {welcomeStyles && (
         <div className="home-menu-content" style={welcomeStyles}>
-          <h2 className="home-subtitle">Bienvenue sur mon Portfolio</h2>
+          <h2 className="home-subtitle">{t('welcome')}</h2>
         </div>
       )}
       
       {titleStyles && (
         <div className="home-menu-content" style={titleStyles}>
-          <h2 className="home-job">Développeur Web</h2>
+          <h2 className="home-subtitle">{t('developer')}</h2>
         </div>
       )}
       
       {nameStyles && (
         <div className="home-menu-content" style={nameStyles}>
-          <h1 className="home-name">Mathieu Raudin</h1>
+          <h1 className="home-title">{t('yourName')}</h1>
         </div>
       )}
     </div>
