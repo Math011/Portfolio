@@ -14,6 +14,7 @@ const useVideoScroll = (videoRef) => {
   const smoothProgressRef = useRef(0);
   const isAtEndRef = useRef(false);
   const isInitializedRef = useRef(false);
+  const isMouseScrollRef = useRef(false);
 
   // Récupère la progression sauvegardée au démarrage
   const getSavedProgress = () => {
@@ -49,7 +50,7 @@ const useVideoScroll = (videoRef) => {
 
   const [progress, setProgress] = useState(getSavedProgress);
 
-  // Sauvegarde la progression et le temps vidéo dans localStorage
+  // Sauvegarde la progression dans localStorage
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, progress.toString());
@@ -88,11 +89,9 @@ const useVideoScroll = (videoRef) => {
 
   // Calcule le multiplicateur de vitesse selon la section
   const getSectionSpeedModifier = (currentProgress) => {
-    // Titre "Mes Projets" : 42% à 45% (ralentit de 2/4)
     if (currentProgress >= 42 && currentProgress < 45) {
       return 2 / 4.5;
     }
-    // Section Projets : 45% à 62%
     if (currentProgress >= 45 && currentProgress < 62) {
       // Ralentit selon le nombre de projets
       return 2 / projects.length;
@@ -136,7 +135,7 @@ const useVideoScroll = (videoRef) => {
       if (savedProgress >= 100) {
         isAtEndRef.current = true;
       }
-      
+
       // Synchronise la vidéo avec le temps sauvegardé
       const syncVideoTime = () => {
         if (video.readyState >= 1) {
@@ -159,6 +158,10 @@ const useVideoScroll = (videoRef) => {
     let lastVideoTime = 0;
 
     const handleWheel = (e) => {
+      // Détecte si c'est une souris (deltaY >= 100)
+      const isMouse = Math.abs(e.deltaY) >= 100;
+      isMouseScrollRef.current = isMouse;
+      
       const direction = e.deltaY > 0 ? 1 : -1;
       const currentProgress = progressRef.current;
       
@@ -193,8 +196,12 @@ const useVideoScroll = (videoRef) => {
 
     const checkScrollStop = () => {
       const now = performance.now();
+      const timeSinceLastScroll = now - lastScrollTimeRef.current;
+      
+      // Souris : 600ms, Trackpad : 200ms
+      const stopDelay = isMouseScrollRef.current ? 600 : 200;
 
-      if (now - lastScrollTimeRef.current > 200) {
+      if (timeSinceLastScroll > stopDelay) {
         video.pause();
         rafRef.current = null;
         return;
@@ -257,7 +264,6 @@ const useVideoScroll = (videoRef) => {
         }
       }
       
-      // Lissage de la progression affichée (sauf si à la fin)
       if (!isAtEndRef.current) {
         const diff = progressRef.current - smoothProgressRef.current;
         if (Math.abs(diff) > 0.001) {
