@@ -35,7 +35,7 @@ const HomeMenu = ({ progress }) => {
   // Timing des 3 textes (sans chevauchement)
   const welcomeStyles = getTextStyles(2, 9);
   const titleStyles = getTextStyles(9, 16);
-  const nameStyles = getTextStyles(16, 25);
+  const nameStyles = getTextStyles(16, 23);
 
   // Si aucun texte visible, ne rien afficher
   if (!welcomeStyles && !titleStyles && !nameStyles) return null;

@@ -3,6 +3,7 @@ import ProgressBar from './components/ProgressBar';
 import BackgroundVideo from './components/BackgroundVideo';
 import HomeMenu from './components/RoadElement/HomeMenu';
 import AboutMenu from './components/RoadElement/AboutMenu';
+import ProjectsMenu from './components/RoadElement/ProjectsMenu';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -33,6 +34,7 @@ function App() {
       {/* Éléments de la route */}
       <HomeMenu progress={progress} />
       <AboutMenu progress={progress} />
+      <ProjectsMenu progress={progress} />
 
       <BackgroundVideo 
         ref={videoRef}

@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { projects } from '../data/projects';
 
 const useVideoScroll = (videoRef) => {
   const lastScrollTimeRef = useRef(0);
@@ -10,6 +11,20 @@ const useVideoScroll = (videoRef) => {
   const smoothProgressRef = useRef(0);
 
   const [progress, setProgress] = useState(0);
+
+  // Calcule le multiplicateur de vitesse selon la section
+  const getSectionSpeedModifier = (currentProgress) => {
+
+    if (currentProgress >= 42 && currentProgress < 45) {
+      return 2 / 4.5;
+    }
+    // Section Projets : 40% à 60%
+    if (currentProgress >= 45 && currentProgress < 62) {
+      // Ralentit selon le nombre de projets
+      return 2 / projects.length;
+    }
+    return 1;
+  };
 
   // Fonction pour naviguer vers une section
   const navigateToSection = (targetPosition) => {
@@ -77,7 +92,8 @@ const useVideoScroll = (videoRef) => {
         
         if (Math.abs(videoTimeDelta) < 0.5) {
           const baseSpeed = 0.5;
-          const speedMultiplier = isFastForwardRef.current ? 4 : baseSpeed;
+          const sectionModifier = getSectionSpeedModifier(progressRef.current);
+          const speedMultiplier = isFastForwardRef.current ? 4 : baseSpeed * sectionModifier;
           const progressDelta = (videoTimeDelta / video.duration) * 100 * directionRef.current * speedMultiplier;
           
           let newProgress = Math.max(0, Math.min(100, progressRef.current + progressDelta));
