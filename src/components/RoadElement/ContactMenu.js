@@ -1,13 +1,13 @@
 import React from 'react';
-import './AboutMenu.css';
+import './ContactMenu.css';
 
-const AboutMenu = ({ progress }) => {
-  // Section à propos : 20% → 40%
-  const titleStart = 23;
-  const titleEnd = 30;
+const ContactMenu = ({ progress }) => {
+  // Section Contact : 60% → 80%
+  const titleStart = 62;
+  const titleEnd = 69;
   
-  const cardStart = 30;
-  const cardEnd = 42;
+  const cardStart = 70;
+  const cardEnd = 82;
   
   // Fonction pour calculer les styles d'animation
   const getStyles = (start, end) => {
@@ -46,24 +46,24 @@ const AboutMenu = ({ progress }) => {
   if (!titleStyles && !cardStyles) return null;
 
   return (
-    <div className="about-menu">
+    <div className="contact-menu">
       {/* Titre */}
       {titleStyles && (
-        <h2 className="about-section-title" style={titleStyles}>
-          À propos de moi
+        <h2 className="contact-section-title" style={titleStyles}>
+          Mes Contacts
         </h2>
       )}
       
       {/* Carte */}
       {cardStyles && (
-        <div className="about-card" style={cardStyles}>
-          <h2 className="about-title">À propos</h2>
-          <p className="about-description">
-            Passionné par le développement web, je crée des expériences 
-            digitales uniques et innovantes.
+        <div className="contact-card" style={cardStyles}>
+          <h2 className="contact-title">Contact</h2>
+          <p className="contact-description">
+            Une question ou un projet en tête ? 
+            N'hésitez pas à me contacter !
           </p>
-          <a href="/about" className="about-link">
-            En savoir plus →
+          <a href="/contact" className="contact-link">
+            Me contacter →
           </a>
         </div>
       )}
@@ -71,4 +71,4 @@ const AboutMenu = ({ progress }) => {
   );
 };
 
-export default AboutMenu;
+export default ContactMenu;
