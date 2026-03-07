@@ -53,13 +53,13 @@ const HomeMenu = ({ progress }) => {
       
       {titleStyles && (
         <div className="home-menu-content" style={titleStyles}>
-          <h2 className="home-subtitle">{t('developer')}</h2>
+          <h2 className="home-job">{t('developer')}</h2>
         </div>
       )}
       
       {nameStyles && (
         <div className="home-menu-content" style={nameStyles}>
-          <h1 className="home-title">{t('yourName')}</h1>
+          <h2 className="home-name">{t('yourName')}</h2>
         </div>
       )}
     </div>

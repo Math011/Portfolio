@@ -9,8 +9,8 @@ const ProgressBar = ({ progress, activeSection, onNavigate }) => {
   // Map des clés de traduction pour chaque step
   const labelKeys = {
     accueil: 'home',
-    apropos: 'about',
-    projets: 'projects',
+    propos: 'about',
+    projects: 'projects',
     contact: 'contact'
   };
 

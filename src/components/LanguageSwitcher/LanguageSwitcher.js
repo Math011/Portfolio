@@ -3,18 +3,26 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import './LanguageSwitcher.css';
 
 const LanguageSwitcher = () => {
-  const { language, toggleLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
   return (
-    <button 
-      className="language-switcher"
-      onClick={toggleLanguage}
-      aria-label={language === 'fr' ? 'Switch to English' : 'Passer en français'}
-    >
-      <span className={`lang-option ${language === 'fr' ? 'active' : ''}`}>FR</span>
+    <div className="language-switcher">
+      <button 
+        className={`lang-option ${language === 'fr' ? 'active' : ''}`}
+        onClick={() => setLanguage('fr')}
+        aria-label="Français"
+      >
+        FR
+      </button>
       <span className="lang-separator">|</span>
-      <span className={`lang-option ${language === 'en' ? 'active' : ''}`}>EN</span>
-    </button>
+      <button 
+        className={`lang-option ${language === 'en' ? 'active' : ''}`}
+        onClick={() => setLanguage('en')}
+        aria-label="English"
+      >
+        EN
+      </button>
+    </div>
   );
 };
 

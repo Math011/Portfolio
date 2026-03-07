@@ -1,9 +1,9 @@
-export const translations = {
+export const homeTranslations = {
   fr: {
     // HomeMenu
     welcome: "Bienvenue sur mon Portfolio",
     developer: "Développeur Web",
-    yourName: "Votre Nom",
+    yourName: "Mathieu Raudin",
     
     // AboutMenu
     aboutTitle: "À propos de moi",
@@ -13,6 +13,16 @@ export const translations = {
     // ProjectsMenu
     projectsTitle: "Mes Projets",
     projectLink: "Voir le projet →",
+    
+    // Projects
+    project1_title: "Projet 1",
+    project1_description: "Description courte du premier projet.",
+    project2_title: "Projet 2",
+    project2_description: "Description courte du deuxième projet.",
+    project3_title: "Projet 3",
+    project3_description: "Description courte du troisième projet.",
+    project4_title: "Projet 4",
+    project4_description: "Description courte du quatrième projet.",
     
     // ContactMenu
     contactTitle: "Mes Contacts",
@@ -38,7 +48,7 @@ export const translations = {
     // HomeMenu
     welcome: "Welcome to my Portfolio",
     developer: "Web Developer",
-    yourName: "Your Name",
+    yourName: "Mathieu Raudin",
     
     // AboutMenu
     aboutTitle: "About Me",
@@ -48,6 +58,16 @@ export const translations = {
     // ProjectsMenu
     projectsTitle: "My Projects",
     projectLink: "View project →",
+    
+    // Projects
+    project1_title: "Project 1",
+    project1_description: "Short description of the first project.",
+    project2_title: "Project 2",
+    project2_description: "Short description of the second project.",
+    project3_title: "Project 3",
+    project3_description: "Short description of the third project.",
+    project4_title: "Project 4",
+    project4_description: "Short description of the fourth project.",
     
     // ContactMenu
     contactTitle: "Contact Me",

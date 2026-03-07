@@ -78,8 +78,8 @@ const ProjectsMenu = ({ progress }) => {
             className="project-card"
             style={styles}
           >
-            <h2 className="project-title">{project.title}</h2>
-            <p className="project-description">{project.description}</p>
+            <h2 className="project-title">{t(`${project.id}_title`)}</h2>
+            <p className="project-description">{t(`${project.id}_description`)}</p>
             <a href={project.link} className="project-link">
               {t('projectLink')}
             </a>
