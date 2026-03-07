@@ -6,6 +6,7 @@ import AboutMenu from './components/RoadElement/AboutMenu';
 import ProjectsMenu from './components/RoadElement/ProjectsMenu';
 import ContactMenu from './components/RoadElement/ContactMenu';
 import FinishMenu from './components/RoadElement/FinishMenu';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -14,6 +15,29 @@ function App() {
   const videoRef = useRef(null);
   const { progress, navigateToSection } = useVideoScroll(videoRef);
   const [activeSection, setActiveSection] = useState('accueil');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleCanPlay = () => {
+      // Petit délai pour s'assurer que tout est prêt
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
+    };
+
+    if (video.readyState >= 3) {
+      handleCanPlay();
+    } else {
+      video.addEventListener('canplay', handleCanPlay, { once: true });
+    }
+
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+    };
+  }, []);
 
   // Mise à jour de la section active
   useEffect(() => {
@@ -34,6 +58,8 @@ function App() {
 
   return (
     <div className="app-container">
+      <LoadingScreen isLoading={isLoading} />
+
       <ProgressBar 
         progress={progress}
         activeSection={activeSection}

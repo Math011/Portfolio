@@ -1,6 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import { projects } from '../data/projects';
 
+const STORAGE_KEY = 'portfolio_progress';
+const VIDEO_TIME_KEY = 'portfolio_video_time';
+
 const useVideoScroll = (videoRef) => {
   const lastScrollTimeRef = useRef(0);
   const rafRef = useRef(null);
@@ -10,8 +13,78 @@ const useVideoScroll = (videoRef) => {
   const isFastForwardRef = useRef(false);
   const smoothProgressRef = useRef(0);
   const isAtEndRef = useRef(false);
+  const isInitializedRef = useRef(false);
 
-  const [progress, setProgress] = useState(0);
+  // Récupère la progression sauvegardée au démarrage
+  const getSavedProgress = () => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const value = parseFloat(saved);
+        if (!isNaN(value) && value >= 0 && value <= 100) {
+          return value;
+        }
+      }
+    } catch (e) {
+      console.warn('Could not read progress from localStorage');
+    }
+    return 0;
+  };
+
+  // Récupère le temps vidéo sauvegardé
+  const getSavedVideoTime = () => {
+    try {
+      const saved = localStorage.getItem(VIDEO_TIME_KEY);
+      if (saved) {
+        const value = parseFloat(saved);
+        if (!isNaN(value) && value >= 0) {
+          return value;
+        }
+      }
+    } catch (e) {
+      console.warn('Could not read video time from localStorage');
+    }
+    return 0;
+  };
+
+  const [progress, setProgress] = useState(getSavedProgress);
+
+  // Sauvegarde la progression et le temps vidéo dans localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, progress.toString());
+    } catch (e) {
+      console.warn('Could not save to localStorage');
+    }
+  }, [progress]);
+
+  // Sauvegarde le temps vidéo régulièrement et avant de quitter
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Sauvegarde toutes les 500ms
+    const saveInterval = setInterval(() => {
+      try {
+        localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+      } catch (e) {}
+    }, 500);
+
+    // Sauvegarde avant de quitter la page
+    const handleBeforeUnload = () => {
+      try {
+        localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+        localStorage.setItem(STORAGE_KEY, progressRef.current.toString());
+      } catch (e) {}
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      clearInterval(saveInterval);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [videoRef]);
 
   // Calcule le multiplicateur de vitesse selon la section
   const getSectionSpeedModifier = (currentProgress) => {
@@ -52,6 +125,35 @@ const useVideoScroll = (videoRef) => {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    // Initialise les refs et la vidéo avec les valeurs sauvegardées
+    if (!isInitializedRef.current) {
+      const savedProgress = getSavedProgress();
+      const savedVideoTime = getSavedVideoTime();
+      
+      progressRef.current = savedProgress;
+      smoothProgressRef.current = savedProgress;
+      if (savedProgress >= 100) {
+        isAtEndRef.current = true;
+      }
+      
+      // Synchronise la vidéo avec le temps sauvegardé
+      const syncVideoTime = () => {
+        if (video.readyState >= 1) {
+          // Vidéo prête, on peut changer le currentTime
+          video.currentTime = savedVideoTime % video.duration;
+          isInitializedRef.current = true;
+        } else {
+          // Attendre que la vidéo soit chargée
+          video.addEventListener('loadedmetadata', () => {
+            video.currentTime = savedVideoTime % video.duration;
+            isInitializedRef.current = true;
+          }, { once: true });
+        }
+      };
+      
+      syncVideoTime();
+    }
 
     let animationId;
     let lastVideoTime = 0;
