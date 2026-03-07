@@ -2,53 +2,72 @@ import React from 'react';
 import './AboutMenu.css';
 
 const AboutMenu = ({ progress }) => {
-  // Visible entre 20% et 40% (section À propos)
-  const startProgress = 27;
-  const endProgress = 43;
+  // Section Titre : 20% → 40%
+  const titleStart = 23;
+  const titleEnd = 30;
   
-  if (progress < startProgress || progress >= endProgress) return null;
 
-  const normalizedProgress = (progress - startProgress) / (endProgress - startProgress);
+  const cardStart = 30;
+  const cardEnd = 42;
   
-  let scale, translateY, opacity;
-  
-  if (normalizedProgress < 0.3) {
-    // Phase 1 : Apparition
-    const phaseProgress = normalizedProgress / 0.3;
-    scale = 0.3 + phaseProgress * 0.7;
-    translateY = phaseProgress * 120;
-    opacity = phaseProgress;
-  } else if (normalizedProgress < 0.85) {
-    // Phase 2 : Stable
-    scale = 1;
-    translateY = 120;
-    opacity = 1;
-  } else {
-    // Phase 3 : Disparition
-    const phaseProgress = (normalizedProgress - 0.85) / 0.15;
-    scale = 1 + phaseProgress * 0.3;
-    translateY = 120 + phaseProgress * 60;
-    opacity = 1 - phaseProgress;
-  }
+  // Fonction pour calculer les styles d'animation
+  const getStyles = (start, end) => {
+    if (progress < start || progress >= end) return null;
+    
+    const normalizedProgress = (progress - start) / (end - start);
+    
+    let scale, translateY, opacity;
+    
+    if (normalizedProgress < 0.3) {
+      const phaseProgress = normalizedProgress / 0.3;
+      scale = 0.3 + phaseProgress * 0.7;
+      translateY = phaseProgress * 120;
+      opacity = phaseProgress;
+    } else if (normalizedProgress < 0.85) {
+      scale = 1;
+      translateY = 120;
+      opacity = 1;
+    } else {
+      const phaseProgress = (normalizedProgress - 0.85) / 0.15;
+      scale = 1 + phaseProgress * 0.3;
+      translateY = 120 + phaseProgress * 60;
+      opacity = 1 - phaseProgress;
+    }
+    
+    return {
+      transform: `translateY(${translateY}px) scale(${scale})`,
+      opacity: opacity
+    };
+  };
+
+  const titleStyles = getStyles(titleStart, titleEnd);
+  const cardStyles = getStyles(cardStart, cardEnd);
+
+  // Si rien n'est visible, ne rien afficher
+  if (!titleStyles && !cardStyles) return null;
 
   return (
     <div className="about-menu">
-      <div 
-        className="about-card"
-        style={{
-          transform: `translateY(${translateY}px) scale(${scale})`,
-          opacity: opacity
-        }}
-      >
-        <h2 className="about-title">À propos</h2>
-        <p className="about-description">
-          Passionné par le développement web, je crée des expériences 
-          digitales uniques et innovantes.
-        </p>
-        <a href="/about" className="about-link">
-          En savoir plus →
-        </a>
-      </div>
+      {/* Titre */}
+      {titleStyles && (
+        <h2 className="about-section-title" style={titleStyles}>
+          À propos de moi
+        </h2>
+      )}
+      
+      {/* Carte */}
+      {cardStyles && (
+        <div className="about-card" style={cardStyles}>
+          <h2 className="about-title">À propos</h2>
+          <p className="about-description">
+            Passionné par le développement web, je crée des expériences 
+            digitales uniques et innovantes.
+          </p>
+          <a href="/about" className="about-link">
+            En savoir plus →
+          </a>
+        </div>
+      )}
     </div>
   );
 };

@@ -14,8 +14,12 @@ const useVideoScroll = (videoRef) => {
 
   // Calcule le multiplicateur de vitesse selon la section
   const getSectionSpeedModifier = (currentProgress) => {
+
+    if (currentProgress >= 42 && currentProgress < 45) {
+      return 2 / 4.5;
+    }
     // Section Projets : 40% à 60%
-    if (currentProgress >= 44 && currentProgress < 60) {
+    if (currentProgress >= 45 && currentProgress < 62) {
       // Ralentit selon le nombre de projets
       return 2 / projects.length;
     }
