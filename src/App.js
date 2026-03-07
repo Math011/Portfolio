@@ -4,6 +4,7 @@ import BackgroundVideo from './components/BackgroundVideo';
 import HomeMenu from './components/RoadElement/HomeMenu';
 import AboutMenu from './components/RoadElement/AboutMenu';
 import ProjectsMenu from './components/RoadElement/ProjectsMenu';
+import ContactMenu from './components/RoadElement/ContactMenu';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -35,6 +36,7 @@ function App() {
       <HomeMenu progress={progress} />
       <AboutMenu progress={progress} />
       <ProjectsMenu progress={progress} />
+      <ContactMenu progress={progress} />
 
       <BackgroundVideo 
         ref={videoRef}
