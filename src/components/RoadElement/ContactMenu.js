@@ -1,7 +1,10 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './ContactMenu.css';
 
 const ContactMenu = ({ progress }) => {
+  const { t } = useLanguage();
+  
   // Section Contact : 60% → 80%
   const titleStart = 62;
   const titleEnd = 69;
@@ -50,20 +53,19 @@ const ContactMenu = ({ progress }) => {
       {/* Titre */}
       {titleStyles && (
         <h2 className="contact-section-title" style={titleStyles}>
-          Mes Contacts
+          {t('contactTitle')}
         </h2>
       )}
       
       {/* Carte */}
       {cardStyles && (
         <div className="contact-card" style={cardStyles}>
-          <h2 className="contact-title">Contact</h2>
+          <h2 className="contact-title">{t('contact')}</h2>
           <p className="contact-description">
-            Une question ou un projet en tête ? 
-            N'hésitez pas à me contacter !
+            {t('contactDescription')}
           </p>
           <a href="/contact" className="contact-link">
-            Me contacter →
+            {t('contactLink')}
           </a>
         </div>
       )}

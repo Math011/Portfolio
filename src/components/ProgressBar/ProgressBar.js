@@ -1,8 +1,19 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { journeySteps } from '../../data/journeySteps';
 import './ProgressBar.css';
 
 const ProgressBar = ({ progress, activeSection, onNavigate }) => {
+  const { t } = useLanguage();
+  
+  // Map des clés de traduction pour chaque step
+  const labelKeys = {
+    accueil: 'home',
+    propos: 'about',
+    projects: 'projects',
+    contact: 'contact'
+  };
+
   return (
     <div className="progress-container">
       <div className="progress-bar">
@@ -32,7 +43,7 @@ const ProgressBar = ({ progress, activeSection, onNavigate }) => {
                 }`}
                 onClick={() => onNavigate(step.position)}
               >
-                {step.label}
+                {t(labelKeys[step.id]) || step.label}
               </span>
             </div>
           </div>

@@ -1,8 +1,11 @@
 import React from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { projects } from '../../data/projects';
 import './ProjectsMenu.css';
 
 const ProjectsMenu = ({ progress }) => {
+  const { t } = useLanguage();
+  
   //Section Projets : 40% → 60%
   const titleStart = 42;
   const titleEnd = 45;
@@ -60,7 +63,7 @@ const ProjectsMenu = ({ progress }) => {
       {/* Titre */}
       {titleStyles && (
         <h2 className="projects-section-title" style={titleStyles}>
-          Mes Projets
+          {t('projectsTitle')}
         </h2>
       )}
       
@@ -75,10 +78,10 @@ const ProjectsMenu = ({ progress }) => {
             className="project-card"
             style={styles}
           >
-            <h2 className="project-title">{project.title}</h2>
-            <p className="project-description">{project.description}</p>
+            <h2 className="project-title">{t(`${project.id}_title`)}</h2>
+            <p className="project-description">{t(`${project.id}_description`)}</p>
             <a href={project.link} className="project-link">
-              Voir le projet →
+              {t('projectLink')}
             </a>
           </div>
         );
