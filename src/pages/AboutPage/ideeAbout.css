@@ -1,0 +1,381 @@
+/* Page À propos - Couleurs du paysage d'accueil */
+.about-page {
+  min-height: 100vh;
+  background: #F5C76B;
+  color: #4A3728;
+  padding-bottom: 4rem;
+  overflow-y: auto;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+/* Navigation */
+.about-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.2rem 2rem;
+  background: rgba(245, 199, 107, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  border-bottom: 2px solid rgba(74, 55, 40, 0.1);
+}
+
+.back-button {
+  color: #4A3728;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.back-button:hover {
+  color: #7CB342;
+}
+
+/* Hero Section */
+.about-hero {
+  padding: 6rem 2rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(74, 55, 40, 0.15);
+}
+
+.hero-image {
+  flex-shrink: 0;
+}
+
+.hero-image img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #7CB342;
+  box-shadow: 0 6px 20px rgba(74, 55, 40, 0.2);
+}
+
+.hero-text h1 {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+  color: #4A3728;
+  font-weight: 700;
+}
+
+.hero-intro {
+  font-size: 1.1rem;
+  color: #7CB342;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.hero-description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #5D4E37;
+}
+
+/* Section Titles */
+.about-timeline h2,
+.about-skills h2,
+.about-passions h2,
+.about-cta h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #4A3728;
+  font-weight: 700;
+}
+
+/* Timeline Section */
+.about-timeline {
+  padding: 2rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline-container {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 30px;
+  width: 3px;
+  background: #7CB342;
+  border-radius: 3px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 2rem;
+  padding-bottom: 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.5rem;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #7CB342;
+  border: 3px solid #F5C76B;
+}
+
+.timeline-item.education::before {
+  background: #E67E22;
+}
+
+.timeline-year {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #7CB342;
+  margin-bottom: 0.4rem;
+}
+
+.timeline-item.education .timeline-year {
+  color: #E67E22;
+}
+
+.timeline-content {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(74, 55, 40, 0.1);
+  border-left: 4px solid #7CB342;
+  transition: transform 0.3s ease;
+}
+
+.timeline-item.education .timeline-content {
+  border-left-color: #E67E22;
+}
+
+.timeline-content:hover {
+  transform: translateX(5px);
+}
+
+.timeline-content h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: #4A3728;
+  font-weight: 600;
+}
+
+.timeline-content p {
+  font-size: 0.9rem;
+  color: #5D4E37;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Skills Section */
+.about-skills {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(74, 55, 40, 0.1);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.skill-item {
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  background: #F5C76B;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: #4A3728;
+  font-size: 0.9rem;
+}
+
+.skill-percent {
+  color: #7CB342;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.skill-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  background: #7CB342;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+/* Passions Section */
+.about-passions {
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.passions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.passion-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(74, 55, 40, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.passion-item:hover {
+  transform: translateY(-5px);
+}
+
+.passion-icon {
+  font-size: 2rem;
+}
+
+.passion-name {
+  font-size: 0.85rem;
+  color: #4A3728;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* CTA Section */
+.about-cta {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 1rem auto 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(74, 55, 40, 0.1);
+}
+
+.about-cta p {
+  font-size: 0.95rem;
+  color: #5D4E37;
+  margin-bottom: 1.5rem;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  padding: 0.8rem 1.8rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cta-button.primary {
+  background: #7CB342;
+  color: #fff;
+}
+
+.cta-button.primary:hover {
+  background: #689F38;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 179, 66, 0.3);
+}
+
+.cta-button.secondary {
+  background: #fff;
+  color: #4A3728;
+  border: 2px solid #E67E22;
+}
+
+.cta-button.secondary:hover {
+  background: #E67E22;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .hero-image img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .hero-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .passions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timeline-container {
+    padding-left: 2rem;
+  }
+
+  .timeline-item {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    left: -2rem;
+  }
+}
