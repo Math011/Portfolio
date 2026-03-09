@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import ProgressBar from './components/ProgressBar';
 import BackgroundVideo from './components/BackgroundVideo';
@@ -9,16 +10,19 @@ import ContactMenu from './components/RoadElement/ContactMenu';
 import FinishMenu from './components/RoadElement/FinishMenu';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import LanguageSwitcher from './components/LanguageSwitcher';
+import ProjectsPage from './pages/ProjectsPage';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
 
-function App() {
+// Composant pour la page d'accueil
+function HomePage() {
   const videoRef = useRef(null);
   const { progress, navigateToSection } = useVideoScroll(videoRef);
   const [activeSection, setActiveSection] = useState('accueil');
   const [isLoading, setIsLoading] = useState(true);
 
+  // Masque le loading screen une fois la vidéo prête
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -43,7 +47,6 @@ function App() {
 
   // Mise à jour de la section active
   useEffect(() => {
-
     // À 100%, aucune section n'est active (on est à l'arrivée)
     if (progress >= 100) {
       setActiveSection(null);
@@ -59,29 +62,42 @@ function App() {
   }, [progress]);
 
   return (
+    <>
+      <LoadingScreen isLoading={isLoading} />
+      <LanguageSwitcher />
+      
+      <ProgressBar 
+        progress={progress}
+        activeSection={activeSection}
+        onNavigate={navigateToSection}
+      />
+      
+      {/* Éléments de la route */}
+      <HomeMenu progress={progress} />
+      <AboutMenu progress={progress} />
+      <ProjectsMenu progress={progress} />
+      <ContactMenu progress={progress} />
+      <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
+      
+      <BackgroundVideo 
+        ref={videoRef}
+        src="/paysages_tout_9sec.mp4"
+      />
+    </>
+  );
+}
+
+function App() {
+  return (
     <LanguageProvider>
-      <div className="app-container">
-        <LoadingScreen isLoading={isLoading} />
-        <LanguageSwitcher />
-
-        <ProgressBar 
-          progress={progress}
-          activeSection={activeSection}
-          onNavigate={navigateToSection}
-        />
-
-        {/* Éléments de la route */}
-        <HomeMenu progress={progress} />
-        <AboutMenu progress={progress} />
-        <ProjectsMenu progress={progress} />
-        <ContactMenu progress={progress} />
-        <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
-
-        <BackgroundVideo 
-          ref={videoRef}
-          src="/paysages_tout_9sec.mp4"
-        />
-      </div>
+      <Router>
+        <div className="app-container">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+          </Routes>
+        </div>
+      </Router>
     </LanguageProvider>
   );
 }

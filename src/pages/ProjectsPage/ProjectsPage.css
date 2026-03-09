@@ -1,0 +1,453 @@
+/* Page Projets - Nuages SVG et ballons flottants */
+.projects-page {
+  min-height: 100vh;
+  background: #FFEA93;
+  color: #4A3728;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+/* Nuages décoratifs en arrière-plan - défilent avec la page */
+.background-clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.bg-cloud {
+  position: absolute;
+  height: auto;
+}
+
+/* Tailles des nuages - écarts réduits */
+.bg-cloud.size-xsmall {
+  width: 80px;
+}
+
+.bg-cloud.size-small {
+  width: 140px;
+}
+
+.bg-cloud.size-medium {
+  width: 220px;
+}
+
+.bg-cloud.size-large {
+  width: 320px;
+}
+
+.bg-cloud.size-xlarge {
+  width: 450px;
+}
+
+.bg-cloud.size-xxlarge {
+  width: 600px;
+}
+
+/* Opacités liées à la taille (plus petit = plus loin = moins visible) */
+.bg-cloud.opacity-very-light {
+  opacity: 0.15;
+}
+
+.bg-cloud.opacity-light {
+  opacity: 0.25;
+}
+
+.bg-cloud.opacity-medium-light {
+  opacity: 0.35;
+}
+
+.bg-cloud.opacity-medium {
+  opacity: 0.45;
+}
+
+.bg-cloud.opacity-medium-dark {
+  opacity: 0.55;
+}
+
+.bg-cloud.opacity-dark {
+  opacity: 0.65;
+}
+
+/* Animations par direction */
+.bg-cloud.direction-left {
+  animation-name: cloudMoveLeft;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.bg-cloud.direction-right {
+  animation-name: cloudMoveRight;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Vitesses des nuages */
+.bg-cloud.speed-slow {
+  animation-duration: 80s;
+}
+
+.bg-cloud.speed-normal {
+  animation-duration: 55s;
+}
+
+.bg-cloud.speed-fast {
+  animation-duration: 35s;
+}
+
+/* Décalages pour éviter que tous les nuages partent en même temps */
+.bg-cloud:nth-child(1) { animation-delay: -5s; }
+.bg-cloud:nth-child(2) { animation-delay: -32s; }
+.bg-cloud:nth-child(3) { animation-delay: -18s; }
+.bg-cloud:nth-child(4) { animation-delay: -45s; }
+.bg-cloud:nth-child(5) { animation-delay: -12s; }
+.bg-cloud:nth-child(6) { animation-delay: -38s; }
+.bg-cloud:nth-child(7) { animation-delay: -22s; }
+.bg-cloud:nth-child(8) { animation-delay: -55s; }
+.bg-cloud:nth-child(9) { animation-delay: -8s; }
+.bg-cloud:nth-child(10) { animation-delay: -42s; }
+.bg-cloud:nth-child(11) { animation-delay: -28s; }
+.bg-cloud:nth-child(12) { animation-delay: -60s; }
+.bg-cloud:nth-child(13) { animation-delay: -15s; }
+.bg-cloud:nth-child(14) { animation-delay: -48s; }
+.bg-cloud:nth-child(15) { animation-delay: -25s; }
+.bg-cloud:nth-child(16) { animation-delay: -52s; }
+.bg-cloud:nth-child(17) { animation-delay: -10s; }
+.bg-cloud:nth-child(18) { animation-delay: -35s; }
+.bg-cloud:nth-child(19) { animation-delay: -20s; }
+.bg-cloud:nth-child(20) { animation-delay: -58s; }
+.bg-cloud:nth-child(21) { animation-delay: -3s; }
+.bg-cloud:nth-child(22) { animation-delay: -40s; }
+.bg-cloud:nth-child(23) { animation-delay: -27s; }
+.bg-cloud:nth-child(24) { animation-delay: -50s; }
+.bg-cloud:nth-child(25) { animation-delay: -16s; }
+.bg-cloud:nth-child(26) { animation-delay: -44s; }
+.bg-cloud:nth-child(27) { animation-delay: -7s; }
+.bg-cloud:nth-child(28) { animation-delay: -33s; }
+.bg-cloud:nth-child(29) { animation-delay: -19s; }
+.bg-cloud:nth-child(30) { animation-delay: -56s; }
+.bg-cloud:nth-child(31) { animation-delay: -11s; }
+.bg-cloud:nth-child(32) { animation-delay: -37s; }
+.bg-cloud:nth-child(33) { animation-delay: -24s; }
+.bg-cloud:nth-child(34) { animation-delay: -53s; }
+.bg-cloud:nth-child(35) { animation-delay: -14s; }
+.bg-cloud:nth-child(36) { animation-delay: -46s; }
+.bg-cloud:nth-child(37) { animation-delay: -6s; }
+.bg-cloud:nth-child(38) { animation-delay: -31s; }
+.bg-cloud:nth-child(39) { animation-delay: -21s; }
+.bg-cloud:nth-child(40) { animation-delay: -57s; }
+.bg-cloud:nth-child(41) { animation-delay: -9s; }
+.bg-cloud:nth-child(42) { animation-delay: -39s; }
+
+@keyframes cloudMoveLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes cloudMoveRight {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Navigation */
+.projects-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 2rem;
+  z-index: 50;
+}
+
+.back-button {
+  color: #4A3728;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+  background: #fff;
+  color: #7CB342;
+  transform: translateY(-2px);
+}
+
+/* Titre */
+.projects-title-container {
+  text-align: center;
+  padding: 4rem 0 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.projects-title {
+  font-size: 2.5rem;
+  color: #4A3728;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Contenu - projets */
+.projects-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Section projet */
+.project-section {
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.project-section:last-child {
+  margin-bottom: 20px;
+}
+
+/* Carte projet */
+.project-card {
+  position: relative;
+  width: calc(45% - 30px);
+  max-width: 400px;
+  animation: float 5s ease-in-out infinite;
+}
+
+.project-card.card-left {
+  margin-right: auto;
+  margin-left: 40px;
+}
+
+.project-card.card-right {
+  margin-left: auto;
+  margin-right: 40px;
+}
+
+/* Animation de flottement */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Ballon */
+.balloon-container {
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  animation: balloonSway 3s ease-in-out infinite;
+}
+
+@keyframes balloonSway {
+  0%, 100% {
+    transform: translateX(-50%) rotate(-3deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(3deg);
+  }
+}
+
+.balloon-svg {
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* Ficelle du ballon */
+.balloon-string {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: #8B7355;
+}
+
+/* Contenu de la carte */
+.card-content {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(74, 55, 40, 0.12);
+}
+
+.project-image {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+.project-info {
+  padding: 1.2rem 1.5rem 1.5rem;
+}
+
+.project-info h2 {
+  font-size: 1.2rem;
+  color: #4A3728;
+  margin-bottom: 0.5rem;
+}
+
+.project-info p {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Tags */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background: #7CB342;
+  color: #fff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Lien projet - Bouton visible */
+.project-link {
+  display: inline-block;
+  background: #7CB342;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  background: #689F38;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(124, 179, 66, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .project-card {
+    width: calc(100% - 60px);
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+  }
+
+  .projects-title {
+    font-size: 2rem;
+  }
+
+  .bg-cloud.size-xsmall {
+    width: 50px;
+  }
+
+  .bg-cloud.size-small {
+    width: 90px;
+  }
+
+  .bg-cloud.size-medium {
+    width: 140px;
+  }
+
+  .bg-cloud.size-large {
+    width: 200px;
+  }
+
+  .bg-cloud.size-xlarge {
+    width: 280px;
+  }
+
+  .bg-cloud.size-xxlarge {
+    width: 380px;
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-title {
+    font-size: 1.6rem;
+  }
+
+  .project-card {
+    width: calc(100% - 40px);
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
+
+  .balloon-container {
+    top: -60px;
+  }
+
+  .project-image {
+    height: 150px;
+  }
+
+  .bg-cloud.size-xsmall {
+    width: 35px;
+  }
+
+  .bg-cloud.size-small {
+    width: 60px;
+  }
+
+  .bg-cloud.size-medium {
+    width: 100px;
+  }
+
+  .bg-cloud.size-large {
+    width: 150px;
+  }
+
+  .bg-cloud.size-xlarge {
+    width: 200px;
+  }
+
+  .bg-cloud.size-xxlarge {
+    width: 260px;
+  }
+}
