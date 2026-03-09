@@ -19,6 +19,161 @@ const Balloon = ({ color = '#7CB342' }) => (
   </svg>
 );
 
+// Hook pour animation de flottement avec direction aléatoire
+const useFloatingAnimation = (cardRef, seed) => {
+  React.useEffect(() => {
+    if (!cardRef.current) return;
+    
+    const card = cardRef.current;
+    let animationId;
+    let startTime = null;
+    
+    // Durée d'un cycle complet (similaire au CSS)
+    const cycleDuration = 5500 + (seed % 5) * 500; // 5.5s à 8s
+    
+    // Paramètres actuels
+    let currentTargetX = 0;
+    let currentTargetRotate = 0;
+    
+    // Générer nouvelle direction aléatoire
+    const generateRandomDirection = () => {
+      const rand = Math.random();
+      if (rand < 0.33) {
+        // Gauche
+        currentTargetX = -(10 + Math.random() * 12);
+        currentTargetRotate = -(1 + Math.random() * 1.2);
+      } else if (rand < 0.66) {
+        // Milieu
+        currentTargetX = -3 + Math.random() * 6;
+        currentTargetRotate = -0.5 + Math.random() * 1;
+      } else {
+        // Droite
+        currentTargetX = 10 + Math.random() * 12;
+        currentTargetRotate = 1 + Math.random() * 1.2;
+      }
+    };
+    
+    // Hauteur aléatoire pour ce cycle
+    let currentTargetY = -(16 + Math.random() * 12); // -16 à -28px
+    
+    // Initialiser
+    generateRandomDirection();
+    
+    let lastPhase = 'down';
+    
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      
+      // Progression dans le cycle (0 à 1)
+      const elapsed = (timestamp - startTime) % cycleDuration;
+      const progress = elapsed / cycleDuration;
+      
+      // Fonction ease-in-out (comme CSS)
+      const easeInOut = (t) => {
+        return t < 0.5 
+          ? 2 * t * t 
+          : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      };
+      
+      // Phase montée (0 à 0.5) ou descente (0.5 à 1)
+      let y, x, rotate;
+      
+      if (progress < 0.5) {
+        // Montée
+        const phaseProgress = easeInOut(progress * 2);
+        y = currentTargetY * phaseProgress;
+        x = currentTargetX * phaseProgress;
+        rotate = currentTargetRotate * phaseProgress;
+        
+        // Détecter changement de phase
+        if (lastPhase === 'down') {
+          lastPhase = 'up';
+          // Nouvelle direction aléatoire pour la prochaine montée
+          generateRandomDirection();
+          currentTargetY = -(16 + Math.random() * 12);
+        }
+      } else {
+        // Descente
+        const phaseProgress = easeInOut((progress - 0.5) * 2);
+        y = currentTargetY * (1 - phaseProgress);
+        x = currentTargetX * (1 - phaseProgress);
+        rotate = currentTargetRotate * (1 - phaseProgress);
+        
+        if (lastPhase === 'up') {
+          lastPhase = 'down';
+        }
+      }
+      
+      card.style.transform = `translateY(${y}px) translateX(${x}px) rotate(${rotate}deg)`;
+      
+      animationId = requestAnimationFrame(animate);
+    };
+    
+    // Délai initial aléatoire
+    const initialDelay = (seed * 500) % 3000;
+    const timeoutId = setTimeout(() => {
+      animationId = requestAnimationFrame(animate);
+    }, initialDelay);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [cardRef, seed]);
+};
+
+// Composant carte projet avec animation
+const ProjectCard = ({ project, index, t }) => {
+  const cardRef = React.useRef(null);
+  const seed = project.id * 7 + index;
+  
+  useFloatingAnimation(cardRef, seed);
+  
+  return (
+    <div className="project-section">
+      <article 
+        ref={cardRef}
+        className={`project-card ${index % 2 === 0 ? 'card-left' : 'card-right'}`}
+      >
+        {/* Ballon */}
+        <div className="balloon-container">
+          <Balloon color={project.color} />
+        </div>
+        
+        {/* Ficelle */}
+        <div className="balloon-string"></div>
+        
+        {/* Contenu */}
+        <div className="card-content">
+          <div className="project-image">
+            <img 
+              src={project.image} 
+              alt={t(project.titleKey)}
+              onError={(e) => {
+                e.target.src = 'https://via.placeholder.com/300x200/FFEA93/4A3728?text=Projet';
+              }}
+            />
+          </div>
+          <div className="project-info">
+            <h2>{t(project.titleKey)}</h2>
+            <p>{t(project.descriptionKey)}</p>
+            <div className="project-tags">
+              {project.tags.map((tag, i) => (
+                <span key={i} className="tag">{tag}</span>
+              ))}
+            </div>
+            <a href={project.link} className="project-link">
+              {t('viewProject') || 'Voir le projet'} →
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+};
+
 // Configuration des nuages - défini en dehors du composant
 const CLOUD_IMAGES = ['nuage1.svg', 'nuage2.svg', 'nuage3.svg', 'nuage5.svg'];
 const CLOUD_SIZES = ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'];
@@ -169,46 +324,12 @@ const ProjectsPage = () => {
       {/* Contenu principal - Projets */}
       <div className="projects-content">
         {projects.map((project, index) => (
-          <div key={project.id} className="project-section">
-            {/* Carte projet */}
-            <article 
-              className={`project-card ${index % 2 === 0 ? 'card-left' : 'card-right'}`}
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              {/* Ballon */}
-              <div className="balloon-container">
-                <Balloon color={project.color} />
-              </div>
-              
-              {/* Ficelle */}
-              <div className="balloon-string"></div>
-              
-              {/* Contenu */}
-              <div className="card-content">
-                <div className="project-image">
-                  <img 
-                    src={project.image} 
-                    alt={t(project.titleKey)}
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/300x200/FFEA93/4A3728?text=Projet';
-                    }}
-                  />
-                </div>
-                <div className="project-info">
-                  <h2>{t(project.titleKey)}</h2>
-                  <p>{t(project.descriptionKey)}</p>
-                  <div className="project-tags">
-                    {project.tags.map((tag, i) => (
-                      <span key={i} className="tag">{tag}</span>
-                    ))}
-                  </div>
-                  <a href={project.link} className="project-link">
-                    {t('viewProject') || 'Voir le projet'} →
-                  </a>
-                </div>
-              </div>
-            </article>
-          </div>
+          <ProjectCard 
+            key={project.id}
+            project={project}
+            index={index}
+            t={t}
+          />
         ))}
       </div>
     </div>
