@@ -4,13 +4,22 @@ import { Link } from 'react-router-dom';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
 import './ProjectsPage.css';
 
-// Composant Ballon SVG
+// Composant Ballon SVG pour les cartes
 const Balloon = ({ color = '#7CB342' }) => (
-  <svg width="40" height="60" viewBox="0 0 40 60" className="balloon-svg">
+  <svg width="40" height="70" viewBox="0 0 40 70" className="balloon-svg">
+    {/* Ballon */}
     <ellipse cx="20" cy="22" rx="18" ry="22" fill={color} />
     <ellipse cx="20" cy="22" rx="18" ry="22" fill="url(#balloonShine)" />
-    <polygon points="17,44 20,48 23,44" fill={color} />
-    <path d="M20 48 Q22 52 18 56 Q22 58 20 60" stroke="#8B7355" strokeWidth="1.5" fill="none" />
+    {/* Noeud */}
+    <polygon points="17,43 20,48 23,43" fill={color} />
+    {/* Ficelle */}
+    <path 
+      d="M20 48 C22 55, 18 62, 20 70" 
+      stroke="#8B7355" 
+      strokeWidth="1.5" 
+      fill="none"
+      strokeLinecap="round"
+    />
     <defs>
       <radialGradient id="balloonShine" cx="30%" cy="30%">
         <stop offset="0%" stopColor="white" stopOpacity="0.4" />
@@ -19,6 +28,87 @@ const Balloon = ({ color = '#7CB342' }) => (
     </defs>
   </svg>
 );
+
+// Oiseau SVG animé
+const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
+  <svg 
+    width={size} 
+    height={size * 0.5} 
+    viewBox="0 0 40 20" 
+    className="bird-svg"
+    style={{ transform: direction === 'left' ? 'scaleX(-1)' : 'none' }}
+  >
+    {/* Aile gauche */}
+    <path 
+      className="bird-wing-left"
+      d="M20 10 Q10 2, 2 8" 
+      stroke={color} 
+      strokeWidth="2.5" 
+      fill="none"
+      strokeLinecap="round"
+    />
+    {/* Aile droite */}
+    <path 
+      className="bird-wing-right"
+      d="M20 10 Q30 2, 38 8" 
+      stroke={color} 
+      strokeWidth="2.5" 
+      fill="none"
+      strokeLinecap="round"
+    />
+    {/* Corps */}
+    <ellipse cx="20" cy="11" rx="4" ry="2.5" fill={color} />
+    {/* Tête */}
+    <circle cx="26" cy="10" r="2" fill={color} />
+    {/* Bec */}
+    <path d="M28 10 L31 10.5 L28 11" fill={color} />
+  </svg>
+);
+
+// Génération des oiseaux décoratifs - répartis aléatoirement
+const generateBirds = (numberOfProjects) => {
+  const birds = [];
+  const totalBirds = numberOfProjects * 6 + 6; // Plus d'oiseaux
+  const maxHeight = numberOfProjects * 500 + 200; // Hauteur max basée sur les projets
+  
+  // Fonction pseudo-aléatoire stable
+  const seededRandom = (seed) => {
+    const x = Math.sin(seed * 9999) * 10000;
+    return x - Math.floor(x);
+  };
+  
+  for (let i = 0; i < totalBirds; i++) {
+    const seed = i + 1;
+    
+    // Position verticale aléatoire
+    const topPosition = 40 + seededRandom(seed * 3) * maxHeight;
+    
+    // Côté aléatoire (gauche ou droite)
+    const isLeft = seededRandom(seed * 7) > 0.5;
+    
+    // Taille aléatoire
+    const size = 18 + seededRandom(seed * 11) * 18; // 18-36px
+    
+    // Durée et délai aléatoires
+    const duration = 18 + seededRandom(seed * 13) * 18; // 18-36s
+    const delay = -(seededRandom(seed * 17) * 30); // 0 à -30s
+    
+    birds.push({
+      id: i + 1,
+      top: `${topPosition}px`,
+      left: isLeft ? '-5%' : undefined,
+      right: !isLeft ? '-5%' : undefined,
+      size: Math.round(size),
+      direction: isLeft ? 'right' : 'left',
+      duration: Math.round(duration),
+      delay: Math.round(delay),
+    });
+  }
+  
+  return birds;
+};
+
+// Les oiseaux seront générés dans le composant avec le nombre de projets
 
 // Liste des projets
 const projects = [
@@ -181,24 +271,21 @@ const ProjectCard = ({ project, index, t }) => {
         ref={cardRef}
         className={`project-card ${index % 2 === 0 ? 'card-left' : 'card-right'}`}
       >
-        {/* Ballon */}
+        {/* Ballon avec ficelle intégrée */}
         <div className="balloon-container">
           <Balloon color={project.color} />
         </div>
         
-        {/* Ficelle */}
-        <div className="balloon-string"></div>
-        
         {/* Contenu */}
         <div className="card-content">
           <div className="project-image">
-            {/* <img 
+            <img 
               src={project.image} 
               alt={t(project.titleKey)}
               onError={(e) => {
                 e.target.src = 'https://via.placeholder.com/300x200/FFEA93/4A3728?text=Projet';
               }}
-            /> */}
+            />
           </div>
           <div className="project-info">
             <h2>{t(project.titleKey)}</h2>
@@ -295,11 +382,31 @@ const generateClouds = (numberOfProjects) => {
 const ProjectsPage = () => {
   const { t } = useLanguage();
 
-  // Générer les nuages basé sur le nombre de projets
+  // Générer les nuages et oiseaux basé sur le nombre de projets
   const decorativeClouds = React.useMemo(() => generateClouds(projects.length), []);
+  const decorativeBirds = React.useMemo(() => generateBirds(projects.length), []);
 
   return (
     <div className="projects-page">
+      {/* Oiseaux décoratifs en arrière-plan */}
+      <div className="background-birds">
+        {decorativeBirds.map((bird) => (
+          <div
+            key={bird.id}
+            className={`flying-bird direction-${bird.direction}`}
+            style={{
+              top: bird.top,
+              left: bird.left,
+              right: bird.right,
+              animationDuration: `${bird.duration}s`,
+              animationDelay: `${bird.delay}s`,
+            }}
+          >
+            <Bird size={bird.size} direction={bird.direction} />
+          </div>
+        ))}
+      </div>
+
       {/* Nuages décoratifs en arrière-plan */}
       <div className="background-clouds">
         {decorativeClouds.map((cloud) => (

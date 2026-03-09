@@ -292,35 +292,105 @@
 /* Ballon */
 .balloon-container {
   position: absolute;
-  top: -70px;
+  top: -65px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
-  animation: balloonSway 3s ease-in-out infinite;
-}
-
-@keyframes balloonSway {
-  0%, 100% {
-    transform: translateX(-50%) rotate(-3deg);
-  }
-  50% {
-    transform: translateX(-50%) rotate(3deg);
-  }
 }
 
 .balloon-svg {
   filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
 }
 
-/* Ficelle du ballon */
-.balloon-string {
+/* Oiseaux décoratifs - défilent avec la page */
+.background-birds {
   position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 20px;
-  background: #8B7355;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.flying-bird {
+  position: absolute;
+  opacity: 0.6;
+}
+
+/* Oiseaux volant vers la droite */
+.flying-bird.direction-right {
+  animation: flyRight linear infinite;
+}
+
+/* Oiseaux volant vers la gauche */
+.flying-bird.direction-left {
+  animation: flyLeft linear infinite;
+}
+
+@keyframes flyRight {
+  0% {
+    transform: translateX(-50px) translateY(0);
+  }
+  25% {
+    transform: translateX(25vw) translateY(-20px);
+  }
+  50% {
+    transform: translateX(50vw) translateY(10px);
+  }
+  75% {
+    transform: translateX(75vw) translateY(-15px);
+  }
+  100% {
+    transform: translateX(110vw) translateY(5px);
+  }
+}
+
+@keyframes flyLeft {
+  0% {
+    transform: translateX(50px) translateY(0);
+  }
+  25% {
+    transform: translateX(-25vw) translateY(-15px);
+  }
+  50% {
+    transform: translateX(-50vw) translateY(10px);
+  }
+  75% {
+    transform: translateX(-75vw) translateY(-20px);
+  }
+  100% {
+    transform: translateX(-110vw) translateY(0);
+  }
+}
+
+/* Animation des ailes */
+.bird-wing-left {
+  animation: flapLeft 0.3s ease-in-out infinite;
+  transform-origin: 20px 10px;
+}
+
+.bird-wing-right {
+  animation: flapRight 0.3s ease-in-out infinite;
+  transform-origin: 20px 10px;
+}
+
+@keyframes flapLeft {
+  0%, 100% {
+    d: path("M20 10 Q10 2, 2 8");
+  }
+  50% {
+    d: path("M20 10 Q10 14, 2 12");
+  }
+}
+
+@keyframes flapRight {
+  0%, 100% {
+    d: path("M20 10 Q30 2, 38 8");
+  }
+  50% {
+    d: path("M20 10 Q30 14, 38 12");
+  }
 }
 
 /* Contenu de la carte - simple et épuré */
@@ -329,6 +399,7 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(74, 55, 40, 0.15);
+  position: relative;
 }
 
 .project-image {
