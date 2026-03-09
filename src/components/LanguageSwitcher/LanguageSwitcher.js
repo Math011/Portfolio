@@ -2,11 +2,11 @@ import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import './LanguageSwitcher.css';
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ fixed = false }) => {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className="language-switcher">
+    <div className={`language-switcher ${fixed ? 'fixed' : ''}`}>
       <button 
         className={`lang-option ${language === 'fr' ? 'active' : ''}`}
         onClick={() => setLanguage('fr')}

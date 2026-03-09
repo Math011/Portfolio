@@ -33,15 +33,8 @@ export const homeTranslations = {
     finishTitle: "Vous êtes arrivé à destination !",
     finishSubtitle: "Merci d'avoir parcouru mon portfolio",
     finishRestart: "Recommencer le voyage",
+  
     
-    // ProgressBar
-    home: "Accueil",
-    about: "À propos",
-    projects: "Projets",
-    contact: "Contact",
-    
-    // LoadingScreen
-    loading: "Chargement..."
   },
   
   en: {

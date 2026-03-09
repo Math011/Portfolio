@@ -64,7 +64,7 @@ function HomePage() {
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
-      <LanguageSwitcher />
+      <LanguageSwitcher fixed />
       
       <ProgressBar 
         progress={progress}

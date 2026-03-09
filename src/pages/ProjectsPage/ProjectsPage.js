@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Link } from 'react-router-dom';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
 import './ProjectsPage.css';
 
 // Composant Ballon SVG
@@ -19,6 +20,46 @@ const Balloon = ({ color = '#7CB342' }) => (
   </svg>
 );
 
+// Liste des projets
+const projects = [
+  {
+    id: 1,
+    titleKey: 'project1_title',
+    descriptionKey: 'project1_description',
+    image: '/images/projects/project1.jpg',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    link: '#',
+    color: '#7CB342'
+  },
+  {
+    id: 2,
+    titleKey: 'project2_title',
+    descriptionKey: 'project2_description',
+    image: '/images/projects/project2.jpg',
+    tags: ['Vue.js', 'Firebase'],
+    link: '#',
+    color: '#E67E22'
+  },
+  {
+    id: 3,
+    titleKey: 'project3_title',
+    descriptionKey: 'project3_description',
+    image: '/images/projects/project3.jpg',
+    tags: ['Next.js', 'Tailwind CSS'],
+    link: '#',
+    color: '#3498DB'
+  },
+  {
+    id: 4,
+    titleKey: 'project4_title',
+    descriptionKey: 'project4_description',
+    image: '/images/projects/project4.jpg',
+    tags: ['React Native', 'Express'],
+    link: '#',
+    color: '#9B59B6'
+  },
+];
+
 // Hook pour animation de flottement avec direction aléatoire
 const useFloatingAnimation = (cardRef, seed) => {
   React.useEffect(() => {
@@ -27,6 +68,9 @@ const useFloatingAnimation = (cardRef, seed) => {
     const card = cardRef.current;
     let animationId;
     let startTime = null;
+    
+    // Initialiser le transform à 0 immédiatement
+    card.style.transform = 'translateY(0) translateX(0) rotate(0deg)';
     
     // Durée d'un cycle complet (similaire au CSS)
     const cycleDuration = 5500 + (seed % 5) * 500; // 5.5s à 8s
@@ -148,13 +192,13 @@ const ProjectCard = ({ project, index, t }) => {
         {/* Contenu */}
         <div className="card-content">
           <div className="project-image">
-            <img 
+            {/* <img 
               src={project.image} 
               alt={t(project.titleKey)}
               onError={(e) => {
                 e.target.src = 'https://via.placeholder.com/300x200/FFEA93/4A3728?text=Projet';
               }}
-            />
+            /> */}
           </div>
           <div className="project-info">
             <h2>{t(project.titleKey)}</h2>
@@ -165,7 +209,7 @@ const ProjectCard = ({ project, index, t }) => {
               ))}
             </div>
             <a href={project.link} className="project-link">
-              {t('viewProject') || 'Voir le projet'} →
+              {t('viewProject')} →
             </a>
           </div>
         </div>
@@ -251,48 +295,8 @@ const generateClouds = (numberOfProjects) => {
 const ProjectsPage = () => {
   const { t } = useLanguage();
 
-  // Liste des projets
-  const projects = [
-    {
-      id: 1,
-      titleKey: 'project1_title',
-      descriptionKey: 'project1_description',
-      image: '/images/projects/project1.jpg',
-      tags: ['React', 'Node.js', 'MongoDB'],
-      link: '#',
-      color: '#7CB342'
-    },
-    {
-      id: 2,
-      titleKey: 'project2_title',
-      descriptionKey: 'project2_description',
-      image: '/images/projects/project2.jpg',
-      tags: ['JavaScript', 'CSS', 'API'],
-      link: '#',
-      color: '#E67E22'
-    },
-    {
-      id: 3,
-      titleKey: 'project3_title',
-      descriptionKey: 'project3_description',
-      image: '/images/projects/project3.jpg',
-      tags: ['React', 'TypeScript', 'Firebase'],
-      link: '#',
-      color: '#3498DB'
-    },
-    {
-      id: 4,
-      titleKey: 'project4_title',
-      descriptionKey: 'project4_description',
-      image: '/images/projects/project4.jpg',
-      tags: ['Node.js', 'Express', 'PostgreSQL'],
-      link: '#',
-      color: '#9B59B6'
-    },
-  ];
-
   // Générer les nuages basé sur le nombre de projets
-  const decorativeClouds = React.useMemo(() => generateClouds(projects.length), [projects.length]);
+  const decorativeClouds = React.useMemo(() => generateClouds(projects.length), []);
 
   return (
     <div className="projects-page">
@@ -311,14 +315,20 @@ const ProjectsPage = () => {
 
       {/* Navigation */}
       <nav className="projects-nav">
-        <Link to="/" className="back-button">
-          ← {t('backToHome')}
-        </Link>
+        <div className="nav-links">
+          <Link to="/" className="nav-link">{t('home')}</Link>
+          <Link to="/about" className="nav-link">{t('about')}</Link>
+          <Link to="/projects" className="nav-link active">{t('projects')}</Link>
+          <Link to="/contact" className="nav-link">{t('contact')}</Link>
+        </div>
+        <div className="nav-language">
+          <LanguageSwitcher />
+        </div>
       </nav>
 
       {/* Titre */}
       <div className="projects-title-container">
-        <h1 className="projects-title">{t('projectsPageTitle') || 'Mes Projets'}</h1>
+        <h1 className="projects-title">{t('projectsPageTitle')}</h1>
       </div>
 
       {/* Contenu principal - Projets */}

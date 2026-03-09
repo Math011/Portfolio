@@ -1,9 +1,5 @@
+/* Container - position gérée par le parent */
 .language-switcher {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 8px 16px;
@@ -13,6 +9,14 @@
   gap: 4px;
   
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Version fixe pour la HomePage */
+.language-switcher.fixed {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
 .lang-option {
