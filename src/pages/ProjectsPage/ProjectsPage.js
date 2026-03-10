@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import './ProjectsPage.css';
 
 // Composant Ballon SVG pour les cartes
@@ -65,44 +66,64 @@ const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
   </svg>
 );
 
-// Génération des oiseaux décoratifs - répartis aléatoirement
+// Génération des oiseaux décoratifs - vraie randomisation par zones
 const generateBirds = (numberOfProjects) => {
   const birds = [];
-  const totalBirds = numberOfProjects * 6 + 6; // Plus d'oiseaux
-  const maxHeight = numberOfProjects * 500 + 200; // Hauteur max basée sur les projets
+  const birdsPerZone = 5;
+  const zoneHeight = 500;
   
-  // Fonction pseudo-aléatoire stable
-  const seededRandom = (seed) => {
-    const x = Math.sin(seed * 9999) * 10000;
+  // Seed aléatoire unique à chaque chargement
+  const randomSeed = Math.random() * 10000;
+  
+  const random = (seed) => {
+    const x = Math.sin((seed + randomSeed) * 9999) * 10000;
     return x - Math.floor(x);
   };
   
-  for (let i = 0; i < totalBirds; i++) {
-    const seed = i + 1;
-    
-    // Position verticale aléatoire
-    const topPosition = 40 + seededRandom(seed * 3) * maxHeight;
-    
-    // Côté aléatoire (gauche ou droite)
-    const isLeft = seededRandom(seed * 7) > 0.5;
-    
-    // Taille aléatoire
-    const size = 18 + seededRandom(seed * 11) * 18; // 18-36px
-    
-    // Durée et délai aléatoires
-    const duration = 18 + seededRandom(seed * 13) * 18; // 18-36s
-    const delay = -(seededRandom(seed * 17) * 30); // 0 à -30s
-    
+  let birdId = 0;
+  
+  // Zone du titre (0-150px)
+  for (let i = 0; i < 3; i++) {
+    birdId++;
+    const isLeft = random(birdId * 7) > 0.5;
     birds.push({
-      id: i + 1,
-      top: `${topPosition}px`,
+      id: birdId,
+      top: `${50 + random(birdId * 3) * 100}px`,
       left: isLeft ? '-5%' : undefined,
       right: !isLeft ? '-5%' : undefined,
-      size: Math.round(size),
+      size: Math.round(18 + random(birdId * 11) * 18),
       direction: isLeft ? 'right' : 'left',
-      duration: Math.round(duration),
-      delay: Math.round(delay),
+      duration: Math.round(18 + random(birdId * 13) * 18),
+      delay: Math.round(-(random(birdId * 17) * 30)),
     });
+  }
+  
+  // Pour chaque projet
+  for (let zone = 0; zone < numberOfProjects; zone++) {
+    const zoneStart = 180 + (zone * zoneHeight);
+    const zoneEnd = zoneStart + zoneHeight;
+    const sectionHeight = (zoneEnd - zoneStart) / birdsPerZone;
+    
+    for (let i = 0; i < birdsPerZone; i++) {
+      birdId++;
+      
+      // Position dans sa sous-section
+      const sectionStart = zoneStart + (i * sectionHeight);
+      const topPosition = sectionStart + random(birdId * 3) * (sectionHeight * 0.8);
+      
+      const isLeft = random(birdId * 7) > 0.5;
+      
+      birds.push({
+        id: birdId,
+        top: `${topPosition}px`,
+        left: isLeft ? '-5%' : undefined,
+        right: !isLeft ? '-5%' : undefined,
+        size: Math.round(18 + random(birdId * 11) * 18),
+        direction: isLeft ? 'right' : 'left',
+        duration: Math.round(18 + random(birdId * 13) * 18),
+        delay: Math.round(-(random(birdId * 17) * 30)),
+      });
+    }
   }
   
   return birds;
@@ -279,13 +300,13 @@ const ProjectCard = ({ project, index, t }) => {
         {/* Contenu */}
         <div className="card-content">
           <div className="project-image">
-            {/* <img 
+            <img 
               src={project.image} 
               alt={t(project.titleKey)}
               onError={(e) => {
                 e.target.src = 'https://via.placeholder.com/300x200/FFEA93/4A3728?text=Projet';
               }}
-            /> */}
+            />
           </div>
           <div className="project-info">
             <h2>{t(project.titleKey)}</h2>
@@ -295,9 +316,13 @@ const ProjectCard = ({ project, index, t }) => {
                 <span key={i} className="tag">{tag}</span>
               ))}
             </div>
-            <a href={project.link} className="project-link">
+            <Link 
+              to={`/project/${project.id}`} 
+              className="project-link"
+              onClick={() => sessionStorage.setItem('projectsPage_fromProject', 'true')}
+            >
               {t('viewProject')} →
-            </a>
+            </Link>
           </div>
         </div>
       </article>
@@ -320,60 +345,80 @@ const SIZE_TO_OPACITY = {
   'xxlarge': 'dark'
 };
 
-// Fonction pour générer un nombre pseudo-aléatoire stable basé sur un seed
-const seededRandom = (seed) => {
-  const x = Math.sin(seed * 9999) * 10000;
-  return x - Math.floor(x);
-};
-
-// Générer les nuages une seule fois (en dehors du composant)
+// Générer les nuages avec distribution équilibrée et superpositions naturelles
 const generateClouds = (numberOfProjects) => {
   const clouds = [];
+  const zoneHeight = 400;
   
-  // Plus de nuages pour éviter les zones vides
-  const numberOfClouds = numberOfProjects * 8 + 10;
-  const verticalSpacing = 55;
+  // Seed aléatoire unique à chaque chargement de page
+  const randomSeed = Math.random() * 10000;
   
-  for (let i = 0; i < numberOfClouds; i++) {
-    const seed = i + 1;
-    
-    // Calculer l'index précédent pour éviter répétition
-    const prevImageIndex = i > 0 ? Math.floor(seededRandom(i * 1) * (CLOUD_IMAGES.length - 1)) : -1;
-    const prevSizeIndex = i > 0 ? Math.floor(seededRandom(i * 2) * (CLOUD_SIZES.length - 1)) : -1;
-    
-    // Choisir un index différent du précédent
-    let imageIndex = Math.floor(seededRandom(seed * 1) * CLOUD_IMAGES.length);
-    if (imageIndex === prevImageIndex) {
-      imageIndex = (imageIndex + 1) % CLOUD_IMAGES.length;
-    }
-    
-    let sizeIndex = Math.floor(seededRandom(seed * 2) * CLOUD_SIZES.length);
-    if (sizeIndex === prevSizeIndex) {
-      sizeIndex = (sizeIndex + 1) % CLOUD_SIZES.length;
-    }
-    
-    const image = CLOUD_IMAGES[imageIndex];
-    const size = CLOUD_SIZES[sizeIndex];
-    
-    // Opacité liée à la taille
-    const opacity = SIZE_TO_OPACITY[size];
-    
-    // Vitesse aléatoire
-    const speedIndex = Math.floor(seededRandom(seed * 4) * CLOUD_SPEEDS.length);
-    const speed = CLOUD_SPEEDS[speedIndex];
-    
-    // Direction alternée
-    const direction = i % 2 === 0 ? 'left' : 'right';
+  // Fonction random avec seed variable
+  const random = (seed) => {
+    const x = Math.sin((seed + randomSeed) * 9999) * 10000;
+    return x - Math.floor(x);
+  };
+  
+  let cloudId = 0;
+  
+  // Zone du titre (0-150px) - seulement 2-3 nuages
+  const titleClouds = 2 + Math.floor(random(999) * 2);
+  for (let i = 0; i < titleClouds; i++) {
+    cloudId++;
+    const top = 20 + random(cloudId * 17) * 120;
+    const imageIndex = Math.floor(random(cloudId * 23) * CLOUD_IMAGES.length);
+    const sizeIndex = Math.floor(random(cloudId * 37) * CLOUD_SIZES.length);
+    const speedIndex = Math.floor(random(cloudId * 41) * CLOUD_SPEEDS.length);
     
     clouds.push({
-      id: i + 1,
-      image,
-      top: `${20 + (i * verticalSpacing)}px`,
-      size,
-      opacity,
-      direction,
-      speed
+      id: cloudId,
+      image: CLOUD_IMAGES[imageIndex],
+      top: `${Math.round(top)}px`,
+      size: CLOUD_SIZES[sizeIndex],
+      opacity: SIZE_TO_OPACITY[CLOUD_SIZES[sizeIndex]],
+      direction: random(cloudId * 43) > 0.5 ? 'left' : 'right',
+      speed: CLOUD_SPEEDS[speedIndex],
+      delay: Math.round(random(cloudId * 47) * -60)
     });
+  }
+  
+  // Zones des projets
+  for (let zone = 0; zone < numberOfProjects; zone++) {
+    const zoneStart = 150 + (zone * zoneHeight);
+    const zoneEnd = zoneStart + zoneHeight;
+    
+    // 5-7 nuages par zone projet
+    const cloudsInZone = 5 + Math.floor(random(zone * 100) * 3);
+    
+    // Diviser la zone en 3 parties : haut, milieu, bas
+    const thirdHeight = (zoneEnd - zoneStart) / 3;
+    
+    for (let i = 0; i < cloudsInZone; i++) {
+      cloudId++;
+      
+      // Assigner à une section de façon cyclique
+      const section = i % 3;
+      const sectionStart = zoneStart + (section * thirdHeight);
+      
+      // Position libre avec débordement possible (±20%)
+      const overflow = thirdHeight * 0.2;
+      const top = (sectionStart - overflow) + random(cloudId * 17) * (thirdHeight + overflow * 2);
+      
+      const imageIndex = Math.floor(random(cloudId * 23) * CLOUD_IMAGES.length);
+      const sizeIndex = Math.floor(random(cloudId * 37) * CLOUD_SIZES.length);
+      const speedIndex = Math.floor(random(cloudId * 41) * CLOUD_SPEEDS.length);
+      
+      clouds.push({
+        id: cloudId,
+        image: CLOUD_IMAGES[imageIndex],
+        top: `${Math.max(20, Math.round(top))}px`,
+        size: CLOUD_SIZES[sizeIndex],
+        opacity: SIZE_TO_OPACITY[CLOUD_SIZES[sizeIndex]],
+        direction: random(cloudId * 43) > 0.5 ? 'left' : 'right',
+        speed: CLOUD_SPEEDS[speedIndex],
+        delay: Math.round(random(cloudId * 47) * -60)
+      });
+    }
   }
   
   return clouds;
@@ -381,25 +426,115 @@ const generateClouds = (numberOfProjects) => {
 
 const ProjectsPage = () => {
   const { t } = useLanguage();
+  const location = useLocation();
+  const pageRef = React.useRef(null);
+  const [animationOffset, setAnimationOffset] = React.useState(0);
+  
+  // Afficher le loading sauf si on revient d'une page projet détail
+  const isReturningFromProject = sessionStorage.getItem('projectsPage_fromProject') === 'true';
+  const [isLoading, setIsLoading] = React.useState(!isReturningFromProject);
 
-  // Générer les nuages et oiseaux basé sur le nombre de projets
-  const decorativeClouds = React.useMemo(() => generateClouds(projects.length), []);
-  const decorativeBirds = React.useMemo(() => generateBirds(projects.length), []);
+  // Gérer le loading screen
+  React.useEffect(() => {
+    // Réinitialiser le flag
+    sessionStorage.removeItem('projectsPage_fromProject');
+    
+    if (isReturningFromProject) return;
+    
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    
+    return () => clearTimeout(timer);
+  }, [isReturningFromProject]);
+
+  // Récupérer ou créer le timestamp de démarrage des animations
+  React.useEffect(() => {
+    const savedStartTime = sessionStorage.getItem('projectsPage_animationStart');
+    if (savedStartTime) {
+      // Calculer le temps écoulé depuis le début des animations
+      const elapsed = (Date.now() - parseInt(savedStartTime, 10)) / 1000;
+      setAnimationOffset(elapsed);
+    } else {
+      // Premier chargement - sauvegarder le timestamp
+      sessionStorage.setItem('projectsPage_animationStart', Date.now().toString());
+    }
+  }, []);
+
+  // Générer ou récupérer les nuages et oiseaux depuis sessionStorage
+  const decorativeClouds = React.useMemo(() => {
+    const saved = sessionStorage.getItem('projectsPage_clouds');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    const clouds = generateClouds(projects.length);
+    sessionStorage.setItem('projectsPage_clouds', JSON.stringify(clouds));
+    return clouds;
+  }, []);
+
+  const decorativeBirds = React.useMemo(() => {
+    const saved = sessionStorage.getItem('projectsPage_birds');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    const birds = generateBirds(projects.length);
+    sessionStorage.setItem('projectsPage_birds', JSON.stringify(birds));
+    return birds;
+  }, []);
+
+  // Restaurer la position de scroll au chargement
+  React.useEffect(() => {
+    const savedScroll = sessionStorage.getItem('projectsPage_scroll');
+    if (savedScroll && pageRef.current) {
+      pageRef.current.scrollTop = parseInt(savedScroll, 10);
+    }
+  }, []);
+
+  // Sauvegarder la position de scroll
+  React.useEffect(() => {
+    const page = pageRef.current;
+    if (!page) return;
+
+    const handleScroll = () => {
+      sessionStorage.setItem('projectsPage_scroll', page.scrollTop.toString());
+    };
+
+    page.addEventListener('scroll', handleScroll);
+    return () => page.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Effacer le cache quand on quitte la page (navigation vers autre page)
+  React.useEffect(() => {
+    return () => {
+      // Ce cleanup s'exécute quand le composant est démonté (navigation)
+      // On vérifie si on va vers une page projet détail (on garde le cache)
+      // ou vers une autre page (on efface le cache)
+      const nextPath = window.location.pathname;
+      if (!nextPath.startsWith('/project')) {
+        sessionStorage.removeItem('projectsPage_clouds');
+        sessionStorage.removeItem('projectsPage_birds');
+        sessionStorage.removeItem('projectsPage_scroll');
+        sessionStorage.removeItem('projectsPage_animationStart');
+      }
+    };
+  }, [location]);
 
   return (
-    <div className="projects-page">
-      {/* Oiseaux décoratifs en arrière-plan */}
-      <div className="background-birds">
-        {decorativeBirds.map((bird) => (
-          <div
-            key={bird.id}
-            className={`flying-bird direction-${bird.direction}`}
-            style={{
-              top: bird.top,
-              left: bird.left,
+    <>
+      <LoadingScreen isLoading={isLoading} />
+      <div className="projects-page" ref={pageRef}>
+        {/* Oiseaux décoratifs en arrière-plan */}
+        <div className="background-birds">
+          {decorativeBirds.map((bird) => (
+            <div
+              key={bird.id}
+              className={`flying-bird direction-${bird.direction}`}
+              style={{
+                top: bird.top,
+                left: bird.left,
               right: bird.right,
               animationDuration: `${bird.duration}s`,
-              animationDelay: `${bird.delay}s`,
+              animationDelay: `${bird.delay - animationOffset}s`,
             }}
           >
             <Bird size={bird.size} direction={bird.direction} />
@@ -415,7 +550,10 @@ const ProjectsPage = () => {
             src={`/images/${cloud.image}`}
             alt=""
             className={`bg-cloud size-${cloud.size} opacity-${cloud.opacity} direction-${cloud.direction} speed-${cloud.speed}`}
-            style={{ top: cloud.top }}
+            style={{ 
+              top: cloud.top,
+              animationDelay: `${cloud.delay - animationOffset}s`
+            }}
           />
         ))}
       </div>
@@ -450,6 +588,7 @@ const ProjectsPage = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 
