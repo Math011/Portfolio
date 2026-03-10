@@ -3,11 +3,11 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { Link, useLocation } from 'react-router-dom';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
-import './ProjectsPage.css';
+import styles from './ProjectsPage.module.css';
 
 // Composant Ballon SVG pour les cartes
 const Balloon = ({ color = '#7CB342' }) => (
-  <svg width="40" height="70" viewBox="0 0 40 70" className="balloon-svg">
+  <svg width="40" height="70" viewBox="0 0 40 70" className={styles.balloonSvg}>
     {/* Ballon */}
     <ellipse cx="20" cy="22" rx="18" ry="22" fill={color} />
     <ellipse cx="20" cy="22" rx="18" ry="22" fill="url(#balloonShine)" />
@@ -36,12 +36,12 @@ const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
     width={size} 
     height={size * 0.5} 
     viewBox="0 0 40 20" 
-    className="bird-svg"
+    className={styles.birdSvg}
     style={{ transform: direction === 'left' ? 'scaleX(-1)' : 'none' }}
   >
     {/* Aile gauche */}
     <path 
-      className="bird-wing-left"
+      className={styles.birdWingLeft}
       d="M20 10 Q10 2, 2 8" 
       stroke={color} 
       strokeWidth="2.5" 
@@ -50,7 +50,7 @@ const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
     />
     {/* Aile droite */}
     <path 
-      className="bird-wing-right"
+      className={styles.birdWingRight}
       d="M20 10 Q30 2, 38 8" 
       stroke={color} 
       strokeWidth="2.5" 
@@ -128,8 +128,6 @@ const generateBirds = (numberOfProjects) => {
   
   return birds;
 };
-
-// Les oiseaux seront générés dans le composant avec le nombre de projets
 
 // Liste des projets
 const projects = [
@@ -287,19 +285,19 @@ const ProjectCard = ({ project, index, t }) => {
   useFloatingAnimation(cardRef, seed);
   
   return (
-    <div className="project-section">
+    <div className={styles.projectSection}>
       <article 
         ref={cardRef}
-        className={`project-card ${index % 2 === 0 ? 'card-left' : 'card-right'}`}
+        className={`${styles.projectCard} ${index % 2 === 0 ? styles.cardLeft : styles.cardRight}`}
       >
         {/* Ballon avec ficelle intégrée */}
-        <div className="balloon-container">
+        <div className={styles.balloonContainer}>
           <Balloon color={project.color} />
         </div>
         
         {/* Contenu */}
-        <div className="card-content">
-          <div className="project-image">
+        <div className={styles.cardContent}>
+          <div className={styles.projectImage}>
             <img 
               src={project.image} 
               alt={t(project.titleKey)}
@@ -308,17 +306,17 @@ const ProjectCard = ({ project, index, t }) => {
               }}
             />
           </div>
-          <div className="project-info">
+          <div className={styles.projectInfo}>
             <h2>{t(project.titleKey)}</h2>
             <p>{t(project.descriptionKey)}</p>
-            <div className="project-tags">
+            <div className={styles.projectTags}>
               {project.tags.map((tag, i) => (
-                <span key={i} className="tag">{tag}</span>
+                <span key={i} className={styles.tag}>{tag}</span>
               ))}
             </div>
             <Link 
               to={`/project/${project.id}`} 
-              className="project-link"
+              className={styles.projectLink}
               onClick={() => sessionStorage.setItem('projectsPage_fromProject', 'true')}
             >
               {t('viewProject')} →
@@ -337,12 +335,37 @@ const CLOUD_SPEEDS = ['slow', 'normal', 'fast'];
 
 // Opacité liée à la taille (plus petit = plus loin = moins visible)
 const SIZE_TO_OPACITY = {
-  'xsmall': 'very-light',
+  'xsmall': 'veryLight',
   'small': 'light',
-  'medium': 'medium-light',
+  'medium': 'mediumLight',
   'large': 'medium',
-  'xlarge': 'medium-dark',
+  'xlarge': 'mediumDark',
   'xxlarge': 'dark'
+};
+
+// Map des classes CSS
+const SIZE_TO_CLASS = {
+  'xsmall': 'sizeXsmall',
+  'small': 'sizeSmall',
+  'medium': 'sizeMedium',
+  'large': 'sizeLarge',
+  'xlarge': 'sizeXlarge',
+  'xxlarge': 'sizeXxlarge'
+};
+
+const OPACITY_TO_CLASS = {
+  'veryLight': 'opacityVeryLight',
+  'light': 'opacityLight',
+  'mediumLight': 'opacityMediumLight',
+  'medium': 'opacityMedium',
+  'mediumDark': 'opacityMediumDark',
+  'dark': 'opacityDark'
+};
+
+const SPEED_TO_CLASS = {
+  'slow': 'speedSlow',
+  'normal': 'speedNormal',
+  'fast': 'speedFast'
 };
 
 // Générer les nuages avec distribution équilibrée et superpositions naturelles
@@ -522,72 +545,72 @@ const ProjectsPage = () => {
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
-      <div className="projects-page" ref={pageRef}>
+      <div className={styles.projectsPage} ref={pageRef}>
         {/* Oiseaux décoratifs en arrière-plan */}
-        <div className="background-birds">
+        <div className={styles.backgroundBirds}>
           {decorativeBirds.map((bird) => (
             <div
               key={bird.id}
-              className={`flying-bird direction-${bird.direction}`}
+              className={`${styles.flyingBird} ${bird.direction === 'left' ? styles.directionLeft : styles.directionRight}`}
               style={{
                 top: bird.top,
                 left: bird.left,
-              right: bird.right,
-              animationDuration: `${bird.duration}s`,
-              animationDelay: `${bird.delay - animationOffset}s`,
-            }}
-          >
-            <Bird size={bird.size} direction={bird.direction} />
+                right: bird.right,
+                animationDuration: `${bird.duration}s`,
+                animationDelay: `${bird.delay - animationOffset}s`,
+              }}
+            >
+              <Bird size={bird.size} direction={bird.direction} />
+            </div>
+          ))}
+        </div>
+
+        {/* Nuages décoratifs en arrière-plan */}
+        <div className={styles.backgroundClouds}>
+          {decorativeClouds.map((cloud) => (
+            <img
+              key={cloud.id}
+              src={`/images/${cloud.image}`}
+              alt=""
+              className={`${styles.bgCloud} ${styles[SIZE_TO_CLASS[cloud.size]]} ${styles[OPACITY_TO_CLASS[cloud.opacity]]} ${cloud.direction === 'left' ? styles.directionLeft : styles.directionRight} ${styles[SPEED_TO_CLASS[cloud.speed]]}`}
+              style={{ 
+                top: cloud.top,
+                animationDelay: `${cloud.delay - animationOffset}s`
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Navigation */}
+        <nav className={styles.projectsNav}>
+          <div className={styles.navLinks}>
+            <Link to="/" className={styles.navLink}>{t('home')}</Link>
+            <Link to="/about" className={styles.navLink}>{t('about')}</Link>
+            <Link to="/projects" className={`${styles.navLink} ${styles.active}`}>{t('projects')}</Link>
+            <Link to="/contact" className={styles.navLink}>{t('contact')}</Link>
           </div>
-        ))}
-      </div>
+          <div className={styles.navLanguage}>
+            <LanguageSwitcher />
+          </div>
+        </nav>
 
-      {/* Nuages décoratifs en arrière-plan */}
-      <div className="background-clouds">
-        {decorativeClouds.map((cloud) => (
-          <img
-            key={cloud.id}
-            src={`/images/${cloud.image}`}
-            alt=""
-            className={`bg-cloud size-${cloud.size} opacity-${cloud.opacity} direction-${cloud.direction} speed-${cloud.speed}`}
-            style={{ 
-              top: cloud.top,
-              animationDelay: `${cloud.delay - animationOffset}s`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Navigation */}
-      <nav className="projects-nav">
-        <div className="nav-links">
-          <Link to="/" className="nav-link">{t('home')}</Link>
-          <Link to="/about" className="nav-link">{t('about')}</Link>
-          <Link to="/projects" className="nav-link active">{t('projects')}</Link>
-          <Link to="/contact" className="nav-link">{t('contact')}</Link>
+        {/* Titre */}
+        <div className={styles.projectsTitleContainer}>
+          <h1 className={styles.projectsTitle}>{t('projectsPageTitle')}</h1>
         </div>
-        <div className="nav-language">
-          <LanguageSwitcher />
+
+        {/* Contenu principal - Projets */}
+        <div className={styles.projectsContent}>
+          {projects.map((project, index) => (
+            <ProjectCard 
+              key={project.id}
+              project={project}
+              index={index}
+              t={t}
+            />
+          ))}
         </div>
-      </nav>
-
-      {/* Titre */}
-      <div className="projects-title-container">
-        <h1 className="projects-title">{t('projectsPageTitle')}</h1>
       </div>
-
-      {/* Contenu principal - Projets */}
-      <div className="projects-content">
-        {projects.map((project, index) => (
-          <ProjectCard 
-            key={project.id}
-            project={project}
-            index={index}
-            t={t}
-          />
-        ))}
-      </div>
-    </div>
     </>
   );
 };

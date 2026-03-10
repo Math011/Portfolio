@@ -1,5 +1,5 @@
 /* Page Détail Projet - Même style que ProjectsPage */
-.project-detail-page {
+.projectDetailPage {
   min-height: 100vh;
   background: #FFEA93;
   color: #4A3728;
@@ -13,8 +13,8 @@
   z-index: 100;
 }
 
-/* Oiseaux et nuages - mêmes styles que ProjectsPage */
-.project-detail-page .background-birds {
+/* Oiseaux et nuages */
+.backgroundBirds {
   position: absolute;
   top: 0;
   left: 0;
@@ -24,20 +24,20 @@
   overflow: visible;
 }
 
-.project-detail-page .flying-bird {
+.flyingBird {
   position: absolute;
   opacity: 0.6;
 }
 
-.project-detail-page .flying-bird.direction-right {
+.flyingBird.directionRight {
   animation: flyRight linear infinite;
 }
 
-.project-detail-page .flying-bird.direction-left {
+.flyingBird.directionLeft {
   animation: flyLeft linear infinite;
 }
 
-.project-detail-page .background-clouds {
+.backgroundClouds {
   position: absolute;
   top: 0;
   left: 0;
@@ -47,31 +47,31 @@
   overflow: visible;
 }
 
-.project-detail-page .bg-cloud {
+.bgCloud {
   position: absolute;
   height: auto;
   opacity: 0.4;
 }
 
-.project-detail-page .bg-cloud.size-small { width: 120px; }
-.project-detail-page .bg-cloud.size-medium { width: 200px; }
-.project-detail-page .bg-cloud.size-large { width: 300px; }
-.project-detail-page .bg-cloud.size-xlarge { width: 420px; }
+.sizeSmall { width: 120px; }
+.sizeMedium { width: 200px; }
+.sizeLarge { width: 300px; }
+.sizeXlarge { width: 420px; }
 
-.project-detail-page .bg-cloud.direction-left {
+.directionLeft {
   animation: cloudMoveLeft linear infinite;
 }
 
-.project-detail-page .bg-cloud.direction-right {
+.directionRight {
   animation: cloudMoveRight linear infinite;
 }
 
-.project-detail-page .bg-cloud.speed-slow { animation-duration: 80s; }
-.project-detail-page .bg-cloud.speed-normal { animation-duration: 55s; }
-.project-detail-page .bg-cloud.speed-fast { animation-duration: 35s; }
+.speedSlow { animation-duration: 80s; }
+.speedNormal { animation-duration: 55s; }
+.speedFast { animation-duration: 35s; }
 
 /* Navigation */
-.project-detail-nav {
+.projectDetailNav {
   position: fixed;
   top: 0;
   left: 0;
@@ -83,7 +83,7 @@
   align-items: center;
 }
 
-.project-detail-nav .nav-links {
+.navLinks {
   display: flex;
   gap: 0.5rem;
   background: rgba(255, 255, 255, 0.95);
@@ -92,7 +92,7 @@
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
-.project-detail-nav .nav-link {
+.navLink {
   color: #4A3728;
   text-decoration: none;
   font-size: 0.9rem;
@@ -102,24 +102,24 @@
   transition: all 0.3s ease;
 }
 
-.project-detail-nav .nav-link:hover {
+.navLink:hover {
   background: rgba(124, 179, 66, 0.15);
   color: #7CB342;
 }
 
-.project-detail-nav .nav-link.active {
+.active {
   background: #7CB342;
   color: #fff;
 }
 
-.project-detail-nav .nav-language {
+.navLanguage {
   position: absolute;
   right: 2rem;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.back-link {
+.backLink {
   color: #4A3728;
   text-decoration: none;
   font-size: 0.9rem;
@@ -131,14 +131,14 @@
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
-.back-link:hover {
+.backLink:hover {
   background: #fff;
   transform: translateY(-2px);
   color: #7CB342;
 }
 
 /* Contenu principal */
-.project-detail-content {
+.projectDetailContent {
   max-width: 900px;
   margin: 0 auto;
   padding: 5rem 2rem 3rem;
@@ -147,23 +147,23 @@
 }
 
 /* En-tête avec ballon */
-.project-header {
+.projectHeader {
   text-align: center;
   margin-bottom: 2rem;
   position: relative;
 }
 
-.balloon-decoration {
+.balloonDecoration {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
 }
 
-.header-balloon {
+.headerBalloon {
   filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.2));
 }
 
-.project-title {
+.projectTitle {
   font-size: 2.5rem;
   color: #4A3728;
   font-weight: 700;
@@ -171,7 +171,7 @@
 }
 
 /* Image principale */
-.project-main-image {
+.projectMainImage {
   background: #fff;
   border-radius: 20px;
   overflow: hidden;
@@ -179,7 +179,7 @@
   margin-bottom: 1.5rem;
 }
 
-.project-main-image img {
+.projectMainImage img {
   width: 100%;
   height: auto;
   max-height: 500px;
@@ -188,17 +188,17 @@
 }
 
 /* Galerie */
-.project-gallery {
+.projectGallery {
   margin-bottom: 2rem;
 }
 
-.project-gallery h3 {
+.projectGallery h3 {
   font-size: 1.2rem;
   color: #4A3728;
   margin-bottom: 1rem;
 }
 
-.gallery-thumbnails {
+.galleryThumbnails {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
@@ -235,7 +235,7 @@
 }
 
 /* Section infos */
-.project-info-section {
+.projectInfoSection {
   background: #fff;
   border-radius: 20px;
   padding: 2rem;
@@ -244,34 +244,34 @@
 }
 
 /* Description */
-.project-description {
+.projectDescription {
   margin-bottom: 2rem;
 }
 
-.project-description p {
+.projectDescription p {
   font-size: 1rem;
   line-height: 1.8;
   color: #555;
 }
 
 /* Technologies */
-.project-technologies {
+.projectTechnologies {
   margin-bottom: 2rem;
 }
 
-.project-technologies h3 {
+.projectTechnologies h3 {
   font-size: 1.1rem;
   color: #4A3728;
   margin-bottom: 1rem;
 }
 
-.tech-tags {
+.techTags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
 }
 
-.tech-tag {
+.techTag {
   color: #fff;
   padding: 0.4rem 1rem;
   border-radius: 20px;
@@ -280,13 +280,13 @@
 }
 
 /* Liens */
-.project-links {
+.projectLinks {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-.project-btn {
+.projectBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -298,27 +298,27 @@
   transition: all 0.3s ease;
 }
 
-.github-btn {
+.githubBtn {
   background: #24292e;
   color: #fff;
 }
 
-.github-btn:hover {
+.githubBtn:hover {
   background: #1a1e22;
   transform: translateY(-2px);
 }
 
-.live-btn {
+.liveBtn {
   color: #fff;
 }
 
-.live-btn:hover {
+.liveBtn:hover {
   transform: translateY(-2px);
   filter: brightness(1.1);
 }
 
 /* Navigation entre projets */
-.project-navigation {
+.projectNavigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -326,7 +326,7 @@
   padding-top: 1rem;
 }
 
-.nav-btn {
+.navBtn {
   padding: 0.8rem 1.5rem;
   border-radius: 25px;
   font-weight: 600;
@@ -338,28 +338,28 @@
   box-shadow: 0 4px 15px rgba(74, 55, 40, 0.1);
 }
 
-.nav-btn:hover {
+.navBtn:hover {
   background: #fff;
   transform: translateY(-2px);
   color: #7CB342;
 }
 
-.all-btn {
+.allBtn {
   background: #7CB342;
   color: #fff;
 }
 
-.all-btn:hover {
+.allBtn:hover {
   background: #689F38;
   color: #fff;
 }
 
-.nav-placeholder {
+.navPlaceholder {
   width: 140px;
 }
 
 /* Projet non trouvé */
-.project-not-found {
+.projectNotFound {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -368,12 +368,12 @@
   gap: 1rem;
 }
 
-.project-not-found h1 {
+.projectNotFound h1 {
   font-size: 2rem;
   color: #4A3728;
 }
 
-/* Animations - reprises de ProjectsPage */
+/* Animations */
 @keyframes flyRight {
   0% { transform: translateX(-50px) translateY(0); }
   25% { transform: translateX(25vw) translateY(-20px); }
@@ -400,12 +400,12 @@
   100% { transform: translateX(-100%); }
 }
 
-.bird-wing-left {
+.birdWingLeft {
   animation: flapLeft 0.3s ease-in-out infinite;
   transform-origin: 20px 10px;
 }
 
-.bird-wing-right {
+.birdWingRight {
   animation: flapRight 0.3s ease-in-out infinite;
   transform-origin: 20px 10px;
 }
@@ -422,15 +422,15 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .project-detail-content {
+  .projectDetailContent {
     padding: 4.5rem 1rem 2rem;
   }
 
-  .project-title {
+  .projectTitle {
     font-size: 1.8rem;
   }
 
-  .project-info-section {
+  .projectInfoSection {
     padding: 1.5rem;
   }
 
@@ -439,69 +439,69 @@
     height: 60px;
   }
 
-  .project-navigation {
+  .projectNavigation {
     flex-direction: column;
   }
 
-  .nav-btn {
+  .navBtn {
     width: 100%;
     text-align: center;
   }
 
-  .nav-placeholder {
+  .navPlaceholder {
     display: none;
   }
 
-  .project-links {
+  .projectLinks {
     flex-direction: column;
   }
 
-  .project-btn {
+  .projectBtn {
     justify-content: center;
   }
 
-  .project-detail-nav .nav-links {
+  .navLinks {
     padding: 0.4rem 0.6rem;
     gap: 0.3rem;
   }
 
-  .project-detail-nav .nav-link {
+  .navLink {
     font-size: 0.8rem;
     padding: 0.4rem 0.7rem;
   }
 
-  .project-detail-nav .nav-language {
+  .navLanguage {
     right: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .project-detail-nav {
+  .projectDetailNav {
     padding: 0.8rem 1rem;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .project-detail-nav .nav-links {
+  .navLinks {
     order: 1;
   }
 
-  .project-detail-nav .nav-language {
+  .navLanguage {
     position: static;
     transform: none;
     order: 2;
   }
 
-  .project-detail-nav .nav-link {
+  .navLink {
     font-size: 0.75rem;
     padding: 0.35rem 0.5rem;
   }
 
-  .project-title {
+  .projectTitle {
     font-size: 1.5rem;
   }
 
-  .gallery-thumbnails {
+  .galleryThumbnails {
     gap: 0.5rem;
   }
 

@@ -1,5 +1,5 @@
 /* Barre de progression */
-.progress-container {
+.progressContainer {
   position: fixed;
   top: 100px;
   left: 0;
@@ -9,7 +9,7 @@
   pointer-events: none;
 }
 
-.progress-bar {
+.progressBar {
   position: relative;
   height: 12px;
   background: linear-gradient(to right, #8B7355, #A0845C, #8B7355);
@@ -23,7 +23,7 @@
   overflow: visible;
 }
 
-.progress-fill {
+.progressFill {
   height: 100%;
   background: linear-gradient(to right, #F4D03F, #F7DC6F, #F8C471);
   border-radius: 4px;
@@ -31,7 +31,7 @@
   position: relative;
 }
 
-.progress-fill::after {
+.progressFill::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -41,17 +41,16 @@
   background: #F39C12;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  animation: dash-move 2s linear infinite;
+  animation: dashMove 2s linear infinite;
 }
 
-@keyframes dash-move {
+@keyframes dashMove {
   0% { left: 0%; }
   100% { left: 100%; }
 }
 
 /* Étapes */
-
-.progress-step {
+.progressStep {
   position: absolute;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
@@ -61,11 +60,11 @@
   cursor: pointer;
 }
 
-.progress-step:hover .step-icon {
+.progressStep:hover .stepIcon {
   transform: scale(1.15);
 }
 
-.step-icon {
+.stepIcon {
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -83,7 +82,7 @@
   cursor: pointer;
 }
 
-.step-active {
+.stepActive {
   background: linear-gradient(135deg, #7CB342, #8BC34A);
   border-color: #689F38;
   color: white;
@@ -93,23 +92,23 @@
     0 0 15px rgba(139, 195, 74, 0.3);
 }
 
-.step-active::before {
+.stepActive::before {
   content: '';
   position: absolute;
   inset: -6px;
   border-radius: 50%;
   border: 2px solid #8BC34A;
   opacity: 0.3;
-  animation: pulse-ring 2s infinite;
+  animation: pulseRing 2s infinite;
 }
 
-@keyframes pulse-ring {
+@keyframes pulseRing {
   0% { transform: scale(0.8); opacity: 0.3; }
   50% { transform: scale(1.1); opacity: 0.1; }
   100% { transform: scale(1.3); opacity: 0; }
 }
 
-.step-inactive {
+.stepInactive {
   background: linear-gradient(135deg, #F8F9FA, #E9ECEF);
   border-color: #ADB5BD;
   color: #6C757D;
@@ -120,8 +119,7 @@
 }
 
 /* Labels */
-
-.step-label {
+.stepLabel {
   position: absolute;
   top: 65px;
   left: 50%;
@@ -130,7 +128,7 @@
   z-index: 12;
 }
 
-.label-text {
+.labelText {
   font-size: 14px;
   font-weight: 700;
   padding: 8px 14px;
@@ -141,7 +139,7 @@
   cursor: pointer;
 }
 
-.label-active {
+.labelActive {
   background: linear-gradient(135deg, #7CB342, #8BC34A);
   color: white;
   transform: translateY(-6px);
@@ -150,7 +148,7 @@
     0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.label-inactive {
+.labelInactive {
   background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
   color: #495057;
   border: 2px solid #DEE2E6;
@@ -158,8 +156,7 @@
 }
 
 /* Ligne d'arrivée */
-
-.finish-line {
+.finishLine {
   position: absolute;
   right: -30px;
   top: 50%;
@@ -167,7 +164,7 @@
   z-index: 11;
 }
 
-.finish-icon {
+.finishIcon {
   width: 55px;
   height: 55px;
   background: linear-gradient(135deg, #E74C3C, #C0392B);
@@ -182,44 +179,43 @@
   box-shadow: 
     0 4px 20px rgba(231, 76, 60, 0.4),
     inset 0 1px 3px rgba(255, 255, 255, 0.2);
-  animation: finish-pulse 3s infinite;
+  animation: finishPulse 3s infinite;
   position: relative;
 }
 
-.finish-icon::before {
+.finishIcon::before {
   content: '';
   position: absolute;
   inset: -8px;
   border-radius: 50%;
   border: 2px solid #E74C3C;
   opacity: 0.2;
-  animation: finish-ring 3s infinite;
+  animation: finishRing 3s infinite;
 }
 
-@keyframes finish-pulse {
+@keyframes finishPulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
 }
 
-@keyframes finish-ring {
+@keyframes finishRing {
   0% { transform: scale(0.8); opacity: 0.2; }
   50% { transform: scale(1.2); opacity: 0.1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
 /* Responsive */
-
 @media (max-width: 1024px) {
-  .progress-container { padding: 0 2rem; }
-  .step-icon { width: 40px; height: 40px; font-size: 16px; }
-  .label-text { font-size: 13px; padding: 6px 12px; }
-  .finish-icon { width: 50px; height: 50px; font-size: 20px; }
+  .progressContainer { padding: 0 2rem; }
+  .stepIcon { width: 40px; height: 40px; font-size: 16px; }
+  .labelText { font-size: 13px; padding: 6px 12px; }
+  .finishIcon { width: 50px; height: 50px; font-size: 20px; }
 }
 
 @media (max-width: 768px) {
-  .progress-container { padding: 0 1rem; }
-  .step-icon { width: 35px; height: 35px; font-size: 14px; }
-  .label-text { font-size: 12px; padding: 5px 10px; }
-  .finish-icon { width: 45px; height: 45px; font-size: 18px; }
-  .step-label { top: 55px; }
+  .progressContainer { padding: 0 1rem; }
+  .stepIcon { width: 35px; height: 35px; font-size: 14px; }
+  .labelText { font-size: 12px; padding: 5px 10px; }
+  .finishIcon { width: 45px; height: 45px; font-size: 18px; }
+  .stepLabel { top: 55px; }
 }

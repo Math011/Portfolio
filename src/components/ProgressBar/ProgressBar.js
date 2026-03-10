@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { journeySteps } from '../../data/journeySteps';
-import './ProgressBar.css';
+import styles from './ProgressBar.module.css';
 
 const ProgressBar = ({ progress, activeSection, onNavigate }) => {
   const { t } = useLanguage();
@@ -15,31 +15,31 @@ const ProgressBar = ({ progress, activeSection, onNavigate }) => {
   };
 
   return (
-    <div className="progress-container">
-      <div className="progress-bar">
+    <div className={styles.progressContainer}>
+      <div className={styles.progressBar}>
         <div 
-          className="progress-fill"
+          className={styles.progressFill}
           style={{ width: `${progress}%` }}
         />
         
         {journeySteps.map((step) => (
           <div
             key={step.id}
-            className="progress-step"
+            className={styles.progressStep}
             style={{ left: `${step.position}%` }}
           >
             <div 
-              className={`step-icon ${
-                progress >= step.position ? 'step-active' : 'step-inactive'
+              className={`${styles.stepIcon} ${
+                progress >= step.position ? styles.stepActive : styles.stepInactive
               }`}
               onClick={() => onNavigate(step.position)}
             >
               {step.icon}
             </div>
-            <div className="step-label">
+            <div className={styles.stepLabel}>
               <span 
-                className={`label-text ${
-                  activeSection === step.id ? 'label-active' : 'label-inactive'
+                className={`${styles.labelText} ${
+                  activeSection === step.id ? styles.labelActive : styles.labelInactive
                 }`}
                 onClick={() => onNavigate(step.position)}
               >
@@ -49,8 +49,8 @@ const ProgressBar = ({ progress, activeSection, onNavigate }) => {
           </div>
         ))}
         
-        <div className="finish-line">
-          <div className="finish-icon">🏁</div>
+        <div className={styles.finishLine}>
+          <div className={styles.finishIcon}>🏁</div>
         </div>
       </div>
     </div>

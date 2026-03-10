@@ -1,4 +1,4 @@
-.projects-menu {
+.projectsMenu {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   z-index: 5;
 }
 
-.projects-section-title {
+.sectionTitle {
   position: absolute;
   font-size: 3rem;
   font-weight: 700;
@@ -24,7 +24,7 @@
   will-change: transform, opacity;
 }
 
-.project-card {
+.projectCard {
   position: absolute;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
@@ -38,7 +38,7 @@
   pointer-events: auto;
 }
 
-.project-title {
+.projectTitle {
   font-size: 1.8rem;
   font-weight: 700;
   color: #333;
@@ -46,7 +46,7 @@
   font-family: 'Arial', sans-serif;
 }
 
-.project-description {
+.projectDescription {
   font-size: 1rem;
   line-height: 1.6;
   color: #555;
@@ -54,7 +54,7 @@
   font-family: 'Arial', sans-serif;
 }
 
-.project-link {
+.projectLink {
   display: inline-block;
   padding: 12px 30px;
   background: linear-gradient(135deg, #7CB342, #8BC34A);
@@ -68,13 +68,13 @@
   box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
 }
 
-.project-link:hover {
+.projectLink:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
 }
 
 /* Carte "Voir tous les projets" - Design épuré */
-.view-all-card {
+.viewAllCard {
   text-decoration: none;
   background: rgba(255, 255, 255, 0.95);
   cursor: pointer;
@@ -82,47 +82,47 @@
   padding: 30px 50px;
 }
 
-.view-all-card:hover {
+.viewAllCard:hover {
   transform: scale(1.02);
   box-shadow: 
     0 15px 50px rgba(0, 0, 0, 0.15),
     0 0 30px rgba(0, 0, 0, 0.05);
 }
 
-.view-all-card .project-title {
+.viewAllCard .projectTitle {
   color: #7CB342;
   margin: 0;
   font-size: 1.5rem;
 }
 
-.view-all-content {
+.viewAllContent {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.view-all-icon {
+.viewAllIcon {
   font-size: 1.5rem;
   color: #7CB342;
   transition: transform 0.3s ease;
 }
 
-.view-all-card:hover .view-all-icon {
+.viewAllCard:hover .viewAllIcon {
   transform: translateX(5px);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .project-card {
+  .projectCard {
     margin: 0 20px;
     padding: 30px 20px;
   }
   
-  .project-title {
+  .projectTitle {
     font-size: 1.4rem;
   }
   
-  .project-description {
+  .projectDescription {
     font-size: 0.95rem;
   }
 }

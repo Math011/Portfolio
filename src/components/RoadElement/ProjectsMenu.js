@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { projects } from '../../data/projects';
-import './ProjectsMenu.css';
+import styles from './ProjectsMenu.module.css';
 
 const ProjectsMenu = ({ progress }) => {
   const { t } = useLanguage();
@@ -65,28 +65,28 @@ const ProjectsMenu = ({ progress }) => {
   if (!titleStyles && visibleProjects.length === 0 && !viewAllStyles) return null;
 
   return (
-    <div className="projects-menu">
+    <div className={styles.projectsMenu}>
       {/* Titre */}
       {titleStyles && (
-        <h2 className="projects-section-title" style={titleStyles}>
+        <h2 className={styles.sectionTitle} style={titleStyles}>
           {t('projectsTitle')}
         </h2>
       )}
       
       {/* Cartes projets */}
       {projects.map((project, index) => {
-        const styles = getProjectStyles(index);
-        if (!styles) return null;
+        const cardStyles = getProjectStyles(index);
+        if (!cardStyles) return null;
 
         return (
           <div 
             key={project.id}
-            className="project-card"
-            style={styles}
+            className={styles.projectCard}
+            style={cardStyles}
           >
-            <h2 className="project-title">{t(project.titleKey)}</h2>
-            <p className="project-description">{t(project.descriptionKey)}</p>
-            <Link to={`/project/${project.id}`} className="project-link">
+            <h2 className={styles.projectTitle}>{t(project.titleKey)}</h2>
+            <p className={styles.projectDescription}>{t(project.descriptionKey)}</p>
+            <Link to={`/project/${project.id}`} className={styles.projectLink}>
               {t('projectLink')}
             </Link>
           </div>
@@ -97,12 +97,12 @@ const ProjectsMenu = ({ progress }) => {
       {viewAllStyles && (
         <Link 
           to="/projects"
-          className="project-card view-all-card"
+          className={`${styles.projectCard} ${styles.viewAllCard}`}
           style={viewAllStyles}
         >
-          <div className="view-all-content">
-            <h2 className="project-title">{t('viewAllProjects')}</h2>
-            <span className="view-all-icon">→</span>
+          <div className={styles.viewAllContent}>
+            <h2 className={styles.projectTitle}>{t('viewAllProjects')}</h2>
+            <span className={styles.viewAllIcon}>→</span>
           </div>
         </Link>
       )}

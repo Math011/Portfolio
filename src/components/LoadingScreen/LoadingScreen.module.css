@@ -1,4 +1,4 @@
-.loading-screen {
+.loadingScreen {
   position: fixed;
   top: 0;
   left: 0;
@@ -23,11 +23,11 @@
   }
 }
 
-.loading-content {
+.content {
   text-align: center;
 }
 
-.loading-road {
+.road {
   width: 80px;
   height: 150px;
   background: #4A4A4A;
@@ -37,7 +37,7 @@
   overflow: hidden;
 }
 
-.loading-line {
+.line {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -62,7 +62,7 @@
   }
 }
 
-.loading-text {
+.text {
   font-size: 1.2rem;
   color: #5D4E37;
   font-family: 'Arial', sans-serif;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import './AboutMenu.css';
+import styles from './AboutMenu.module.css';
 
 const AboutMenu = ({ progress }) => {
   const { t } = useLanguage();
@@ -49,22 +49,22 @@ const AboutMenu = ({ progress }) => {
   if (!titleStyles && !cardStyles) return null;
 
   return (
-    <div className="about-menu">
+    <div className={styles.aboutMenu}>
       {/* Titre */}
       {titleStyles && (
-        <h2 className="about-section-title" style={titleStyles}>
+        <h2 className={styles.sectionTitle} style={titleStyles}>
           {t('aboutTitle')}
         </h2>
       )}
       
       {/* Carte */}
       {cardStyles && (
-        <div className="about-card" style={cardStyles}>
-          <h2 className="about-title">{t('about')}</h2>
-          <p className="about-description">
+        <div className={styles.card} style={cardStyles}>
+          <h2 className={styles.title}>{t('about')}</h2>
+          <p className={styles.description}>
             {t('aboutDescription')}
           </p>
-          <a href="/about" className="about-link">
+          <a href="/about" className={styles.link}>
             {t('aboutLink')}
           </a>
         </div>
