@@ -279,13 +279,13 @@ const ProjectCard = ({ project, index, t }) => {
         {/* Contenu */}
         <div className="card-content">
           <div className="project-image">
-            <img 
+            {/* <img 
               src={project.image} 
               alt={t(project.titleKey)}
               onError={(e) => {
                 e.target.src = 'https://via.placeholder.com/300x200/FFEA93/4A3728?text=Projet';
               }}
-            />
+            /> */}
           </div>
           <div className="project-info">
             <h2>{t(project.titleKey)}</h2>
