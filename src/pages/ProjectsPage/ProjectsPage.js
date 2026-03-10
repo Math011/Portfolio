@@ -70,7 +70,7 @@ const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
 const generateBirds = (numberOfProjects) => {
   const birds = [];
   const birdsPerZone = 5;
-  const zoneHeight = 500;
+  const zoneHeight = 450;
   
   // Seed aléatoire unique à chaque chargement
   const randomSeed = Math.random() * 10000;
@@ -298,13 +298,13 @@ const ProjectCard = ({ project, index, t }) => {
         {/* Contenu */}
         <div className={styles.cardContent}>
           <div className={styles.projectImage}>
-            <img 
+            {/* <img 
               src={project.image} 
               alt={t(project.titleKey)}
               onError={(e) => {
                 e.target.src = 'https://via.placeholder.com/300x200/FFEA93/4A3728?text=Projet';
               }}
-            />
+            /> */}
           </div>
           <div className={styles.projectInfo}>
             <h2>{t(project.titleKey)}</h2>
@@ -371,7 +371,7 @@ const SPEED_TO_CLASS = {
 // Générer les nuages avec distribution équilibrée et superpositions naturelles
 const generateClouds = (numberOfProjects) => {
   const clouds = [];
-  const zoneHeight = 400;
+  const zoneHeight = 450;
   
   // Seed aléatoire unique à chaque chargement de page
   const randomSeed = Math.random() * 10000;
