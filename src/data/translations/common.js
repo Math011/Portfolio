@@ -13,6 +13,7 @@ export const commonTranslations = {
     // Boutons génériques
     learnMore: "En savoir plus →",
     viewProject: "Voir le projet",
+    viewAllProjects: "Voir tous mes projets",
     getInTouch: "Me contacter →",
     backToHome: "Retour",
   },
@@ -30,6 +31,7 @@ export const commonTranslations = {
     // Boutons génériques
     learnMore: "Learn more →",
     viewProject: "View project",
+    viewAllProjects: "View all my projects",
     getInTouch: "Get in touch →",
     backToHome: "Back",
   }

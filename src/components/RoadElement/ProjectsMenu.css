@@ -73,6 +73,44 @@
   box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
 }
 
+/* Carte "Voir tous les projets" - Design épuré */
+.view-all-card {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 30px 50px;
+}
+
+.view-all-card:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 15px 50px rgba(0, 0, 0, 0.15),
+    0 0 30px rgba(0, 0, 0, 0.05);
+}
+
+.view-all-card .project-title {
+  color: #7CB342;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.view-all-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.view-all-icon {
+  font-size: 1.5rem;
+  color: #7CB342;
+  transition: transform 0.3s ease;
+}
+
+.view-all-card:hover .view-all-icon {
+  transform: translateX(5px);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .project-card {

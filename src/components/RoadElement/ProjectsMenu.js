@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { projects } from '../../data/projects';
 import './ProjectsMenu.css';
@@ -13,7 +14,8 @@ const ProjectsMenu = ({ progress }) => {
   const sectionStart = 45;
   const sectionEnd = 61;
   const sectionRange = sectionEnd - sectionStart;
-  const projectDuration = sectionRange / projects.length;
+  const totalCards = projects.length + 1; // +1 pour la carte "voir tous"
+  const projectDuration = sectionRange / totalCards;
 
   // Fonction pour calculer les styles d'animation
   const getStyles = (start, end) => {
@@ -53,10 +55,14 @@ const ProjectsMenu = ({ progress }) => {
   };
 
   const titleStyles = getStyles(titleStart, titleEnd);
+  
+  // Styles pour la carte "voir tous les projets" (dernière carte)
+  const viewAllStyles = getProjectStyles(projects.length);
+  
   const visibleProjects = projects.map((_, index) => getProjectStyles(index)).filter(Boolean);
 
   // Si rien n'est visible, ne rien afficher
-  if (!titleStyles && visibleProjects.length === 0) return null;
+  if (!titleStyles && visibleProjects.length === 0 && !viewAllStyles) return null;
 
   return (
     <div className="projects-menu">
@@ -80,12 +86,26 @@ const ProjectsMenu = ({ progress }) => {
           >
             <h2 className="project-title">{t(project.titleKey)}</h2>
             <p className="project-description">{t(project.descriptionKey)}</p>
-            <a href={project.link} className="project-link">
+            <Link to={`/project/${project.id}`} className="project-link">
               {t('projectLink')}
-            </a>
+            </Link>
           </div>
         );
       })}
+
+      {/* Carte "Voir tous les projets" */}
+      {viewAllStyles && (
+        <Link 
+          to="/projects"
+          className="project-card view-all-card"
+          style={viewAllStyles}
+        >
+          <div className="view-all-content">
+            <h2 className="project-title">{t('viewAllProjects')}</h2>
+            <span className="view-all-icon">→</span>
+          </div>
+        </Link>
+      )}
     </div>
   );
 };
