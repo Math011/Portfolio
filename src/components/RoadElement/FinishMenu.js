@@ -1,11 +1,11 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import './FinishMenu.css';
+import styles from './FinishMenu.module.css';
 
 const FinishMenu = ({ progress, onRestart }) => {
   const { t } = useLanguage();
   
-  // Visible entre 85% et 100%
+ // Visible entre 85% et 100%
   const startProgress = 88;
   const endProgress = 100;
   
@@ -32,14 +32,14 @@ const FinishMenu = ({ progress, onRestart }) => {
   }
 
   return (
-    <div className="finish-menu">
+    <div className={styles.finishMenu}>
       {/* Confettis - apparaissent à 95% */}
       {showConfetti && (
-        <div className="confetti-container">
+        <div className={styles.confettiContainer}>
           {[...Array(20)].map((_, i) => (
             <div 
               key={i} 
-              className="confetti"
+              className={styles.confetti}
               style={{
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 2}s`,
@@ -52,17 +52,17 @@ const FinishMenu = ({ progress, onRestart }) => {
       
       {/* Message de fin */}
       <div 
-        className="finish-content"
+        className={styles.content}
         style={{
           transform: `translateY(${translateY}px) scale(${scale})`,
           opacity: opacity
         }}
       >
-        <div className="finish-flag">🏁</div>
-        <h2 className="finish-title">{t('finishTitle')}</h2>
-        <p className="finish-subtitle">{t('finishSubtitle')}</p>
+        <div className={styles.flag}>🏁</div>
+        <h2 className={styles.title}>{t('finishTitle')}</h2>
+        <p className={styles.subtitle}>{t('finishSubtitle')}</p>
         <button 
-          className="finish-restart"
+          className={styles.restart}
           onClick={onRestart}
         >
           {t('finishRestart')}

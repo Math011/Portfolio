@@ -1,5 +1,5 @@
 /* Container - position gérée par le parent */
-.language-switcher {
+.languageSwitcher {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 8px 16px;
@@ -12,14 +12,14 @@
 }
 
 /* Version fixe pour la HomePage */
-.language-switcher.fixed {
+.fixed {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 1000;
 }
 
-.lang-option {
+.langOption {
   background: none;
   border: none;
   padding: 4px 8px;
@@ -34,16 +34,16 @@
   transition: all 0.3s ease;
 }
 
-.lang-option:hover {
+.langOption:hover {
   color: #666;
 }
 
-.lang-option.active {
+.active {
   color: #7CB342;
   background: rgba(124, 179, 66, 0.1);
 }
 
-.lang-separator {
+.langSeparator {
   color: #ddd;
   font-weight: 300;
 }

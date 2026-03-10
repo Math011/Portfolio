@@ -1,4 +1,4 @@
-.finish-menu {
+.finishMenu {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,13 +12,13 @@
   overflow: hidden;
 }
 
-.finish-content {
+.content {
   text-align: center;
   will-change: transform, opacity;
   pointer-events: auto;
 }
 
-.finish-flag {
+.flag {
   font-size: 5rem;
   margin-bottom: 20px;
   animation: bounce 1s ease infinite;
@@ -33,7 +33,7 @@
   }
 }
 
-.finish-title {
+.title {
   font-size: 2.5rem;
   font-weight: 700;
   color: white;
@@ -44,7 +44,7 @@
   font-family: 'Arial', sans-serif;
 }
 
-.finish-subtitle {
+.subtitle {
   font-size: 1.3rem;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
@@ -52,7 +52,7 @@
   font-family: 'Arial', sans-serif;
 }
 
-.finish-restart {
+.restart {
   padding: 15px 35px;
   background: linear-gradient(135deg, #7CB342, #8BC34A);
   color: white;
@@ -66,13 +66,13 @@
   box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
 }
 
-.finish-restart:hover {
+.restart:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
 }
 
 /* Confettis */
-.confetti-container {
+.confettiContainer {
   position: absolute;
   top: 0;
   left: 0;
@@ -103,15 +103,15 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .finish-flag {
+  .flag {
     font-size: 3.5rem;
   }
   
-  .finish-title {
+  .title {
     font-size: 1.8rem;
   }
   
-  .finish-subtitle {
+  .subtitle {
     font-size: 1rem;
   }
 }

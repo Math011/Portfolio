@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import './HomeMenu.css';
+import styles from './HomeMenu.module.css';
 
 const HomeMenu = ({ progress }) => {
   const { t } = useLanguage();
@@ -44,22 +44,22 @@ const HomeMenu = ({ progress }) => {
   if (!welcomeStyles && !titleStyles && !nameStyles) return null;
 
   return (
-    <div className="home-menu">
+    <div className={styles.homeMenu}>
       {welcomeStyles && (
-        <div className="home-menu-content" style={welcomeStyles}>
-          <h2 className="home-subtitle">{t('welcome')}</h2>
+        <div className={styles.content} style={welcomeStyles}>
+          <h2 className={styles.subtitle}>{t('welcome')}</h2>
         </div>
       )}
       
       {titleStyles && (
-        <div className="home-menu-content" style={titleStyles}>
-          <h2 className="home-job">{t('developer')}</h2>
+        <div className={styles.content} style={titleStyles}>
+          <h2 className={styles.job}>{t('developer')}</h2>
         </div>
       )}
       
       {nameStyles && (
-        <div className="home-menu-content" style={nameStyles}>
-          <h2 className="home-name">{t('yourName')}</h2>
+        <div className={styles.content} style={nameStyles}>
+          <h1 className={styles.name}>{t('yourName')}</h1>
         </div>
       )}
     </div>

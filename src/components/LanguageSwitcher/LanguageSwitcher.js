@@ -1,22 +1,22 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import './LanguageSwitcher.css';
+import styles from './LanguageSwitcher.module.css';
 
 const LanguageSwitcher = ({ fixed = false }) => {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className={`language-switcher ${fixed ? 'fixed' : ''}`}>
+    <div className={`${styles.languageSwitcher} ${fixed ? styles.fixed : ''}`}>
       <button 
-        className={`lang-option ${language === 'fr' ? 'active' : ''}`}
+        className={`${styles.langOption} ${language === 'fr' ? styles.active : ''}`}
         onClick={() => setLanguage('fr')}
         aria-label="Français"
       >
         FR
       </button>
-      <span className="lang-separator">|</span>
+      <span className={styles.langSeparator}>|</span>
       <button 
-        className={`lang-option ${language === 'en' ? 'active' : ''}`}
+        className={`${styles.langOption} ${language === 'en' ? styles.active : ''}`}
         onClick={() => setLanguage('en')}
         aria-label="English"
       >

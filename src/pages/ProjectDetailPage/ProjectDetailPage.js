@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { projects } from '../../data/projects';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
-import './ProjectDetailPage.css';
+import styles from './ProjectDetailPage.module.css';
 
 // Oiseau SVG animé (même composant que ProjectsPage)
 const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
@@ -11,11 +11,11 @@ const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
     width={size} 
     height={size * 0.5} 
     viewBox="0 0 40 20" 
-    className="bird-svg"
+    className={styles.birdSvg}
     style={{ transform: direction === 'left' ? 'scaleX(-1)' : 'none' }}
   >
     <path 
-      className="bird-wing-left"
+      className={styles.birdWingLeft}
       d="M20 10 Q10 2, 2 8" 
       stroke={color} 
       strokeWidth="2.5" 
@@ -23,7 +23,7 @@ const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
       strokeLinecap="round"
     />
     <path 
-      className="bird-wing-right"
+      className={styles.birdWingRight}
       d="M20 10 Q30 2, 38 8" 
       stroke={color} 
       strokeWidth="2.5" 
@@ -73,6 +73,20 @@ const decorativeBirds = generateBirds();
 const CLOUD_IMAGES = ['nuage1.svg', 'nuage2.svg', 'nuage3.svg', 'nuage5.svg'];
 const CLOUD_SIZES = ['small', 'medium', 'large'];
 
+// Map des classes CSS
+const SIZE_TO_CLASS = {
+  'small': 'sizeSmall',
+  'medium': 'sizeMedium',
+  'large': 'sizeLarge',
+  'xlarge': 'sizeXlarge'
+};
+
+const SPEED_TO_CLASS = {
+  'slow': 'speedSlow',
+  'normal': 'speedNormal',
+  'fast': 'speedFast'
+};
+
 const generateClouds = () => {
   const clouds = [];
   const numberOfClouds = 10;
@@ -121,23 +135,23 @@ const ProjectDetailPage = () => {
   // Si projet non trouvé
   if (!project) {
     return (
-      <div className="project-detail-page">
-        <div className="project-not-found">
+      <div className={styles.projectDetailPage}>
+        <div className={styles.projectNotFound}>
           <h1>Projet non trouvé</h1>
-          <Link to="/projects" className="back-link">{t('backToProjects')}</Link>
+          <Link to="/projects" className={styles.backLink}>{t('backToProjects')}</Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="project-detail-page">
+    <div className={styles.projectDetailPage}>
       {/* Oiseaux décoratifs */}
-      <div className="background-birds">
+      <div className={styles.backgroundBirds}>
         {decorativeBirds.map((bird) => (
           <div
             key={bird.id}
-            className={`flying-bird direction-${bird.direction}`}
+            className={`${styles.flyingBird} ${bird.direction === 'left' ? styles.directionLeft : styles.directionRight}`}
             style={{
               top: bird.top,
               left: bird.left,
@@ -152,37 +166,37 @@ const ProjectDetailPage = () => {
       </div>
 
       {/* Nuages décoratifs */}
-      <div className="background-clouds">
+      <div className={styles.backgroundClouds}>
         {decorativeClouds.map((cloud) => (
           <img
             key={cloud.id}
             src={`/images/${cloud.image}`}
             alt=""
-            className={`bg-cloud size-${cloud.size} direction-${cloud.direction} speed-${cloud.speed}`}
+            className={`${styles.bgCloud} ${styles[SIZE_TO_CLASS[cloud.size]]} ${cloud.direction === 'left' ? styles.directionLeft : styles.directionRight} ${styles[SPEED_TO_CLASS[cloud.speed]]}`}
             style={{ top: cloud.top }}
           />
         ))}
       </div>
 
       {/* Navigation */}
-      <nav className="project-detail-nav">
-        <div className="nav-links">
-          <Link to="/" className="nav-link">{t('home')}</Link>
-          <Link to="/about" className="nav-link">{t('about')}</Link>
-          <Link to="/projects" className="nav-link active">{t('projects')}</Link>
-          <Link to="/contact" className="nav-link">{t('contact')}</Link>
+      <nav className={styles.projectDetailNav}>
+        <div className={styles.navLinks}>
+          <Link to="/" className={styles.navLink}>{t('home')}</Link>
+          <Link to="/about" className={styles.navLink}>{t('about')}</Link>
+          <Link to="/projects" className={`${styles.navLink} ${styles.active}`}>{t('projects')}</Link>
+          <Link to="/contact" className={styles.navLink}>{t('contact')}</Link>
         </div>
-        <div className="nav-language">
+        <div className={styles.navLanguage}>
           <LanguageSwitcher />
         </div>
       </nav>
 
       {/* Contenu principal */}
-      <div className="project-detail-content">
+      <div className={styles.projectDetailContent}>
         {/* En-tête avec ballon */}
-        <div className="project-header">
-          <div className="balloon-decoration" style={{ color: project.color }}>
-            <svg width="60" height="100" viewBox="0 0 40 70" className="header-balloon">
+        <div className={styles.projectHeader}>
+          <div className={styles.balloonDecoration} style={{ color: project.color }}>
+            <svg width="60" height="100" viewBox="0 0 40 70" className={styles.headerBalloon}>
               <ellipse cx="20" cy="22" rx="18" ry="22" fill={project.color} />
               <ellipse cx="20" cy="22" rx="18" ry="22" fill="url(#balloonShineDetail)" />
               <polygon points="17,43 20,48 23,43" fill={project.color} />
@@ -195,11 +209,11 @@ const ProjectDetailPage = () => {
               </defs>
             </svg>
           </div>
-          <h1 className="project-title">{t(project.titleKey)}</h1>
+          <h1 className={styles.projectTitle}>{t(project.titleKey)}</h1>
         </div>
 
         {/* Image principale */}
-        <div className="project-main-image">
+        <div className={styles.projectMainImage}>
           <img 
             src={project.gallery[selectedImage]} 
             alt={t(project.titleKey)}
@@ -210,13 +224,13 @@ const ProjectDetailPage = () => {
         </div>
 
         {/* Galerie miniatures */}
-        <div className="project-gallery">
+        <div className={styles.projectGallery}>
           <h3>{t('projectGallery')}</h3>
-          <div className="gallery-thumbnails">
+          <div className={styles.galleryThumbnails}>
             {project.gallery.map((img, index) => (
               <button
                 key={index}
-                className={`thumbnail ${selectedImage === index ? 'active' : ''}`}
+                className={`${styles.thumbnail} ${selectedImage === index ? styles.active : ''}`}
                 onClick={() => setSelectedImage(index)}
               >
                 <img 
@@ -232,20 +246,20 @@ const ProjectDetailPage = () => {
         </div>
 
         {/* Description et infos */}
-        <div className="project-info-section">
+        <div className={styles.projectInfoSection}>
           {/* Description */}
-          <div className="project-description">
+          <div className={styles.projectDescription}>
             <p>{t(project.fullDescriptionKey)}</p>
           </div>
 
           {/* Technologies */}
-          <div className="project-technologies">
+          <div className={styles.projectTechnologies}>
             <h3>{t('technologiesUsed')}</h3>
-            <div className="tech-tags">
+            <div className={styles.techTags}>
               {project.tags.map((tag, index) => (
                 <span 
                   key={index} 
-                  className="tech-tag"
+                  className={styles.techTag}
                   style={{ backgroundColor: project.color }}
                 >
                   {tag}
@@ -255,13 +269,13 @@ const ProjectDetailPage = () => {
           </div>
 
           {/* Liens */}
-          <div className="project-links">
+          <div className={styles.projectLinks}>
             {project.githubLink && (
               <a 
                 href={project.githubLink} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="project-btn github-btn"
+                className={`${styles.projectBtn} ${styles.githubBtn}`}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -274,7 +288,7 @@ const ProjectDetailPage = () => {
                 href={project.liveLink} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="project-btn live-btn"
+                className={`${styles.projectBtn} ${styles.liveBtn}`}
                 style={{ backgroundColor: project.color }}
               >
                 {t('viewLive')}
@@ -284,31 +298,31 @@ const ProjectDetailPage = () => {
         </div>
 
         {/* Navigation entre projets */}
-        <div className="project-navigation">
+        <div className={styles.projectNavigation}>
           {prevProject ? (
             <Link 
               to={`/project/${prevProject.id}`} 
-              className="nav-btn prev-btn"
+              className={`${styles.navBtn} ${styles.prevBtn}`}
             >
               {t('previousProject')}
             </Link>
           ) : (
-            <div className="nav-placeholder"></div>
+            <div className={styles.navPlaceholder}></div>
           )}
           
-          <Link to="/projects" className="nav-btn all-btn">
+          <Link to="/projects" className={`${styles.navBtn} ${styles.allBtn}`}>
             {t('backToProjects')}
           </Link>
           
           {nextProject ? (
             <Link 
               to={`/project/${nextProject.id}`} 
-              className="nav-btn next-btn"
+              className={`${styles.navBtn} ${styles.nextBtn}`}
             >
               {t('nextProject')}
             </Link>
           ) : (
-            <div className="nav-placeholder"></div>
+            <div className={styles.navPlaceholder}></div>
           )}
         </div>
       </div>

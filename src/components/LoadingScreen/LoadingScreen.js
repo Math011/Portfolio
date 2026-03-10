@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import './LoadingScreen.css';
+import styles from './LoadingScreen.module.css';
 
 const LoadingScreen = ({ isLoading }) => {
   const { t } = useLanguage();
@@ -8,12 +8,12 @@ const LoadingScreen = ({ isLoading }) => {
   if (!isLoading) return null;
 
   return (
-    <div className="loading-screen">
-      <div className="loading-content">
-        <div className="loading-road">
-          <div className="loading-line"></div>
+    <div className={styles.loadingScreen}>
+      <div className={styles.content}>
+        <div className={styles.road}>
+          <div className={styles.line}></div>
         </div>
-        <p className="loading-text">{t('loading')}</p>
+        <p className={styles.text}>{t('loading')}</p>
       </div>
     </div>
   );
