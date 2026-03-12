@@ -5,9 +5,13 @@ const LanguageContext = createContext();
 
 const STORAGE_KEY = 'portfolio_language';
 
-export const LanguageProvider = ({ children }) => {
+export const LanguageProvider = ({ children, defaultLanguage }) => {
   const [language, setLanguage] = useState(() => {
-    // Récupère la langue sauvegardée ou utilise le français par défaut
+    // Si defaultLanguage est fourni (pour les tests), l'utiliser
+    if (defaultLanguage && (defaultLanguage === 'fr' || defaultLanguage === 'en')) {
+      return defaultLanguage;
+    }
+    // Sinon, récupère la langue sauvegardée ou utilise le français par défaut
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved && (saved === 'fr' || saved === 'en')) {
