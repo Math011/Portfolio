@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { projects } from '../../data/projects';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
@@ -120,7 +120,6 @@ const decorativeClouds = generateClouds();
 
 const ProjectDetailPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState(0);
   

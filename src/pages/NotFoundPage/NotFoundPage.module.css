@@ -1,0 +1,145 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #87CEEB 0%, #FFEA93 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Nuages décoratifs */
+.cloud {
+  position: absolute;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.cloud1 {
+  top: 10%;
+  left: 5%;
+  width: 150px;
+  animation: floatCloud 20s ease-in-out infinite;
+}
+
+.cloud2 {
+  top: 20%;
+  right: 10%;
+  width: 120px;
+  animation: floatCloud 25s ease-in-out infinite reverse;
+}
+
+.cloud3 {
+  bottom: 30%;
+  left: 15%;
+  width: 100px;
+  animation: floatCloud 22s ease-in-out infinite;
+}
+
+@keyframes floatCloud {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(30px);
+  }
+}
+
+/* Contenu principal */
+.content {
+  text-align: center;
+  z-index: 1;
+  padding: 2rem;
+}
+
+.errorCode {
+  font-size: 8rem;
+  font-weight: 700;
+  color: #4A3728;
+  margin: 0;
+  text-shadow: 4px 4px 0 rgba(255, 255, 255, 0.5);
+  line-height: 1;
+}
+
+.title {
+  font-size: 2rem;
+  color: #4A3728;
+  margin: 0.5rem 0 1rem;
+  font-weight: 600;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: #5D4E37;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+/* Ballon animé */
+.balloon {
+  width: 100px;
+  height: 120px;
+  margin: 0 auto 2rem;
+  animation: floatBalloon 3s ease-in-out infinite;
+}
+
+.balloonSvg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes floatBalloon {
+  0%, 100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+}
+
+/* Bouton retour */
+.homeButton {
+  display: inline-block;
+  background-color: #7CB342;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
+}
+
+.homeButton:hover {
+  background-color: #689F38;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .errorCode {
+    font-size: 5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+
+  .cloud1 {
+    width: 100px;
+  }
+
+  .cloud2 {
+    width: 80px;
+  }
+
+  .cloud3 {
+    width: 60px;
+  }
+}
