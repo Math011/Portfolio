@@ -1,5 +1,7 @@
 // Données centralisées des projets
 // Les textes (title, description) utilisent des clés de traduction
+import { GITHUB_PROFILE } from './constants';
+
 export const projects = [
   {
     id: 1,
@@ -13,7 +15,7 @@ export const projects = [
       '/images/projects/project1-3.jpg',
     ],
     tags: ['React', 'Node.js', 'MongoDB'],
-    githubLink: 'https://github.com/',
+    githubLink: `${GITHUB_PROFILE}/`,
     liveLink: '#',
     color: '#7CB342' // Vert
   },
@@ -29,7 +31,7 @@ export const projects = [
       '/images/projects/project2-3.jpg',
     ],
     tags: ['Vue.js', 'Firebase'],
-    githubLink: 'https://github.com/',
+    githubLink: `${GITHUB_PROFILE}/`,
     liveLink: '#',
     color: '#E67E22' // Orange
   },
@@ -45,7 +47,7 @@ export const projects = [
       '/images/projects/project3-3.jpg',
     ],
     tags: ['Next.js', 'Tailwind CSS'],
-    githubLink: 'https://github.com/',
+    githubLink: `${GITHUB_PROFILE}/`,
     liveLink: '#',
     color: '#3498DB' // Bleu
   },
@@ -61,7 +63,7 @@ export const projects = [
       '/images/projects/project4-3.jpg',
     ],
     tags: ['React Native', 'Express'],
-    githubLink: 'https://github.com/',
+    githubLink: `${GITHUB_PROFILE}/`,
     liveLink: '#',
     color: '#9B59B6' // Violet
   }

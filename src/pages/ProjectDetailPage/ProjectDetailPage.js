@@ -212,7 +212,7 @@ const ProjectDetailPage = () => {
         </div>
 
         {/* Image principale */}
-        <div className={styles.projectMainImage}>
+        <div className={styles.projectMainImage} data-testid="main-project-image">
           <img 
             src={project.gallery[selectedImage]} 
             alt={t(project.titleKey)}
@@ -231,6 +231,8 @@ const ProjectDetailPage = () => {
                 key={index}
                 className={`${styles.thumbnail} ${selectedImage === index ? styles.active : ''}`}
                 onClick={() => setSelectedImage(index)}
+                aria-label={`${t(project.titleKey)} - image ${index + 1}`}
+                aria-pressed={selectedImage === index}
               >
                 <img 
                   src={img} 
