@@ -175,13 +175,15 @@
 .row2Right6 { width: 40px; bottom: 41%; right: 32%; z-index: 4; }
 
 /* ===== RANGÉE 3 - (moyens, 55-65px) - bottom: 36% ===== */
-/* Gauche : 3% et 12% */
+/* Gauche : 3% et 12%, Droite : 4 arbres avec espacement ~6% */
 
 .row3Left1 { width: 55px; bottom: 36%; left: 3%; z-index: 5; }
 .row3Left2 { width: 60px; bottom: 35%; left: 12%; z-index: 5; }
 
-.row3Right1 { width: 55px; bottom: 36%; right: -3%; z-index: 5; }
-.row3Right2 { width: 60px; bottom: 35%; right: 5%; z-index: 5; }
+.row3Right1 { width: 55px; bottom: 36%; right: 3%; z-index: 5; }
+.row3Right2 { width: 60px; bottom: 35%; right: 12%; z-index: 5; }
+.row3Right3 { width: 58px; bottom: 36%; right: 21%; z-index: 5; }
+.row3Right4 { width: 62px; bottom: 35%; right: 28%; z-index: 5; }
 
 /* ===== RANGÉE 4 - (grands, 80-95px) - bottom: 28% ===== */
 /* Même répartition gauche/droite : 2% */
@@ -189,12 +191,6 @@
 .row4Left1 { width: 85px; bottom: 28%; left: 2%; z-index: 6; }
 
 .row4Right1 { width: 85px; bottom: 28%; right: 2%; z-index: 6; }
-
-/* ===== RANGÉE 5 - AVANT (très grands, 130-150px) - bottom: 10% ===== */
-/* Même répartition gauche/droite : 3% */
-
-.row5Left1 { width: 150px; bottom: 10%; left: 3%; z-index: 7; }
-.row5Right1 { width: 140px; bottom: 10%; right: 3%; z-index: 7; }
 
 /* =============================================================================
    NAVIGATION
@@ -249,15 +245,15 @@
 }
 
 /* =============================================================================
-   PANNEAU - Plus à droite, même niveau que le feu de camp
+   PANNEAU - Un peu plus en arrière
    ============================================================================= */
 
 .signSection {
   position: absolute;
   left: 15%;
-  bottom: 32%;
+  bottom: 26%;
   z-index: 60;
-  transform: scale(0.7);
+  transform: scale(0.8);
   transform-origin: bottom center;
 }
 
@@ -394,13 +390,13 @@
 }
 
 /* =============================================================================
-   FEU DE CAMP - À droite du formulaire
+   FEU DE CAMP - Un peu plus en avant
    ============================================================================= */
 
 .fireSection {
   position: absolute;
   right: 12%;
-  bottom: 32%;
+  bottom: 22%;
   z-index: 10;
 }
 

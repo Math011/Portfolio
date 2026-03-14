@@ -283,19 +283,17 @@ const ContactPage = () => {
         <img src="/images/arbre-orange.svg" alt="" className={`${styles.tree} ${styles.row2Right5}`} />
         <img src="/images/arbre-vert.svg" alt="" className={`${styles.tree} ${styles.row2Right6}`} />
         
-        {/* RANGÉE 3 - (moyens) - 2 arbres par côté */}
+        {/* RANGÉE 3 - (moyens) - 2 arbres gauche, 4 arbres droite */}
         <img src="/images/arbre-orange.svg" alt="" className={`${styles.tree} ${styles.row3Left1}`} />
         <img src="/images/arbre-vert.svg" alt="" className={`${styles.tree} ${styles.row3Left2}`} />
         <img src="/images/arbre-vert.svg" alt="" className={`${styles.tree} ${styles.row3Right1}`} />
         <img src="/images/arbre-orange.svg" alt="" className={`${styles.tree} ${styles.row3Right2}`} />
+        <img src="/images/arbre-vert.svg" alt="" className={`${styles.tree} ${styles.row3Right3}`} />
+        <img src="/images/arbre-orange.svg" alt="" className={`${styles.tree} ${styles.row3Right4}`} />
         
         {/* RANGÉE 4 - (grands) - 1 arbre par côté */}
         <img src="/images/arbre-vert.svg" alt="" className={`${styles.tree} ${styles.row4Left1}`} />
         <img src="/images/arbre-orange.svg" alt="" className={`${styles.tree} ${styles.row4Right1}`} />
-        
-        {/* RANGÉE 5 - Premier plan (très grands) - 1 arbre par côté */}
-        <img src="/images/arbre-orange.svg" alt="" className={`${styles.tree} ${styles.row5Left1}`} />
-        <img src="/images/arbre-vert.svg" alt="" className={`${styles.tree} ${styles.row5Right1}`} />
 
         {/* ============ NAVIGATION ============ */}
         <nav className={styles.contactNav}>
