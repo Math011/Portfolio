@@ -1,0 +1,534 @@
+/* =============================================================================
+   CONTACT PAGE - Panneau plus gros, arbres mieux répartis
+   ============================================================================= */
+
+.contactPage {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+/* =============================================================================
+   CIEL
+   ============================================================================= */
+
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg,
+    #FF9E80 0%,
+    #FFCC80 25%,
+    #FFE082 50%,
+    #FFECB3 75%,
+    #FFF8E1 100%
+  );
+  z-index: 0;
+}
+
+/* =============================================================================
+   NUAGES
+   ============================================================================= */
+
+.cloudsRow1 {
+  position: absolute;
+  top: 3%;
+  left: 0;
+  width: 200%;
+  height: 100px;
+  z-index: 1;
+  animation: moveRight 120s linear infinite;
+}
+
+.cloudRow1 {
+  position: absolute;
+  height: 70px;
+  width: auto;
+  filter: brightness(1.5) saturate(0);
+  opacity: 0.9;
+}
+
+.cloudRow1:nth-child(1) { left: 5%; }
+.cloudRow1:nth-child(2) { left: 40%; }
+.cloudRow1:nth-child(3) { left: 75%; }
+
+.cloudsRow2 {
+  position: absolute;
+  top: 15%;
+  left: -100%;
+  width: 200%;
+  height: 80px;
+  z-index: 1;
+  animation: moveLeft 90s linear infinite;
+}
+
+.cloudRow2 {
+  position: absolute;
+  height: 55px;
+  width: auto;
+  filter: brightness(1.5) saturate(0);
+  opacity: 0.85;
+}
+
+.cloudRow2:nth-child(1) { left: 15%; }
+.cloudRow2:nth-child(2) { left: 50%; }
+.cloudRow2:nth-child(3) { left: 85%; }
+
+.cloudsRow3 {
+  position: absolute;
+  top: 28%;
+  left: 0;
+  width: 200%;
+  height: 70px;
+  z-index: 1;
+  animation: moveRight 150s linear infinite;
+}
+
+.cloudRow3 {
+  position: absolute;
+  height: 50px;
+  width: auto;
+  filter: brightness(1.4) saturate(0);
+  opacity: 0.8;
+}
+
+.cloudRow3:nth-child(1) { left: 10%; }
+.cloudRow3:nth-child(2) { left: 45%; }
+.cloudRow3:nth-child(3) { left: 80%; }
+
+@keyframes moveRight {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes moveLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
+
+/* =============================================================================
+   SOL + MONTAGNES
+   ============================================================================= */
+
+.groundBackground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   ARBRES - 5 rangées
+   
+   Rangées 1-2 : bien répartis sur la largeur (0-30% chaque côté)
+   Rangées 3 : transition
+   Rangées 4-5 : plus vers le centre (mais pas derrière formulaire)
+   ============================================================================= */
+
+.tree {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ===== RANGÉE 1 - FOND (très petits, 25-30px) - bottom: 46% ===== */
+/* 7 arbres par côté, gauche décalé vers droite, droite décalé vers gauche */
+
+.row1Left1 { width: 25px; bottom: 46%; left: 5%; z-index: 3; }
+.row1Left2 { width: 28px; bottom: 45%; left: 10%; z-index: 3; }
+.row1Left3 { width: 26px; bottom: 46%; left: 15%; z-index: 3; }
+.row1Left4 { width: 30px; bottom: 45%; left: 20%; z-index: 3; }
+.row1Left5 { width: 27px; bottom: 46%; left: 25%; z-index: 3; }
+.row1Left6 { width: 25px; bottom: 45%; left: 30%; z-index: 3; }
+.row1Left7 { width: 28px; bottom: 46%; left: 35%; z-index: 3; }
+
+.row1Right1 { width: 25px; bottom: 46%; right: 5%; z-index: 3; }
+.row1Right2 { width: 28px; bottom: 45%; right: 10%; z-index: 3; }
+.row1Right3 { width: 26px; bottom: 46%; right: 15%; z-index: 3; }
+.row1Right4 { width: 30px; bottom: 45%; right: 20%; z-index: 3; }
+.row1Right5 { width: 27px; bottom: 46%; right: 25%; z-index: 3; }
+.row1Right6 { width: 25px; bottom: 45%; right: 30%; z-index: 3; }
+.row1Right7 { width: 28px; bottom: 46%; right: 35%; z-index: 3; }
+
+/* ===== RANGÉE 2 - (petits, 35-42px) - bottom: 42% ===== */
+/* 6 arbres par côté, gauche décalé vers droite, droite décalé vers gauche */
+
+.row2Left1 { width: 35px; bottom: 42%; left: 2%; z-index: 4; }
+.row2Left2 { width: 40px; bottom: 41%; left: 8%; z-index: 4; }
+.row2Left3 { width: 38px; bottom: 42%; left: 14%; z-index: 4; }
+.row2Left4 { width: 42px; bottom: 41%; left: 20%; z-index: 4; }
+.row2Left5 { width: 36px; bottom: 42%; left: 26%; z-index: 4; }
+.row2Left6 { width: 40px; bottom: 41%; left: 32%; z-index: 4; }
+
+.row2Right1 { width: 35px; bottom: 42%; right: 2%; z-index: 4; }
+.row2Right2 { width: 40px; bottom: 41%; right: 8%; z-index: 4; }
+.row2Right3 { width: 38px; bottom: 42%; right: 14%; z-index: 4; }
+.row2Right4 { width: 42px; bottom: 41%; right: 20%; z-index: 4; }
+.row2Right5 { width: 36px; bottom: 42%; right: 26%; z-index: 4; }
+.row2Right6 { width: 40px; bottom: 41%; right: 32%; z-index: 4; }
+
+/* ===== RANGÉE 3 - (moyens, 55-65px) - bottom: 36% ===== */
+/* Gauche : 3% et 12% */
+
+.row3Left1 { width: 55px; bottom: 36%; left: 3%; z-index: 5; }
+.row3Left2 { width: 60px; bottom: 35%; left: 12%; z-index: 5; }
+
+.row3Right1 { width: 55px; bottom: 36%; right: -3%; z-index: 5; }
+.row3Right2 { width: 60px; bottom: 35%; right: 5%; z-index: 5; }
+
+/* ===== RANGÉE 4 - (grands, 80-95px) - bottom: 28% ===== */
+/* Même répartition gauche/droite : 2% */
+
+.row4Left1 { width: 85px; bottom: 28%; left: 2%; z-index: 6; }
+
+.row4Right1 { width: 85px; bottom: 28%; right: 2%; z-index: 6; }
+
+/* ===== RANGÉE 5 - AVANT (très grands, 130-150px) - bottom: 10% ===== */
+/* Même répartition gauche/droite : 3% */
+
+.row5Left1 { width: 150px; bottom: 10%; left: 3%; z-index: 7; }
+.row5Right1 { width: 140px; bottom: 10%; right: 3%; z-index: 7; }
+
+/* =============================================================================
+   NAVIGATION
+   ============================================================================= */
+
+.contactNav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  z-index: 100;
+}
+
+.navLinks {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.5rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navLink {
+  padding: 0.6rem 1.5rem;
+  text-decoration: none;
+  color: #4A3728;
+  font-weight: 500;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.navLink:hover {
+  background: rgba(124, 179, 66, 0.15);
+  color: #7CB342;
+}
+
+.navLink.active {
+  background: #7CB342;
+  color: #fff;
+}
+
+.navLanguage {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* =============================================================================
+   PANNEAU - Plus à droite, même niveau que le feu de camp
+   ============================================================================= */
+
+.signSection {
+  position: absolute;
+  left: 15%;
+  bottom: 32%;
+  z-index: 60;
+  transform: scale(0.7);
+  transform-origin: bottom center;
+}
+
+.woodenSign text {
+  font-family: 'Caveat', 'Segoe UI', cursive;
+}
+
+/* =============================================================================
+   FORMULAIRE - Centré, légèrement transparent
+   ============================================================================= */
+
+.formSection {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+}
+
+.formCard {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 28px 32px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  width: 380px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.formCard h1 {
+  color: #33691E;
+  font-size: 1.8rem;
+  margin: 0 0 8px 0;
+  font-family: 'Caveat', 'Segoe UI', cursive;
+}
+
+.formIntro {
+  color: #5D4037;
+  margin-bottom: 18px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formGroup label {
+  color: #4E342E;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.formGroup input,
+.formGroup textarea {
+  padding: 11px 13px;
+  border: 2px solid rgba(200, 230, 201, 0.8);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #7CB342;
+  box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.15);
+  background: #fff;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #A5D6A7;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, #7CB342, #558B2F);
+  color: white;
+  border: none;
+  padding: 13px 26px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
+  margin-top: 4px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.successMessage {
+  color: #2E7D32;
+  background: rgba(200, 230, 201, 0.9);
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  margin: 0;
+}
+
+.errorMessage {
+  color: #C62828;
+  background: rgba(255, 205, 210, 0.9);
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* =============================================================================
+   FEU DE CAMP - À droite du formulaire
+   ============================================================================= */
+
+.fireSection {
+  position: absolute;
+  right: 12%;
+  bottom: 32%;
+  z-index: 10;
+}
+
+.fireGroup {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.personWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.person {
+  margin-bottom: -8px;
+}
+
+.log {
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.15));
+}
+
+.campfire {
+  filter: drop-shadow(0 0 20px rgba(255, 150, 0, 0.5));
+}
+
+.flame1 { animation: flicker1 0.4s ease-in-out infinite; }
+.flame2 { animation: flicker2 0.5s ease-in-out infinite; }
+.flame3 { animation: flicker3 0.45s ease-in-out infinite; }
+.flameInner { animation: flickerInner 0.35s ease-in-out infinite; }
+.flameCore { animation: flickerCore 0.3s ease-in-out infinite; }
+
+@keyframes flicker1 {
+  0%, 100% { transform: scaleY(1) scaleX(1); }
+  50% { transform: scaleY(1.08) scaleX(0.96); }
+}
+
+@keyframes flicker2 {
+  0%, 100% { transform: scaleY(1) translateX(0); }
+  50% { transform: scaleY(0.92) translateX(-2px); }
+}
+
+@keyframes flicker3 {
+  0%, 100% { transform: scaleY(0.95) translateX(0); }
+  50% { transform: scaleY(1.05) translateX(2px); }
+}
+
+@keyframes flickerInner {
+  0%, 100% { opacity: 0.9; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.08); }
+}
+
+@keyframes flickerCore {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.spark1 { animation: spark 1.2s ease-out infinite 0s; }
+.spark2 { animation: spark 1.5s ease-out infinite 0.2s; }
+.spark3 { animation: spark 1.3s ease-out infinite 0.4s; }
+.spark4 { animation: spark 1.6s ease-out infinite 0.6s; }
+
+@keyframes spark {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-35px) scale(0); }
+}
+
+/* =============================================================================
+   RESPONSIVE
+   ============================================================================= */
+
+@media (max-width: 1200px) {
+  .signSection {
+    left: 5%;
+    bottom: 18%;
+    transform: scale(0.55);
+  }
+  
+  .fireSection {
+    right: 8%;
+    transform: scale(0.55);
+    transform-origin: bottom right;
+  }
+  
+  /* Cacher rangée 1 */
+  .row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5,
+  .row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5 {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .formCard {
+    width: 350px;
+  }
+  
+  .signSection, .fireSection {
+    display: none;
+  }
+  
+  /* Cacher rangées 1, 2, 3 */
+  .row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5,
+  .row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5,
+  .row2Left1, .row2Left2, .row2Left3, .row2Left4, .row2Left5,
+  .row2Right1, .row2Right2, .row2Right3, .row2Right4, .row2Right5,
+  .row3Left1, .row3Left2, .row3Left3, .row3Left4,
+  .row3Right1, .row3Right2 {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .contactNav { padding: 1rem; }
+  .navLinks { gap: 0.25rem; padding: 0.4rem; }
+  .navLink { padding: 0.5rem 1rem; font-size: 0.85rem; }
+  .formCard { width: 320px; padding: 22px 18px; }
+  .formCard h1 { font-size: 1.5rem; }
+  .cloudsRow2 { display: none; }
+  
+  .tree { display: none; }
+}
+
+@media (max-width: 480px) {
+  .navLinks { flex-wrap: wrap; justify-content: center; }
+  .navLink { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+  .navLanguage { position: static; transform: none; margin-top: 10px; }
+  .contactNav { flex-direction: column; gap: 10px; }
+  .formCard { width: 90vw; padding: 18px 14px; }
+  .cloudsRow1, .cloudsRow2, .cloudsRow3 { display: none; }
+}

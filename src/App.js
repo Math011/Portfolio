@@ -12,6 +12,7 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
+import ContactPage from './pages/ContactPage/';
 import NotFoundPage from './pages/NotFoundPage';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
@@ -92,12 +93,13 @@ function HomePage() {
 function App() {
   return (
     <LanguageProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <div className="app-container">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/project/:id" element={<ProjectDetailPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
