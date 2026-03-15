@@ -1,15 +1,24 @@
-/* Page Détail Projet - Même style que ProjectsPage */
+/* =============================================================================
+   PROJECT DETAIL PAGE - Optimized
+   ============================================================================= */
+
 .projectDetailPage {
+  --color-primary: #7CB342;
+  --color-primary-dark: #689F38;
+  --color-text: #4A3728;
+  --color-bg: #FFEA93;
+  --shadow-soft: 0 2px 15px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 10px 40px rgba(74, 55, 40, 0.15);
+  --radius: 20px;
+  --radius-pill: 25px;
+
   min-height: 100vh;
-  background: #FFEA93;
-  color: #4A3728;
+  background: var(--color-bg);
+  color: var(--color-text);
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 100;
 }
 
@@ -17,57 +26,31 @@
    OISEAUX ET NUAGES
    ============================================================================= */
 
-.backgroundBirds {
+.backgroundBirds, .backgroundClouds {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
   pointer-events: none;
   z-index: 1;
   overflow: visible;
 }
 
-.flyingBird {
-  position: absolute;
-  opacity: 0.6;
-}
+.backgroundBirds { right: 0; }
+.backgroundClouds { width: 100%; }
 
-.flyingBird.directionRight {
-  animation: flyRight linear infinite;
-}
+.flyingBird { position: absolute; opacity: 0.6; }
+.flyingBird.directionRight { animation: flyRight linear infinite; }
+.flyingBird.directionLeft { animation: flyLeft linear infinite; }
 
-.flyingBird.directionLeft {
-  animation: flyLeft linear infinite;
-}
-
-.backgroundClouds {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-  z-index: 1;
-  overflow: visible;
-}
-
-.bgCloud {
-  position: absolute;
-  height: auto;
-  opacity: 0.4;
-}
+.bgCloud { position: absolute; height: auto; opacity: 0.4; }
 
 .sizeSmall { width: 120px; }
 .sizeMedium { width: 200px; }
 .sizeLarge { width: 300px; }
 .sizeXlarge { width: 420px; }
 
-.directionLeft {
-  animation: cloudMoveLeft linear infinite;
-}
-
-.directionRight {
-  animation: cloudMoveRight linear infinite;
-}
+.directionLeft { animation: cloudMoveLeft linear infinite; }
+.directionRight { animation: cloudMoveRight linear infinite; }
 
 .speedSlow { animation-duration: 80s; }
 .speedNormal { animation-duration: 55s; }
@@ -78,21 +61,21 @@
    ============================================================================= */
 
 .backLink {
-  color: #4A3728;
+  color: var(--color-text);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.95);
   padding: 0.6rem 1.2rem;
-  border-radius: 25px;
+  border-radius: var(--radius-pill);
   transition: all 0.3s ease;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-soft);
 }
 
 .backLink:hover {
   background: #fff;
   transform: translateY(-2px);
-  color: #7CB342;
+  color: var(--color-primary);
 }
 
 .projectDetailContent {
@@ -104,13 +87,12 @@
 }
 
 /* =============================================================================
-   EN-TÊTE AVEC BALLON
+   EN-TÊTE & IMAGE
    ============================================================================= */
 
 .projectHeader {
   text-align: center;
   margin-bottom: 2rem;
-  position: relative;
 }
 
 .balloonDecoration {
@@ -119,26 +101,20 @@
   margin-bottom: 1rem;
 }
 
-.headerBalloon {
-  filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.2));
-}
+.headerBalloon { filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.2)); }
 
 .projectTitle {
   font-size: 2.5rem;
-  color: #4A3728;
+  color: var(--color-text);
   font-weight: 700;
   margin: 0;
 }
 
-/* =============================================================================
-   IMAGE PRINCIPALE
-   ============================================================================= */
-
 .projectMainImage {
   background: #fff;
-  border-radius: 20px;
+  border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(74, 55, 40, 0.15);
+  box-shadow: var(--shadow-card);
   margin-bottom: 1.5rem;
 }
 
@@ -154,21 +130,9 @@
    GALERIE
    ============================================================================= */
 
-.projectGallery {
-  margin-bottom: 2rem;
-}
-
-.projectGallery h3 {
-  font-size: 1.2rem;
-  color: #4A3728;
-  margin-bottom: 1rem;
-}
-
-.galleryThumbnails {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
+.projectGallery { margin-bottom: 2rem; }
+.projectGallery h3 { font-size: 1.2rem; color: var(--color-text); margin-bottom: 1rem; }
+.galleryThumbnails { display: flex; gap: 1rem; flex-wrap: wrap; }
 
 .thumbnail {
   border: none;
@@ -182,23 +146,15 @@
   opacity: 0.7;
 }
 
-.thumbnail:hover {
-  transform: translateY(-3px);
-  opacity: 1;
-}
+.thumbnail:hover { transform: translateY(-3px); opacity: 1; }
 
 .thumbnail.active {
   opacity: 1;
   box-shadow: 0 4px 20px rgba(124, 179, 66, 0.4);
-  outline: 3px solid #7CB342;
+  outline: 3px solid var(--color-primary);
 }
 
-.thumbnail img {
-  width: 120px;
-  height: 80px;
-  object-fit: cover;
-  display: block;
-}
+.thumbnail img { width: 120px; height: 80px; object-fit: cover; display: block; }
 
 /* =============================================================================
    SECTION INFOS
@@ -206,91 +162,53 @@
 
 .projectInfoSection {
   background: #fff;
-  border-radius: 20px;
+  border-radius: var(--radius);
   padding: 2rem;
-  box-shadow: 0 10px 40px rgba(74, 55, 40, 0.15);
+  box-shadow: var(--shadow-card);
   margin-bottom: 2rem;
 }
 
-.projectDescription {
-  margin-bottom: 2rem;
-}
+.projectDescription { margin-bottom: 2rem; }
+.projectDescription p { font-size: 1rem; line-height: 1.8; color: #555; }
 
-.projectDescription p {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #555;
-}
+.projectTechnologies { margin-bottom: 2rem; }
+.projectTechnologies h3 { font-size: 1.1rem; color: var(--color-text); margin-bottom: 1rem; }
 
-.projectTechnologies {
-  margin-bottom: 2rem;
-}
-
-.projectTechnologies h3 {
-  font-size: 1.1rem;
-  color: #4A3728;
-  margin-bottom: 1rem;
-}
-
-.techTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
+.techTags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 
 .techTag {
   color: #fff;
   padding: 0.4rem 1rem;
-  border-radius: 20px;
+  border-radius: var(--radius);
   font-size: 0.85rem;
   font-weight: 600;
 }
 
 /* =============================================================================
-   LIENS
+   LIENS & BOUTONS
    ============================================================================= */
 
-.projectLinks {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
+.projectLinks { display: flex; gap: 1rem; flex-wrap: wrap; }
 
 .projectBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1.5rem;
-  border-radius: 25px;
+  border-radius: var(--radius-pill);
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.githubBtn {
-  background: #24292e;
-  color: #fff;
-}
+.githubBtn { background: #24292e; color: #fff; }
+.githubBtn:hover { background: #1a1e22; transform: translateY(-2px); }
 
-.githubBtn:hover {
-  background: #1a1e22;
-  transform: translateY(-2px);
-}
+.liveBtn { color: #fff; }
+.liveBtn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-.liveBtn {
-  color: #fff;
-}
-
-.liveBtn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.1);
-}
-
-/* =============================================================================
-   NAVIGATION ENTRE PROJETS
-   ============================================================================= */
-
+/* Navigation entre projets */
 .projectNavigation {
   display: flex;
   justify-content: space-between;
@@ -301,35 +219,22 @@
 
 .navBtn {
   padding: 0.8rem 1.5rem;
-  border-radius: 25px;
+  border-radius: var(--radius-pill);
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.95);
-  color: #4A3728;
+  color: var(--color-text);
   box-shadow: 0 4px 15px rgba(74, 55, 40, 0.1);
 }
 
-.navBtn:hover {
-  background: #fff;
-  transform: translateY(-2px);
-  color: #7CB342;
-}
+.navBtn:hover { background: #fff; transform: translateY(-2px); color: var(--color-primary); }
 
-.allBtn {
-  background: #7CB342;
-  color: #fff;
-}
+.allBtn { background: var(--color-primary); color: #fff; }
+.allBtn:hover { background: var(--color-primary-dark); color: #fff; }
 
-.allBtn:hover {
-  background: #689F38;
-  color: #fff;
-}
-
-.navPlaceholder {
-  width: 140px;
-}
+.navPlaceholder { width: 140px; }
 
 /* =============================================================================
    PROJET NON TROUVÉ
@@ -344,17 +249,14 @@
   gap: 1rem;
 }
 
-.projectNotFound h1 {
-  font-size: 2rem;
-  color: #4A3728;
-}
+.projectNotFound h1 { font-size: 2rem; color: var(--color-text); }
 
 /* =============================================================================
    ANIMATIONS
    ============================================================================= */
 
 @keyframes flyRight {
-  0% { transform: translateX(-50px) translateY(0); }
+  0% { transform: translateX(-50px); }
   25% { transform: translateX(25vw) translateY(-20px); }
   50% { transform: translateX(50vw) translateY(10px); }
   75% { transform: translateX(75vw) translateY(-15px); }
@@ -362,32 +264,32 @@
 }
 
 @keyframes flyLeft {
-  0% { transform: translateX(50px) translateY(0); }
+  0% { transform: translateX(50px); }
   25% { transform: translateX(-25vw) translateY(-15px); }
   50% { transform: translateX(-50vw) translateY(10px); }
   75% { transform: translateX(-75vw) translateY(-20px); }
-  100% { transform: translateX(-110vw) translateY(0); }
+  100% { transform: translateX(-110vw); }
 }
 
 @keyframes cloudMoveLeft {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100vw); }
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100vw); }
 }
 
 @keyframes cloudMoveRight {
-  0% { transform: translateX(100vw); }
-  100% { transform: translateX(-100%); }
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-100%); }
 }
 
-.birdWingLeft {
-  animation: flapLeft 0.3s ease-in-out infinite;
+.birdWingLeft, .birdWingRight {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
   transform-origin: 20px 10px;
 }
 
-.birdWingRight {
-  animation: flapRight 0.3s ease-in-out infinite;
-  transform-origin: 20px 10px;
-}
+.birdWingLeft { animation-name: flapLeft; }
+.birdWingRight { animation-name: flapRight; }
 
 @keyframes flapLeft {
   0%, 100% { d: path("M20 10 Q10 2, 2 8"); }
@@ -404,56 +306,19 @@
    ============================================================================= */
 
 @media (max-width: 768px) {
-  .projectDetailContent {
-    padding: 4.5rem 1rem 2rem;
-  }
-
-  .projectTitle {
-    font-size: 1.8rem;
-  }
-
-  .projectInfoSection {
-    padding: 1.5rem;
-  }
-
-  .thumbnail img {
-    width: 90px;
-    height: 60px;
-  }
-
-  .projectNavigation {
-    flex-direction: column;
-  }
-
-  .navBtn {
-    width: 100%;
-    text-align: center;
-  }
-
-  .navPlaceholder {
-    display: none;
-  }
-
-  .projectLinks {
-    flex-direction: column;
-  }
-
-  .projectBtn {
-    justify-content: center;
-  }
+  .projectDetailContent { padding: 4.5rem 1rem 2rem; }
+  .projectTitle { font-size: 1.8rem; }
+  .projectInfoSection { padding: 1.5rem; }
+  .thumbnail img { width: 90px; height: 60px; }
+  .projectNavigation { flex-direction: column; }
+  .navBtn { width: 100%; text-align: center; }
+  .navPlaceholder { display: none; }
+  .projectLinks { flex-direction: column; }
+  .projectBtn { justify-content: center; }
 }
 
 @media (max-width: 480px) {
-  .projectTitle {
-    font-size: 1.5rem;
-  }
-
-  .galleryThumbnails {
-    gap: 0.5rem;
-  }
-
-  .thumbnail img {
-    width: 70px;
-    height: 50px;
-  }
+  .projectTitle { font-size: 1.5rem; }
+  .galleryThumbnails { gap: 0.5rem; }
+  .thumbnail img { width: 70px; height: 50px; }
 }
