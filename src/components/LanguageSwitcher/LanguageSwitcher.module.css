@@ -47,3 +47,31 @@
   color: #ddd;
   font-weight: 300;
 }
+
+/* =============================================================================
+   RESPONSIVE
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .languageSwitcher {
+    padding: 5px 10px;
+    border-radius: 15px;
+  }
+  
+  .langOption {
+    padding: 3px 6px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .languageSwitcher {
+    padding: 4px 8px;
+    border-radius: 12px;
+  }
+  
+  .langOption {
+    padding: 2px 5px;
+    font-size: 0.75rem;
+  }
+}

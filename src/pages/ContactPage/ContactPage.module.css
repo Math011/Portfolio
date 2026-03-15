@@ -204,7 +204,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5rem 2rem;
+  padding: 1rem 2rem;
   z-index: 100;
 }
 
@@ -268,7 +268,7 @@
 .formSection {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 55%;
   transform: translate(-50%, -50%);
   z-index: 50;
 }
@@ -278,50 +278,50 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
-  padding: 28px 32px;
+  padding: 24px 28px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  width: 380px;
+  width: 400px;
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .formCard h1 {
   color: #33691E;
-  font-size: 1.8rem;
-  margin: 0 0 8px 0;
+  font-size: 1.6rem;
+  margin: 0 0 6px 0;
   font-family: 'Caveat', 'Segoe UI', cursive;
 }
 
 .formIntro {
   color: #5D4037;
-  margin-bottom: 18px;
-  font-size: 0.9rem;
-  line-height: 1.5;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
 .contactForm {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 
 .formGroup label {
   color: #4E342E;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .formGroup input,
 .formGroup textarea {
-  padding: 11px 13px;
+  padding: 10px 12px;
   border: 2px solid rgba(200, 230, 201, 0.8);
   border-radius: 10px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-family: inherit;
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.9);
@@ -342,21 +342,21 @@
 
 .formGroup textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 70px;
 }
 
 .submitBtn {
   background: linear-gradient(135deg, #7CB342, #558B2F);
   color: white;
   border: none;
-  padding: 13px 26px;
+  padding: 12px 24px;
   border-radius: 25px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .submitBtn:hover:not(:disabled) {
@@ -372,30 +372,33 @@
 .successMessage {
   color: #2E7D32;
   background: rgba(200, 230, 201, 0.9);
-  padding: 12px;
+  padding: 10px;
   border-radius: 10px;
   text-align: center;
   font-weight: 500;
+  font-size: 0.85rem;
   margin: 0;
 }
 
 .errorMessage {
   color: #C62828;
   background: rgba(255, 205, 210, 0.9);
-  padding: 12px;
+  padding: 10px;
   border-radius: 10px;
   text-align: center;
   font-weight: 500;
+  font-size: 0.85rem;
   margin: 0;
 }
 
 .warningMessage {
   color: #E65100;
   background: rgba(255, 224, 178, 0.9);
-  padding: 12px;
+  padding: 10px;
   border-radius: 10px;
   text-align: center;
   font-weight: 500;
+  font-size: 0.85rem;
   margin: 0;
 }
 
@@ -415,8 +418,8 @@
 .recaptchaWrapper {
   display: flex;
   justify-content: center;
-  margin: 8px 0;
-  transform: scale(0.9);
+  margin: 6px 0;
+  transform: scale(0.85);
   transform-origin: center;
 }
 
@@ -555,54 +558,275 @@
   }
   
   .fireSection {
-    right: 8%;
+    right: 5%;
     transform: scale(0.55);
     transform-origin: bottom right;
   }
   
-  /* Cacher rangée 1 */
-  .row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5,
-  .row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5 {
+  /* Cacher rangée 1 et 6-7 de chaque côté */
+  .row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5, .row1Left6, .row1Left7,
+  .row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5, .row1Right6, .row1Right7 {
     display: none;
   }
 }
 
 @media (max-width: 1024px) {
   .formCard {
-    width: 350px;
+    width: 380px;
   }
   
-  .signSection, .fireSection {
+  /* Garder panneau et feu de camp, les réduire */
+  .signSection {
+    left: 3%;
+    bottom: 12%;
+    transform: scale(0.5);
+  }
+  
+  .fireSection {
+    right: 3%;
+    bottom: 10%;
+    transform: scale(0.5);
+    transform-origin: bottom right;
+  }
+  
+  /* Cacher TOUS les arbres */
+  .tree {
     display: none;
   }
   
-  /* Cacher rangées 1, 2, 3 */
-  .row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5,
-  .row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5,
-  .row2Left1, .row2Left2, .row2Left3, .row2Left4, .row2Left5,
-  .row2Right1, .row2Right2, .row2Right3, .row2Right4, .row2Right5,
-  .row3Left1, .row3Left2, .row3Left3, .row3Left4,
-  .row3Right1, .row3Right2 {
-    display: none;
+  /* Sol prend 50% */
+  .groundBackground {
+    height: 50vh;
+    object-fit: cover;
+    object-position: top center;
   }
 }
 
 @media (max-width: 768px) {
-  .contactNav { padding: 1rem; }
-  .navLinks { gap: 0.25rem; padding: 0.4rem; }
-  .navLink { padding: 0.5rem 1rem; font-size: 0.85rem; }
-  .formCard { width: 320px; padding: 22px 18px; }
-  .formCard h1 { font-size: 1.5rem; }
-  .cloudsRow2 { display: none; }
+  /* Container fixe sans scroll */
+  .contactPage {
+    position: fixed;
+    overflow: hidden;
+  }
+
+  /* Le ciel reste en background fixe */
+  .sky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* Sol/montagne prend 50% en bas */
+  .groundBackground {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+    object-position: top center;
+    z-index: 1;
+  }
+
+  /* Nuages fixes et réduits - plus espacés */
+  .cloudsRow1 {
+    position: fixed;
+    top: 1%;
+    left: 0;
+    width: 200%;
+    height: 60px;
+    z-index: 2;
+  }
   
-  .tree { display: none; }
+  .cloudRow1 {
+    height: 40px;
+  }
+  
+  .cloudsRow2 {
+    position: fixed;
+    top: 12%;
+    left: -100%;
+    width: 200%;
+    height: 50px;
+    z-index: 2;
+  }
+  
+  .cloudRow2 {
+    height: 30px;
+  }
+  
+  .cloudsRow3 {
+    position: fixed;
+    top: 24%;
+    left: 0;
+    width: 200%;
+    height: 45px;
+    z-index: 2;
+  }
+  
+  .cloudRow3 {
+    height: 28px;
+  }
+
+  /* Navigation fixe en haut */
+  .contactNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.6rem 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    z-index: 100;
+  }
+  
+  .navLinks {
+    gap: 0.2rem;
+    padding: 0.35rem;
+    order: 1;
+  }
+  
+  .navLink {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .navLanguage {
+    position: static;
+    transform: none;
+    order: 2;
+  }
+
+  /* Formulaire centré */
+  .formSection {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+  }
+  
+  .formCard {
+    width: 100%;
+    max-width: 360px;
+    padding: 16px 18px;
+  }
+  
+  .formCard h1 {
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+  }
+  
+  .formIntro {
+    font-size: 0.78rem;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  
+  .contactForm {
+    gap: 10px;
+  }
+  
+  .formGroup {
+    gap: 3px;
+  }
+  
+  .formGroup label {
+    font-size: 0.75rem;
+  }
+  
+  .formGroup input,
+  .formGroup textarea {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .formGroup textarea {
+    min-height: 60px;
+  }
+  
+  .submitBtn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .recaptchaWrapper {
+    margin: 4px 0;
+    transform: scale(0.85);
+  }
+  
+  .socialLinks {
+    margin-top: 14px;
+    padding-top: 12px;
+  }
+  
+  .socialLabel {
+    font-size: 0.78rem;
+    margin-bottom: 8px;
+  }
+  
+  .socialIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* Cacher les éléments décoratifs */
+  .signSection, .fireSection {
+    display: none;
+  }
+  
+  .tree {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
-  .navLinks { flex-wrap: wrap; justify-content: center; }
-  .navLink { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
-  .navLanguage { position: static; transform: none; margin-top: 10px; }
-  .contactNav { flex-direction: column; gap: 10px; }
-  .formCard { width: 90vw; padding: 18px 14px; }
-  .cloudsRow1, .cloudsRow2, .cloudsRow3 { display: none; }
+  .contactNav {
+    padding: 0.5rem 0.6rem;
+    gap: 6px;
+  }
+  
+  .navLinks {
+    gap: 0.1rem;
+    padding: 0.25rem;
+  }
+  
+  .navLink {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.7rem;
+  }
+  
+  .formSection {
+    padding: 65px 15px 30px 15px;
+  }
+  
+  .formCard {
+    padding: 18px 16px;
+  }
+  
+  .formCard h1 {
+    font-size: 1.3rem;
+  }
+  
+  .recaptchaWrapper {
+    transform: scale(0.77);
+  }
+  
+  .socialIcons {
+    gap: 12px;
+  }
+  
+  .socialIcon {
+    width: 40px;
+    height: 40px;
+  }
 }
