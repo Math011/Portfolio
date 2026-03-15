@@ -22,6 +22,9 @@ export const contactTranslations = {
     sending: "Envoi en cours...",
     messageSent: "Message envoyé avec succès !",
     messageError: "Erreur lors de l'envoi. Veuillez réessayer.",
+    tooFast: "Veuillez patienter 30 secondes avant de renvoyer un message.",
+    rateLimited: "Trop de messages envoyés. Réessayez dans 5 minutes.",
+    captchaRequired: "Veuillez cocher le captcha.",
     
     // Informations de contact
     emailTitle: "Email",
@@ -30,6 +33,7 @@ export const contactTranslations = {
     
     // Réseaux sociaux
     followMe: "Me suivre",
+    orContactVia: "Ou contactez-moi via",
   },
   
   en: {
@@ -54,6 +58,9 @@ export const contactTranslations = {
     sending: "Sending...",
     messageSent: "Message sent successfully!",
     messageError: "Error sending message. Please try again.",
+    tooFast: "Please wait 30 seconds before sending another message.",
+    rateLimited: "Too many messages sent. Please try again in 5 minutes.",
+    captchaRequired: "Please check the captcha.",
     
     // Informations de contact
     emailTitle: "Email",
@@ -62,5 +69,6 @@ export const contactTranslations = {
     
     // Réseaux sociaux
     followMe: "Follow me",
+    orContactVia: "Or contact me via",
   }
 };
