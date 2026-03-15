@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1919.95 665.79">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #b36443;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #a4a936;
+      }
+
+      .cls-3 {
+        fill: #b8c03d;
+      }
+
+      .cls-4 {
+        fill: #c5e246;
+      }
+
+      .cls-5 {
+        fill: #b4964a;
+      }
+
+      .cls-6 {
+        fill: #7a3129;
+      }
+    </style>
+  </defs>
+  <g id="deuxième_partie_herbe" data-name="deuxième partie herbe">
+    <rect id="deuxième_partie_herbe-2" data-name="deuxième partie herbe" class="cls-2" y="177.61" width="1919.95" height="488.18"/>
+  </g>
+  <g id="herbe">
+    <polygon id="herbe-2" data-name="herbe" class="cls-4" points="853.31 177.61 0 408.08 0 665.79 1919.95 665.79 1919.95 408.08 1066.64 177.61 853.31 177.61"/>
+  </g>
+  <g id="contour_route" data-name="contour route">
+    <polygon id="contour_route-2" data-name="contour route" class="cls-5" points="1909.99 665.79 9.96 665.79 910.59 177.61 1009.36 177.61 1909.99 665.79"/>
+  </g>
+  <g id="herbe_droite" data-name="herbe droite">
+    <polygon id="herbe_droite-2" data-name="herbe droite" class="cls-3" points="1919.95 215.72 1919.95 335.17 1087.97 177.61 1231.97 177.61 1919.95 215.72"/>
+  </g>
+  <g id="herbe_gauche" data-name="herbe gauche">
+    <polygon id="herbe_gauche-2" data-name="herbe gauche" class="cls-3" points="0 215.72 0 335.17 831.98 177.61 687.98 177.61 0 215.72"/>
+  </g>
+  <g id="montagne_gauche" data-name="montagne gauche">
+    <g id="Montagne_gauche" data-name="Montagne gauche">
+      <polygon class="cls-6" points="796.42 46.77 688.34 24 662.74 158.71 625.76 160.48 605.85 69.97 349.97 49.53 335.86 166.1 319.99 167.53 311.26 53.01 283.12 55.55 233.08 113.37 24.11 143.84 0 177.61 853.31 177.61 796.42 46.77"/>
+      <g>
+        <polygon class="cls-1" points="81.78 177.61 0 177.61 24.11 143.84 81.78 135.43 81.78 177.61"/>
+        <polygon class="cls-1" points="142.22 126.62 154.66 124.8 154.66 177.61 142.22 177.61 142.22 126.62"/>
+        <polygon class="cls-1" points="234.66 111.55 280.53 58.54 280.53 177.61 234.66 177.61 234.66 111.55"/>
+        <polygon class="cls-1" points="335.99 165.04 349.97 49.53 350.92 49.6 350.92 177.61 335.99 177.61 335.99 165.04"/>
+        <polygon class="cls-1" points="476.79 59.66 491.72 60.85 491.72 177.61 476.79 177.61 476.79 59.66"/>
+        <polygon class="cls-1" points="506.65 62.04 530.12 63.92 530.12 177.61 506.65 177.61 506.65 62.04"/>
+        <polygon class="cls-1" points="662.38 158.73 662.74 158.71 687.98 25.87 687.98 177.61 662.38 177.61 662.38 158.73"/>
+      </g>
+    </g>
+  </g>
+  <g id="montagne_droite" data-name="montagne droite">
+    <g id="Montagne_droite" data-name="Montagne droite">
+      <polygon class="cls-1" points="1919.95 0 1303.43 55.55 1253.4 113.37 1044.42 143.84 1020.31 177.61 1919.95 177.61 1919.95 0"/>
+      <g>
+        <polygon class="cls-6" points="1400.85 46.77 1400.85 177.61 1375.25 177.61 1375.25 49.08 1400.85 46.77"/>
+        <polygon class="cls-6" points="1850.26 6.28 1919.95 0 1919.95 177.61 1850.26 177.61 1850.26 6.28"/>
+        <polygon class="cls-6" points="1757.82 14.61 1757.82 177.61 1607.07 177.61 1607.07 28.19 1757.82 14.61"/>
+        <polygon class="cls-6" points="1582.89 30.37 1582.89 177.61 1443.51 177.61 1443.51 42.93 1582.89 30.37"/>
+        <polygon class="cls-6" points="1237.3 115.72 1253.3 113.38 1253.3 177.61 1237.3 177.61 1237.3 115.72"/>
+      </g>
+    </g>
+  </g>
+</svg>
