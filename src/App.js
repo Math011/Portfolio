@@ -1,15 +1,18 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
-import ProgressBar from './components/ProgressBar';
-import BackgroundVideo from './components/BackgroundVideo';
-import { HomeMenu, AboutMenu, ProjectsMenu, ContactMenu, FinishMenu } from './components/RoadElement';
-import LoadingScreen from './components/LoadingScreen/LoadingScreen';
-import LanguageSwitcher from './components/LanguageSwitcher';
-import ProjectsPage from './pages/ProjectsPage';
-import ProjectDetailPage from './pages/ProjectDetailPage';
-import ContactPage from './pages/ContactPage/';
-import NotFoundPage from './pages/NotFoundPage';
+import { 
+  ProgressBar, 
+  BackgroundVideo, 
+  LoadingScreen, 
+  LanguageSwitcher,
+  HomeMenu, 
+  AboutMenu, 
+  ProjectsMenu, 
+  ContactMenu, 
+  FinishMenu 
+} from './components';
+import { ProjectsPage, ProjectDetailPage, ContactPage, NotFoundPage } from './pages';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
