@@ -3,11 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import ProgressBar from './components/ProgressBar';
 import BackgroundVideo from './components/BackgroundVideo';
-import HomeMenu from './components/RoadElement/HomeMenu';
-import AboutMenu from './components/RoadElement/AboutMenu';
-import ProjectsMenu from './components/RoadElement/ProjectsMenu';
-import ContactMenu from './components/RoadElement/ContactMenu';
-import FinishMenu from './components/RoadElement/FinishMenu';
+import { HomeMenu, AboutMenu, ProjectsMenu, ContactMenu, FinishMenu } from './components/RoadElement';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ProjectsPage from './pages/ProjectsPage';
@@ -93,7 +89,7 @@ function HomePage() {
 function App() {
   return (
     <LanguageProvider>
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <Router>
         <div className="app-container">
           <Routes>
             <Route path="/" element={<HomePage />} />

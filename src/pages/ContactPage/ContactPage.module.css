@@ -1,8 +1,16 @@
 /* =============================================================================
-   CONTACT PAGE - Panneau plus gros, arbres mieux répartis
+   CONTACT PAGE - Optimized
    ============================================================================= */
 
 .contactPage {
+  --color-primary: #7CB342;
+  --color-primary-dark: #558B2F;
+  --color-text: #4A3728;
+  --color-text-light: #5D4037;
+  --color-success: #2E7D32;
+  --color-error: #C62828;
+  --color-warning: #E65100;
+  
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -12,107 +20,52 @@
 }
 
 /* =============================================================================
-   CIEL
+   CIEL & NUAGES
    ============================================================================= */
 
 .sky {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg,
-    #FF9E80 0%,
-    #FFCC80 25%,
-    #FFE082 50%,
-    #FFECB3 75%,
-    #FFF8E1 100%
-  );
+  inset: 0;
+  background: linear-gradient(180deg, #FF9E80 0%, #FFCC80 25%, #FFE082 50%, #FFECB3 75%, #FFF8E1 100%);
   z-index: 0;
 }
 
-/* =============================================================================
-   NUAGES
-   ============================================================================= */
-
-.cloudsRow1 {
+.cloudsRow1, .cloudsRow2, .cloudsRow3 {
   position: absolute;
-  top: 3%;
   left: 0;
   width: 200%;
-  height: 100px;
   z-index: 1;
-  animation: moveRight 120s linear infinite;
 }
 
-.cloudRow1 {
+.cloudsRow1 { top: 3%; height: 100px; animation: moveRight 120s linear infinite; }
+.cloudsRow2 { top: 15%; height: 80px; left: -100%; animation: moveLeft 90s linear infinite; }
+.cloudsRow3 { top: 28%; height: 70px; animation: moveRight 150s linear infinite; }
+
+.cloudRow1, .cloudRow2, .cloudRow3 {
   position: absolute;
-  height: 70px;
   width: auto;
   filter: brightness(1.5) saturate(0);
-  opacity: 0.9;
 }
+
+.cloudRow1 { height: 70px; opacity: 0.9; }
+.cloudRow2 { height: 55px; opacity: 0.85; }
+.cloudRow3 { height: 50px; opacity: 0.8; filter: brightness(1.4) saturate(0); }
 
 .cloudRow1:nth-child(1) { left: 5%; }
 .cloudRow1:nth-child(2) { left: 40%; }
 .cloudRow1:nth-child(3) { left: 75%; }
-
-.cloudsRow2 {
-  position: absolute;
-  top: 15%;
-  left: -100%;
-  width: 200%;
-  height: 80px;
-  z-index: 1;
-  animation: moveLeft 90s linear infinite;
-}
-
-.cloudRow2 {
-  position: absolute;
-  height: 55px;
-  width: auto;
-  filter: brightness(1.5) saturate(0);
-  opacity: 0.85;
-}
-
 .cloudRow2:nth-child(1) { left: 15%; }
 .cloudRow2:nth-child(2) { left: 50%; }
 .cloudRow2:nth-child(3) { left: 85%; }
-
-.cloudsRow3 {
-  position: absolute;
-  top: 28%;
-  left: 0;
-  width: 200%;
-  height: 70px;
-  z-index: 1;
-  animation: moveRight 150s linear infinite;
-}
-
-.cloudRow3 {
-  position: absolute;
-  height: 50px;
-  width: auto;
-  filter: brightness(1.4) saturate(0);
-  opacity: 0.8;
-}
-
 .cloudRow3:nth-child(1) { left: 10%; }
 .cloudRow3:nth-child(2) { left: 45%; }
 .cloudRow3:nth-child(3) { left: 80%; }
 
-@keyframes moveRight {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes moveLeft {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(50%); }
-}
+@keyframes moveRight { to { transform: translateX(-50%); } }
+@keyframes moveLeft { to { transform: translateX(50%); } }
 
 /* =============================================================================
-   SOL + MONTAGNES
+   SOL & ARBRES
    ============================================================================= */
 
 .groundBackground {
@@ -125,127 +78,60 @@
   pointer-events: none;
 }
 
-/* =============================================================================
-   ARBRES - 5 rangées
-   
-   Rangées 1-2 : bien répartis sur la largeur (0-30% chaque côté)
-   Rangées 3 : transition
-   Rangées 4-5 : plus vers le centre (mais pas derrière formulaire)
-   ============================================================================= */
+.tree { position: absolute; pointer-events: none; }
 
-.tree {
-  position: absolute;
-  pointer-events: none;
-}
+/* Rangée 1 - très petits (z-index: 3) */
+.row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5, .row1Left6, .row1Left7,
+.row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5, .row1Right6, .row1Right7 { z-index: 3; }
 
-/* ===== RANGÉE 1 - FOND (très petits, 25-30px) - bottom: 46% ===== */
-/* 7 arbres par côté, gauche décalé vers droite, droite décalé vers gauche */
+.row1Left1 { width: 25px; bottom: 46%; left: 5%; }
+.row1Left2 { width: 28px; bottom: 45%; left: 10%; }
+.row1Left3 { width: 26px; bottom: 46%; left: 15%; }
+.row1Left4 { width: 30px; bottom: 45%; left: 20%; }
+.row1Left5 { width: 27px; bottom: 46%; left: 25%; }
+.row1Left6 { width: 25px; bottom: 45%; left: 30%; }
+.row1Left7 { width: 28px; bottom: 46%; left: 35%; }
+.row1Right1 { width: 25px; bottom: 46%; right: 5%; }
+.row1Right2 { width: 28px; bottom: 45%; right: 10%; }
+.row1Right3 { width: 26px; bottom: 46%; right: 15%; }
+.row1Right4 { width: 30px; bottom: 45%; right: 20%; }
+.row1Right5 { width: 27px; bottom: 46%; right: 25%; }
+.row1Right6 { width: 25px; bottom: 45%; right: 30%; }
+.row1Right7 { width: 28px; bottom: 46%; right: 35%; }
 
-.row1Left1 { width: 25px; bottom: 46%; left: 5%; z-index: 3; }
-.row1Left2 { width: 28px; bottom: 45%; left: 10%; z-index: 3; }
-.row1Left3 { width: 26px; bottom: 46%; left: 15%; z-index: 3; }
-.row1Left4 { width: 30px; bottom: 45%; left: 20%; z-index: 3; }
-.row1Left5 { width: 27px; bottom: 46%; left: 25%; z-index: 3; }
-.row1Left6 { width: 25px; bottom: 45%; left: 30%; z-index: 3; }
-.row1Left7 { width: 28px; bottom: 46%; left: 35%; z-index: 3; }
+/* Rangée 2 - petits (z-index: 4) */
+.row2Left1, .row2Left2, .row2Left3, .row2Left4, .row2Left5, .row2Left6,
+.row2Right1, .row2Right2, .row2Right3, .row2Right4, .row2Right5, .row2Right6 { z-index: 4; }
 
-.row1Right1 { width: 25px; bottom: 46%; right: 5%; z-index: 3; }
-.row1Right2 { width: 28px; bottom: 45%; right: 10%; z-index: 3; }
-.row1Right3 { width: 26px; bottom: 46%; right: 15%; z-index: 3; }
-.row1Right4 { width: 30px; bottom: 45%; right: 20%; z-index: 3; }
-.row1Right5 { width: 27px; bottom: 46%; right: 25%; z-index: 3; }
-.row1Right6 { width: 25px; bottom: 45%; right: 30%; z-index: 3; }
-.row1Right7 { width: 28px; bottom: 46%; right: 35%; z-index: 3; }
+.row2Left1 { width: 35px; bottom: 42%; left: 2%; }
+.row2Left2 { width: 40px; bottom: 41%; left: 8%; }
+.row2Left3 { width: 38px; bottom: 42%; left: 14%; }
+.row2Left4 { width: 42px; bottom: 41%; left: 20%; }
+.row2Left5 { width: 36px; bottom: 42%; left: 26%; }
+.row2Left6 { width: 40px; bottom: 41%; left: 32%; }
+.row2Right1 { width: 35px; bottom: 42%; right: 2%; }
+.row2Right2 { width: 40px; bottom: 41%; right: 8%; }
+.row2Right3 { width: 38px; bottom: 42%; right: 14%; }
+.row2Right4 { width: 42px; bottom: 41%; right: 20%; }
+.row2Right5 { width: 36px; bottom: 42%; right: 26%; }
+.row2Right6 { width: 40px; bottom: 41%; right: 32%; }
 
-/* ===== RANGÉE 2 - (petits, 35-42px) - bottom: 42% ===== */
-/* 6 arbres par côté, gauche décalé vers droite, droite décalé vers gauche */
+/* Rangée 3 - moyens (z-index: 5) */
+.row3Left1, .row3Left2, .row3Right1, .row3Right2, .row3Right3, .row3Right4 { z-index: 5; }
 
-.row2Left1 { width: 35px; bottom: 42%; left: 2%; z-index: 4; }
-.row2Left2 { width: 40px; bottom: 41%; left: 8%; z-index: 4; }
-.row2Left3 { width: 38px; bottom: 42%; left: 14%; z-index: 4; }
-.row2Left4 { width: 42px; bottom: 41%; left: 20%; z-index: 4; }
-.row2Left5 { width: 36px; bottom: 42%; left: 26%; z-index: 4; }
-.row2Left6 { width: 40px; bottom: 41%; left: 32%; z-index: 4; }
+.row3Left1 { width: 55px; bottom: 36%; left: 3%; }
+.row3Left2 { width: 60px; bottom: 35%; left: 12%; }
+.row3Right1 { width: 55px; bottom: 36%; right: 3%; }
+.row3Right2 { width: 60px; bottom: 35%; right: 12%; }
+.row3Right3 { width: 58px; bottom: 36%; right: 21%; }
+.row3Right4 { width: 62px; bottom: 35%; right: 28%; }
 
-.row2Right1 { width: 35px; bottom: 42%; right: 2%; z-index: 4; }
-.row2Right2 { width: 40px; bottom: 41%; right: 8%; z-index: 4; }
-.row2Right3 { width: 38px; bottom: 42%; right: 14%; z-index: 4; }
-.row2Right4 { width: 42px; bottom: 41%; right: 20%; z-index: 4; }
-.row2Right5 { width: 36px; bottom: 42%; right: 26%; z-index: 4; }
-.row2Right6 { width: 40px; bottom: 41%; right: 32%; z-index: 4; }
-
-/* ===== RANGÉE 3 - (moyens, 55-65px) - bottom: 36% ===== */
-/* Gauche : 3% et 12%, Droite : 4 arbres avec espacement ~6% */
-
-.row3Left1 { width: 55px; bottom: 36%; left: 3%; z-index: 5; }
-.row3Left2 { width: 60px; bottom: 35%; left: 12%; z-index: 5; }
-
-.row3Right1 { width: 55px; bottom: 36%; right: 3%; z-index: 5; }
-.row3Right2 { width: 60px; bottom: 35%; right: 12%; z-index: 5; }
-.row3Right3 { width: 58px; bottom: 36%; right: 21%; z-index: 5; }
-.row3Right4 { width: 62px; bottom: 35%; right: 28%; z-index: 5; }
-
-/* ===== RANGÉE 4 - (grands, 80-95px) - bottom: 28% ===== */
-/* Même répartition gauche/droite : 2% */
-
+/* Rangée 4 - grands (z-index: 6) */
 .row4Left1 { width: 85px; bottom: 28%; left: 2%; z-index: 6; }
-
 .row4Right1 { width: 85px; bottom: 28%; right: 2%; z-index: 6; }
 
 /* =============================================================================
-   NAVIGATION
-   ============================================================================= */
-
-.contactNav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 2rem;
-  z-index: 100;
-}
-
-.navLinks {
-  display: flex;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 0.5rem;
-  border-radius: 30px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.navLink {
-  padding: 0.6rem 1.5rem;
-  text-decoration: none;
-  color: #4A3728;
-  font-weight: 500;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
-}
-
-.navLink:hover {
-  background: rgba(124, 179, 66, 0.15);
-  color: #7CB342;
-}
-
-.navLink.active {
-  background: #7CB342;
-  color: #fff;
-}
-
-.navLanguage {
-  position: absolute;
-  right: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* =============================================================================
-   PANNEAU - Un peu plus en arrière
+   PANNEAU & FEU DE CAMP
    ============================================================================= */
 
 .signSection {
@@ -257,12 +143,44 @@
   transform-origin: bottom center;
 }
 
-.woodenSign text {
-  font-family: 'Caveat', 'Segoe UI', cursive;
+.woodenSign text { font-family: 'Caveat', 'Segoe UI', cursive; }
+
+.fireSection {
+  position: absolute;
+  right: 12%;
+  bottom: 22%;
+  z-index: 10;
 }
 
+.fireGroup { display: flex; align-items: flex-end; gap: 5px; }
+.personWrapper { display: flex; flex-direction: column; align-items: center; }
+.person { margin-bottom: -8px; }
+.log { filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.15)); }
+.campfire { filter: drop-shadow(0 0 20px rgba(255, 150, 0, 0.5)); }
+
+/* Animations flammes */
+.flame1 { animation: flicker1 0.4s ease-in-out infinite; }
+.flame2 { animation: flicker2 0.5s ease-in-out infinite; }
+.flame3 { animation: flicker3 0.45s ease-in-out infinite; }
+.flameInner { animation: flickerInner 0.35s ease-in-out infinite; }
+.flameCore { animation: flickerCore 0.3s ease-in-out infinite; }
+
+@keyframes flicker1 { 50% { transform: scaleY(1.08) scaleX(0.96); } }
+@keyframes flicker2 { 50% { transform: scaleY(0.92) translateX(-2px); } }
+@keyframes flicker3 { 0%, 100% { transform: scaleY(0.95); } 50% { transform: scaleY(1.05) translateX(2px); } }
+@keyframes flickerInner { 50% { opacity: 1; transform: scaleY(1.08); } }
+@keyframes flickerCore { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
+
+.spark1, .spark2, .spark3, .spark4 { animation: spark ease-out infinite; }
+.spark1 { animation-duration: 1.2s; }
+.spark2 { animation-duration: 1.5s; animation-delay: 0.2s; }
+.spark3 { animation-duration: 1.3s; animation-delay: 0.4s; }
+.spark4 { animation-duration: 1.6s; animation-delay: 0.6s; }
+
+@keyframes spark { to { opacity: 0; transform: translateY(-35px) scale(0); } }
+
 /* =============================================================================
-   FORMULAIRE - Centré, légèrement transparent
+   FORMULAIRE
    ============================================================================= */
 
 .formSection {
@@ -292,29 +210,15 @@
 }
 
 .formIntro {
-  color: #5D4037;
+  color: var(--color-text-light);
   margin-bottom: 14px;
   font-size: 0.85rem;
   line-height: 1.4;
 }
 
-.contactForm {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.formGroup label {
-  color: #4E342E;
-  font-weight: 600;
-  font-size: 0.8rem;
-}
+.contactForm { display: flex; flex-direction: column; gap: 12px; }
+.formGroup { display: flex; flex-direction: column; gap: 4px; }
+.formGroup label { color: #4E342E; font-weight: 600; font-size: 0.8rem; }
 
 .formGroup input,
 .formGroup textarea {
@@ -330,23 +234,18 @@
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
-  border-color: #7CB342;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.15);
   background: #fff;
 }
 
 .formGroup input::placeholder,
-.formGroup textarea::placeholder {
-  color: #A5D6A7;
-}
+.formGroup textarea::placeholder { color: #A5D6A7; }
 
-.formGroup textarea {
-  resize: vertical;
-  min-height: 70px;
-}
+.formGroup textarea { resize: vertical; min-height: 70px; }
 
 .submitBtn {
-  background: linear-gradient(135deg, #7CB342, #558B2F);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   color: white;
   border: none;
   padding: 12px 24px;
@@ -364,14 +263,10 @@
   box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
 }
 
-.submitBtn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
+.submitBtn:disabled { opacity: 0.7; cursor: not-allowed; }
 
-.successMessage {
-  color: #2E7D32;
-  background: rgba(200, 230, 201, 0.9);
+/* Messages */
+.successMessage, .errorMessage, .warningMessage {
   padding: 10px;
   border-radius: 10px;
   text-align: center;
@@ -380,33 +275,13 @@
   margin: 0;
 }
 
-.errorMessage {
-  color: #C62828;
-  background: rgba(255, 205, 210, 0.9);
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 500;
-  font-size: 0.85rem;
-  margin: 0;
-}
+.successMessage { color: var(--color-success); background: rgba(200, 230, 201, 0.9); }
+.errorMessage { color: var(--color-error); background: rgba(255, 205, 210, 0.9); }
+.warningMessage { color: var(--color-warning); background: rgba(255, 224, 178, 0.9); }
 
-.warningMessage {
-  color: #E65100;
-  background: rgba(255, 224, 178, 0.9);
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 500;
-  font-size: 0.85rem;
-  margin: 0;
-}
-
-/* Honeypot - Champ invisible pour piéger les robots */
 .honeypot {
   position: absolute;
   left: -9999px;
-  top: -9999px;
   opacity: 0;
   height: 0;
   width: 0;
@@ -414,7 +289,6 @@
   pointer-events: none;
 }
 
-/* reCAPTCHA */
 .recaptchaWrapper {
   display: flex;
   justify-content: center;
@@ -436,16 +310,12 @@
 
 .socialLabel {
   display: block;
-  color: #5D4037;
+  color: var(--color-text-light);
   font-size: 0.85rem;
   margin-bottom: 12px;
 }
 
-.socialIcons {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
+.socialIcons { display: flex; justify-content: center; gap: 16px; }
 
 .socialIcon {
   display: flex;
@@ -454,7 +324,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #7CB342, #558B2F);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   color: white;
   transition: all 0.3s ease;
   box-shadow: 0 3px 10px rgba(124, 179, 66, 0.25);
@@ -465,368 +335,78 @@
   box-shadow: 0 6px 15px rgba(124, 179, 66, 0.35);
 }
 
-.socialIcon svg {
-  width: 22px;
-  height: 22px;
-}
-
-/* =============================================================================
-   FEU DE CAMP - Un peu plus en avant
-   ============================================================================= */
-
-.fireSection {
-  position: absolute;
-  right: 12%;
-  bottom: 22%;
-  z-index: 10;
-}
-
-.fireGroup {
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-}
-
-.personWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.person {
-  margin-bottom: -8px;
-}
-
-.log {
-  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.15));
-}
-
-.campfire {
-  filter: drop-shadow(0 0 20px rgba(255, 150, 0, 0.5));
-}
-
-.flame1 { animation: flicker1 0.4s ease-in-out infinite; }
-.flame2 { animation: flicker2 0.5s ease-in-out infinite; }
-.flame3 { animation: flicker3 0.45s ease-in-out infinite; }
-.flameInner { animation: flickerInner 0.35s ease-in-out infinite; }
-.flameCore { animation: flickerCore 0.3s ease-in-out infinite; }
-
-@keyframes flicker1 {
-  0%, 100% { transform: scaleY(1) scaleX(1); }
-  50% { transform: scaleY(1.08) scaleX(0.96); }
-}
-
-@keyframes flicker2 {
-  0%, 100% { transform: scaleY(1) translateX(0); }
-  50% { transform: scaleY(0.92) translateX(-2px); }
-}
-
-@keyframes flicker3 {
-  0%, 100% { transform: scaleY(0.95) translateX(0); }
-  50% { transform: scaleY(1.05) translateX(2px); }
-}
-
-@keyframes flickerInner {
-  0%, 100% { opacity: 0.9; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.08); }
-}
-
-@keyframes flickerCore {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
-}
-
-.spark1 { animation: spark 1.2s ease-out infinite 0s; }
-.spark2 { animation: spark 1.5s ease-out infinite 0.2s; }
-.spark3 { animation: spark 1.3s ease-out infinite 0.4s; }
-.spark4 { animation: spark 1.6s ease-out infinite 0.6s; }
-
-@keyframes spark {
-  0% { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(-35px) scale(0); }
-}
+.socialIcon svg { width: 22px; height: 22px; }
 
 /* =============================================================================
    RESPONSIVE
    ============================================================================= */
 
 @media (max-width: 1200px) {
-  .signSection {
-    left: 5%;
-    bottom: 18%;
-    transform: scale(0.55);
-  }
+  .signSection { left: 5%; bottom: 18%; transform: scale(0.55); }
+  .fireSection { right: 5%; transform: scale(0.55); transform-origin: bottom right; }
   
-  .fireSection {
-    right: 5%;
-    transform: scale(0.55);
-    transform-origin: bottom right;
-  }
-  
-  /* Cacher rangée 1 et 6-7 de chaque côté */
   .row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5, .row1Left6, .row1Left7,
-  .row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5, .row1Right6, .row1Right7 {
-    display: none;
-  }
+  .row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5, .row1Right6, .row1Right7 { display: none; }
 }
 
 @media (max-width: 1024px) {
-  .formCard {
-    width: 380px;
-  }
-  
-  /* Garder panneau et feu de camp, les réduire */
-  .signSection {
-    left: 3%;
-    bottom: 12%;
-    transform: scale(0.5);
-  }
-  
-  .fireSection {
-    right: 3%;
-    bottom: 10%;
-    transform: scale(0.5);
-    transform-origin: bottom right;
-  }
-  
-  /* Cacher TOUS les arbres */
-  .tree {
-    display: none;
-  }
-  
-  /* Sol prend 50% */
-  .groundBackground {
-    height: 50vh;
-    object-fit: cover;
-    object-position: top center;
-  }
+  .formCard { width: 380px; }
+  .signSection { left: 3%; bottom: 12%; transform: scale(0.5); }
+  .fireSection { right: 3%; bottom: 10%; transform: scale(0.5); transform-origin: bottom right; }
+  .tree { display: none; }
+  .groundBackground { height: 50vh; object-fit: cover; object-position: top center; }
 }
 
 @media (max-width: 768px) {
-  /* Container fixe sans scroll */
-  .contactPage {
-    position: fixed;
-    overflow: hidden;
-  }
-
-  /* Le ciel reste en background fixe */
-  .sky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-  }
-
-  /* Sol/montagne prend 50% en bas */
+  .sky { position: fixed; width: 100vw; height: 100vh; }
+  
   .groundBackground {
     position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
     height: 50vh;
     object-fit: cover;
     object-position: top center;
     z-index: 1;
   }
 
-  /* Nuages fixes et réduits - plus espacés */
-  .cloudsRow1 {
-    position: fixed;
-    top: 1%;
-    left: 0;
-    width: 200%;
-    height: 60px;
-    z-index: 2;
-  }
-  
-  .cloudRow1 {
-    height: 40px;
-  }
-  
-  .cloudsRow2 {
-    position: fixed;
-    top: 12%;
-    left: -100%;
-    width: 200%;
-    height: 50px;
-    z-index: 2;
-  }
-  
-  .cloudRow2 {
-    height: 30px;
-  }
-  
-  .cloudsRow3 {
-    position: fixed;
-    top: 24%;
-    left: 0;
-    width: 200%;
-    height: 45px;
-    z-index: 2;
-  }
-  
-  .cloudRow3 {
-    height: 28px;
-  }
+  .cloudsRow1, .cloudsRow2, .cloudsRow3 { position: fixed; z-index: 2; }
+  .cloudsRow1 { top: 1%; height: 60px; }
+  .cloudsRow2 { top: 12%; height: 50px; }
+  .cloudsRow3 { top: 24%; height: 45px; }
+  .cloudRow1 { height: 40px; }
+  .cloudRow2 { height: 30px; }
+  .cloudRow3 { height: 28px; }
 
-  /* Navigation fixe en haut */
-  .contactNav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 0.6rem 1rem;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    background: transparent;
-    z-index: 100;
-  }
-  
-  .navLinks {
-    gap: 0.2rem;
-    padding: 0.35rem;
-    order: 1;
-  }
-  
-  .navLink {
-    padding: 0.45rem 0.8rem;
-    font-size: 0.8rem;
-  }
-  
-  .navLanguage {
-    position: static;
-    transform: none;
-    order: 2;
-  }
-
-  /* Formulaire centré */
   .formSection {
-    position: absolute;
     left: 0;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 50;
     display: flex;
     justify-content: center;
     padding: 0 20px;
   }
   
-  .formCard {
-    width: 100%;
-    max-width: 360px;
-    padding: 16px 18px;
-  }
-  
-  .formCard h1 {
-    font-size: 1.3rem;
-    margin-bottom: 4px;
-  }
-  
-  .formIntro {
-    font-size: 0.78rem;
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-  
-  .contactForm {
-    gap: 10px;
-  }
-  
-  .formGroup {
-    gap: 3px;
-  }
-  
-  .formGroup label {
-    font-size: 0.75rem;
-  }
-  
-  .formGroup input,
-  .formGroup textarea {
-    padding: 8px 10px;
-    font-size: 0.85rem;
-  }
-  
-  .formGroup textarea {
-    min-height: 60px;
-  }
-  
-  .submitBtn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-  
-  .recaptchaWrapper {
-    margin: 4px 0;
-    transform: scale(0.85);
-  }
-  
-  .socialLinks {
-    margin-top: 14px;
-    padding-top: 12px;
-  }
-  
-  .socialLabel {
-    font-size: 0.78rem;
-    margin-bottom: 8px;
-  }
-  
-  .socialIcon {
-    width: 38px;
-    height: 38px;
-  }
-
-  /* Cacher les éléments décoratifs */
-  .signSection, .fireSection {
-    display: none;
-  }
-  
-  .tree {
-    display: none;
-  }
+  .formCard { width: 100%; max-width: 360px; padding: 16px 18px; }
+  .formCard h1 { font-size: 1.3rem; margin-bottom: 4px; }
+  .formIntro { font-size: 0.78rem; margin-bottom: 10px; line-height: 1.3; }
+  .contactForm { gap: 10px; }
+  .formGroup { gap: 3px; }
+  .formGroup label { font-size: 0.75rem; }
+  .formGroup input, .formGroup textarea { padding: 8px 10px; font-size: 0.85rem; }
+  .formGroup textarea { min-height: 60px; }
+  .submitBtn { padding: 10px 20px; font-size: 0.9rem; }
+  .recaptchaWrapper { margin: 4px 0; }
+  .socialLinks { margin-top: 14px; padding-top: 12px; }
+  .socialLabel { font-size: 0.78rem; margin-bottom: 8px; }
+  .socialIcon { width: 38px; height: 38px; }
+  .signSection, .fireSection, .tree { display: none; }
 }
 
 @media (max-width: 480px) {
-  .contactNav {
-    padding: 0.5rem 0.6rem;
-    gap: 6px;
-  }
-  
-  .navLinks {
-    gap: 0.1rem;
-    padding: 0.25rem;
-  }
-  
-  .navLink {
-    padding: 0.35rem 0.5rem;
-    font-size: 0.7rem;
-  }
-  
-  .formSection {
-    padding: 65px 15px 30px 15px;
-  }
-  
-  .formCard {
-    padding: 18px 16px;
-  }
-  
-  .formCard h1 {
-    font-size: 1.3rem;
-  }
-  
-  .recaptchaWrapper {
-    transform: scale(0.77);
-  }
-  
-  .socialIcons {
-    gap: 12px;
-  }
-  
-  .socialIcon {
-    width: 40px;
-    height: 40px;
-  }
+  .formSection { padding: 65px 15px 30px; }
+  .formCard { padding: 18px 16px; }
+  .recaptchaWrapper { transform: scale(0.77); }
+  .socialIcons { gap: 12px; }
+  .socialIcon { width: 40px; height: 40px; }
 }
