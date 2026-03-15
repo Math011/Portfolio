@@ -1,5 +1,5 @@
-export { homeTranslations } from './AboutMenu';
-export { aboutTranslations } from './ContactMenu';
-export { projectsTranslations } from './FinishMenu';
-export { contactTranslations } from './HomeMenu';
-export { commonTranslations } from './ProjectsMenu';
+export { default as AboutMenu } from './AboutMenu';
+export { default as ContactMenu } from './ContactMenu';
+export { default as FinishMenu } from './FinishMenu';
+export { default as HomeMenu } from './HomeMenu';
+export { default as ProjectsMenu } from './ProjectsMenu';
