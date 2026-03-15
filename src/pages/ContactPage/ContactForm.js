@@ -209,6 +209,7 @@ ${replyMessages.closing}`;
             onChange={handleChange}
             tabIndex="-1"
             autoComplete="off"
+            data-testid="honeypot"
           />
         </div>
 
