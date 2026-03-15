@@ -1,130 +1,31 @@
 /* Page Projets - Nuages SVG et ballons flottants */
 .projectsPage {
+  --color-primary: #7CB342;
+  --color-primary-dark: #689F38;
+  --color-text: #4A3728;
+  --color-bg: #FFEA93;
+  --color-white: #fff;
+  --shadow-soft: 0 2px 15px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 10px 40px rgba(74, 55, 40, 0.15);
+  --radius-small: 15px;
+  --radius-medium: 20px;
+  --radius-large: 25px;
+
   min-height: 100vh;
-  background: #FFEA93;
-  color: #4A3728;
+  height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
   overflow-y: auto;
   overflow-x: hidden;
-  height: 100vh;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 100;
 }
 
-/* Nuages décoratifs en arrière-plan - défilent avec la page */
-.backgroundClouds {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-  z-index: 1;
-  overflow: visible;
-}
+/* =============================================================================
+   NAVIGATION
+   ============================================================================= */
 
-.bgCloud {
-  position: absolute;
-  height: auto;
-}
-
-/* Tailles des nuages - écarts réduits */
-.sizeXsmall {
-  width: 80px;
-}
-
-.sizeSmall {
-  width: 140px;
-}
-
-.sizeMedium {
-  width: 220px;
-}
-
-.sizeLarge {
-  width: 320px;
-}
-
-.sizeXlarge {
-  width: 450px;
-}
-
-.sizeXxlarge {
-  width: 600px;
-}
-
-/* Opacités liées à la taille (plus petit = plus loin = moins visible) */
-.opacityVeryLight {
-  opacity: 0.15;
-}
-
-.opacityLight {
-  opacity: 0.25;
-}
-
-.opacityMediumLight {
-  opacity: 0.35;
-}
-
-.opacityMedium {
-  opacity: 0.45;
-}
-
-.opacityMediumDark {
-  opacity: 0.55;
-}
-
-.opacityDark {
-  opacity: 0.65;
-}
-
-/* Animations par direction */
-.directionLeft {
-  animation-name: cloudMoveLeft;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-.directionRight {
-  animation-name: cloudMoveRight;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-/* Vitesses des nuages */
-.speedSlow {
-  animation-duration: 80s;
-}
-
-.speedNormal {
-  animation-duration: 55s;
-}
-
-.speedFast {
-  animation-duration: 35s;
-}
-
-@keyframes cloudMoveLeft {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100vw);
-  }
-}
-
-@keyframes cloudMoveRight {
-  0% {
-    transform: translateX(100vw);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-/* Navigation */
 .projectsNav {
   position: fixed;
   top: 0;
@@ -142,28 +43,28 @@
   gap: 0.5rem;
   background: rgba(255, 255, 255, 0.95);
   padding: 0.5rem 1rem;
-  border-radius: 25px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-soft);
 }
 
 .navLink {
-  color: #4A3728;
+  color: var(--color-text);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
-  border-radius: 20px;
+  border-radius: var(--radius-medium);
   transition: all 0.3s ease;
 }
 
 .navLink:hover {
   background: rgba(124, 179, 66, 0.15);
-  color: #7CB342;
+  color: var(--color-primary);
 }
 
 .active {
-  background: #7CB342;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-white);
 }
 
 .navLanguage {
@@ -173,7 +74,10 @@
   transform: translateY(-50%);
 }
 
-/* Titre */
+/* =============================================================================
+   TITLE & CONTENT
+   ============================================================================= */
+
 .projectsTitleContainer {
   text-align: center;
   padding: 4rem 0 2rem;
@@ -183,12 +87,11 @@
 
 .projectsTitle {
   font-size: 2.5rem;
-  color: #4A3728;
+  color: var(--color-text);
   font-weight: 700;
   margin: 0;
 }
 
-/* Contenu - projets */
 .projectsContent {
   max-width: 1200px;
   margin: 0 auto;
@@ -197,7 +100,10 @@
   z-index: 10;
 }
 
-/* Section projet */
+/* =============================================================================
+   PROJECT CARDS
+   ============================================================================= */
+
 .projectSection {
   position: relative;
   margin-bottom: 60px;
@@ -207,7 +113,6 @@
   margin-bottom: 20px;
 }
 
-/* Carte projet */
 .projectCard {
   position: relative;
   width: calc(45% - 30px);
@@ -225,7 +130,6 @@
   margin-right: 40px;
 }
 
-/* Ballon */
 .balloonContainer {
   position: absolute;
   top: -65px;
@@ -238,104 +142,11 @@
   filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
 }
 
-/* Oiseaux décoratifs - défilent avec la page */
-.backgroundBirds {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  z-index: 2;
-  overflow: visible;
-}
-
-.flyingBird {
-  position: absolute;
-  opacity: 0.6;
-}
-
-/* Oiseaux volant vers la droite */
-.flyingBird.directionRight {
-  animation: flyRight linear infinite;
-}
-
-/* Oiseaux volant vers la gauche */
-.flyingBird.directionLeft {
-  animation: flyLeft linear infinite;
-}
-
-@keyframes flyRight {
-  0% {
-    transform: translateX(-50px) translateY(0);
-  }
-  25% {
-    transform: translateX(25vw) translateY(-20px);
-  }
-  50% {
-    transform: translateX(50vw) translateY(10px);
-  }
-  75% {
-    transform: translateX(75vw) translateY(-15px);
-  }
-  100% {
-    transform: translateX(110vw) translateY(5px);
-  }
-}
-
-@keyframes flyLeft {
-  0% {
-    transform: translateX(50px) translateY(0);
-  }
-  25% {
-    transform: translateX(-25vw) translateY(-15px);
-  }
-  50% {
-    transform: translateX(-50vw) translateY(10px);
-  }
-  75% {
-    transform: translateX(-75vw) translateY(-20px);
-  }
-  100% {
-    transform: translateX(-110vw) translateY(0);
-  }
-}
-
-/* Animation des ailes */
-.birdWingLeft {
-  animation: flapLeft 0.3s ease-in-out infinite;
-  transform-origin: 20px 10px;
-}
-
-.birdWingRight {
-  animation: flapRight 0.3s ease-in-out infinite;
-  transform-origin: 20px 10px;
-}
-
-@keyframes flapLeft {
-  0%, 100% {
-    d: path("M20 10 Q10 2, 2 8");
-  }
-  50% {
-    d: path("M20 10 Q10 14, 2 12");
-  }
-}
-
-@keyframes flapRight {
-  0%, 100% {
-    d: path("M20 10 Q30 2, 38 8");
-  }
-  50% {
-    d: path("M20 10 Q30 14, 38 12");
-  }
-}
-
-/* Contenu de la carte - simple et épuré */
 .cardContent {
-  background: #fff;
-  border-radius: 20px;
+  background: var(--color-white);
+  border-radius: var(--radius-medium);
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(74, 55, 40, 0.15);
-  position: relative;
+  box-shadow: var(--shadow-card);
 }
 
 .projectImage {
@@ -362,7 +173,7 @@
 
 .projectInfo h2 {
   font-size: 1.2rem;
-  color: #4A3728;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
 }
 
@@ -373,7 +184,6 @@
   margin-bottom: 1rem;
 }
 
-/* Tags */
 .projectTags {
   display: flex;
   flex-wrap: wrap;
@@ -382,21 +192,20 @@
 }
 
 .tag {
-  background: #7CB342;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-white);
   padding: 0.3rem 0.8rem;
-  border-radius: 15px;
+  border-radius: var(--radius-small);
   font-size: 0.75rem;
   font-weight: 600;
 }
 
-/* Lien projet - Bouton visible */
 .projectLink {
   display: inline-block;
-  background: #7CB342;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-white);
   padding: 0.6rem 1.2rem;
-  border-radius: 20px;
+  border-radius: var(--radius-medium);
   font-weight: 600;
   font-size: 0.85rem;
   text-decoration: none;
@@ -404,126 +213,183 @@
 }
 
 .projectLink:hover {
-  background: #689F38;
+  background: var(--color-primary-dark);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(124, 179, 66, 0.3);
 }
 
-/* Responsive */
+/* =============================================================================
+   CLOUDS - Using CSS custom properties for sizes
+   ============================================================================= */
+
+.backgroundClouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.bgCloud {
+  position: absolute;
+  height: auto;
+}
+
+/* Cloud sizes */
+.sizeXsmall { width: 80px; }
+.sizeSmall { width: 140px; }
+.sizeMedium { width: 220px; }
+.sizeLarge { width: 320px; }
+.sizeXlarge { width: 450px; }
+.sizeXxlarge { width: 600px; }
+
+/* Cloud opacities */
+.opacityVeryLight { opacity: 0.15; }
+.opacityLight { opacity: 0.25; }
+.opacityMediumLight { opacity: 0.35; }
+.opacityMedium { opacity: 0.45; }
+.opacityMediumDark { opacity: 0.55; }
+.opacityDark { opacity: 0.65; }
+
+/* Cloud directions - separate animation properties */
+.bgCloud.directionLeft {
+  animation-name: cloudMoveLeft;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.bgCloud.directionRight {
+  animation-name: cloudMoveRight;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Cloud speeds */
+.speedSlow { animation-duration: 80s; }
+.speedNormal { animation-duration: 55s; }
+.speedFast { animation-duration: 35s; }
+
+@keyframes cloudMoveLeft {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes cloudMoveRight {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* =============================================================================
+   BIRDS
+   ============================================================================= */
+
+.backgroundBirds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.flyingBird {
+  position: absolute;
+  opacity: 0.6;
+}
+
+.flyingBird.directionRight {
+  animation: flyRight linear infinite;
+}
+
+.flyingBird.directionLeft {
+  animation: flyLeft linear infinite;
+}
+
+@keyframes flyRight {
+  0% { transform: translateX(-50px) translateY(0); }
+  25% { transform: translateX(25vw) translateY(-20px); }
+  50% { transform: translateX(50vw) translateY(10px); }
+  75% { transform: translateX(75vw) translateY(-15px); }
+  100% { transform: translateX(110vw) translateY(5px); }
+}
+
+@keyframes flyLeft {
+  0% { transform: translateX(50px) translateY(0); }
+  25% { transform: translateX(-25vw) translateY(-15px); }
+  50% { transform: translateX(-50vw) translateY(10px); }
+  75% { transform: translateX(-75vw) translateY(-20px); }
+  100% { transform: translateX(-110vw) translateY(0); }
+}
+
+/* Wing animations with d: path() */
+.birdWingLeft {
+  animation: flapLeft 0.3s ease-in-out infinite;
+  transform-origin: 20px 10px;
+}
+
+.birdWingRight {
+  animation: flapRight 0.3s ease-in-out infinite;
+  transform-origin: 20px 10px;
+}
+
+@keyframes flapLeft {
+  0%, 100% { d: path("M20 10 Q10 2, 2 8"); }
+  50% { d: path("M20 10 Q10 14, 2 12"); }
+}
+
+@keyframes flapRight {
+  0%, 100% { d: path("M20 10 Q30 2, 38 8"); }
+  50% { d: path("M20 10 Q30 14, 38 12"); }
+}
+
+/* =============================================================================
+   RESPONSIVE
+   ============================================================================= */
+
 @media (max-width: 900px) {
-  .navLinks {
-    gap: 0.3rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .navLink {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .navLanguage {
-    right: 1rem;
-  }
-
+  .navLinks { gap: 0.3rem; padding: 0.4rem 0.8rem; }
+  .navLink { font-size: 0.8rem; padding: 0.4rem 0.8rem; }
+  .navLanguage { right: 1rem; }
+  .projectsTitle { font-size: 2rem; }
+  
   .projectCard {
     width: calc(100% - 60px);
     margin-left: 30px !important;
     margin-right: 30px !important;
   }
 
-  .projectsTitle {
-    font-size: 2rem;
-  }
-
-  .sizeXsmall {
-    width: 50px;
-  }
-
-  .sizeSmall {
-    width: 90px;
-  }
-
-  .sizeMedium {
-    width: 140px;
-  }
-
-  .sizeLarge {
-    width: 200px;
-  }
-
-  .sizeXlarge {
-    width: 280px;
-  }
-
-  .sizeXxlarge {
-    width: 380px;
-  }
+  /* Reduce cloud sizes */
+  .sizeXsmall { width: 50px; }
+  .sizeSmall { width: 90px; }
+  .sizeMedium { width: 140px; }
+  .sizeLarge { width: 200px; }
+  .sizeXlarge { width: 280px; }
+  .sizeXxlarge { width: 380px; }
 }
 
 @media (max-width: 600px) {
-  .projectsNav {
-    padding: 0.8rem 1rem;
-  }
-
-  .navLinks {
-    gap: 0.2rem;
-    padding: 0.3rem 0.5rem;
-  }
-
-  .navLink {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.5rem;
-  }
-
-  .navLanguage {
-    position: static;
-    transform: none;
-    margin-left: 0.5rem;
-  }
-
-  .projectsNav {
-    flex-wrap: nowrap;
-  }
-
-  .projectsTitle {
-    font-size: 1.6rem;
-  }
-
+  .projectsNav { padding: 0.8rem 1rem; flex-wrap: nowrap; }
+  .navLinks { gap: 0.2rem; padding: 0.3rem 0.5rem; }
+  .navLink { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+  .navLanguage { position: static; transform: none; margin-left: 0.5rem; }
+  .projectsTitle { font-size: 1.6rem; }
+  .balloonContainer { top: -60px; }
+  .projectImage { height: 150px; }
+  
   .projectCard {
     width: calc(100% - 40px);
     margin-left: 20px !important;
     margin-right: 20px !important;
   }
 
-  .balloonContainer {
-    top: -60px;
-  }
-
-  .projectImage {
-    height: 150px;
-  }
-
-  .sizeXsmall {
-    width: 35px;
-  }
-
-  .sizeSmall {
-    width: 60px;
-  }
-
-  .sizeMedium {
-    width: 100px;
-  }
-
-  .sizeLarge {
-    width: 150px;
-  }
-
-  .sizeXlarge {
-    width: 200px;
-  }
-
-  .sizeXxlarge {
-    width: 260px;
-  }
+  /* Further reduce cloud sizes */
+  .sizeXsmall { width: 35px; }
+  .sizeSmall { width: 60px; }
+  .sizeMedium { width: 100px; }
+  .sizeLarge { width: 150px; }
+  .sizeXlarge { width: 200px; }
+  .sizeXxlarge { width: 260px; }
 }
