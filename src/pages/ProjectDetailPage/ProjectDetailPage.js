@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { projects } from '../../data/projects';
-import LanguageSwitcher from '../../components/LanguageSwitcher';
+import Header from '../../components/Header';
 import styles from './ProjectDetailPage.module.css';
 
 // Oiseau SVG animé (même composant que ProjectsPage)
@@ -40,7 +40,7 @@ const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (
 const generateBirds = () => {
   const birds = [];
   const totalBirds = 8;
-  const maxHeight = 800; // Hauteur limitée
+  const maxHeight = 800;
   
   const seededRandom = (seed) => {
     const x = Math.sin(seed * 9999) * 10000;
@@ -69,11 +69,10 @@ const generateBirds = () => {
 
 const decorativeBirds = generateBirds();
 
-// Configuration des nuages - adaptée à une page plus courte
+// Configuration des nuages
 const CLOUD_IMAGES = ['nuage1.svg', 'nuage2.svg', 'nuage3.svg', 'nuage5.svg'];
 const CLOUD_SIZES = ['small', 'medium', 'large'];
 
-// Map des classes CSS
 const SIZE_TO_CLASS = {
   'small': 'sizeSmall',
   'medium': 'sizeMedium',
@@ -123,10 +122,9 @@ const ProjectDetailPage = () => {
   const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState(0);
   
-  // Trouver le projet
   const projectIndex = projects.findIndex(p => p.id === parseInt(id));
   const project = projects[projectIndex];
-  
+
   // Projets précédent et suivant
   const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null;
   const nextProject = projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
@@ -135,6 +133,7 @@ const ProjectDetailPage = () => {
   if (!project) {
     return (
       <div className={styles.projectDetailPage}>
+        <Header />
         <div className={styles.projectNotFound}>
           <h1>Projet non trouvé</h1>
           <Link to="/projects" className={styles.backLink}>{t('backToProjects')}</Link>
@@ -177,18 +176,8 @@ const ProjectDetailPage = () => {
         ))}
       </div>
 
-      {/* Navigation */}
-      <nav className={styles.projectDetailNav}>
-        <div className={styles.navLinks}>
-          <Link to="/" className={styles.navLink}>{t('home')}</Link>
-          <Link to="/about" className={styles.navLink}>{t('about')}</Link>
-          <Link to="/projects" className={`${styles.navLink} ${styles.active}`}>{t('projects')}</Link>
-          <Link to="/contact" className={styles.navLink}>{t('contact')}</Link>
-        </div>
-        <div className={styles.navLanguage}>
-          <LanguageSwitcher />
-        </div>
-      </nav>
+      {/* Header */}
+      <Header />
 
       {/* Contenu principal */}
       <div className={styles.projectDetailContent}>
@@ -248,12 +237,10 @@ const ProjectDetailPage = () => {
 
         {/* Description et infos */}
         <div className={styles.projectInfoSection}>
-          {/* Description */}
           <div className={styles.projectDescription}>
             <p>{t(project.fullDescriptionKey)}</p>
           </div>
 
-          {/* Technologies */}
           <div className={styles.projectTechnologies}>
             <h3>{t('technologiesUsed')}</h3>
             <div className={styles.techTags}>
@@ -269,7 +256,6 @@ const ProjectDetailPage = () => {
             </div>
           </div>
 
-          {/* Liens */}
           <div className={styles.projectLinks}>
             {project.githubLink && (
               <a 

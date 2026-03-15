@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
-import LanguageSwitcher from '../../components/LanguageSwitcher';
+import Header from '../../components/Header';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import ProjectCard from './ProjectCard';
 import { Bird } from './SvgElements';
@@ -126,18 +126,8 @@ const ProjectsPage = () => {
           ))}
         </div>
 
-        {/* Navigation */}
-        <nav className={styles.projectsNav}>
-          <div className={styles.navLinks}>
-            <Link to="/" className={styles.navLink}>{t('home')}</Link>
-            <Link to="/about" className={styles.navLink}>{t('about')}</Link>
-            <Link to="/projects" className={`${styles.navLink} ${styles.active}`}>{t('projects')}</Link>
-            <Link to="/contact" className={styles.navLink}>{t('contact')}</Link>
-          </div>
-          <div className={styles.navLanguage}>
-            <LanguageSwitcher />
-          </div>
-        </nav>
+        {/* Header */}
+        <Header />
 
         {/* Title */}
         <div className={styles.projectsTitleContainer}>

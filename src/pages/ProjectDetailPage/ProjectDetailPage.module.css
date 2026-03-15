@@ -13,7 +13,10 @@
   z-index: 100;
 }
 
-/* Oiseaux et nuages */
+/* =============================================================================
+   OISEAUX ET NUAGES
+   ============================================================================= */
+
 .backgroundBirds {
   position: absolute;
   top: 0;
@@ -70,54 +73,9 @@
 .speedNormal { animation-duration: 55s; }
 .speedFast { animation-duration: 35s; }
 
-/* Navigation */
-.projectDetailNav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem 2rem;
-  z-index: 50;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.navLinks {
-  display: flex;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-}
-
-.navLink {
-  color: #4A3728;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-
-.navLink:hover {
-  background: rgba(124, 179, 66, 0.15);
-  color: #7CB342;
-}
-
-.active {
-  background: #7CB342;
-  color: #fff;
-}
-
-.navLanguage {
-  position: absolute;
-  right: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
+/* =============================================================================
+   CONTENU PRINCIPAL
+   ============================================================================= */
 
 .backLink {
   color: #4A3728;
@@ -137,7 +95,6 @@
   color: #7CB342;
 }
 
-/* Contenu principal */
 .projectDetailContent {
   max-width: 900px;
   margin: 0 auto;
@@ -146,7 +103,10 @@
   z-index: 10;
 }
 
-/* En-tête avec ballon */
+/* =============================================================================
+   EN-TÊTE AVEC BALLON
+   ============================================================================= */
+
 .projectHeader {
   text-align: center;
   margin-bottom: 2rem;
@@ -170,7 +130,10 @@
   margin: 0;
 }
 
-/* Image principale */
+/* =============================================================================
+   IMAGE PRINCIPALE
+   ============================================================================= */
+
 .projectMainImage {
   background: #fff;
   border-radius: 20px;
@@ -187,7 +150,10 @@
   display: block;
 }
 
-/* Galerie */
+/* =============================================================================
+   GALERIE
+   ============================================================================= */
+
 .projectGallery {
   margin-bottom: 2rem;
 }
@@ -234,7 +200,10 @@
   display: block;
 }
 
-/* Section infos */
+/* =============================================================================
+   SECTION INFOS
+   ============================================================================= */
+
 .projectInfoSection {
   background: #fff;
   border-radius: 20px;
@@ -243,7 +212,6 @@
   margin-bottom: 2rem;
 }
 
-/* Description */
 .projectDescription {
   margin-bottom: 2rem;
 }
@@ -254,7 +222,6 @@
   color: #555;
 }
 
-/* Technologies */
 .projectTechnologies {
   margin-bottom: 2rem;
 }
@@ -279,7 +246,10 @@
   font-weight: 600;
 }
 
-/* Liens */
+/* =============================================================================
+   LIENS
+   ============================================================================= */
+
 .projectLinks {
   display: flex;
   gap: 1rem;
@@ -317,7 +287,10 @@
   filter: brightness(1.1);
 }
 
-/* Navigation entre projets */
+/* =============================================================================
+   NAVIGATION ENTRE PROJETS
+   ============================================================================= */
+
 .projectNavigation {
   display: flex;
   justify-content: space-between;
@@ -358,7 +331,10 @@
   width: 140px;
 }
 
-/* Projet non trouvé */
+/* =============================================================================
+   PROJET NON TROUVÉ
+   ============================================================================= */
+
 .projectNotFound {
   display: flex;
   flex-direction: column;
@@ -373,7 +349,10 @@
   color: #4A3728;
 }
 
-/* Animations */
+/* =============================================================================
+   ANIMATIONS
+   ============================================================================= */
+
 @keyframes flyRight {
   0% { transform: translateX(-50px) translateY(0); }
   25% { transform: translateX(25vw) translateY(-20px); }
@@ -420,7 +399,10 @@
   50% { d: path("M20 10 Q30 14, 38 12"); }
 }
 
-/* Responsive */
+/* =============================================================================
+   RESPONSIVE
+   ============================================================================= */
+
 @media (max-width: 768px) {
   .projectDetailContent {
     padding: 4.5rem 1rem 2rem;
@@ -459,44 +441,9 @@
   .projectBtn {
     justify-content: center;
   }
-
-  .navLinks {
-    padding: 0.4rem 0.6rem;
-    gap: 0.3rem;
-  }
-
-  .navLink {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.7rem;
-  }
-
-  .navLanguage {
-    right: 1rem;
-  }
 }
 
 @media (max-width: 480px) {
-  .projectDetailNav {
-    padding: 0.8rem 1rem;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .navLinks {
-    order: 1;
-  }
-
-  .navLanguage {
-    position: static;
-    transform: none;
-    order: 2;
-  }
-
-  .navLink {
-    font-size: 0.75rem;
-    padding: 0.35rem 0.5rem;
-  }
-
   .projectTitle {
     font-size: 1.5rem;
   }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
-import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
+import Header from '../../components/Header';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import ContactForm from './ContactForm';
 import { Campfire, WoodenSign, Person, Log } from './SceneElements';
@@ -53,18 +52,8 @@ const ContactPage = () => {
         {/* ============ ARBRES ============ */}
         <Trees />
 
-        {/* ============ NAVIGATION ============ */}
-        <nav className={styles.contactNav}>
-          <div className={styles.navLinks}>
-            <Link to="/" className={styles.navLink}>{t('home')}</Link>
-            <Link to="/about" className={styles.navLink}>{t('about')}</Link>
-            <Link to="/projects" className={styles.navLink}>{t('projects')}</Link>
-            <Link to="/contact" className={`${styles.navLink} ${styles.active}`}>{t('contact')}</Link>
-          </div>
-          <div className={styles.navLanguage}>
-            <LanguageSwitcher />
-          </div>
-        </nav>
+        {/* ============ HEADER ============ */}
+        <Header />
 
         {/* ============ PANNEAU ============ */}
         <div className={styles.signSection}>
