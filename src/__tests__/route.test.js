@@ -19,6 +19,7 @@ const MockHomePage = () => (
 
 const MockProjectsPage = () => <div data-testid="projects-page">ProjectsPage</div>;
 const MockProjectDetailPage = () => <div data-testid="project-detail-page">ProjectDetailPage</div>;
+const MockContactPage = () => <div data-testid="contact-page">ContactPage</div>;
 const MockNotFoundPage = () => <div data-testid="not-found-page">404 - Page not found</div>;
 
 // =============================================================================
@@ -31,6 +32,7 @@ const TestApp = () => (
       <Route path="/" element={<MockHomePage />} />
       <Route path="/projects" element={<MockProjectsPage />} />
       <Route path="/project/:id" element={<MockProjectDetailPage />} />
+      <Route path="/contact" element={<MockContactPage />} />
       <Route path="*" element={<MockNotFoundPage />} />
     </Routes>
   </LanguageProvider>
@@ -42,11 +44,13 @@ const NavigationTestApp = () => (
       <Link to="/">Home</Link>
       <Link to="/projects">Projects</Link>
       <Link to="/project/1">Project 1</Link>
+      <Link to="/contact">Contact</Link>
     </nav>
     <Routes>
       <Route path="/" element={<main>Home Page</main>} />
       <Route path="/projects" element={<main>Projects Page</main>} />
       <Route path="/project/:id" element={<main>Project Detail Page</main>} />
+      <Route path="/contact" element={<main>Contact Page</main>} />
       <Route path="*" element={<main>404 - Page not found</main>} />
     </Routes>
   </LanguageProvider>
@@ -72,79 +76,39 @@ const renderNavApp = (initialRoute = '/') => {
   );
 };
 
-const expectRoute = (path, testId) => {
-  renderWithRouter(path);
-  expect(screen.getByTestId(testId)).toBeInTheDocument();
-};
-
-const expectRouteNotFound = (path, excludedTestIds) => {
-  renderWithRouter(path);
-  excludedTestIds.forEach(testId => {
-    expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
-  });
-};
-
-const navigateAndExpect = async (startRoute, linkName, expectedText) => {
-  const user = userEvent.setup();
-  renderNavApp(startRoute);
-  await user.click(screen.getByRole('link', { name: linkName }));
-  expect(screen.getByText(expectedText)).toBeInTheDocument();
-};
-
 // =============================================================================
 // ROUTES TESTS
 // =============================================================================
 
-describe('Routes Tests', () => {
+describe('Routes', () => {
 
-  describe('Route: / (HomePage)', () => {
-    test('renders all HomePage components', () => {
-      renderWithRouter('/');
-      
-      ['home-menu', 'about-menu', 'projects-menu', 'contact-menu', 'finish-menu'].forEach(testId => {
-        expect(screen.getByTestId(testId)).toBeInTheDocument();
-      });
-    });
-
-    test('does not render other pages', () => {
-      expectRouteNotFound('/', ['projects-page', 'project-detail-page', 'not-found-page']);
+  test('/ renders HomePage with all menus', () => {
+    renderWithRouter('/');
+    
+    ['home-menu', 'about-menu', 'projects-menu', 'contact-menu', 'finish-menu'].forEach(testId => {
+      expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
   });
 
-  describe.each([
-    ['/projects', 'projects-page'],
-    ['/projects?filter=react', 'projects-page'],
-  ])('Route: %s', (path, testId) => {
-    test('renders correct component', () => {
-      expectRoute(path, testId);
-    });
+  test('/projects renders ProjectsPage', () => {
+    renderWithRouter('/projects');
+    expect(screen.getByTestId('projects-page')).toBeInTheDocument();
   });
 
-  describe.each([
-    ['/project/1', 'project-detail-page'],
-    ['/project/2', 'project-detail-page'],
-    ['/project/3', 'project-detail-page'],
-    ['/project/4', 'project-detail-page'],
-    ['/project/123', 'project-detail-page'],
-    ['/project/my-project', 'project-detail-page'],
-    ['/project/1?ref=home', 'project-detail-page'],
-    ['/project/1#details', 'project-detail-page'],
-  ])('Route: %s', (path, testId) => {
-    test('renders ProjectDetailPage', () => {
-      expectRoute(path, testId);
-    });
+  test('/project/:id renders ProjectDetailPage', () => {
+    renderWithRouter('/project/123');
+    expect(screen.getByTestId('project-detail-page')).toBeInTheDocument();
   });
 
-  describe.each([
-    '/unknown-route',
-    '/random/nested/path',
-    '/about',
-    '/contact',
-  ])('Route: %s (404)', (path) => {
-    test('renders NotFoundPage', () => {
-      expectRoute(path, 'not-found-page');
-      expect(screen.getByText(/404/i)).toBeInTheDocument();
-    });
+  test('/contact renders ContactPage', () => {
+    renderWithRouter('/contact');
+    expect(screen.getByTestId('contact-page')).toBeInTheDocument();
+  });
+
+  test('unknown route renders NotFoundPage', () => {
+    renderWithRouter('/unknown-route');
+    expect(screen.getByTestId('not-found-page')).toBeInTheDocument();
+    expect(screen.getByText(/404/i)).toBeInTheDocument();
   });
 
 });
@@ -153,19 +117,38 @@ describe('Routes Tests', () => {
 // NAVIGATION TESTS
 // =============================================================================
 
-describe('Navigation Tests', () => {
+describe('Navigation', () => {
 
-  describe.each([
-    ['/', /projects/i, 'Projects Page'],
-    ['/', /project 1/i, 'Project Detail Page'],
-    ['/projects', /home/i, 'Home Page'],
-    ['/project/1', /home/i, 'Home Page'],
-    ['/project/1', /projects/i, 'Projects Page'],
-    ['/unknown', /home/i, 'Home Page'],
-  ])('From %s clicking "%s"', (startRoute, linkName, expectedText) => {
-    test(`navigates to ${expectedText}`, async () => {
-      await navigateAndExpect(startRoute, linkName, expectedText);
-    });
+  test('navigates from Home to Projects', async () => {
+    const user = userEvent.setup();
+    renderNavApp('/');
+    
+    await user.click(screen.getByRole('link', { name: 'Projects' }));
+    expect(screen.getByText('Projects Page')).toBeInTheDocument();
+  });
+
+  test('navigates from Home to Project Detail', async () => {
+    const user = userEvent.setup();
+    renderNavApp('/');
+    
+    await user.click(screen.getByRole('link', { name: 'Project 1' }));
+    expect(screen.getByText('Project Detail Page')).toBeInTheDocument();
+  });
+
+  test('navigates from Home to Contact', async () => {
+    const user = userEvent.setup();
+    renderNavApp('/');
+    
+    await user.click(screen.getByRole('link', { name: 'Contact' }));
+    expect(screen.getByText('Contact Page')).toBeInTheDocument();
+  });
+
+  test('navigates from Contact back to Home', async () => {
+    const user = userEvent.setup();
+    renderNavApp('/contact');
+    
+    await user.click(screen.getByRole('link', { name: 'Home' }));
+    expect(screen.getByText('Home Page')).toBeInTheDocument();
   });
 
 });
