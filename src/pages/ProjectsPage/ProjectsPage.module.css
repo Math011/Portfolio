@@ -28,7 +28,7 @@
 
 .projectsTitleContainer {
   text-align: center;
-  padding: 4rem 0 2rem;
+  padding: 6rem 0 2rem;
   position: relative;
   z-index: 10;
 }
@@ -300,10 +300,19 @@
 @media (max-width: 900px) {
   .projectsTitle { font-size: 2rem; }
   
+  .projectSection {
+    margin-bottom: 100px;
+  }
+
+    .projectSection:first-child {
+    margin-top: 80px;
+  }
+
   .projectCard {
     width: calc(100% - 60px);
-    margin-left: 30px !important;
-    margin-right: 30px !important;
+    max-width: 400px;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   /* Reduce cloud sizes */
@@ -316,14 +325,28 @@
 }
 
 @media (max-width: 600px) {
+  .projectsTitleContainer {
+    padding: 5rem 0 3rem;
+  }
+
   .projectsTitle { font-size: 1.6rem; }
-  .balloonContainer { top: -60px; }
+  
+  .projectSection {
+    margin-bottom: 120px;
+  }
+
+  .projectSection:first-child {
+    margin-top: 60px;
+  }
+
+  .balloonContainer { top: -55px; }
   .projectImage { height: 150px; }
   
   .projectCard {
     width: calc(100% - 40px);
-    margin-left: 20px !important;
-    margin-right: 20px !important;
+    max-width: 350px;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   /* Further reduce cloud sizes */
