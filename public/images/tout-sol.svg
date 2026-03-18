@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1919.95 665.79">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #b36443;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #e3872f;
+      }
+
+      .cls-3 {
+        fill: #a4a936;
+      }
+
+      .cls-4 {
+        fill: #7aa363;
+      }
+
+      .cls-5 {
+        fill: #b8c03d;
+      }
+
+      .cls-6 {
+        fill: #c5e246;
+      }
+
+      .cls-7 {
+        fill: #b4964a;
+      }
+
+      .cls-8 {
+        fill: #7a3129;
+      }
+
+      .cls-9 {
+        fill: #e89834;
+      }
+    </style>
+  </defs>
+  <g id="deuxième_partie_herbe" data-name="deuxième partie herbe">
+    <rect id="deuxième_partie_herbe-2" data-name="deuxième partie herbe" class="cls-3" y="177.61" width="1919.95" height="488.18"/>
+  </g>
+  <g id="herbe">
+    <polygon id="herbe-2" data-name="herbe" class="cls-6" points="853.31 177.61 0 408.08 0 665.79 1919.95 665.79 1919.95 408.08 1066.64 177.61 853.31 177.61"/>
+  </g>
+  <g id="contour_route" data-name="contour route">
+    <polygon id="contour_route-2" data-name="contour route" class="cls-7" points="1909.99 665.79 9.96 665.79 910.59 177.61 1009.36 177.61 1909.99 665.79"/>
+  </g>
+  <g id="herbe_droite" data-name="herbe droite">
+    <polygon id="herbe_droite-2" data-name="herbe droite" class="cls-5" points="1919.95 215.72 1919.95 335.17 1087.97 177.61 1231.97 177.61 1919.95 215.72"/>
+  </g>
+  <g id="herbe_gauche" data-name="herbe gauche">
+    <polygon id="herbe_gauche-2" data-name="herbe gauche" class="cls-5" points="0 215.72 0 335.17 831.98 177.61 687.98 177.61 0 215.72"/>
+  </g>
+  <g id="montagne_gauche" data-name="montagne gauche">
+    <g id="Montagne_gauche" data-name="Montagne gauche">
+      <polygon class="cls-8" points="796.42 46.77 688.34 24 662.74 158.71 625.76 160.48 605.85 69.97 349.97 49.53 335.86 166.1 319.99 167.53 311.26 53.01 283.12 55.55 233.08 113.37 24.11 143.84 0 177.61 853.31 177.61 796.42 46.77"/>
+      <g>
+        <polygon class="cls-1" points="81.78 177.61 0 177.61 24.11 143.84 81.78 135.43 81.78 177.61"/>
+        <polygon class="cls-1" points="142.22 126.62 154.66 124.8 154.66 177.61 142.22 177.61 142.22 126.62"/>
+        <polygon class="cls-1" points="234.66 111.55 280.53 58.54 280.53 177.61 234.66 177.61 234.66 111.55"/>
+        <polygon class="cls-1" points="335.99 165.04 349.97 49.53 350.92 49.6 350.92 177.61 335.99 177.61 335.99 165.04"/>
+        <polygon class="cls-1" points="476.79 59.66 491.72 60.85 491.72 177.61 476.79 177.61 476.79 59.66"/>
+        <polygon class="cls-1" points="506.65 62.04 530.12 63.92 530.12 177.61 506.65 177.61 506.65 62.04"/>
+        <polygon class="cls-1" points="662.38 158.73 662.74 158.71 687.98 25.87 687.98 177.61 662.38 177.61 662.38 158.73"/>
+      </g>
+    </g>
+  </g>
+  <g id="montagne_droite" data-name="montagne droite">
+    <g id="Montagne_droite" data-name="Montagne droite">
+      <polygon class="cls-1" points="1919.95 0 1303.43 55.55 1253.4 113.37 1044.42 143.84 1020.31 177.61 1919.95 177.61 1919.95 0"/>
+      <g>
+        <polygon class="cls-8" points="1400.85 46.77 1400.85 177.61 1375.25 177.61 1375.25 49.08 1400.85 46.77"/>
+        <polygon class="cls-8" points="1850.26 6.28 1919.95 0 1919.95 177.61 1850.26 177.61 1850.26 6.28"/>
+        <polygon class="cls-8" points="1757.82 14.61 1757.82 177.61 1607.07 177.61 1607.07 28.19 1757.82 14.61"/>
+        <polygon class="cls-8" points="1582.89 30.37 1582.89 177.61 1443.51 177.61 1443.51 42.93 1582.89 30.37"/>
+        <polygon class="cls-8" points="1237.3 115.72 1253.3 113.38 1253.3 177.61 1237.3 177.61 1237.3 115.72"/>
+      </g>
+    </g>
+  </g>
+  <g id="arbre_vert_gauche_8" data-name="arbre vert gauche 8">
+    <polygon id="arbre_vert_gauche_8-2" data-name="arbre vert gauche 8" class="cls-4" points="590.57 156.97 576.84 205.66 607.36 205.66 590.57 156.97"/>
+    <polygon id="arbre_vert_gauche_8-3" data-name="arbre vert gauche 8" class="cls-4" points="405.57 149.97 391.84 198.66 422.36 198.66 405.57 149.97"/>
+    <polygon id="arbre_vert_gauche_8-4" data-name="arbre vert gauche 8" class="cls-4" points="211.41 156.97 197.69 205.66 228.2 205.66 211.41 156.97"/>
+  </g>
+  <g id="Arbre_vert_fond_droite" data-name="Arbre vert fond droite">
+    <polygon id="arbre_vert_gauche_8-5" data-name="arbre vert gauche 8" class="cls-4" points="1422.44 148.61 1408.71 197.3 1439.23 197.3 1422.44 148.61"/>
+    <polygon id="arbre_vert_gauche_8-6" data-name="arbre vert gauche 8" class="cls-4" points="1610.54 152.46 1596.81 201.14 1627.32 201.14 1610.54 152.46"/>
+    <polygon id="arbre_vert_gauche_8-7" data-name="arbre vert gauche 8" class="cls-4" points="1805.91 147.97 1792.18 196.66 1822.69 196.66 1805.91 147.97"/>
+  </g>
+  <g id="arbre_orange_gauche_7" data-name="arbre orange gauche 7">
+    <g id="arbre_orange_gauche_7-2" data-name="arbre orange gauche 7">
+      <rect class="cls-1" x="107.88" y="177.89" width="5.89" height="17.71"/>
+      <path class="cls-9" d="m127.4,186.29c.77-3.22,1.2-6.72,1.2-10.38,0-15.8-7.91-28.6-17.66-28.6s-17.66,12.81-17.66,28.6c0,3.66.43,7.16,1.2,10.38h32.92Z"/>
+      <path class="cls-2" d="m110.82,147.31c-9.7.11-17.54,12.87-17.54,28.6,0,3.66.43,7.16,1.2,10.38h16.34v-38.98Z"/>
+    </g>
+    <g id="arbre_orange_gauche_7-3" data-name="arbre orange gauche 7">
+      <rect class="cls-1" x="304.96" y="184.05" width="5.89" height="17.71"/>
+      <path class="cls-9" d="m324.48,192.44c.77-3.22,1.2-6.72,1.2-10.38,0-15.8-7.91-28.6-17.66-28.6s-17.66,12.81-17.66,28.6c0,3.66.43,7.16,1.2,10.38h32.92Z"/>
+      <path class="cls-2" d="m307.9,153.46c-9.7.11-17.54,12.87-17.54,28.6,0,3.66.43,7.16,1.2,10.38h16.34v-38.98Z"/>
+    </g>
+    <g id="arbre_orange_gauche_7-4" data-name="arbre orange gauche 7">
+      <rect class="cls-1" x="495.76" y="177.61" width="5.89" height="17.71"/>
+      <path class="cls-9" d="m515.29,186c.77-3.22,1.2-6.72,1.2-10.38,0-15.8-7.91-28.6-17.66-28.6s-17.66,12.81-17.66,28.6c0,3.66.43,7.16,1.2,10.38h32.92Z"/>
+      <path class="cls-2" d="m498.71,147.03c-9.7.11-17.54,12.87-17.54,28.6,0,3.66.43,7.16,1.2,10.38h16.34v-38.98Z"/>
+    </g>
+  </g>
+  <g id="arbre_orange_fond_droite" data-name="arbre orange fond droite">
+    <g id="arbre_orange_gauche_2ème_rangée_gauche" data-name="arbre orange gauche 2ème rangée gauche">
+      <g id="arbre_orange_gauche_5" data-name="arbre orange gauche 5">
+        <rect class="cls-1" x="175.45" y="222.47" width="8.39" height="25.25"/>
+        <path class="cls-9" d="m203.28,234.44c1.1-4.59,1.72-9.58,1.72-14.8,0-22.52-11.27-40.77-25.18-40.77s-25.18,18.26-25.18,40.77c0,5.22.61,10.21,1.72,14.8h46.93Z"/>
+        <path class="cls-2" d="m179.64,178.87c-13.83.15-25.01,18.34-25.01,40.77,0,5.22.61,10.21,1.72,14.8h23.29v-55.56Z"/>
+      </g>
+      <g id="arbre_orange_gauche_5-2" data-name="arbre orange gauche 5">
+        <rect class="cls-1" x="407.97" y="219.6" width="8.39" height="25.25"/>
+        <path class="cls-9" d="m435.81,231.56c1.1-4.59,1.72-9.58,1.72-14.8,0-22.52-11.27-40.77-25.18-40.77s-25.18,18.26-25.18,40.77c0,5.22.61,10.21,1.72,14.8h46.93Z"/>
+        <path class="cls-2" d="m412.17,176c-13.83.15-25.01,18.34-25.01,40.77,0,5.22.61,10.21,1.72,14.8h23.29v-55.56Z"/>
+      </g>
+      <g id="arbre_orange_gauche_5-3" data-name="arbre orange gauche 5">
+        <rect class="cls-1" x="636.65" y="223.39" width="8.39" height="25.25"/>
+        <path class="cls-9" d="m664.48,235.36c1.1-4.59,1.72-9.58,1.72-14.8,0-22.52-11.27-40.77-25.18-40.77s-25.18,18.26-25.18,40.77c0,5.22.61,10.21,1.72,14.8h46.93Z"/>
+        <path class="cls-2" d="m640.85,179.8c-13.83.15-25.01,18.34-25.01,40.77,0,5.22.61,10.21,1.72,14.8h23.29v-55.56Z"/>
+      </g>
+    </g>
+    <g id="arbre_2ème_rangée_droite" data-name="arbre 2ème rangée droite">
+      <g id="arbre_orange_gauche_5-4" data-name="arbre orange gauche 5">
+        <rect class="cls-1" x="1392.48" y="211.94" width="8.39" height="25.25"/>
+        <path class="cls-9" d="m1420.31,223.9c1.1-4.59,1.72-9.58,1.72-14.8,0-22.52-11.27-40.77-25.18-40.77s-25.18,18.26-25.18,40.77c0,5.22.61,10.21,1.72,14.8h46.93Z"/>
+        <path class="cls-2" d="m1396.67,168.34c-13.83.15-25.01,18.34-25.01,40.77,0,5.22.61,10.21,1.72,14.8h23.29v-55.56Z"/>
+      </g>
+      <g id="arbre_orange_gauche_5-5" data-name="arbre orange gauche 5">
+        <rect class="cls-1" x="1622.95" y="211.94" width="8.39" height="25.25"/>
+        <path class="cls-9" d="m1650.79,223.91c1.1-4.59,1.72-9.58,1.72-14.8,0-22.52-11.27-40.77-25.18-40.77s-25.18,18.26-25.18,40.77c0,5.22.61,10.21,1.72,14.8h46.93Z"/>
+        <path class="cls-2" d="m1627.15,168.34c-13.83.15-25.01,18.34-25.01,40.77,0,5.22.61,10.21,1.72,14.8h23.29v-55.56Z"/>
+      </g>
+      <g id="arbre_orange_gauche_5-6" data-name="arbre orange gauche 5">
+        <rect class="cls-1" x="1853.98" y="211.32" width="8.39" height="25.25"/>
+        <path class="cls-9" d="m1881.81,223.29c1.1-4.59,1.72-9.58,1.72-14.8,0-22.52-11.27-40.77-25.18-40.77s-25.18,18.26-25.18,40.77c0,5.22.61,10.21,1.72,14.8h46.93Z"/>
+        <path class="cls-2" d="m1858.18,167.73c-13.83.15-25.01,18.34-25.01,40.77,0,5.22.61,10.21,1.72,14.8h23.29v-55.56Z"/>
+      </g>
+    </g>
+    <g id="arbre_orange_gauche_7-5" data-name="arbre orange gauche 7">
+      <rect class="cls-1" x="1326.11" y="187.76" width="5.89" height="17.71"/>
+      <path class="cls-9" d="m1345.64,196.15c.77-3.22,1.2-6.72,1.2-10.38,0-15.8-7.91-28.6-17.66-28.6s-17.66,12.81-17.66,28.6c0,3.66.43,7.16,1.2,10.38h32.92Z"/>
+      <path class="cls-2" d="m1329.06,157.17c-9.7.11-17.54,12.87-17.54,28.6,0,3.66.43,7.16,1.2,10.38h16.34v-38.98Z"/>
+    </g>
+    <g id="arbre_orange_gauche_7-6" data-name="arbre orange gauche 7">
+      <rect class="cls-1" x="1513.13" y="187.76" width="5.89" height="17.71"/>
+      <path class="cls-9" d="m1532.66,196.15c.77-3.22,1.2-6.72,1.2-10.38,0-15.8-7.91-28.6-17.66-28.6s-17.66,12.81-17.66,28.6c0,3.66.43,7.16,1.2,10.38h32.92Z"/>
+      <path class="cls-2" d="m1516.08,157.17c-9.7.11-17.54,12.87-17.54,28.6,0,3.66.43,7.16,1.2,10.38h16.34v-38.98Z"/>
+    </g>
+    <g id="arbre_orange_gauche_7-7" data-name="arbre orange gauche 7">
+      <rect class="cls-1" x="1708.11" y="188.76" width="5.89" height="17.71"/>
+      <path class="cls-9" d="m1727.63,197.15c.77-3.22,1.2-6.72,1.2-10.38,0-15.8-7.91-28.6-17.66-28.6s-17.66,12.81-17.66,28.6c0,3.66.43,7.16,1.2,10.38h32.92Z"/>
+      <path class="cls-2" d="m1711.05,158.17c-9.7.11-17.54,12.87-17.54,28.6,0,3.66.43,7.16,1.2,10.38h16.34v-38.98Z"/>
+    </g>
+  </g>
+  <g id="arbre_vert_gauche_7" data-name="arbre vert gauche 7">
+    <polygon id="arbre_vert_gauche_7-2" data-name="arbre vert gauche 7" class="cls-4" points="295.33 175.61 275.84 236.1 319.16 236.1 295.33 175.61"/>
+    <polygon id="arbre_vert_gauche_7-3" data-name="arbre vert gauche 7" class="cls-4" points="523.9 173.23 495 259.36 559.24 259.36 523.9 173.23"/>
+    <polygon id="arbre_vert_gauche_7-4" data-name="arbre vert gauche 7" class="cls-4" points="63.16 176.4 43.67 236.9 87 236.9 63.16 176.4"/>
+  </g>
+  <g id="arbre_vert_droite_2ème_rangée" data-name="arbre vert droite 2ème rangée">
+    <polygon id="arbre_vert_gauche_7-5" data-name="arbre vert gauche 7" class="cls-4" points="1741.86 174.35 1717.05 248.3 1772.2 248.3 1741.86 174.35"/>
+    <polygon id="arbre_vert_gauche_7-6" data-name="arbre vert gauche 7" class="cls-4" points="1506.66 174.35 1481.84 248.3 1536.99 248.3 1506.66 174.35"/>
+    <polygon id="arbre_vert_gauche_7-7" data-name="arbre vert gauche 7" class="cls-4" points="1282.47 174.6 1257.65 248.55 1312.81 248.55 1282.47 174.6"/>
+  </g>
+  <g id="arbre_orange_gauche_3" data-name="arbre orange gauche 3">
+    <g id="arbre_orange_gauche_3-2" data-name="arbre orange gauche 3">
+      <rect class="cls-1" x="85.02" y="269.09" width="12.67" height="38.1"/>
+      <path class="cls-9" d="m127.02,287.15c1.67-6.92,2.59-14.45,2.59-22.33,0-33.98-17.01-61.53-38-61.53s-38,27.55-38,61.53c0,7.88.92,15.4,2.59,22.33h70.81Z"/>
+      <path class="cls-2" d="m91.35,203.31c-20.86.23-37.73,27.68-37.73,61.52,0,7.88.92,15.4,2.59,22.33h35.14v-83.85Z"/>
+    </g>
+  </g>
+  <g id="arbre_orange_3ème_rangée_droite" data-name="arbre orange 3ème rangée droite">
+    <g id="arbre_orange_gauche_3-3" data-name="arbre orange gauche 3">
+      <rect class="cls-1" x="1335.74" y="270.01" width="12.67" height="38.1"/>
+      <path class="cls-9" d="m1377.74,288.07c1.67-6.92,2.59-14.45,2.59-22.33,0-33.98-17.01-61.53-38-61.53s-38,27.55-38,61.53c0,7.88.92,15.4,2.59,22.33h70.81Z"/>
+      <path class="cls-2" d="m1342.07,204.22c-20.86.23-37.73,27.68-37.73,61.52,0,7.88.92,15.4,2.59,22.33h35.14v-83.85Z"/>
+    </g>
+    <g id="arbre_orange_gauche_3-4" data-name="arbre orange gauche 3">
+      <rect class="cls-1" x="1643.91" y="270.01" width="12.67" height="38.1"/>
+      <path class="cls-9" d="m1685.91,288.07c1.67-6.92,2.59-14.45,2.59-22.33,0-33.98-17.01-61.53-38-61.53s-38,27.55-38,61.53c0,7.88.92,15.4,2.59,22.33h70.81Z"/>
+      <path class="cls-2" d="m1650.24,204.22c-20.86.23-37.73,27.68-37.73,61.52,0,7.88.92,15.4,2.59,22.33h35.14v-83.85Z"/>
+    </g>
+  </g>
+  <g id="arbre_vert_gauche_4" data-name="arbre vert gauche 4">
+    <polygon id="arbre_vert_gauche_4-2" data-name="arbre vert gauche 4" class="cls-4" points="269.14 204.76 235.87 308.01 309.81 308.01 269.14 204.76"/>
+  </g>
+  <g id="arbre_vert_3ème_rangée" data-name="arbre vert 3ème rangée">
+    <polygon id="arbre_vert_gauche_4-3" data-name="arbre vert gauche 4" class="cls-4" points="1477.14 195.67 1443.87 298.93 1517.81 298.93 1477.14 195.67"/>
+    <polygon id="arbre_vert_gauche_4-4" data-name="arbre vert gauche 4" class="cls-4" points="1828.47 204.76 1795.2 308.01 1869.14 308.01 1828.47 204.76"/>
+  </g>
+  <g id="arbre_orange_gauche_2" data-name="arbre orange gauche 2">
+    <g id="arbre_orange_gauche_2-2" data-name="arbre orange gauche 2">
+      <rect class="cls-1" x="1815.16" y="326.85" width="18.57" height="55.85"/>
+      <path class="cls-9" d="m1876.74,353.33c2.44-10.15,3.8-21.18,3.8-32.74,0-49.82-24.94-90.21-55.71-90.21s-55.71,40.39-55.71,90.21c0,11.55,1.36,22.58,3.8,32.74h103.82Z"/>
+      <path class="cls-2" d="m1824.44,230.4c-30.59.34-55.32,40.58-55.32,90.19,0,11.55,1.36,22.58,3.8,32.74h51.52v-122.93Z"/>
+    </g>
+  </g>
+  <g id="arbre_vert_gauche_2" data-name="arbre vert gauche 2">
+    <polygon id="arbre_vert_gauche_2-2" data-name="arbre vert gauche 2" class="cls-4" points="94.43 233.38 47.41 379.31 151.92 379.31 94.43 233.38"/>
+  </g>
+</svg>

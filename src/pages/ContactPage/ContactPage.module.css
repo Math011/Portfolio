@@ -65,7 +65,7 @@
 @keyframes moveLeft { to { transform: translateX(50%); } }
 
 /* =============================================================================
-   SOL & ARBRES
+   SOL
    ============================================================================= */
 
 .groundBackground {
@@ -77,58 +77,6 @@
   z-index: 2;
   pointer-events: none;
 }
-
-.tree { position: absolute; pointer-events: none; }
-
-/* Rangée 1 - très petits (z-index: 3) */
-.row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5, .row1Left6, .row1Left7,
-.row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5, .row1Right6, .row1Right7 { z-index: 3; }
-
-.row1Left1 { width: 25px; bottom: 46%; left: 5%; }
-.row1Left2 { width: 28px; bottom: 45%; left: 10%; }
-.row1Left3 { width: 26px; bottom: 46%; left: 15%; }
-.row1Left4 { width: 30px; bottom: 45%; left: 20%; }
-.row1Left5 { width: 27px; bottom: 46%; left: 25%; }
-.row1Left6 { width: 25px; bottom: 45%; left: 30%; }
-.row1Left7 { width: 28px; bottom: 46%; left: 35%; }
-.row1Right1 { width: 25px; bottom: 46%; right: 5%; }
-.row1Right2 { width: 28px; bottom: 45%; right: 10%; }
-.row1Right3 { width: 26px; bottom: 46%; right: 15%; }
-.row1Right4 { width: 30px; bottom: 45%; right: 20%; }
-.row1Right5 { width: 27px; bottom: 46%; right: 25%; }
-.row1Right6 { width: 25px; bottom: 45%; right: 30%; }
-.row1Right7 { width: 28px; bottom: 46%; right: 35%; }
-
-/* Rangée 2 - petits (z-index: 4) */
-.row2Left1, .row2Left2, .row2Left3, .row2Left4, .row2Left5, .row2Left6,
-.row2Right1, .row2Right2, .row2Right3, .row2Right4, .row2Right5, .row2Right6 { z-index: 4; }
-
-.row2Left1 { width: 35px; bottom: 42%; left: 2%; }
-.row2Left2 { width: 40px; bottom: 41%; left: 8%; }
-.row2Left3 { width: 38px; bottom: 42%; left: 14%; }
-.row2Left4 { width: 42px; bottom: 41%; left: 20%; }
-.row2Left5 { width: 36px; bottom: 42%; left: 26%; }
-.row2Left6 { width: 40px; bottom: 41%; left: 32%; }
-.row2Right1 { width: 35px; bottom: 42%; right: 2%; }
-.row2Right2 { width: 40px; bottom: 41%; right: 8%; }
-.row2Right3 { width: 38px; bottom: 42%; right: 14%; }
-.row2Right4 { width: 42px; bottom: 41%; right: 20%; }
-.row2Right5 { width: 36px; bottom: 42%; right: 26%; }
-.row2Right6 { width: 40px; bottom: 41%; right: 32%; }
-
-/* Rangée 3 - moyens (z-index: 5) */
-.row3Left1, .row3Left2, .row3Right1, .row3Right2, .row3Right3, .row3Right4 { z-index: 5; }
-
-.row3Left1 { width: 55px; bottom: 36%; left: 3%; }
-.row3Left2 { width: 60px; bottom: 35%; left: 12%; }
-.row3Right1 { width: 55px; bottom: 36%; right: 3%; }
-.row3Right2 { width: 60px; bottom: 35%; right: 12%; }
-.row3Right3 { width: 58px; bottom: 36%; right: 21%; }
-.row3Right4 { width: 62px; bottom: 35%; right: 28%; }
-
-/* Rangée 4 - grands (z-index: 6) */
-.row4Left1 { width: 85px; bottom: 28%; left: 2%; z-index: 6; }
-.row4Right1 { width: 85px; bottom: 28%; right: 2%; z-index: 6; }
 
 /* =============================================================================
    PANNEAU & FEU DE CAMP
@@ -344,16 +292,12 @@
 @media (max-width: 1200px) {
   .signSection { left: 5%; bottom: 18%; transform: scale(0.55); }
   .fireSection { right: 5%; transform: scale(0.55); transform-origin: bottom right; }
-  
-  .row1Left1, .row1Left2, .row1Left3, .row1Left4, .row1Left5, .row1Left6, .row1Left7,
-  .row1Right1, .row1Right2, .row1Right3, .row1Right4, .row1Right5, .row1Right6, .row1Right7 { display: none; }
 }
 
 @media (max-width: 1024px) {
   .formCard { width: 380px; }
   .signSection { left: 3%; bottom: 12%; transform: scale(0.5); }
   .fireSection { right: 3%; bottom: 10%; transform: scale(0.5); transform-origin: bottom right; }
-  .tree { display: none; }
   .groundBackground { height: 50vh; object-fit: cover; object-position: top center; }
 }
 
@@ -400,7 +344,7 @@
   .socialLinks { margin-top: 14px; padding-top: 12px; }
   .socialLabel { font-size: 0.78rem; margin-bottom: 8px; }
   .socialIcon { width: 38px; height: 38px; }
-  .signSection, .fireSection, .tree { display: none; }
+  .signSection, .fireSection { display: none; }
 }
 
 @media (max-width: 480px) {
