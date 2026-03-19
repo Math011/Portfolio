@@ -4,7 +4,6 @@ import Header from '../../components/Header';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import ContactForm from './ContactForm';
 import { Campfire, WoodenSign, Person, Log } from './SceneElements';
-import Trees from './Trees';
 import Clouds from './Clouds';
 import styles from './ContactPage.module.css';
 
@@ -24,8 +23,7 @@ const ContactPage = () => {
         {/* Décor */}
         <div className={styles.sky} />
         <Clouds />
-        <img src="/images/sol-montagne.svg" alt="" className={styles.groundBackground} />
-        <Trees />
+        <img src="/images/tout-sol.svg" alt="" className={styles.groundBackground} />
 
         {/* Navigation */}
         <Header />

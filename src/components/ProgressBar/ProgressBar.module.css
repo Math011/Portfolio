@@ -213,9 +213,30 @@
 }
 
 @media (max-width: 768px) {
-  .progressContainer { padding: 0 1rem; }
-  .stepIcon { width: 35px; height: 35px; font-size: 14px; }
-  .labelText { font-size: 12px; padding: 5px 10px; }
-  .finishIcon { width: 45px; height: 45px; font-size: 18px; }
+  .progressContainer { 
+    padding: 0 1.5rem 0 1rem;
+  }
+
+  .progressBar { 
+    margin-right: 10px;
+    height: 10px;
+  }
+  .stepIcon { width: 36px; height: 36px; font-size: 14px; border-width: 2px; }
+  .labelText { font-size: 11px; padding: 5px 8px; }
   .stepLabel { top: 55px; }
+  .finishLine { right: -22px; }
+  .finishIcon { width: 40px; height: 40px; font-size: 16px; border-width: 2px; }
+  .finishIcon::before { inset: -5px; }
+  .stepActive::before { inset: -4px; }
+}
+
+@media (max-width: 506px) {
+
+  .progressContainer { top: 150px; }
+  .stepLabel { display: none; }
+  .progressBar { 
+    height: 8px;
+  }
+  .stepIcon { width: 32px; height: 32px; font-size: 13px; }
+  .finishIcon { width: 36px; height: 36px; font-size: 14px; }
 }

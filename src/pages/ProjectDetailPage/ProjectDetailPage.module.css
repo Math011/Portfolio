@@ -310,11 +310,39 @@
   .projectTitle { font-size: 1.8rem; }
   .projectInfoSection { padding: 1.5rem; }
   .thumbnail img { width: 90px; height: 60px; }
-  .projectNavigation { flex-direction: column; }
-  .navBtn { width: 100%; text-align: center; }
+  
+  .projectNavigation { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+  
+  .projectNavigation::after {
+    content: '';
+    flex: 0 0 100%;
+    order: 1;
+  }
+  
+  .navBtn { 
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+    min-width: 140px;
+    text-align: center;
+  }
+
+  .navBtn.prevBtn,
+  .navBtn.nextBtn {
+    order: 0;
+  }
+
+  .allBtn {
+    order: 2;
+  }
+  
   .navPlaceholder { display: none; }
-  .projectLinks { flex-direction: column; }
-  .projectBtn { justify-content: center; }
+  .projectLinks { flex-direction: column; align-items: center; }
+  .projectBtn { justify-content: center; width: auto; }
 }
 
 @media (max-width: 480px) {
