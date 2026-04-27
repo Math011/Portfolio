@@ -16,6 +16,9 @@ export const commonTranslations = {
     viewAllProjects: "Voir tous mes projets",
     getInTouch: "Me contacter →",
     backToHome: "Retour",
+
+    // ScrollHint
+    scrollHint: "Faites défiler pour avancer",
   },
   
   en: {
@@ -34,5 +37,8 @@ export const commonTranslations = {
     viewAllProjects: "View all my projects",
     getInTouch: "Get in touch →",
     backToHome: "Back",
+
+    // ScrollHint
+    scrollHint: "Scroll to keep going",
   }
 };

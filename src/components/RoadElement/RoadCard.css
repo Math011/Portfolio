@@ -1,11 +1,8 @@
 /* ============================================================================
-   ROAD CARDS — Style uniforme pour les cadres qui apparaissent sur la route
-   (HomeMenu, AboutMenu, ProjectsMenu, ContactMenu)
-
-   Style : Option 1 sobre — papier crème, kicker mono brique, titre serif.
+   ROAD CARDS
    ============================================================================ */
 
-/* ---- Conteneur (overlay plein écran, centré) ---- */
+/* ---- Conteneur ---- */
 .roadOverlay {
   position: fixed;
   top: 0;
@@ -19,16 +16,13 @@
   z-index: 5;
 }
 
-/* ---- Titre flottant en gros (avant l'apparition de la carte) ----
-   Note : on n'utilise PAS la propriété `opacity` ici car les composants JS
-   l'écrasent dynamiquement au scroll. À la place on utilise une couleur
-   semi-transparente directement (rgba) qui ne sera pas affectée. */
+/* ---- Titre flottant ---- */
 .sectionTitle {
   position: absolute;
   font-family: var(--font-serif);
   font-size: clamp(48px, 7vw, 88px);
   font-weight: 400;
-  color: rgba(247, 236, 211, 0.92);   /* --paper presque plein pour bien se voir */
+  color: rgba(247, 236, 211, 0.92);
   text-shadow:
     0 3px 8px rgba(43, 36, 29, 0.55),
     0 0 35px rgba(43, 36, 29, 0.25);
@@ -38,64 +32,123 @@
   pointer-events: none;
 }
 
-/* ---- Carte papier crème (uniforme pour toutes les sections) ---- */
+/* ---- CARTE (nouveau style immersif) ---- */
 .roadCard {
   position: absolute;
-  background: var(--paper);
-  border-radius: var(--radius-lg);
-  padding: 32px 36px 30px;
+
+  background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
+  border-radius: 12px;
+
+  padding: 30px 34px 28px;
   width: 380px;
   max-width: calc(100vw - 40px);
-  border: 1px solid var(--paper-edge);
-  box-shadow: var(--shadow-md);
+
+  border: 2px solid var(--paper-edge);
+
+  box-shadow:
+    0 10px 0 #C59A5C,
+    0 18px 30px rgba(0, 0, 0, 0.18);
+
+  transition: transform 200ms ease, box-shadow 200ms ease;
+
   will-change: transform, opacity;
   pointer-events: auto;
 }
 
-/* Kicker en haut de la carte ("— 02 ÉTAPE") */
+/* texture légère */
+.roadCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------------------------
+   Épingle de fixation en haut à droite — comme si la carte était punaisée
+   sur un mur. On simule la 3D avec un radial-gradient + une ombre portée.
+   ---------------------------------------------------------------------------- */
+.roadCard::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+
+  /* Tête de l'épingle bombée : highlight en haut-gauche, dégradé vers ombre
+     en bas-droite pour faire la rondeur 3D. */
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #F0975F 0%,           /* reflet clair (la lumière qui tape la tête) */
+      var(--accent) 40%,    /* couleur principale de la tête */
+      #A04515 100%          /* ombre interne sur le côté opposé */
+    );
+
+  /* Ombre portée sur le papier + insertion sombre pour l'effet "enfoncée" */
+  box-shadow:
+    0 2px 3px rgba(43, 36, 29, 0.45),
+    inset -1px -2px 2px rgba(0, 0, 0, 0.20);
+}
+
+/* hover */
+.roadCard:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 14px 0 #C59A5C,
+    0 26px 40px rgba(0, 0, 0, 0.22);
+}
+
+/* ---- Kicker ---- */
 .roadKicker {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
   margin: 0 0 14px;
 }
 
-/* Titre de la carte */
+/* ---- Titre ---- */
 .roadTitle {
   font-family: var(--font-serif);
-  font-size: 38px;
+  font-size: 36px;
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.1;
   color: var(--ink);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   margin: 0 0 14px;
 }
 
-/* Description */
+/* ---- Description ---- */
 .roadDescription {
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.55;
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--ink-soft);
   margin: 0 0 22px;
 }
 
-/* Lien "En savoir plus →" */
+/* ---- Lien ---- */
 .roadLink {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
+
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1.5px solid var(--accent);
+
+  border-bottom: 2px solid var(--accent);
   padding-bottom: 3px;
-  transition: color 200ms ease, border-color 200ms ease, gap 200ms ease;
+
+  transition: color 200ms ease, gap 200ms ease;
 }
 
 .roadLink:hover {
@@ -104,22 +157,9 @@
 }
 
 /* ============================================================================
-   HERO (HomeMenu) — bloc unique regroupant les 3 lignes
-   - kicker en mono (petit, atténué) : "Bienvenue sur mon portfolio"
-   - nom en serif (gros, plein) : "Mathieu Raudin"
-   - job en serif italique (moyen, atténué) : "Web Developer"
+   HERO
    ============================================================================ */
 
-/* ============================================================================
-   HERO (HomeMenu) — bloc unique regroupant les 3 lignes
-   - kicker en mono (petit, atténué) : "Bienvenue sur mon portfolio"
-   - nom en serif (gros, plein) : "Mathieu Raudin"
-   - job en serif italique (moyen, atténué) : "Web Developer"
-
-   Le heroBlock est positionné comme une .roadCard (absolute) pour que son
-   point d'origine soit le même que les cartes des autres sections.
-   L'animation translateY est appliquée inline par le JS.
-   ============================================================================ */
 .heroBlock {
   position: absolute;
   text-align: center;
@@ -134,8 +174,6 @@
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  /* Crème avec ombre marquée = même langage visuel que le titre principal,
-     reste bien lisible sur le ciel jaune pâle. */
   color: var(--paper);
   text-shadow:
     0 2px 5px rgba(43, 36, 29, 0.65),
@@ -145,7 +183,7 @@
 
 .heroName {
   font-family: var(--font-serif);
-  font-size: clamp(56px, 7.5vw, 96px);
+  font-size: clamp(48px, 6vw, 76px);
   font-weight: 400;
   color: var(--paper);
   text-shadow:
@@ -159,7 +197,7 @@
 .heroJob {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(28px, 4.5vw, 56px);
+  font-size: clamp(28px, 3.5vw, 44px);
   font-weight: 400;
   color: rgba(247, 236, 211, 0.82);
   text-shadow:
@@ -172,11 +210,13 @@
 /* ============================================================================
    RESPONSIVE
    ============================================================================ */
+
 @media (max-width: 768px) {
   .roadCard {
     width: 320px;
     padding: 26px 24px 24px;
   }
+
   .roadTitle { font-size: 32px; }
   .roadDescription { font-size: 14px; }
   .roadKicker { font-size: 10px; margin-bottom: 12px; }
