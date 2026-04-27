@@ -6,12 +6,13 @@ import { projects } from '../../data/projects';
 const ProjectsMenu = ({ progress }) => {
   const { t } = useLanguage();
 
-  // Section Projets : 42% → 60%
+  // Section Projets : 42 → 66 (carte rallongée pour que le clic à 60% tombe
+  // en pleine phase plateau, pas en phase de sortie).
   const titleStart = 42;
   const titleEnd = 49;
 
   const cardStart = 49;
-  const cardEnd = 60;
+  const cardEnd = 63;
 
   // Fonction pour calculer les styles d'animation
   const getStyles = (start, end) => {

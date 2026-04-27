@@ -1,8 +1,20 @@
 import { useRef, useEffect, useState } from 'react';
-import { projects } from '../data/projects';
 
 const STORAGE_KEY = 'portfolio_progress';
 const VIDEO_TIME_KEY = 'portfolio_video_time';
+
+/**
+ * Lance video.play() en ignorant proprement les erreurs liées à un pause()
+ * qui arriverait avant que la promesse de play() soit résolue.
+ * (Erreur classique : "The play() request was interrupted by a call to pause()".)
+ */
+const safePlay = (video) => {
+  if (!video || !video.paused) return;
+  const p = video.play();
+  if (p && typeof p.catch === 'function') {
+    p.catch(() => { /* ignoré : interruption normale */ });
+  }
+};
 
 const useVideoScroll = (videoRef) => {
   const lastScrollTimeRef = useRef(0);
@@ -87,15 +99,12 @@ const useVideoScroll = (videoRef) => {
     };
   }, [videoRef]);
 
-  // Calcule le multiplicateur de vitesse selon la section
+  // Calcule le multiplicateur de vitesse selon la section.
+  // Avant, on ralentissait dans la section Projets pour laisser le temps à
+  // chaque projet d'apparaître un par un. Maintenant qu'on n'affiche plus
+  // qu'une seule carte "Voir tous mes projets", la section va à vitesse
+  // normale comme les autres.
   const getSectionSpeedModifier = (currentProgress) => {
-    if (currentProgress >= 42 && currentProgress < 45) {
-      return 2 / 4.5;
-    }
-    if (currentProgress >= 45 && currentProgress < 62) {
-      // Ralentit selon le nombre de projets
-      return 2 / projects.length;
-    }
     return 1;
   };
 
@@ -201,7 +210,7 @@ const useVideoScroll = (videoRef) => {
       if (canMove) {
         directionRef.current = direction;
         if (video.paused) {
-          video.play();
+          safePlay(video);
         }
         
         if (!rafRef.current) {

@@ -5,7 +5,7 @@ const ContactMenu = ({ progress }) => {
   const { t } = useLanguage();
 
   // Section Contact : 60% → 80%
-  const titleStart = 62;
+  const titleStart = 63;
   const titleEnd = 69;
 
   const cardStart = 70;

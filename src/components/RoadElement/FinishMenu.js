@@ -81,7 +81,7 @@ const FinishMenu = ({ progress, onRestart }) => {
         ))}
       </div>
 
-      {/* La scène (tente + voyageur + feu) */}
+      {/* La scène (tente + voyageur + lanterne) */}
       <div
         className={styles.scene}
         style={{
@@ -98,7 +98,7 @@ const FinishMenu = ({ progress, onRestart }) => {
           <ellipse cx="50" cy="78" rx="6" ry="3" fill="var(--cloud)" opacity="0.55" />
         </svg>
 
-        {/* Voyageur assis sur un rondin */}
+        {/* Voyageur assis sur un rondin — pose détendue */}
         <svg className={styles.traveler} viewBox="0 0 70 90" aria-hidden="true">
           {/* Rondin */}
           <ellipse cx="35" cy="78" rx="22" ry="6" fill="var(--leather-dark)" />
@@ -106,36 +106,51 @@ const FinishMenu = ({ progress, onRestart }) => {
           {/* Jambes pliées */}
           <rect x="24" y="58" width="6" height="20" rx="3" fill="#3A2818" />
           <rect x="40" y="58" width="6" height="20" rx="3" fill="#3A2818" />
-          {/* Corps légèrement voûté */}
+          {/* Corps légèrement voûté (relax) */}
           <path d="M 21 58 Q 19 36 28 28 L 46 28 Q 50 36 48 58 Z" fill="var(--accent)" />
-          {/* Tête */}
+          {/* Tête légèrement penchée vers le ciel */}
           <circle cx="37" cy="25" r="7" fill="var(--cloud)" />
           {/* Cheveux */}
           <path d="M 30 25 Q 37 13 44 25 L 44 21 Q 37 11 30 21 Z" fill="var(--ink-soft)" />
-          {/* Bras tendus vers le feu */}
-          <path d="M 25 44 Q 18 56 14 62" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" fill="none" />
-          <path d="M 47 44 Q 56 54 60 60" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" fill="none" />
+          {/* Bras gauche posé sur le genou (relax) */}
+          <path d="M 25 44 Q 22 54 26 60" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" fill="none" />
+          {/* Bras droit pendant le long du corps */}
+          <path d="M 47 44 Q 50 56 48 64" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" fill="none" />
         </svg>
 
-        {/* Feu de camp avec lueur */}
-        <div className={styles.fire} aria-hidden="true">
-          <div className={styles.fireGlow} />
-          <svg viewBox="0 0 100 100" className={styles.fireSvg}>
-            {/* Pierres */}
-            <ellipse cx="50" cy="82" rx="32" ry="6" fill="var(--ink)" opacity="0.55" />
-            <circle cx="22" cy="82" r="6" fill="var(--ink-soft)" />
-            <circle cx="36" cy="85" r="5" fill="#7A6855" />
-            <circle cx="64" cy="85" r="5" fill="var(--ink-soft)" />
-            <circle cx="78" cy="82" r="6" fill="#7A6855" />
-            {/* Bois */}
-            <rect x="28" y="68" width="44" height="6" rx="2" fill="var(--leather-dark)" transform="rotate(-8 50 71)" />
-            <rect x="30" y="74" width="40" height="6" rx="2" fill="var(--leather)" transform="rotate(8 50 77)" />
-            {/* Flammes — vacillantes */}
-            <g className={styles.flames}>
-              <path d="M 34 72 Q 50 24 66 72 Z" fill="#FF6B35" />
-              <path d="M 40 72 Q 50 38 60 72 Z" fill="#FFD23F" />
-              <path d="M 45 72 Q 50 52 55 72 Z" fill="#FFFFFF" opacity="0.85" />
+        {/* Lanterne suspendue à un poteau */}
+        <div className={styles.lantern} aria-hidden="true">
+          {/* Halo lumineux autour */}
+          <div className={styles.lanternGlow} />
+
+          <svg viewBox="0 0 80 130" className={styles.lanternSvg}>
+            {/* Poteau planté dans le sol */}
+            <rect x="38" y="35" width="4" height="90" rx="1" fill="var(--leather-dark)" />
+            {/* Crochet en haut du poteau */}
+            <path d="M 40 35 Q 40 30 35 30 Q 30 30 30 38" stroke="var(--leather-dark)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+
+            {/* Anse de la lanterne */}
+            <path d="M 22 38 Q 22 42 30 42 L 30 50" stroke="var(--ink-soft)" strokeWidth="1.5" fill="none" />
+
+            {/* Chapeau de la lanterne */}
+            <path d="M 18 50 L 42 50 L 39 44 L 21 44 Z" fill="var(--ink-soft)" />
+            <rect x="20" y="46" width="20" height="2" fill="var(--leather-dark)" />
+
+            {/* Corps en verre de la lanterne (avec flamme à l'intérieur) */}
+            <rect x="22" y="50" width="16" height="22" rx="1" fill="rgba(255, 215, 100, 0.35)" stroke="var(--ink-soft)" strokeWidth="1" />
+            {/* Petites barres verticales (cadre du verre) */}
+            <line x1="30" y1="50" x2="30" y2="72" stroke="var(--ink-soft)" strokeWidth="0.6" />
+            <line x1="22" y1="60" x2="38" y2="60" stroke="var(--ink-soft)" strokeWidth="0.6" />
+
+            {/* Flamme à l'intérieur (animée) */}
+            <g className={styles.lanternFlame} style={{ transformOrigin: '30px 65px' }}>
+              <path d="M 27 68 Q 30 58 33 68 Q 32 64 30 60 Q 28 64 27 68 Z" fill="#FFD23F" />
+              <path d="M 28.5 68 Q 30 62 31.5 68 Z" fill="#FFFFFF" opacity="0.8" />
             </g>
+
+            {/* Base de la lanterne */}
+            <rect x="20" y="71" width="20" height="3" fill="var(--ink-soft)" />
+            <rect x="22" y="74" width="16" height="2" fill="var(--leather-dark)" />
           </svg>
         </div>
       </div>

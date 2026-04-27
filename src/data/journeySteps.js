@@ -6,9 +6,6 @@ import {
   MailboxIcon,
 } from '../components/ProgressBar/icons';
 
-// Données des étapes du parcours.
-// Chaque step possède une icône SVG (composant React) au lieu d'un emoji,
-// pour s'aligner sur le style éditorial chic du nouveau design.
 export const journeySteps = [
   { id: 'accueil',  label: 'Accueil',  position: 20, icon: <HomeIcon /> },
   { id: 'propos',   label: 'À propos', position: 40, icon: <TentIcon /> },
