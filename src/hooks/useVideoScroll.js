@@ -99,26 +99,42 @@ const useVideoScroll = (videoRef) => {
     return 1;
   };
 
-  // Fonction pour naviguer vers une section
+  // Fonction pour naviguer vers une section : SAUT DIRECT (téléportation).
+  // On met immédiatement progressRef, smoothProgressRef, et setProgress à la
+  // valeur cible, et on synchronise la vidéo à la frame correspondante.
+  // Le petit "fondu" visuel se fait côté CSS (transition d'opacité du conteneur).
   const navigateToSection = (targetPosition) => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Reset isAtEnd si on navigue ailleurs
-    if (targetPosition < 100) {
-      isAtEndRef.current = false;
+    const target = Math.max(0, Math.min(100, targetPosition));
+
+    // Reset des flags d'état
+    isFastForwardRef.current = false;
+    targetPositionRef.current = null;
+    isAtEndRef.current = target >= 100;
+    directionRef.current = target >= progressRef.current ? 1 : -1;
+
+    // Téléportation immédiate de la progression
+    progressRef.current = target;
+    smoothProgressRef.current = target;
+    setProgress(target);
+
+    // Synchronisation de la vidéo sur la frame correspondante
+    if (video.duration) {
+      // 0%   → currentTime = 0
+      // 100% → currentTime = duration
+      const targetTime = (target / 100) * video.duration;
+      try {
+        video.currentTime = targetTime;
+      } catch (e) {
+        // Certains navigateurs jettent si la vidéo n'est pas seekable
+      }
     }
 
-    const currentProgress = progressRef.current;
-    if (targetPosition === currentProgress) return;
-
-    directionRef.current = targetPosition > currentProgress ? 1 : -1;
-    targetPositionRef.current = targetPosition;
-    isFastForwardRef.current = true;
-
-    if (video.paused) {
-      video.play();
-    }
+    // On met la vidéo en pause après le saut (l'utilisateur reprendra avec
+    // la molette quand il voudra)
+    video.pause();
   };
 
   useEffect(() => {

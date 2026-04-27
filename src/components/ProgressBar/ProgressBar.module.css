@@ -1,242 +1,274 @@
-/* Barre de progression */
+/* ============================================================================
+   PROGRESS BAR — Style éditorial "journal de bord"
+   ============================================================================ */
+
 .progressContainer {
   position: fixed;
-  top: 100px;
+  top: 76px;            /* Sous le LanguageSwitcher */
   left: 0;
   right: 0;
   z-index: 10;
-  padding: 0 4rem;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+/* ---- La piste — large mais centrée ---- */
+.track {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  max-width: 920px;     /* Plus large qu'avant (était 720px) */
+  margin: 28px 32px;
+  pointer-events: auto;
+}
+
+/* ---- Ligne pointillée de fond ---- */
+.trackLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--ink-soft) 0 12px,
+    transparent 12px 22px
+  );
+  border-radius: 4px;
+  opacity: 0.45;
+}
+
+/* ---- Progression colorée (sans transition, lissage géré ailleurs) ---- */
+.trackProgress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  width: 0%;
   pointer-events: none;
 }
 
-.progressBar {
-  position: relative;
-  height: 12px;
-  background: linear-gradient(to right, #8B7355, #A0845C, #8B7355);
-  border-radius: 6px;
-  margin: 0 auto;
-  max-width: 1200px;
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.3),
-    inset 0 1px 3px rgba(0, 0, 0, 0.2);
-  border: 2px solid #6B5B47;
-  overflow: visible;
-}
-
-.progressFill {
-  height: 100%;
-  background: linear-gradient(to right, #F4D03F, #F7DC6F, #F8C471);
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(248, 196, 113, 0.6);
-  position: relative;
-}
-
-.progressFill::after {
-  content: '';
+/* ============================================================================
+   COUREUR — bouge le long de la piste
+   ============================================================================ */
+.runner {
   position: absolute;
   top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background: #F39C12;
-  border-radius: 50%;
+  left: 0;
+  width: 30px;
+  height: 30px;
   transform: translate(-50%, -50%);
-  animation: dashMove 2s linear infinite;
+  background: var(--accent);
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--paper);
+  box-shadow: 0 2px 8px rgba(43, 36, 29, 0.30);
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 200ms ease;
 }
 
-@keyframes dashMove {
-  0% { left: 0%; }
-  100% { left: 100%; }
+.runner svg {
+  width: 17px;
+  height: 17px;
 }
 
-/* Étapes */
-.progressStep {
+/* ============================================================================
+   NŒUD D'ÉTAPE
+   Le DOT est centré PILE sur la ligne (top: 50%, translate -50%/-50%).
+   Le LABEL est positionné absolument en dessous du dot, donc il ne décale pas
+   la position du dot. C'est exactement ce que demande le design : ligne au
+   milieu du dot, label séparé en dessous.
+   ============================================================================ */
+.node {
   position: absolute;
   top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  transition: all 0.4s ease;
-  z-index: 11;
+  left: 0; /* surchargé inline */
+  transform: translate(-50%, -50%);
+  display: block;     /* plus de flex-column car le label est en absolute */
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
   pointer-events: auto;
-  cursor: pointer;
+  font: inherit;
+  z-index: 2;
 }
 
-.progressStep:hover .stepIcon {
-  transform: scale(1.15);
-}
-
-.stepIcon {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 3px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all 0.4s ease;
+/* ---- Pastille ronde — Contour ADOUCI (brun papier au lieu de noir) ---- */
+.nodeDot {
   position: relative;
-  background: white;
-  box-shadow: 
-    0 3px 12px rgba(0, 0, 0, 0.2),
-    inset 0 1px 3px rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-}
-
-.stepActive {
-  background: linear-gradient(135deg, #7CB342, #8BC34A);
-  border-color: #689F38;
-  color: white;
-  transform: scale(1.1);
-  box-shadow: 
-    0 4px 20px rgba(124, 179, 66, 0.4),
-    0 0 15px rgba(139, 195, 74, 0.3);
-}
-
-.stepActive::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
+  width: 36px;          /* Légèrement plus gros */
+  height: 36px;
   border-radius: 50%;
-  border: 2px solid #8BC34A;
-  opacity: 0.3;
-  animation: pulseRing 2s infinite;
+  background: var(--paper);
+  border: 1.5px solid var(--ink-soft);  /* Brun adouci au lieu de noir épais */
+  display: grid;
+  place-items: center;
+  transition: background-color 200ms ease,
+              border-color 200ms ease,
+              transform 200ms ease,
+              color 200ms ease,
+              box-shadow 200ms ease;
+  color: var(--ink-soft);                /* Icône en brun doux aussi */
+  flex-shrink: 0;
 }
 
-@keyframes pulseRing {
-  0% { transform: scale(0.8); opacity: 0.3; }
-  50% { transform: scale(1.1); opacity: 0.1; }
-  100% { transform: scale(1.3); opacity: 0; }
+.dotIcon {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  color: inherit;
 }
 
-.stepInactive {
-  background: linear-gradient(135deg, #F8F9FA, #E9ECEF);
-  border-color: #ADB5BD;
-  color: #6C757D;
-  transform: scale(1);
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.1),
-    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+.dotIcon svg {
+  width: 18px;
+  height: 18px;
 }
 
-/* Labels */
-.stepLabel {
-  position: absolute;
-  top: 65px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  z-index: 12;
-}
-
-.labelText {
-  font-size: 14px;
-  font-weight: 700;
-  padding: 8px 14px;
-  border-radius: 20px;
-  transition: all 0.4s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
-  cursor: pointer;
-}
-
-.labelActive {
-  background: linear-gradient(135deg, #7CB342, #8BC34A);
-  color: white;
-  transform: translateY(-6px);
-  box-shadow: 
-    0 4px 15px rgba(124, 179, 66, 0.3),
-    0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.labelInactive {
-  background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
-  color: #495057;
-  border: 2px solid #DEE2E6;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Ligne d'arrivée */
-.finishLine {
-  position: absolute;
-  right: -30px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 11;
-}
-
-.finishIcon {
-  width: 55px;
-  height: 55px;
-  background: linear-gradient(135deg, #E74C3C, #C0392B);
-  border: 3px solid #A93226;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 22px;
-  box-shadow: 
-    0 4px 20px rgba(231, 76, 60, 0.4),
-    inset 0 1px 3px rgba(255, 255, 255, 0.2);
-  animation: finishPulse 3s infinite;
-  position: relative;
-}
-
-.finishIcon::before {
-  content: '';
+/* Anneau pointillé sur le nœud actif */
+.dotRing {
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  border: 2px solid #E74C3C;
-  opacity: 0.2;
-  animation: finishRing 3s infinite;
+  border: 1.5px dashed rgba(43, 36, 29, 0.35);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 280ms ease, transform 280ms ease;
+  pointer-events: none;
 }
 
-@keyframes finishPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+/* ---- Label sous le nœud (position absolue, indépendante du dot) ---- */
+.nodeLabel {
+  position: absolute;
+  top: calc(100% + 14px);        /* 100% = bas du dot, +14px d'espace */
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-family: var(--font-mono);
+  font-size: 13px;               /* Légèrement plus gros (était 12px) */
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--paper);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--paper-edge);
+  white-space: nowrap;
+  transition: color 200ms ease, border-color 200ms ease;
 }
 
-@keyframes finishRing {
-  0% { transform: scale(0.8); opacity: 0.2; }
-  50% { transform: scale(1.2); opacity: 0.1; }
-  100% { transform: scale(1.5); opacity: 0; }
+/* ---- État : étape déjà passée ---- */
+.nodePassed .nodeDot {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--paper);
 }
 
-/* Responsive */
+.nodePassed .nodeLabel {
+  color: var(--forest);
+  border-color: rgba(90, 112, 70, 0.35);
+}
+
+/* ---- État : étape ACTIVE ---- */
+.nodeActive .nodeDot {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+  transform: scale(1.18);
+  box-shadow: 0 0 0 6px var(--accent-pale);
+}
+
+.nodeActive .dotRing {
+  opacity: 1;
+  transform: scale(1);
+  animation: ringSpin 18s linear infinite;
+}
+
+.nodeActive .nodeLabel {
+  color: var(--accent);
+  border-color: var(--accent);
+  font-weight: 500;
+}
+
+@keyframes ringSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Hover ---- */
+.node:hover .nodeDot {
+  transform: scale(1.1);
+  border-color: var(--ink);  /* Légèrement plus marqué au hover */
+}
+
+.nodeActive:hover .nodeDot {
+  transform: scale(1.22);
+  border-color: var(--accent);
+}
+
+/* ============================================================================
+   FINISH LINE — Drapeau à damier statique
+   ============================================================================ */
+.nodeFinish {
+  left: 100% !important;
+  cursor: default;
+  pointer-events: none;
+}
+
+.nodeFinish .nodeDot {
+  width: 38px;
+  height: 38px;
+  background: var(--ink-soft);
+  border-color: var(--ink-soft);
+  color: var(--paper);
+}
+
+.nodeFinish .dotIcon,
+.nodeFinish .dotIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.nodeFinishActive .nodeDot {
+  animation: finishCelebrate 1.4s ease-in-out infinite;
+}
+
+@keyframes finishCelebrate {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25%      { transform: scale(1.08) rotate(-4deg); }
+  75%      { transform: scale(1.08) rotate(4deg); }
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
 @media (max-width: 1024px) {
-  .progressContainer { padding: 0 2rem; }
-  .stepIcon { width: 40px; height: 40px; font-size: 16px; }
-  .labelText { font-size: 13px; padding: 6px 12px; }
-  .finishIcon { width: 50px; height: 50px; font-size: 20px; }
+  .track { max-width: 760px; }
 }
 
 @media (max-width: 768px) {
-  .progressContainer { 
-    padding: 0 1.5rem 0 1rem;
-  }
-
-  .progressBar { 
-    margin-right: 10px;
-    height: 10px;
-  }
-  .stepIcon { width: 36px; height: 36px; font-size: 14px; border-width: 2px; }
-  .labelText { font-size: 11px; padding: 5px 8px; }
-  .stepLabel { top: 55px; }
-  .finishLine { right: -22px; }
-  .finishIcon { width: 40px; height: 40px; font-size: 16px; border-width: 2px; }
-  .finishIcon::before { inset: -5px; }
-  .stepActive::before { inset: -4px; }
+  .progressContainer { top: 68px; }
+  .track { margin: 24px 24px; max-width: 600px; }
+  .nodeDot { width: 32px; height: 32px; }
+  .dotIcon, .dotIcon svg { width: 16px; height: 16px; }
+  .nodeFinish .nodeDot { width: 34px; height: 34px; }
+  .nodeFinish .dotIcon, .nodeFinish .dotIcon svg { width: 18px; height: 18px; }
+  .nodeLabel { font-size: 12px; padding: 4px 12px; top: calc(100% + 10px); }
+  .runner { width: 26px; height: 26px; }
+  .runner svg { width: 15px; height: 15px; }
 }
 
 @media (max-width: 506px) {
-
-  .progressContainer { top: 150px; }
-  .stepLabel { display: none; }
-  .progressBar { 
-    height: 8px;
-  }
-  .stepIcon { width: 32px; height: 32px; font-size: 13px; }
-  .finishIcon { width: 36px; height: 36px; font-size: 14px; }
+  .progressContainer { top: 70px; }
+  .track { margin: 20px 20px; height: 4px; }
+  .nodeLabel { display: none; }
+  .nodeDot { width: 28px; height: 28px; }
+  .dotIcon, .dotIcon svg { width: 13px; height: 13px; }
 }

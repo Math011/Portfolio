@@ -1,67 +1,62 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import styles from './HomeMenu.module.css';
 
 const HomeMenu = ({ progress }) => {
   const { t } = useLanguage();
-  
-  // Fonction pour calculer les styles d'un texte
-  const getTextStyles = (startProgress, endProgress) => {
-    if (progress < startProgress || progress >= endProgress) return null;
-    
-    const normalizedProgress = (progress - startProgress) / (endProgress - startProgress);
-    
+
+  // Animation regroupée : les 3 lignes apparaissent ENSEMBLE en un seul moment hero.
+  // - Apparition : 2% → 6% (rapide, pour qu'on le voit dès le démarrage)
+  // - Plateau    : 6% → 18% (bien visible plus longtemps qu'avant)
+  // - Disparition: 18% → 22% (avant l'arrivée du titre "À propos")
+  const heroStart = 2;
+  const heroEnd = 22;
+
+  const getStyles = (start, end) => {
+    if (progress < start || progress >= end) return null;
+
+    const normalized = (progress - start) / (end - start);
+
     let scale, translateY, opacity;
-    
-    if (normalizedProgress < 0.3) {
-      const phaseProgress = normalizedProgress / 0.3;
-      scale = 0.3 + phaseProgress * 0.7;
-      translateY = phaseProgress * 120;
-      opacity = phaseProgress;
-    } else if (normalizedProgress < 0.85) {
+
+    if (normalized < 0.2) {
+      // Apparition (zoom in)
+      const t = normalized / 0.2;
+      scale = 0.6 + t * 0.4;
+      translateY = (1 - t) * 30;
+      opacity = t;
+    } else if (normalized < 0.8) {
+      // Plateau
       scale = 1;
-      translateY = 120;
+      translateY = 0;
       opacity = 1;
     } else {
-      const phaseProgress = (normalizedProgress - 0.85) / 0.15;
-      scale = 1 + phaseProgress * 0.3;
-      translateY = 120 + phaseProgress * 60;
-      opacity = 1 - phaseProgress;
+      // Disparition (zoom out + fade)
+      const t = (normalized - 0.8) / 0.2;
+      scale = 1 + t * 0.15;
+      translateY = -t * 40;
+      opacity = 1 - t;
     }
-    
+
     return {
       transform: `translateY(${translateY}px) scale(${scale})`,
-      opacity: opacity
+      opacity: opacity,
     };
   };
 
-  // Timing des 3 textes (sans chevauchement)
-  const welcomeStyles = getTextStyles(2, 9);
-  const titleStyles = getTextStyles(9, 16);
-  const nameStyles = getTextStyles(16, 23);
-
-  // Si aucun texte visible, ne rien afficher
-  if (!welcomeStyles && !titleStyles && !nameStyles) return null;
+  const heroStyles = getStyles(heroStart, heroEnd);
+  if (!heroStyles) return null;
 
   return (
-    <div className={styles.homeMenu}>
-      {welcomeStyles && (
-        <div className={styles.content} style={welcomeStyles}>
-          <h2 className={styles.subtitle}>{t('welcome')}</h2>
+    <div className="roadOverlay">
+      {/* Wrapper centré (position: absolute + center) ; l'animation translate
+          s'applique au bloc enfant pour ne pas écraser le centrage. */}
+      <div className="heroAnchor">
+        <div className="heroBlock" style={heroStyles}>
+          <p className="heroKicker">{t('welcome')}</p>
+          <h1 className="heroName">{t('yourName')}</h1>
+          <p className="heroJob">{t('developer')}</p>
         </div>
-      )}
-      
-      {titleStyles && (
-        <div className={styles.content} style={titleStyles}>
-          <h2 className={styles.job}>{t('developer')}</h2>
-        </div>
-      )}
-      
-      {nameStyles && (
-        <div className={styles.content} style={nameStyles}>
-          <h1 className={styles.name}>{t('yourName')}</h1>
-        </div>
-      )}
+      </div>
     </div>
   );
 };

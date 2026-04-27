@@ -1,25 +1,24 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import styles from './ContactMenu.module.css';
 
 const ContactMenu = ({ progress }) => {
   const { t } = useLanguage();
-  
+
   // Section Contact : 60% → 80%
   const titleStart = 62;
   const titleEnd = 69;
-  
+
   const cardStart = 70;
   const cardEnd = 82;
-  
+
   // Fonction pour calculer les styles d'animation
   const getStyles = (start, end) => {
     if (progress < start || progress >= end) return null;
-    
+
     const normalizedProgress = (progress - start) / (end - start);
-    
+
     let scale, translateY, opacity;
-    
+
     if (normalizedProgress < 0.3) {
       const phaseProgress = normalizedProgress / 0.3;
       scale = 0.3 + phaseProgress * 0.7;
@@ -35,7 +34,7 @@ const ContactMenu = ({ progress }) => {
       translateY = 120 + phaseProgress * 60;
       opacity = 1 - phaseProgress;
     }
-    
+
     return {
       transform: `translateY(${translateY}px) scale(${scale})`,
       opacity: opacity
@@ -49,22 +48,21 @@ const ContactMenu = ({ progress }) => {
   if (!titleStyles && !cardStyles) return null;
 
   return (
-    <div className={styles.contactMenu}>
-      {/* Titre */}
+    <div className="roadOverlay">
+      {/* Titre flottant */}
       {titleStyles && (
-        <h2 className={styles.sectionTitle} style={titleStyles}>
+        <h2 className="sectionTitle" style={titleStyles}>
           {t('contactTitle')}
         </h2>
       )}
-      
+
       {/* Carte */}
       {cardStyles && (
-        <div className={styles.card} style={cardStyles}>
-          <h2 className={styles.title}>{t('contact')}</h2>
-          <p className={styles.description}>
-            {t('contactDescription')}
-          </p>
-          <a href="/contact" className={styles.link}>
+        <div className="roadCard" style={cardStyles}>
+          <p className="roadKicker">— 04 {t('contact')}</p>
+          <h2 className="roadTitle">{t('contact')}</h2>
+          <p className="roadDescription">{t('contactDescription')}</p>
+          <a href="/contact" className="roadLink">
             {t('contactLink')}
           </a>
         </div>

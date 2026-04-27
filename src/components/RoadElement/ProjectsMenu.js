@@ -2,29 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { projects } from '../../data/projects';
-import styles from './ProjectsMenu.module.css';
 
 const ProjectsMenu = ({ progress }) => {
   const { t } = useLanguage();
-  
-  //Section Projets : 40% → 60%
+
+  // Section Projets : 42% → 60%
   const titleStart = 42;
-  const titleEnd = 45;
-  
-  const sectionStart = 45;
-  const sectionEnd = 61;
-  const sectionRange = sectionEnd - sectionStart;
-  const totalCards = projects.length + 1; // +1 pour la carte "voir tous"
-  const projectDuration = sectionRange / totalCards;
+  const titleEnd = 49;
+
+  const cardStart = 49;
+  const cardEnd = 60;
 
   // Fonction pour calculer les styles d'animation
   const getStyles = (start, end) => {
     if (progress < start || progress >= end) return null;
-    
+
     const normalizedProgress = (progress - start) / (end - start);
-    
+
     let scale, translateY, opacity;
-    
+
     if (normalizedProgress < 0.3) {
       const phaseProgress = normalizedProgress / 0.3;
       scale = 0.3 + phaseProgress * 0.7;
@@ -40,71 +36,45 @@ const ProjectsMenu = ({ progress }) => {
       translateY = 120 + phaseProgress * 60;
       opacity = 1 - phaseProgress;
     }
-    
+
     return {
       transform: `translateY(${translateY}px) scale(${scale})`,
       opacity: opacity
     };
   };
 
-  // Fonction pour calculer les styles d'un projet
-  const getProjectStyles = (index) => {
-    const startProgress = sectionStart + (index * projectDuration);
-    const endProgress = startProgress + projectDuration;
-    return getStyles(startProgress, endProgress);
-  };
-
   const titleStyles = getStyles(titleStart, titleEnd);
-  
-  // Styles pour la carte "voir tous les projets" (dernière carte)
-  const viewAllStyles = getProjectStyles(projects.length);
-  
-  const visibleProjects = projects.map((_, index) => getProjectStyles(index)).filter(Boolean);
+  const cardStyles = getStyles(cardStart, cardEnd);
 
   // Si rien n'est visible, ne rien afficher
-  if (!titleStyles && visibleProjects.length === 0 && !viewAllStyles) return null;
+  if (!titleStyles && !cardStyles) return null;
+
+  // Compteur dynamique : nombre total de projets
+  const projectCount = projects.length;
 
   return (
-    <div className={styles.projectsMenu}>
-      {/* Titre */}
+    <div className="roadOverlay">
+      {/* Titre flottant */}
       {titleStyles && (
-        <h2 className={styles.sectionTitle} style={titleStyles}>
+        <h2 className="sectionTitle" style={titleStyles}>
           {t('projectsTitle')}
         </h2>
       )}
-      
-      {/* Cartes projets */}
-      {projects.map((project, index) => {
-        const cardStyles = getProjectStyles(index);
-        if (!cardStyles) return null;
 
-        return (
-          <div 
-            key={project.id}
-            className={styles.projectCard}
-            style={cardStyles}
-          >
-            <h2 className={styles.projectTitle}>{t(project.titleKey)}</h2>
-            <p className={styles.projectDescription}>{t(project.descriptionKey)}</p>
-            <Link to={`/project/${project.id}`} className={styles.projectLink}>
-              {t('projectLink')}
-            </Link>
-          </div>
-        );
-      })}
-
-      {/* Carte "Voir tous les projets" */}
-      {viewAllStyles && (
-        <Link 
-          to="/projects"
-          className={`${styles.projectCard} ${styles.viewAllCard}`}
-          style={viewAllStyles}
-        >
-          <div className={styles.viewAllContent}>
-            <h2 className={styles.projectTitle}>{t('viewAllProjects')}</h2>
-            <span className={styles.viewAllIcon}>→</span>
-          </div>
-        </Link>
+      {/* Carte unique "Voir tous mes projets" */}
+      {cardStyles && (
+        <div className="roadCard" style={cardStyles}>
+          <p className="roadKicker">— 03 {t('projects')}</p>
+          <h2 className="roadTitle">{t('projectsTitle')}</h2>
+          <p className="roadDescription">
+            {projectCount > 0
+              ? `${projectCount} ${t('projectsTeaser') || 'réalisations à découvrir'}`
+              : t('projectsTeaser') || 'Découvrez l\'ensemble de mes réalisations'}
+          </p>
+          <Link to="/projects" className="roadLink">
+            {t('viewAllProjects')} →
+          </Link>
+        </div>
       )}
     </div>
   );

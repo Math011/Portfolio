@@ -1,0 +1,178 @@
+/* ============================================================================
+   ROAD CARDS — Style uniforme pour les cadres qui apparaissent sur la route
+   (HomeMenu, AboutMenu, ProjectsMenu, ContactMenu)
+
+   Style : Option 1 sobre — papier crème, kicker mono brique, titre serif.
+   ============================================================================ */
+
+/* ---- Conteneur (overlay plein écran, centré) ---- */
+.roadOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ---- Titre flottant en gros (avant l'apparition de la carte) ----
+   Note : on n'utilise PAS la propriété `opacity` ici car les composants JS
+   l'écrasent dynamiquement au scroll. À la place on utilise une couleur
+   semi-transparente directement (rgba) qui ne sera pas affectée. */
+.sectionTitle {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 400;
+  color: rgba(247, 236, 211, 0.92);   /* --paper presque plein pour bien se voir */
+  text-shadow:
+    0 3px 8px rgba(43, 36, 29, 0.55),
+    0 0 35px rgba(43, 36, 29, 0.25);
+  margin: 0;
+  letter-spacing: -0.02em;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* ---- Carte papier crème (uniforme pour toutes les sections) ---- */
+.roadCard {
+  position: absolute;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px 30px;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  border: 1px solid var(--paper-edge);
+  box-shadow: var(--shadow-md);
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+/* Kicker en haut de la carte ("— 02 ÉTAPE") */
+.roadKicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px;
+}
+
+/* Titre de la carte */
+.roadTitle {
+  font-family: var(--font-serif);
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+}
+
+/* Description */
+.roadDescription {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+}
+
+/* Lien "En savoir plus →" */
+.roadLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 3px;
+  transition: color 200ms ease, border-color 200ms ease, gap 200ms ease;
+}
+
+.roadLink:hover {
+  color: var(--accent);
+  gap: 10px;
+}
+
+/* ============================================================================
+   HERO (HomeMenu) — bloc unique regroupant les 3 lignes
+   - kicker en mono (petit, atténué) : "Bienvenue sur mon portfolio"
+   - nom en serif (gros, plein) : "Mathieu Raudin"
+   - job en serif italique (moyen, atténué) : "Web Developer"
+   ============================================================================ */
+
+/* Wrapper qui centre le bloc dans la page (sans translate animé) */
+.heroAnchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Le bloc qui porte l'animation (translateY + scale + opacity) ;
+   le style inline du JS écrase ce transform pendant l'animation. */
+.heroBlock {
+  will-change: transform, opacity;
+  transform-origin: center center;
+}
+
+.heroKicker {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1.2vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(247, 236, 211, 0.85);
+  text-shadow: 0 1px 3px rgba(43, 36, 29, 0.4);
+  margin: 0 0 18px;
+}
+
+.heroName {
+  font-family: var(--font-serif);
+  font-size: clamp(64px, 9vw, 120px);
+  font-weight: 400;
+  color: var(--paper);
+  text-shadow:
+    0 3px 8px rgba(43, 36, 29, 0.55),
+    0 0 35px rgba(43, 36, 29, 0.30);
+  margin: 0;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.heroJob {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(28px, 4.5vw, 56px);
+  font-weight: 400;
+  color: rgba(247, 236, 211, 0.82);
+  text-shadow:
+    0 2px 5px rgba(43, 36, 29, 0.45),
+    0 0 25px rgba(43, 36, 29, 0.25);
+  margin: 16px 0 0;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 768px) {
+  .roadCard {
+    width: 320px;
+    padding: 26px 24px 24px;
+  }
+  .roadTitle { font-size: 32px; }
+  .roadDescription { font-size: 14px; }
+  .roadKicker { font-size: 10px; margin-bottom: 12px; }
+}

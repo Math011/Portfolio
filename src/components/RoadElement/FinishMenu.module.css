@@ -1,117 +1,276 @@
+/* ============================================================================
+   FINISH MENU — Scène nocturne d'arrivée au campement
+   ============================================================================ */
+
 .finishMenu {
   position: fixed;
-  top: 0;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  /* L'opacity globale est pilotée inline */
+  transition: opacity 200ms ease;
+}
+
+/* ---- Overlay nocturne — recouvre la vidéo de jour ---- */
+.nightOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #1A1F3A 0%,    /* Bleu nuit profond en haut */
+    #2D3047 45%,   /* Bleu plus chaud */
+    #3A2818 80%,   /* Brun chaud près du sol */
+    #1F1410 100%   /* Sol sombre */
+  );
+}
+
+/* ============================================================================
+   LUNE
+   ============================================================================ */
+.moon {
+  position: absolute;
+  top: 14%;
+  left: 14%;
+  width: 70px;
+  height: 70px;
+}
+
+.moonHalo {
+  position: absolute;
+  inset: -28px;
+  background: radial-gradient(
+    circle,
+    rgba(247, 236, 211, 0.28) 0%,
+    rgba(247, 236, 211, 0.05) 60%,
+    transparent 80%
+  );
+  border-radius: 50%;
+}
+
+.moonBody {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  background: var(--paper);
+  border-radius: 50%;
+  box-shadow: 0 0 50px rgba(247, 236, 211, 0.4);
+}
+
+.crater1, .crater2 {
+  position: absolute;
+  background: #E0D0A8;
+  border-radius: 50%;
+}
+
+.crater1 { top: 20px; left: 24px; width: 10px; height: 10px; }
+.crater2 { top: 38px; left: 44px; width: 6px;  height: 6px; }
+
+/* ============================================================================
+   ÉTOILES
+   ============================================================================ */
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: var(--paper);
+  border-radius: 50%;
+  animation: starTwinkle ease-in-out infinite;
+  box-shadow: 0 0 4px rgba(247, 236, 211, 0.6);
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.2); }
+}
+
+/* ============================================================================
+   SCÈNE (tente + voyageur + feu)
+   ============================================================================ */
+.scene {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  max-width: 90vw;
+  height: 240px;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+/* Tente à gauche */
+.tent {
+  position: absolute;
+  bottom: 60px;
   left: 0;
+  width: 110px;
+  height: 110px;
+}
+
+/* Voyageur au centre */
+.traveler {
+  position: absolute;
+  bottom: 50px;
+  left: 170px;
+  width: 80px;
+  height: 100px;
+}
+
+/* Feu de camp à droite */
+.fire {
+  position: absolute;
+  bottom: 50px;
+  left: 280px;
+  width: 130px;
+  height: 130px;
+}
+
+.fireSvg {
+  position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 2;
+}
+
+/* Lueur du feu (qui éclaire le sol/voyageur) */
+.fireGlow {
+  position: absolute;
+  inset: -40px -60px -10px -120px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 107, 53, 0.22) 0%,
+    rgba(255, 107, 53, 0.08) 40%,
+    transparent 70%
+  );
   pointer-events: none;
-  z-index: 5;
-  overflow: hidden;
+  z-index: 1;
+  animation: glowPulse 2s ease-in-out infinite;
 }
 
-.content {
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1; }
+}
+
+/* Flammes vacillantes */
+.flames {
+  transform-origin: 50px 70px;
+  animation: flicker 0.6s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { transform: scaleY(1)    scaleX(1)    rotate(0deg); }
+  25%      { transform: scaleY(1.08) scaleX(0.94) rotate(-2deg); }
+  50%      { transform: scaleY(0.95) scaleX(1.05) rotate(1deg); }
+  75%      { transform: scaleY(1.05) scaleX(0.97) rotate(-1deg); }
+}
+
+/* ============================================================================
+   MESSAGE (titre + sous-titre + bouton)
+   ============================================================================ */
+.message {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  will-change: transform, opacity;
-  pointer-events: auto;
+  max-width: 520px;
+  padding: 0 24px;
+  transition: opacity 400ms ease;
 }
 
-.flag {
-  font-size: 5rem;
-  margin-bottom: 20px;
-  animation: bounce 1s ease infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #FF8B5A;          /* Brique éclairci pour bien ressortir sur la nuit */
+  margin: 0 0 14px;
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  text-shadow: 
-    2px 2px 4px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(0, 0, 0, 0.3);
-  margin: 0 0 15px 0;
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-serif);
+  font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 400;
+  color: var(--paper);
+  text-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(43, 36, 29, 0.3);
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
 .subtitle {
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  margin: 0 0 30px 0;
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 400;
+  color: rgba(247, 236, 211, 0.85);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  margin: 0 0 30px;
 }
 
 .restart {
-  padding: 15px 35px;
-  background: linear-gradient(135deg, #7CB342, #8BC34A);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--paper);
+  background: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-pill);
+  padding: 12px 28px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 15px rgba(124, 179, 66, 0.3);
+  transition: background-color 200ms ease,
+              transform 200ms ease,
+              box-shadow 200ms ease;
+  box-shadow: 0 8px 24px -6px rgba(197, 84, 43, 0.7);
+  pointer-events: auto;
 }
 
 .restart:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(197, 84, 43, 0.8);
 }
 
-/* Confettis */
-.confettiContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.restart:active {
+  transform: translateY(0);
 }
 
-.confetti {
-  position: absolute;
-  top: -10px;
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  animation: fall 4s linear infinite;
-}
-
-@keyframes fall {
-  0% {
-    transform: translateY(-10px) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0.7;
-  }
-}
-
-/* Responsive */
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
 @media (max-width: 768px) {
-  .flag {
-    font-size: 3.5rem;
-  }
-  
-  .title {
-    font-size: 1.8rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
-  }
+  .moon { top: 10%; left: 10%; width: 56px; height: 56px; }
+  .moonBody { width: 56px; height: 56px; }
+  .crater1 { top: 16px; left: 18px; width: 8px; height: 8px; }
+  .crater2 { top: 32px; left: 36px; width: 5px; height: 5px; }
+
+  .scene { width: 400px; height: 200px; }
+  .tent { width: 90px; height: 90px; }
+  .traveler { left: 140px; width: 70px; height: 90px; }
+  .fire { left: 230px; width: 110px; height: 110px; }
+
+  .title { font-size: 38px; }
+  .subtitle { font-size: 16px; }
+}
+
+@media (max-width: 506px) {
+  .scene { width: 320px; height: 180px; }
+  .tent { width: 76px; height: 76px; bottom: 50px; }
+  .traveler { left: 110px; width: 60px; height: 78px; bottom: 42px; }
+  .fire { left: 180px; width: 95px; height: 95px; bottom: 42px; }
+
+  .title { font-size: 32px; }
+  .subtitle { font-size: 15px; }
+  .message { top: 22%; }
 }
