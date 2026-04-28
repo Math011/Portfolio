@@ -21,11 +21,7 @@ const FinishMenu = ({ progress, onRestart }) => {
   const sceneStart = 92;
   const textStart = 96;
 
-  // Étoiles : on les génère une seule fois (positions fixes pour ne pas
-  // qu'elles bougent à chaque re-render).
-  // IMPORTANT : les hooks React (useMemo) doivent TOUJOURS être appelés
-  // dans le même ordre. Donc on les appelle AVANT toute condition de retour
-  // pour respecter les Rules of Hooks.
+  // Étoiles : on les génère une seule fois (positions fixes pour ne pas qu'elles bougent à chaque re-render).
   const stars = useMemo(() => {
     const arr = [];
     const seed = (i) => Math.abs(Math.sin((i + 1) * 12.9898) * 43758.5453) % 1;

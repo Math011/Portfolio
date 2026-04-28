@@ -6,8 +6,7 @@ import { projects } from '../../data/projects';
 const ProjectsMenu = ({ progress }) => {
   const { t } = useLanguage();
 
-  // Section Projets : 42 → 66 (carte rallongée pour que le clic à 60% tombe
-  // en pleine phase plateau, pas en phase de sortie).
+  // Section Projets : 42 → 63
   const titleStart = 42;
   const titleEnd = 49;
 

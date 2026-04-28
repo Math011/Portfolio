@@ -5,15 +5,6 @@ import styles from './ScrollHint.module.css';
 /**
  * ScrollHint — petit message qui apparaît en bas de l'écran quand
  * l'utilisateur reste immobile.
- *
- * Logique :
- * - Au chargement, on attend `INITIAL_DELAY` ms avant d'afficher (laisser
- *   le temps de découvrir la page).
- * - Dès que l'utilisateur scrolle/wheel/touche, on cache le hint
- *   immédiatement et on relance un timer de `INACTIVITY_DELAY` ms.
- * - Si on n'a pas atteint la fin du parcours (progress < 99), on affiche
- *   à nouveau le hint après le délai d'inactivité.
- * - Si on est à 100%, on ne réaffiche plus (le voyage est terminé).
  */
 const INITIAL_DELAY = 1200;       // 1.2s avant la première apparition (était 2.5s)
 const INACTIVITY_DELAY = 2000;    // 2s d'inactivité pour réafficher (était 4s)

@@ -78,13 +78,6 @@
   height: 17px;
 }
 
-/* ============================================================================
-   NŒUD D'ÉTAPE
-   Le DOT est centré PILE sur la ligne (top: 50%, translate -50%/-50%).
-   Le LABEL est positionné absolument en dessous du dot, donc il ne décale pas
-   la position du dot. C'est exactement ce que demande le design : ligne au
-   milieu du dot, label séparé en dessous.
-   ============================================================================ */
 .node {
   position: absolute;
   top: 50%;
