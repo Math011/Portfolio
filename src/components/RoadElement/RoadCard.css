@@ -39,8 +39,8 @@
   background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
   border-radius: 12px;
 
-  padding: 30px 34px 28px;
-  width: 380px;
+  padding: 32px 36px 30px;
+  width: 420px;
   max-width: calc(100vw - 40px);
 
   border: 2px solid var(--paper-edge);
@@ -104,7 +104,7 @@
 /* ---- Kicker ---- */
 .roadKicker {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -115,7 +115,7 @@
 /* ---- Titre ---- */
 .roadTitle {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 400;
   line-height: 1.1;
   color: var(--ink);
@@ -126,10 +126,10 @@
 /* ---- Description ---- */
 .roadDescription {
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 17px;
+  line-height: 1.6;
   color: var(--ink-soft);
-  margin: 0 0 22px;
+  margin: 0 0 24px;
 }
 
 /* ---- Lien ---- */
@@ -213,11 +213,12 @@
 
 @media (max-width: 768px) {
   .roadCard {
-    width: 320px;
-    padding: 26px 24px 24px;
+    width: 340px;
+    padding: 28px 26px 24px;
   }
 
-  .roadTitle { font-size: 32px; }
-  .roadDescription { font-size: 14px; }
+  .roadTitle { font-size: 34px; }
+  .roadDescription { font-size: 15px; line-height: 1.55; }
   .roadKicker { font-size: 10px; margin-bottom: 12px; }
+  .roadLink { font-size: 13px; }
 }

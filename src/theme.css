@@ -1,6 +1,10 @@
 /* ============================================================================
    THÈME — Portfolio "Voyage"
    Palette hybride : couleurs du paysage vidéo + accents éditoriaux adoucis.
+
+   Principe : on garde les couleurs joyeuses du paysage en fond, et on adoucit
+   les éléments d'UI (papier plus chaud, encre plus brun-foncé que noir) pour
+   éviter le contraste trop dur "magazine chic vs cartoon".
    ============================================================================ */
 
 :root {
@@ -20,8 +24,6 @@
      ACCENTS — palette d'identité (boutons, liens, états)
      ============================================================================ */
 
-  /* Brique adouci (orange chaud, plus clair que le brique pur d'origine
-     pour mieux dialoguer avec la palette joyeuse du paysage) */
   --accent:        #D9732D;
   --accent-soft:   #E89055;            /* Hover */
   --accent-pale:   rgba(217, 115, 45, 0.12);
@@ -52,7 +54,9 @@
 
   --paper:         #F4E6C8;  /* Papier principal — chaud, ambré */
   --paper-2:       #EAD7B1;  /* Papier alternatif (dégradés, ombres) */
-  --paper-edge:    #D1A96A;  /* Bordure dorée des cartes */
+  /* Bordure des cartes — légèrement plus foncée qu'avant pour mieux ressortir
+     sur le papier ambré. Avant : #D1A96A. Maintenant : #B89554 (plus contraste). */
+  --paper-edge:    #B89554;
 
 
   /* ============================================================================
@@ -66,10 +70,13 @@
 
   /* ============================================================================
      POLICES (chargées depuis Google Fonts dans index.html)
+     - serif : Fraunces — titres, nom, "à propos / contact"
+     - sans  : Manrope — corps de texte, descriptions (plus chaleureux qu'Inter)
+     - mono  : JetBrains Mono — kickers ("— 02 ÉTAPE"), labels barre
      ============================================================================ */
 
   --font-serif: 'Fraunces', serif;
-  --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans:  'Manrope', system-ui, -apple-system, sans-serif;
   --font-mono:  'JetBrains Mono', monospace;
 
 
@@ -79,9 +86,9 @@
 
   --fs-kicker:     11px;   /* Petits labels en monospace ("01 ACCUEIL") */
   --fs-meta:       12px;   /* Méta-infos */
-  --fs-body:       15px;   /* Texte courant */
-  --fs-lead:       17px;   /* Sous-titres */
-  --fs-h3:         22px;   /* Titre de carte */
+  --fs-body:       17px;   /* Texte courant — augmenté pour meilleure lisibilité */
+  --fs-lead:       19px;   /* Sous-titres */
+  --fs-h3:         24px;   /* Titre de carte */
   --fs-h2:         48px;   /* Titre de section (clamp à prévoir) */
   --fs-h1:         64px;   /* Titre hero */
 

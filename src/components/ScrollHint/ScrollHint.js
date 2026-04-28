@@ -15,8 +15,8 @@ import styles from './ScrollHint.module.css';
  *   à nouveau le hint après le délai d'inactivité.
  * - Si on est à 100%, on ne réaffiche plus (le voyage est terminé).
  */
-const INITIAL_DELAY = 2500;       // 2.5s avant la première apparition
-const INACTIVITY_DELAY = 4000;    // 4s d'inactivité pour réafficher
+const INITIAL_DELAY = 1200;       // 1.2s avant la première apparition (était 2.5s)
+const INACTIVITY_DELAY = 2000;    // 2s d'inactivité pour réafficher (était 4s)
 
 const ScrollHint = ({ progress }) => {
   const { t } = useLanguage();
