@@ -7,10 +7,11 @@ import {
   LoadingScreen, 
   LanguageSwitcher,
   HomeMenu, 
-  AboutMenu, 
+  // AboutMenu,
   ProjectsMenu, 
   ContactMenu, 
-  FinishMenu 
+  FinishMenu,
+  ScrollHint
 } from './components';
 import { ProjectsPage, ProjectDetailPage, ContactPage, NotFoundPage } from './pages';
 import { journeySteps } from './data/journeySteps';
@@ -76,10 +77,13 @@ function HomePage() {
       
       {/* Éléments de la route */}
       <HomeMenu progress={progress} />
-      <AboutMenu progress={progress} />
+      {/* <AboutMenu progress={progress} /> */}
       <ProjectsMenu progress={progress} />
       <ContactMenu progress={progress} />
       <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
+      
+      {/* Indice "scrollez pour avancer" — apparaît après inactivité */}
+      <ScrollHint progress={progress} />
       
       <BackgroundVideo 
         ref={videoRef}
@@ -98,6 +102,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/project/:id" element={<ProjectDetailPage />} />
+            {/* <Route path="/about" element={<AboutPage />} /> */}
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

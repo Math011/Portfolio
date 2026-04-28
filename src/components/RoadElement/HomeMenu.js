@@ -1,67 +1,53 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import styles from './HomeMenu.module.css';
 
 const HomeMenu = ({ progress }) => {
   const { t } = useLanguage();
-  
-  // Fonction pour calculer les styles d'un texte
-  const getTextStyles = (startProgress, endProgress) => {
-    if (progress < startProgress || progress >= endProgress) return null;
-    
-    const normalizedProgress = (progress - startProgress) / (endProgress - startProgress);
-    
+
+  // Plage du hero : 2 → 23.5.
+  const heroStart = 2;
+  const heroEnd = 23.5;
+
+
+  const getStyles = (start, end) => {
+    if (progress < start || progress >= end) return null;
+
+    const normalizedProgress = (progress - start) / (end - start);
+
     let scale, translateY, opacity;
-    
-    if (normalizedProgress < 0.3) {
-      const phaseProgress = normalizedProgress / 0.3;
+
+    if (normalizedProgress < 0.2) {
+      const phaseProgress = normalizedProgress / 0.2;
       scale = 0.3 + phaseProgress * 0.7;
-      translateY = phaseProgress * 120;
+      translateY = phaseProgress * 180;
       opacity = phaseProgress;
-    } else if (normalizedProgress < 0.85) {
+    } else if (normalizedProgress < 0.95) {
       scale = 1;
-      translateY = 120;
+      translateY = 180;
       opacity = 1;
     } else {
-      const phaseProgress = (normalizedProgress - 0.85) / 0.15;
+      const phaseProgress = (normalizedProgress - 0.95) / 0.05;
       scale = 1 + phaseProgress * 0.3;
-      translateY = 120 + phaseProgress * 60;
+      translateY = 180 + phaseProgress * 60;
       opacity = 1 - phaseProgress;
     }
-    
+
     return {
       transform: `translateY(${translateY}px) scale(${scale})`,
-      opacity: opacity
+      opacity: opacity,
     };
   };
 
-  // Timing des 3 textes (sans chevauchement)
-  const welcomeStyles = getTextStyles(2, 9);
-  const titleStyles = getTextStyles(9, 16);
-  const nameStyles = getTextStyles(16, 23);
-
-  // Si aucun texte visible, ne rien afficher
-  if (!welcomeStyles && !titleStyles && !nameStyles) return null;
+  const heroStyles = getStyles(heroStart, heroEnd);
+  if (!heroStyles) return null;
 
   return (
-    <div className={styles.homeMenu}>
-      {welcomeStyles && (
-        <div className={styles.content} style={welcomeStyles}>
-          <h2 className={styles.subtitle}>{t('welcome')}</h2>
-        </div>
-      )}
-      
-      {titleStyles && (
-        <div className={styles.content} style={titleStyles}>
-          <h2 className={styles.job}>{t('developer')}</h2>
-        </div>
-      )}
-      
-      {nameStyles && (
-        <div className={styles.content} style={nameStyles}>
-          <h1 className={styles.name}>{t('yourName')}</h1>
-        </div>
-      )}
+    <div className="roadOverlay">
+      <div className="heroBlock" style={heroStyles}>
+        <p className="heroKicker">{t('welcome')}</p>
+        <h1 className="heroName">{t('yourName')}</h1>
+        <p className="heroJob">{t('developer')}</p>
+      </div>
     </div>
   );
 };

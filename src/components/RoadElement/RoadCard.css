@@ -1,0 +1,224 @@
+/* ============================================================================
+   ROAD CARDS
+   ============================================================================ */
+
+/* ---- Conteneur ---- */
+.roadOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ---- Titre flottant ---- */
+.sectionTitle {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 400;
+  color: rgba(247, 236, 211, 0.92);
+  text-shadow:
+    0 3px 8px rgba(43, 36, 29, 0.55),
+    0 0 35px rgba(43, 36, 29, 0.25);
+  margin: 0;
+  letter-spacing: -0.02em;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* ---- CARTE (nouveau style immersif) ---- */
+.roadCard {
+  position: absolute;
+
+  background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
+  border-radius: 12px;
+
+  padding: 32px 36px 30px;
+  width: 420px;
+  max-width: calc(100vw - 40px);
+
+  border: 2px solid var(--paper-edge);
+
+  box-shadow:
+    0 10px 0 #C59A5C,
+    0 18px 30px rgba(0, 0, 0, 0.18);
+
+  transition: transform 200ms ease, box-shadow 200ms ease;
+
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+/* texture légère */
+.roadCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------------------------
+   Épingle de fixation en haut à droite — comme si la carte était punaisée
+   sur un mur.
+   ---------------------------------------------------------------------------- */
+.roadCard::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+
+  /* Tête de l'épingle bombée : highlight en haut-gauche, dégradé vers ombre
+     en bas-droite pour faire la rondeur 3D. */
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #F0975F 0%,           /* reflet clair (la lumière qui tape la tête) */
+      var(--accent) 40%,    /* couleur principale de la tête */
+      #A04515 100%          /* ombre interne sur le côté opposé */
+    );
+
+  /* Ombre portée sur le papier + insertion sombre pour l'effet "enfoncée" */
+  box-shadow:
+    0 2px 3px rgba(43, 36, 29, 0.45),
+    inset -1px -2px 2px rgba(0, 0, 0, 0.20);
+}
+
+/* hover */
+.roadCard:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 14px 0 #C59A5C,
+    0 26px 40px rgba(0, 0, 0, 0.22);
+}
+
+/* ---- Kicker ---- */
+.roadKicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px;
+}
+
+/* ---- Titre ---- */
+.roadTitle {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin: 0 0 14px;
+}
+
+/* ---- Description ---- */
+.roadDescription {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 24px;
+}
+
+/* ---- Lien ---- */
+.roadLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--ink);
+  text-decoration: none;
+
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+
+  transition: color 200ms ease, gap 200ms ease;
+}
+
+.roadLink:hover {
+  color: var(--accent);
+  gap: 10px;
+}
+
+/* ============================================================================
+   HERO
+   ============================================================================ */
+
+.heroBlock {
+  position: absolute;
+  text-align: center;
+  will-change: transform, opacity;
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+.heroKicker {
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.3vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--paper);
+  text-shadow:
+    0 2px 5px rgba(43, 36, 29, 0.65),
+    0 0 14px rgba(43, 36, 29, 0.40);
+  margin: 0 0 18px;
+}
+
+.heroName {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 6vw, 76px);
+  font-weight: 400;
+  color: var(--paper);
+  text-shadow:
+    0 3px 8px rgba(43, 36, 29, 0.55),
+    0 0 35px rgba(43, 36, 29, 0.30);
+  margin: 0;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.heroJob {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 400;
+  color: rgba(247, 236, 211, 0.82);
+  text-shadow:
+    0 2px 5px rgba(43, 36, 29, 0.45),
+    0 0 25px rgba(43, 36, 29, 0.25);
+  margin: 16px 0 0;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .roadCard {
+    width: 340px;
+    padding: 28px 26px 24px;
+  }
+
+  .roadTitle { font-size: 34px; }
+  .roadDescription { font-size: 15px; line-height: 1.55; }
+  .roadKicker { font-size: 10px; margin-bottom: 12px; }
+  .roadLink { font-size: 13px; }
+}

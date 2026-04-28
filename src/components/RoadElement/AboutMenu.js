@@ -1,25 +1,24 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import styles from './AboutMenu.module.css';
 
 const AboutMenu = ({ progress }) => {
   const { t } = useLanguage();
-  
+
   // Section à propos : 20% → 40%
   const titleStart = 23;
   const titleEnd = 30;
-  
+
   const cardStart = 30;
   const cardEnd = 42;
-  
+
   // Fonction pour calculer les styles d'animation
   const getStyles = (start, end) => {
     if (progress < start || progress >= end) return null;
-    
+
     const normalizedProgress = (progress - start) / (end - start);
-    
+
     let scale, translateY, opacity;
-    
+
     if (normalizedProgress < 0.3) {
       const phaseProgress = normalizedProgress / 0.3;
       scale = 0.3 + phaseProgress * 0.7;
@@ -35,7 +34,7 @@ const AboutMenu = ({ progress }) => {
       translateY = 120 + phaseProgress * 60;
       opacity = 1 - phaseProgress;
     }
-    
+
     return {
       transform: `translateY(${translateY}px) scale(${scale})`,
       opacity: opacity
@@ -49,22 +48,21 @@ const AboutMenu = ({ progress }) => {
   if (!titleStyles && !cardStyles) return null;
 
   return (
-    <div className={styles.aboutMenu}>
-      {/* Titre */}
+    <div className="roadOverlay">
+      {/* Titre flottant */}
       {titleStyles && (
-        <h2 className={styles.sectionTitle} style={titleStyles}>
+        <h2 className="sectionTitle" style={titleStyles}>
           {t('aboutTitle')}
         </h2>
       )}
-      
+
       {/* Carte */}
       {cardStyles && (
-        <div className={styles.card} style={cardStyles}>
-          <h2 className={styles.title}>{t('about')}</h2>
-          <p className={styles.description}>
-            {t('aboutDescription')}
-          </p>
-          <a href="/about" className={styles.link}>
+        <div className="roadCard" style={cardStyles}>
+          <p className="roadKicker">— 02 {t('about')}</p>
+          <h2 className="roadTitle">{t('about')}</h2>
+          <p className="roadDescription">{t('aboutDescription')}</p>
+          <a href="/about" className="roadLink">
             {t('aboutLink')}
           </a>
         </div>

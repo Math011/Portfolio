@@ -1,8 +1,19 @@
 import { useRef, useEffect, useState } from 'react';
-import { projects } from '../data/projects';
 
 const STORAGE_KEY = 'portfolio_progress';
 const VIDEO_TIME_KEY = 'portfolio_video_time';
+
+/**
+ * Lance video.play() en ignorant proprement les erreurs liées à un pause()
+ * qui arriverait avant que la promesse de play() soit résolue.
+ */
+const safePlay = (video) => {
+  if (!video || !video.paused) return;
+  const p = video.play();
+  if (p && typeof p.catch === 'function') {
+    p.catch(() => { /* ignoré : interruption normale */ });
+  }
+};
 
 const useVideoScroll = (videoRef) => {
   const lastScrollTimeRef = useRef(0);
@@ -87,38 +98,44 @@ const useVideoScroll = (videoRef) => {
     };
   }, [videoRef]);
 
-  // Calcule le multiplicateur de vitesse selon la section
+  // Calcule le multiplicateur de vitesse selon la section.
   const getSectionSpeedModifier = (currentProgress) => {
-    if (currentProgress >= 42 && currentProgress < 45) {
-      return 2 / 4.5;
-    }
-    if (currentProgress >= 45 && currentProgress < 62) {
-      // Ralentit selon le nombre de projets
-      return 2 / projects.length;
-    }
     return 1;
   };
 
-  // Fonction pour naviguer vers une section
+  // Fonction pour naviguer vers une section : SAUT DIRECT (téléportation).
   const navigateToSection = (targetPosition) => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Reset isAtEnd si on navigue ailleurs
-    if (targetPosition < 100) {
-      isAtEndRef.current = false;
+    const target = Math.max(0, Math.min(100, targetPosition));
+
+    // Reset des flags d'état
+    isFastForwardRef.current = false;
+    targetPositionRef.current = null;
+    isAtEndRef.current = target >= 100;
+    directionRef.current = target >= progressRef.current ? 1 : -1;
+
+    // Téléportation immédiate de la progression
+    progressRef.current = target;
+    smoothProgressRef.current = target;
+    setProgress(target);
+
+    // Synchronisation de la vidéo sur la frame correspondante
+    if (video.duration) {
+      // 0%   → currentTime = 0
+      // 100% → currentTime = duration
+      const targetTime = (target / 100) * video.duration;
+      try {
+        video.currentTime = targetTime;
+      } catch (e) {
+        // Certains navigateurs jettent si la vidéo n'est pas seekable
+      }
     }
 
-    const currentProgress = progressRef.current;
-    if (targetPosition === currentProgress) return;
-
-    directionRef.current = targetPosition > currentProgress ? 1 : -1;
-    targetPositionRef.current = targetPosition;
-    isFastForwardRef.current = true;
-
-    if (video.paused) {
-      video.play();
-    }
+    // On met la vidéo en pause après le saut (l'utilisateur reprendra avec
+    // la molette quand il voudra)
+    video.pause();
   };
 
   useEffect(() => {
@@ -185,7 +202,7 @@ const useVideoScroll = (videoRef) => {
       if (canMove) {
         directionRef.current = direction;
         if (video.paused) {
-          video.play();
+          safePlay(video);
         }
         
         if (!rafRef.current) {

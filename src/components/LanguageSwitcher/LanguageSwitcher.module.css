@@ -1,14 +1,15 @@
 /* Container - position gérée par le parent */
 .languageSwitcher {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 8px 16px;
-  
+  background: var(--paper);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+
   display: flex;
   align-items: center;
   gap: 4px;
-  
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  border: 1px solid var(--paper-edge);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Version fixe pour la HomePage */
@@ -22,29 +23,30 @@
 .langOption {
   background: none;
   border: none;
-  padding: 4px 8px;
-  border-radius: 10px;
-  
-  font-family: 'Arial', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #999;
-  
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+
+  font-family: var(--font-mono);
+  font-size: 14px;          /* Était 13px → plus gros */
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  color: var(--ink-muted);
+
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: color 200ms ease, background-color 200ms ease;
 }
 
 .langOption:hover {
-  color: #666;
+  color: var(--ink-soft);
 }
 
 .active {
-  color: #7CB342;
-  background: rgba(124, 179, 66, 0.1);
+  color: var(--accent);
+  background: var(--accent-pale);
 }
 
 .langSeparator {
-  color: #ddd;
+  color: var(--paper-edge);
   font-weight: 300;
 }
 
