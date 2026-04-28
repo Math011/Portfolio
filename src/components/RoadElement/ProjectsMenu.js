@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { projects } from '../../data/projects';
+import { projects } from '../../pages/ProjectsPage/ProjectsData';
 
 const ProjectsMenu = ({ progress }) => {
   const { t } = useLanguage();
@@ -13,7 +13,7 @@ const ProjectsMenu = ({ progress }) => {
   const cardStart = 49;
   const cardEnd = 63;
 
-  // Fonction pour calculer les styles d'animation
+  // Fonction pour calculer les styles d'animation.
   const getStyles = (start, end) => {
     if (progress < start || progress >= end) return null;
 
@@ -21,17 +21,17 @@ const ProjectsMenu = ({ progress }) => {
 
     let scale, translateY, opacity;
 
-    if (normalizedProgress < 0.3) {
-      const phaseProgress = normalizedProgress / 0.3;
+    if (normalizedProgress < 0.2) {
+      const phaseProgress = normalizedProgress / 0.2;
       scale = 0.3 + phaseProgress * 0.7;
       translateY = phaseProgress * 120;
       opacity = phaseProgress;
-    } else if (normalizedProgress < 0.85) {
+    } else if (normalizedProgress < 0.95) {
       scale = 1;
       translateY = 120;
       opacity = 1;
     } else {
-      const phaseProgress = (normalizedProgress - 0.85) / 0.15;
+      const phaseProgress = (normalizedProgress - 0.95) / 0.05;
       scale = 1 + phaseProgress * 0.3;
       translateY = 120 + phaseProgress * 60;
       opacity = 1 - phaseProgress;

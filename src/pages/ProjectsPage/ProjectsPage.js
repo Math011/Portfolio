@@ -38,20 +38,25 @@ const ProjectsPage = () => {
   }, []);
 
   // Generate or retrieve decorative elements
+  // En grille 2 colonnes, le nombre de "zones" correspond au nombre de lignes
+  const numberOfRows = Math.ceil(projects.length / 2);
+
   const decorativeClouds = useMemo(() => {
     const saved = sessionStorage.getItem('projectsPage_clouds');
     if (saved) return JSON.parse(saved);
-    const clouds = generateClouds(projects.length);
+    const clouds = generateClouds(numberOfRows);
     sessionStorage.setItem('projectsPage_clouds', JSON.stringify(clouds));
     return clouds;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const decorativeBirds = useMemo(() => {
     const saved = sessionStorage.getItem('projectsPage_birds');
     if (saved) return JSON.parse(saved);
-    const birds = generateBirds(projects.length);
+    const birds = generateBirds(numberOfRows);
     sessionStorage.setItem('projectsPage_birds', JSON.stringify(birds));
     return birds;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Scroll position persistence
@@ -131,11 +136,12 @@ const ProjectsPage = () => {
 
         {/* Title */}
         <div className={styles.projectsTitleContainer}>
+          <p className={styles.projectsKicker}>{t('projectsPageKicker')}</p>
           <h1 className={styles.projectsTitle}>{t('projectsPageTitle')}</h1>
         </div>
 
         {/* Projects */}
-        <div className={styles.projectsContent}>
+        <div className={styles.projectsGrid}>
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} t={t} />
           ))}

@@ -42,7 +42,7 @@ const Compass = () => (
 );
 
 // Polaroid avec scotch + photo (fallback initiales si l'image manque)
-const Polaroid = ({ initials = 'MR', photoUrl="/images/face.jpg" }) => {
+const Polaroid = ({ initials = 'MR', photoUrl }) => {
   const [hasError, setHasError] = useState(false);
   const showImage = photoUrl && !hasError;
 
@@ -156,7 +156,7 @@ function AboutPage() {
 
           {/* Bio + polaroid */}
           <section className={styles.bioRow}>
-            <Polaroid initials="MR" photoUrl="/face.jpg" />
+            <Polaroid initials="MR" photoUrl="/images/face.jpg" />
 
             <div className={styles.bioContent}>
               <h2 className={styles.bioName}>{t('bioName')}</h2>

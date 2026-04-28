@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { projects } from '../../data/projects';
+import { projects } from '../ProjectsPage/ProjectsData';
 import Header from '../../components/Header';
 import DecorativeBackground from './DecorativeBackground';
 import Balloon from './Balloon';
@@ -90,11 +90,7 @@ const ProjectDetailPage = () => {
             <h3>{t('technologiesUsed')}</h3>
             <div className={styles.techTags}>
               {project.tags.map((tag, index) => (
-                <span 
-                  key={index} 
-                  className={styles.techTag}
-                  style={{ backgroundColor: project.color }}
-                >
+                <span key={index} className={styles.techTag}>
                   {tag}
                 </span>
               ))}

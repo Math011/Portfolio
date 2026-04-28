@@ -4,7 +4,7 @@
   min-height: 100vh;
   background:
     radial-gradient(ellipse at top, #F6E4B0 0%, #E8C97D 70%, #C9A65A 100%);
-  padding: clamp(80px, 10vw, 110px) clamp(12px, 3vw, 32px) 60px;
+  padding: clamp(80px, 10vw, 110px) clamp(20px, 4vw, 40px) 60px;
   font-family: var(--font-sans);
 }
 
