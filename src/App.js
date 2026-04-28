@@ -7,13 +7,13 @@ import {
   LoadingScreen, 
   LanguageSwitcher,
   HomeMenu, 
-  // AboutMenu,
+  AboutMenu,
   ProjectsMenu, 
   ContactMenu, 
   FinishMenu,
   ScrollHint
 } from './components';
-import { ProjectsPage, ProjectDetailPage, ContactPage, NotFoundPage } from './pages';
+import { ProjectsPage, ProjectDetailPage, AboutPage, ContactPage, NotFoundPage } from './pages';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -77,7 +77,7 @@ function HomePage() {
       
       {/* Éléments de la route */}
       <HomeMenu progress={progress} />
-      {/* <AboutMenu progress={progress} /> */}
+      <AboutMenu progress={progress} />
       <ProjectsMenu progress={progress} />
       <ContactMenu progress={progress} />
       <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
@@ -102,7 +102,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/project/:id" element={<ProjectDetailPage />} />
-            {/* <Route path="/about" element={<AboutPage />} /> */}
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
