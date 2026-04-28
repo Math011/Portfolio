@@ -1,0 +1,558 @@
+/* Page À propos — carte de voyage punaisée, responsive fluide */
+
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, #F6E4B0 0%, #E8C97D 70%, #C9A65A 100%);
+  padding: clamp(80px, 10vw, 110px) clamp(12px, 3vw, 32px) 60px;
+  font-family: var(--font-sans);
+}
+
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.pageKicker {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.5vw, 12px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ============================================================================
+   CARTE PUNAISÉE — fluide
+   ============================================================================ */
+.mapCard {
+  position: relative;
+  width: 100%;
+  background: var(--paper);
+  border-radius: 6px;
+  padding: clamp(36px, 5vw, 64px) clamp(20px, 4vw, 64px) clamp(28px, 4vw, 48px);
+  transform: rotate(-0.5deg);
+  box-shadow:
+    0 30px 60px -20px rgba(43, 36, 29, 0.25),
+    0 0 0 1px rgba(43, 36, 29, 0.06);
+}
+
+.mapCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, transparent 33.2%, rgba(43,36,29,0.05) 33.2%, rgba(43,36,29,0.05) 33.4%, transparent 33.4%),
+    linear-gradient(to right, transparent 66.5%, rgba(43,36,29,0.05) 66.5%, rgba(43,36,29,0.05) 66.7%, transparent 66.7%),
+    linear-gradient(to bottom, transparent 49.8%, rgba(43,36,29,0.04) 49.8%, rgba(43,36,29,0.04) 50.2%, transparent 50.2%);
+  pointer-events: none;
+  border-radius: 6px;
+}
+
+/* Punaises aux 4 coins */
+.nail {
+  position: absolute;
+  width: clamp(11px, 1.5vw, 14px);
+  height: clamp(11px, 1.5vw, 14px);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #F0975F 0%, var(--accent) 40%, #A04515 100%);
+  box-shadow:
+    0 2px 3px rgba(43, 36, 29, 0.45),
+    inset -1px -2px 2px rgba(0, 0, 0, 0.20);
+  z-index: 4;
+}
+.nailTL { top: 12px;    left: 12px; }
+.nailTR { top: 12px;    right: 12px; }
+.nailBL { bottom: 12px; left: 12px; }
+.nailBR { bottom: 12px; right: 12px; }
+
+/* Scotch en haut */
+.topTape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: clamp(80px, 12vw, 110px);
+  height: clamp(20px, 2.5vw, 26px);
+  background: rgba(217, 115, 45, 0.30);
+  border-left: 1px dashed rgba(0, 0, 0, 0.18);
+  border-right: 1px dashed rgba(0, 0, 0, 0.18);
+  z-index: 3;
+}
+
+/* ============================================================================
+   ENTÊTE
+   ============================================================================ */
+.mapHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding-bottom: clamp(20px, 2.5vw, 28px);
+  margin-bottom: clamp(28px, 4vw, 36px);
+  border-bottom: 1.5px dashed rgba(43, 36, 29, 0.25);
+  position: relative;
+  z-index: 2;
+}
+
+.mapTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 7vw, 88px);
+  font-weight: 400;
+  line-height: 1;
+  margin: 0 0 10px;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.mapSub {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.4vw, 12px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* Boussole */
+.compass {
+  position: relative;
+  width: clamp(60px, 9vw, 88px);
+  height: clamp(60px, 9vw, 88px);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-family: var(--font-serif);
+  color: var(--ink-soft);
+  background: var(--paper);
+}
+
+.compassN, .compassS, .compassE, .compassW {
+  position: absolute;
+  font-size: clamp(9px, 1.3vw, 11px);
+  font-weight: 600;
+}
+.compassN { top: 4px;    left: 50%; transform: translateX(-50%); }
+.compassS { bottom: 4px; left: 50%; transform: translateX(-50%); }
+.compassE { right: 4px;  top: 50%;  transform: translateY(-50%); }
+.compassW { left: 4px;   top: 50%;  transform: translateY(-50%); }
+
+.compassNeedle {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: 4px;
+  height: 60%;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, var(--accent) 0 50%, var(--ink) 50% 100%);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* ============================================================================
+   BIO ROW : polaroid + texte + bouton CV
+   ============================================================================ */
+.bioRow {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) 1fr;
+  gap: clamp(24px, 4vw, 40px);
+  align-items: start;
+  margin-bottom: clamp(32px, 5vw, 44px);
+  position: relative;
+  z-index: 2;
+}
+
+/* Polaroïd fluide */
+.polaroid {
+  position: relative;
+  background: #FBF7EE;
+  padding: 10px 10px 38px;
+  width: 100%;
+  max-width: 200px;
+  transform: rotate(-3deg);
+  box-shadow:
+    0 18px 30px -10px rgba(43, 36, 29, 0.30),
+    0 0 0 1px rgba(43, 36, 29, 0.05);
+}
+
+.tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 70px;
+  height: 18px;
+  background: rgba(217, 115, 45, 0.35);
+  border-left: 1px dashed rgba(0, 0, 0, 0.15);
+  border-right: 1px dashed rgba(0, 0, 0, 0.15);
+}
+
+.polaroidPhoto {
+  width: 100%;
+  aspect-ratio: 9 / 10;
+  background: linear-gradient(135deg, #D9B98E, #B89554);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.polaroidPhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroidInitials {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 7vw, 64px);
+  color: var(--paper);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.polaroidCaption {
+  font-family: 'Caveat', 'Bradley Hand', cursive;
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin: 10px 0 0;
+  text-align: center;
+}
+
+/* Bio texte */
+.bioContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.bioName {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.bioRole {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.3vw, 12px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 12px;
+}
+
+.bioParagraph {
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.7vw, 16px);
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.bioParagraph:first-of-type::first-letter {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 5vw, 48px);
+  float: left;
+  line-height: 0.9;
+  margin: 6px 8px -4px 0;
+  color: var(--accent);
+}
+
+/* Bouton CV */
+.cvButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  margin-top: 18px;
+  padding: 12px 22px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  box-shadow: 0 6px 16px -4px rgba(217, 115, 45, 0.55);
+}
+
+.cvButton:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -6px rgba(217, 115, 45, 0.65);
+}
+
+.cvButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================================================
+   BLOCS GÉNÉRIQUES
+   ============================================================================ */
+.blockHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1.5px dashed rgba(43, 36, 29, 0.20);
+}
+
+.blockKicker {
+  font-size: 14px;
+  color: var(--accent);
+}
+
+.blockTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================================
+   SKILLS
+   ============================================================================ */
+.skillsBlock {
+  margin-bottom: clamp(32px, 5vw, 44px);
+  position: relative;
+  z-index: 2;
+}
+
+.skillsRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px dashed rgba(43, 36, 29, 0.10);
+}
+
+.skillsRow:last-child {
+  border-bottom: none;
+}
+
+.skillsCat {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.skillsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skillChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(43, 36, 29, 0.12);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+.skillChip:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(217, 115, 45, 0.4);
+}
+
+.skillChip img {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================================================
+   PARCOURS
+   ============================================================================ */
+.journeyBlock {
+  margin-bottom: clamp(32px, 5vw, 44px);
+  position: relative;
+  z-index: 2;
+}
+
+.journeyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+}
+
+.journeyCol {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 18px;
+  padding-left: 28px;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 28px;
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background-image: linear-gradient(to bottom, var(--ink) 50%, transparent 0);
+  background-size: 2px 8px;
+  background-repeat: repeat-y;
+}
+
+.timelineItem {
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.timelineItem:last-child {
+  padding-bottom: 0;
+}
+
+.timelineDot {
+  position: absolute;
+  left: -24px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--accent);
+}
+
+.timelineYear {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.timelineTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 2.2vw, 20px);
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 2px;
+  line-height: 1.2;
+}
+
+.timelineMeta {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin: 0 0 6px;
+}
+
+.timelineDesc {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 1.5vw, 14px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ============================================================================
+   STATS
+   ============================================================================ */
+.statsRow {
+  margin-top: 24px;
+  padding-top: 28px;
+  border-top: 1.5px dashed rgba(43, 36, 29, 0.25);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.statCell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statKey {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.statValue {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 3vw, 28px);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================================
+   RESPONSIVE — Breakpoints clés (changements de layout)
+   ============================================================================ */
+@media (max-width: 900px) {
+  .mapCard { transform: rotate(0); }
+  .mapHeader {
+    flex-direction: column-reverse;
+    gap: 16px;
+  }
+  .compass { align-self: flex-start; }
+  .bioRow {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .polaroid { transform: rotate(-2deg); }
+  .bioContent { align-items: center; text-align: center; width: 100%; }
+  .bioParagraph:first-of-type::first-letter { float: none; margin: 0 4px 0 0; }
+  .journeyGrid { grid-template-columns: 1fr; gap: 28px; }
+  .statsRow { grid-template-columns: repeat(2, 1fr); }
+  .skillsRow { grid-template-columns: 1fr; gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .topTape { width: 70px; height: 18px; }
+  .nailTL, .nailTR { top: 8px; }
+  .nailBL, .nailBR { bottom: 8px; }
+  .nailTL, .nailBL { left: 8px; }
+  .nailTR, .nailBR { right: 8px; }
+  .timeline { padding-left: 22px; }
+  .timelineDot { left: -22px; }
+  .statsRow { gap: 14px; }
+}
