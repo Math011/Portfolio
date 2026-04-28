@@ -1,11 +1,14 @@
-/* Styles globaux */
 body, html, #root {
   margin: 0;
   padding: 0;
+}
+
+/* La HomePage bloque le scroll natif (la "scroll capture" est gérée par le hook).
+   Les autres pages peuvent scroller normalement. */
+body.no-scroll {
   overflow: hidden;
 }
 
 .app-container {
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
 }

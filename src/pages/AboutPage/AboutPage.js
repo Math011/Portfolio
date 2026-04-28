@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import Header from '../../components/Header';
-import LanguageSwitcher from '../../components/LanguageSwitcher';
 import styles from './AboutPage.module.css';
 
 const SKILLS = {
@@ -42,18 +41,23 @@ const Compass = () => (
   </div>
 );
 
-// Polaroid avec scotch en haut + initiales en placeholder
-const Polaroid = ({ initials = 'MR', photoUrl }) => (
-  <div className={styles.polaroid}>
-    <span className={styles.tape} aria-hidden="true" />
-    <div className={styles.polaroidPhoto}>
-      {photoUrl
-        ? <img src={photoUrl} alt="" />
-        : <span className={styles.polaroidInitials}>{initials}</span>}
+// Polaroid avec scotch + photo (fallback initiales si l'image manque)
+const Polaroid = ({ initials = 'MR', photoUrl="/images/face.jpg" }) => {
+  const [hasError, setHasError] = useState(false);
+  const showImage = photoUrl && !hasError;
+
+  return (
+    <div className={styles.polaroid}>
+      <span className={styles.tape} aria-hidden="true" />
+      <div className={styles.polaroidPhoto}>
+        {showImage
+          ? <img src={photoUrl} alt="" onError={() => setHasError(true)} />
+          : <span className={styles.polaroidInitials}>{initials}</span>}
+      </div>
+      <p className={styles.polaroidCaption}>— Voyageur</p>
     </div>
-    <p className={styles.polaroidCaption}>— Voyageur</p>
-  </div>
-);
+  );
+};
 
 const SkillsBlock = ({ t }) => (
   <div className={styles.skillsBlock}>
@@ -92,8 +96,10 @@ const Timeline = ({ items }) => (
 );
 
 const JourneyBlock = ({ t }) => {
-  const education = t('education') || [];
-  const experience = t('experience') || [];
+  const educationRaw = t('education');
+  const experienceRaw = t('experience');
+  const education = Array.isArray(educationRaw) ? educationRaw : [];
+  const experience = Array.isArray(experienceRaw) ? experienceRaw : [];
 
   return (
     <div className={styles.journeyBlock}>
@@ -125,7 +131,6 @@ function AboutPage() {
   return (
     <div className={styles.page}>
       <Header />
-      <LanguageSwitcher fixed />
 
       <main className={styles.main}>
         <p className={styles.pageKicker}>{t('aboutKicker')}</p>
@@ -151,12 +156,12 @@ function AboutPage() {
 
           {/* Bio + polaroid */}
           <section className={styles.bioRow}>
-            <Polaroid initials="MR" />
+            <Polaroid initials="MR" photoUrl="/face.jpg" />
 
             <div className={styles.bioContent}>
               <h2 className={styles.bioName}>{t('bioName')}</h2>
               <p className={styles.bioRole}>{t('bioRole')}</p>
-              {(t('bioParagraphs') || []).map((p, i) => (
+              {(Array.isArray(t('bioParagraphs')) ? t('bioParagraphs') : []).map((p, i) => (
                 <p key={i} className={styles.bioParagraph}>{p}</p>
               ))}
               <a href={cvHref} download className={styles.cvButton}>

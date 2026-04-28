@@ -1,10 +1,10 @@
-/* Page À propos — carte de voyage dépliée et punaisée */
+/* Page À propos — carte de voyage punaisée, responsive fluide */
 
 .page {
   min-height: 100vh;
   background:
     radial-gradient(ellipse at top, #F6E4B0 0%, #E8C97D 70%, #C9A65A 100%);
-  padding: 100px 24px 80px;
+  padding: clamp(80px, 10vw, 110px) clamp(12px, 3vw, 32px) 60px;
   font-family: var(--font-sans);
 }
 
@@ -19,7 +19,7 @@
 
 .pageKicker {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: clamp(10px, 1.5vw, 12px);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-soft);
@@ -27,21 +27,20 @@
 }
 
 /* ============================================================================
-   CARTE PUNAISÉE
+   CARTE PUNAISÉE — fluide
    ============================================================================ */
 .mapCard {
   position: relative;
   width: 100%;
   background: var(--paper);
   border-radius: 6px;
-  padding: 64px 64px 48px;
+  padding: clamp(36px, 5vw, 64px) clamp(20px, 4vw, 64px) clamp(28px, 4vw, 48px);
   transform: rotate(-0.5deg);
   box-shadow:
     0 30px 60px -20px rgba(43, 36, 29, 0.25),
     0 0 0 1px rgba(43, 36, 29, 0.06);
 }
 
-/* Plis du papier (lignes décoratives très subtiles) */
 .mapCard::before {
   content: "";
   position: absolute;
@@ -57,8 +56,8 @@
 /* Punaises aux 4 coins */
 .nail {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: clamp(11px, 1.5vw, 14px);
+  height: clamp(11px, 1.5vw, 14px);
   border-radius: 50%;
   background:
     radial-gradient(circle at 35% 30%, #F0975F 0%, var(--accent) 40%, #A04515 100%);
@@ -67,10 +66,10 @@
     inset -1px -2px 2px rgba(0, 0, 0, 0.20);
   z-index: 4;
 }
-.nailTL { top: 14px;    left: 14px; }
-.nailTR { top: 14px;    right: 14px; }
-.nailBL { bottom: 14px; left: 14px; }
-.nailBR { bottom: 14px; right: 14px; }
+.nailTL { top: 12px;    left: 12px; }
+.nailTR { top: 12px;    right: 12px; }
+.nailBL { bottom: 12px; left: 12px; }
+.nailBR { bottom: 12px; right: 12px; }
 
 /* Scotch en haut */
 .topTape {
@@ -78,8 +77,8 @@
   top: -14px;
   left: 50%;
   transform: translateX(-50%) rotate(-3deg);
-  width: 110px;
-  height: 26px;
+  width: clamp(80px, 12vw, 110px);
+  height: clamp(20px, 2.5vw, 26px);
   background: rgba(217, 115, 45, 0.30);
   border-left: 1px dashed rgba(0, 0, 0, 0.18);
   border-right: 1px dashed rgba(0, 0, 0, 0.18);
@@ -87,15 +86,15 @@
 }
 
 /* ============================================================================
-   ENTÊTE : titre + boussole
+   ENTÊTE
    ============================================================================ */
 .mapHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 24px;
-  padding-bottom: 28px;
-  margin-bottom: 36px;
+  padding-bottom: clamp(20px, 2.5vw, 28px);
+  margin-bottom: clamp(28px, 4vw, 36px);
   border-bottom: 1.5px dashed rgba(43, 36, 29, 0.25);
   position: relative;
   z-index: 2;
@@ -103,7 +102,7 @@
 
 .mapTitle {
   font-family: var(--font-serif);
-  font-size: clamp(56px, 8vw, 88px);
+  font-size: clamp(40px, 7vw, 88px);
   font-weight: 400;
   line-height: 1;
   margin: 0 0 10px;
@@ -113,7 +112,7 @@
 
 .mapSub {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: clamp(10px, 1.4vw, 12px);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-soft);
@@ -123,8 +122,8 @@
 /* Boussole */
 .compass {
   position: relative;
-  width: 88px;
-  height: 88px;
+  width: clamp(60px, 9vw, 88px);
+  height: clamp(60px, 9vw, 88px);
   border: 2px solid var(--ink);
   border-radius: 50%;
   flex-shrink: 0;
@@ -135,7 +134,7 @@
 
 .compassN, .compassS, .compassE, .compassW {
   position: absolute;
-  font-size: 11px;
+  font-size: clamp(9px, 1.3vw, 11px);
   font-weight: 600;
 }
 .compassN { top: 4px;    left: 50%; transform: translateX(-50%); }
@@ -143,13 +142,12 @@
 .compassE { right: 4px;  top: 50%;  transform: translateY(-50%); }
 .compassW { left: 4px;   top: 50%;  transform: translateY(-50%); }
 
-/* Aiguille de la boussole : moitié rouge accent (Nord) / moitié sombre (Sud) */
 .compassNeedle {
   position: absolute;
   top: 14px;
   left: 50%;
   width: 4px;
-  height: 60px;
+  height: 60%;
   transform: translateX(-50%);
   background: linear-gradient(to bottom, var(--accent) 0 50%, var(--ink) 50% 100%);
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
@@ -160,20 +158,21 @@
    ============================================================================ */
 .bioRow {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 40px;
+  grid-template-columns: minmax(160px, 220px) 1fr;
+  gap: clamp(24px, 4vw, 40px);
   align-items: start;
-  margin-bottom: 44px;
+  margin-bottom: clamp(32px, 5vw, 44px);
   position: relative;
   z-index: 2;
 }
 
-/* Polaroïd */
+/* Polaroïd fluide */
 .polaroid {
   position: relative;
   background: #FBF7EE;
   padding: 10px 10px 38px;
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
   transform: rotate(-3deg);
   box-shadow:
     0 18px 30px -10px rgba(43, 36, 29, 0.30),
@@ -193,8 +192,8 @@
 }
 
 .polaroidPhoto {
-  width: 180px;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 9 / 10;
   background: linear-gradient(135deg, #D9B98E, #B89554);
   display: grid;
   place-items: center;
@@ -205,11 +204,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .polaroidInitials {
   font-family: var(--font-serif);
-  font-size: 64px;
+  font-size: clamp(48px, 7vw, 64px);
   color: var(--paper);
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -228,11 +228,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
 }
 
 .bioName {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: clamp(26px, 4vw, 36px);
   font-weight: 400;
   color: var(--ink);
   margin: 0;
@@ -242,7 +243,7 @@
 
 .bioRole {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: clamp(10px, 1.3vw, 12px);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -251,7 +252,7 @@
 
 .bioParagraph {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: clamp(14px, 1.7vw, 16px);
   line-height: 1.65;
   color: var(--ink-soft);
   margin: 0;
@@ -259,7 +260,7 @@
 
 .bioParagraph:first-of-type::first-letter {
   font-family: var(--font-serif);
-  font-size: 48px;
+  font-size: clamp(36px, 5vw, 48px);
   float: left;
   line-height: 0.9;
   margin: 6px 8px -4px 0;
@@ -299,7 +300,7 @@
 }
 
 /* ============================================================================
-   BLOCS GÉNÉRIQUES (skills, journey)
+   BLOCS GÉNÉRIQUES
    ============================================================================ */
 .blockHeader {
   display: flex;
@@ -317,7 +318,7 @@
 
 .blockTitle {
   font-family: var(--font-serif);
-  font-size: 28px;
+  font-size: clamp(20px, 3vw, 28px);
   font-weight: 400;
   color: var(--ink);
   margin: 0;
@@ -328,7 +329,7 @@
    SKILLS
    ============================================================================ */
 .skillsBlock {
-  margin-bottom: 44px;
+  margin-bottom: clamp(32px, 5vw, 44px);
   position: relative;
   z-index: 2;
 }
@@ -387,10 +388,10 @@
 }
 
 /* ============================================================================
-   PARCOURS (timelines formation/expérience)
+   PARCOURS
    ============================================================================ */
 .journeyBlock {
-  margin-bottom: 44px;
+  margin-bottom: clamp(32px, 5vw, 44px);
   position: relative;
   z-index: 2;
 }
@@ -398,7 +399,7 @@
 .journeyGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: clamp(24px, 4vw, 48px);
 }
 
 .journeyCol {
@@ -463,7 +464,7 @@
 
 .timelineTitle {
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: clamp(17px, 2.2vw, 20px);
   font-weight: 400;
   color: var(--ink);
   margin: 0 0 2px;
@@ -480,14 +481,14 @@
 
 .timelineDesc {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: clamp(13px, 1.5vw, 14px);
   line-height: 1.55;
   color: var(--ink-soft);
   margin: 0;
 }
 
 /* ============================================================================
-   STATS (footer)
+   STATS
    ============================================================================ */
 .statsRow {
   margin-top: 24px;
@@ -517,32 +518,41 @@
 
 .statValue {
   font-family: var(--font-serif);
-  font-size: 28px;
+  font-size: clamp(22px, 3vw, 28px);
   color: var(--ink);
   letter-spacing: -0.01em;
 }
 
 /* ============================================================================
-   RESPONSIVE
+   RESPONSIVE — Breakpoints clés (changements de layout)
    ============================================================================ */
 @media (max-width: 900px) {
-  .mapCard { padding: 50px 32px 36px; }
-  .mapHeader { flex-direction: column; }
-  .compass { align-self: flex-end; }
-  .bioRow { grid-template-columns: 1fr; gap: 28px; justify-items: center; text-align: left; }
+  .mapCard { transform: rotate(0); }
+  .mapHeader {
+    flex-direction: column-reverse;
+    gap: 16px;
+  }
+  .compass { align-self: flex-start; }
+  .bioRow {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
   .polaroid { transform: rotate(-2deg); }
-  .journeyGrid { grid-template-columns: 1fr; gap: 36px; }
+  .bioContent { align-items: center; text-align: center; width: 100%; }
+  .bioParagraph:first-of-type::first-letter { float: none; margin: 0 4px 0 0; }
+  .journeyGrid { grid-template-columns: 1fr; gap: 28px; }
   .statsRow { grid-template-columns: repeat(2, 1fr); }
   .skillsRow { grid-template-columns: 1fr; gap: 8px; }
 }
 
-@media (max-width: 506px) {
-  .page { padding: 80px 16px 60px; }
-  .mapCard { padding: 40px 22px 28px; transform: rotate(0); }
-  .mapTitle { font-size: 48px; }
-  .nail { width: 12px; height: 12px; }
-  .bioName { font-size: 28px; }
-  .blockTitle { font-size: 22px; }
-  .timelineTitle { font-size: 17px; }
-  .statValue { font-size: 22px; }
+@media (max-width: 480px) {
+  .topTape { width: 70px; height: 18px; }
+  .nailTL, .nailTR { top: 8px; }
+  .nailBL, .nailBR { bottom: 8px; }
+  .nailTL, .nailBL { left: 8px; }
+  .nailTR, .nailBR { right: 8px; }
+  .timeline { padding-left: 22px; }
+  .timelineDot { left: -22px; }
+  .statsRow { gap: 14px; }
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import Header from '../../components/Header';
-import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import ContactForm from './ContactForm';
 import { Campfire, WoodenSign, Person, Log } from './SceneElements';
 import Clouds from './Clouds';
@@ -18,7 +17,6 @@ const ContactPage = () => {
 
   return (
     <>
-      <LoadingScreen isLoading={isLoading} />
       <div className={styles.contactPage}>
         {/* Décor */}
         <div className={styles.sky} />

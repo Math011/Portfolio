@@ -7,13 +7,13 @@ import {
   LoadingScreen, 
   LanguageSwitcher,
   HomeMenu, 
-  AboutMenu,
+  AboutMenu, 
   ProjectsMenu, 
   ContactMenu, 
   FinishMenu,
   ScrollHint
 } from './components';
-import { ProjectsPage, ProjectDetailPage, AboutPage, ContactPage, NotFoundPage } from './pages';
+import { ProjectsPage, ProjectDetailPage, ContactPage, AboutPage, NotFoundPage } from './pages';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import './App.css';
@@ -31,7 +31,6 @@ function HomePage() {
     if (!video) return;
 
     const handleCanPlay = () => {
-      // Petit délai pour s'assurer que tout est prêt
       setTimeout(() => {
         setIsLoading(false);
       }, 300);
@@ -45,6 +44,14 @@ function HomePage() {
 
     return () => {
       video.removeEventListener('canplay', handleCanPlay);
+    };
+  }, []);
+
+  // Bloque le scroll natif uniquement sur la HomePage (la vidéo gère son propre scroll)
+  useEffect(() => {
+    document.body.classList.add('no-scroll');
+    return () => {
+      document.body.classList.remove('no-scroll');
     };
   }, []);
 
