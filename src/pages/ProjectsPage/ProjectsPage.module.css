@@ -1,10 +1,18 @@
 /* Page Projets — polaroïds éparpillés sur le ciel */
 .projectsPage {
+  position: relative;
+
+  /* couvre toute la page */
   min-height: 100vh;
+  width: 100%;
+
   background: var(--sky);
   color: var(--ink);
-  position: relative;
+
   overflow-x: hidden;
+
+  /* 👇 IMPORTANT : espace après les projets */
+  padding-bottom: 50px;
 }
 
 /* =============================================================================
