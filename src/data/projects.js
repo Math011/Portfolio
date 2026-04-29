@@ -1,5 +1,4 @@
-// Données centralisées des projets
-// Les textes (title, description) utilisent des clés de traduction
+// Liste des projets — couleurs des ballons depuis la palette du site
 import { GITHUB_PROFILE } from './constants';
 
 export const projects = [
@@ -15,9 +14,9 @@ export const projects = [
       '/images/projects/project1-3.jpg',
     ],
     tags: ['React', 'Node.js', 'MongoDB'],
-    githubLink: `${GITHUB_PROFILE}/`,
+    githubLink: 'https://github.com/username/project1',
     liveLink: '#',
-    color: '#7CB342' // Vert
+    color: '#D9732D'
   },
   {
     id: 2,
@@ -28,12 +27,11 @@ export const projects = [
     gallery: [
       '/images/projects/project2.jpg',
       '/images/projects/project2-2.jpg',
-      '/images/projects/project2-3.jpg',
     ],
     tags: ['Vue.js', 'Firebase'],
-    githubLink: `${GITHUB_PROFILE}/`,
+    githubLink: 'https://github.com/username/project2',
     liveLink: '#',
-    color: '#E67E22' // Orange
+    color: '#5A7046'
   },
   {
     id: 3,
@@ -43,13 +41,11 @@ export const projects = [
     image: '/images/projects/project3.jpg',
     gallery: [
       '/images/projects/project3.jpg',
-      '/images/projects/project3-2.jpg',
-      '/images/projects/project3-3.jpg',
     ],
     tags: ['Next.js', 'Tailwind CSS'],
-    githubLink: `${GITHUB_PROFILE}/`,
+    githubLink: 'https://github.com/username/project3',
     liveLink: '#',
-    color: '#3498DB' // Bleu
+    color: '#8B5A2B'
   },
   {
     id: 4,
@@ -59,12 +55,13 @@ export const projects = [
     image: '/images/projects/project4.jpg',
     gallery: [
       '/images/projects/project4.jpg',
-      '/images/projects/project4-2.jpg',
-      '/images/projects/project4-3.jpg',
     ],
     tags: ['React Native', 'Express'],
-    githubLink: `${GITHUB_PROFILE}/`,
+    githubLink: 'https://github.com/username/project4',
     liveLink: '#',
-    color: '#9B59B6' // Violet
-  }
+    color: '#C5542B'
+  },
 ];
+
+// Export default pour compatibilité
+export default projects;

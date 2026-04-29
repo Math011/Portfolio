@@ -2,7 +2,7 @@
 export const projectsTranslations = {
   fr: {
     // Titres de section
-    projectsTitle: "Mes Projets",
+    projectsPageKicker: "Carnet de route — Chapitre 03",
     projectsPageTitle: "Mes Projets",
     projectLink: "Voir le projet →",
     
@@ -43,7 +43,7 @@ export const projectsTranslations = {
   
   en: {
     // Titres de section
-    projectsTitle: "My Projects",
+    projectsPageKicker: "Road journal — Chapter 03",
     projectsPageTitle: "My Projects",
     projectLink: "View project →",
     

@@ -10,81 +10,91 @@
 .inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 18px 24px;
+  padding: 22px 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 20px;
 }
 
-/* Pastille unique : brand + nav */
+/* Tous les enfants de .inner ré-activent les clics (le wrapper .header a
+   pointer-events: none pour laisser passer les clics dans le vide entre les
+   îlots). */
+.inner > * {
+  pointer-events: auto;
+}
+
+/* Bar : juste les liens, sans pastille papier en fond */
 .bar {
   pointer-events: auto;
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 8px 6px 18px;
-  background: var(--paper);
-  border: 1px solid var(--paper-edge);
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-sm);
+  gap: 6px;
 }
 
-/* Brand */
+/* Brand intégré dans la barre */
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  padding: 0 14px;
   flex-shrink: 0;
 }
 
 .brandName {
   font-family: var(--font-serif);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 500;
   color: var(--ink);
   letter-spacing: -0.01em;
   line-height: 1;
 }
 
-/* Petit séparateur vertical entre le brand et la nav */
 .brandSep {
   display: inline-block;
   width: 1px;
   height: 16px;
-  background: var(--paper-edge);
+  background: var(--ink-soft);
+  opacity: 0.4;
   margin-left: 4px;
 }
 
-/* Liens */
+/* Liens : pastille papier individuelle (comme les labels de la progress bar) */
 .navLink {
   position: relative;
-  padding: 8px 14px;
+  padding: 6px 14px;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  text-decoration: none;
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
   border-radius: var(--radius-pill);
-  transition: color 200ms ease, background 200ms ease;
+  text-decoration: none;
+  transition: color 200ms ease,
+              border-color 200ms ease,
+              transform 200ms ease;
 }
 
 .navLink:hover {
   color: var(--ink);
-  background: rgba(217, 115, 45, 0.08);
+  border-color: rgba(217, 115, 45, 0.35);
+  transform: translateY(-1px);
 }
 
 .navLink.active {
   color: var(--accent);
-  background: var(--accent-pale);
+  border-color: var(--accent);
+  font-weight: 600;
 }
 
+/* Petit point sous le lien actif (cohérent avec le dot du brand) */
 .navLink.active::after {
   content: "";
   position: absolute;
-  bottom: -3px;
+  bottom: -6px;
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
@@ -93,21 +103,18 @@
   background: var(--accent);
 }
 
-/* LanguageSwitcher : il a déjà sa propre pastille intégrée */
-
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .inner { padding: 14px 18px; gap: 12px; }
-  .bar { padding: 5px 6px 5px 14px; gap: 2px; }
-  .brandName { font-size: 14px; }
-  .navLink { padding: 6px 10px; font-size: 10px; letter-spacing: 0.14em; }
+  .inner { padding: 18px 20px; gap: 14px; }
+  .brandName { font-size: 15px; }
+  .navLink { padding: 5px 12px; font-size: 10px; letter-spacing: 0.14em; }
 }
 
 @media (max-width: 640px) {
   .brand { display: none; }
-  .bar { padding: 5px; }
 }
 
 @media (max-width: 480px) {
-  .navLink { padding: 6px 8px; font-size: 9.5px; letter-spacing: 0.1em; }
+  .navLink { padding: 5px 10px; font-size: 9.5px; letter-spacing: 0.1em; }
+  .bar { gap: 4px; }
 }

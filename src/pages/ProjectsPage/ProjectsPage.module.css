@@ -1,175 +1,191 @@
-/* Page Projets - Nuages SVG et ballons flottants */
+/* Page Projets — polaroïds éparpillés sur le ciel */
 .projectsPage {
-  --color-primary: #7CB342;
-  --color-primary-dark: #689F38;
-  --color-text: #4A3728;
-  --color-bg: #FFEA93;
-  --color-white: #fff;
-  --shadow-soft: 0 2px 15px rgba(0, 0, 0, 0.1);
-  --shadow-card: 0 10px 40px rgba(74, 55, 40, 0.15);
-  --radius-small: 15px;
-  --radius-medium: 20px;
-  --radius-large: 25px;
+  position: relative;
 
+  /* couvre toute la page */
   min-height: 100vh;
-  height: 100vh;
-  background: var(--color-bg);
-  color: var(--color-text);
-  overflow-y: auto;
+  width: 100%;
+
+  background: var(--sky);
+  color: var(--ink);
+
   overflow-x: hidden;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
+
+  /* 👇 IMPORTANT : espace après les projets */
+  padding-bottom: 50px;
 }
 
 /* =============================================================================
-   TITLE & CONTENT
+   TITRE
    ============================================================================= */
-
 .projectsTitleContainer {
   text-align: center;
-  padding: 6rem 0 2rem;
+  padding: 7rem 2rem 4rem;
   position: relative;
   z-index: 10;
+}
+
+.projectsKicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
 }
 
 .projectsTitle {
-  font-size: 2.5rem;
-  color: var(--color-text);
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 7vw, 84px);
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
   margin: 0;
 }
 
-.projectsContent {
-  max-width: 1200px;
+/* =============================================================================
+   GRILLE DES POLAROÏDS
+   ============================================================================= */
+.projectsGrid {
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 2rem 2rem;
+  padding: 40px 32px 6rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 110px 60px;
   position: relative;
   z-index: 10;
 }
 
 /* =============================================================================
-   PROJECT CARDS
+   CARTE POLAROÏD
    ============================================================================= */
-
-.projectSection {
-  position: relative;
-  margin-bottom: 60px;
-}
-
-.projectSection:last-child {
-  margin-bottom: 20px;
-}
-
 .projectCard {
   position: relative;
-  width: calc(45% - 30px);
-  max-width: 400px;
   will-change: transform;
-}
-
-.cardLeft {
-  margin-right: auto;
-  margin-left: 40px;
-}
-
-.cardRight {
-  margin-left: auto;
-  margin-right: 40px;
 }
 
 .balloonContainer {
   position: absolute;
-  top: -65px;
+  top: -76px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
 }
 
 .balloonSvg {
-  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(2px 4px 6px rgba(43, 36, 29, 0.25));
 }
 
+/* Carte papier ambré */
 .cardContent {
-  background: var(--color-white);
-  border-radius: var(--radius-medium);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
+  position: relative;
+  background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
+  border-radius: 12px;
+  border: 2px solid var(--paper-edge);
+  padding: 28px 28px 24px;
+  box-shadow:
+    0 10px 0 #C59A5C,
+    0 18px 30px rgba(43, 36, 29, 0.18);
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
-.projectImage {
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-  background: #f5f5f5;
+.projectCard:hover .cardContent {
+  transform: translateY(-4px);
+  box-shadow:
+    0 14px 0 #C59A5C,
+    0 24px 36px rgba(43, 36, 29, 0.22);
 }
 
-.projectImage img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+/* Punaise en haut à droite */
+.cardContent::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #F0975F 0%, var(--accent) 40%, #A04515 100%);
+  box-shadow:
+    0 2px 3px rgba(43, 36, 29, 0.45),
+    inset -1px -2px 2px rgba(0, 0, 0, 0.20);
 }
 
-.projectCard:hover .projectImage img {
-  transform: scale(1.05);
+/* Contenu */
+.cardKicker {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 12px;
 }
 
-.projectInfo {
-  padding: 1.5rem;
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  line-height: 1.15;
 }
 
-.projectInfo h2 {
-  font-size: 1.2rem;
-  color: var(--color-text);
-  margin-bottom: 0.5rem;
-}
-
-.projectInfo p {
-  font-size: 0.85rem;
-  color: #666;
+.cardDesc {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--ink-soft);
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin: 0 0 20px;
 }
 
-.projectTags {
+.cardTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 6px;
+  margin-bottom: 22px;
 }
 
 .tag {
-  background: var(--color-primary);
-  color: var(--color-white);
-  padding: 0.3rem 0.8rem;
-  border-radius: var(--radius-small);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(43, 36, 29, 0.12);
+  color: var(--ink);
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
 }
 
-.projectLink {
-  display: inline-block;
-  background: var(--color-primary);
-  color: var(--color-white);
-  padding: 0.6rem 1.2rem;
-  border-radius: var(--radius-medium);
-  font-weight: 600;
-  font-size: 0.85rem;
+/* Bouton "Voir le projet" : style éditorial */
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
   text-decoration: none;
-  transition: all 0.3s ease;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+  transition: color 200ms ease, gap 200ms ease;
 }
 
-.projectLink:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(124, 179, 66, 0.3);
+.cardLink:hover {
+  color: var(--accent);
+  gap: 10px;
 }
 
 /* =============================================================================
-   CLOUDS - Using CSS custom properties for sizes
+   CLOUDS - décor de fond (inchangé)
    ============================================================================= */
-
 .backgroundClouds {
   position: absolute;
   top: 0;
@@ -185,7 +201,6 @@
   height: auto;
 }
 
-/* Cloud sizes */
 .sizeXsmall { width: 80px; }
 .sizeSmall { width: 140px; }
 .sizeMedium { width: 220px; }
@@ -193,15 +208,13 @@
 .sizeXlarge { width: 450px; }
 .sizeXxlarge { width: 600px; }
 
-/* Cloud opacities */
-.opacityVeryLight { opacity: 0.15; }
-.opacityLight { opacity: 0.25; }
-.opacityMediumLight { opacity: 0.35; }
-.opacityMedium { opacity: 0.45; }
-.opacityMediumDark { opacity: 0.55; }
-.opacityDark { opacity: 0.65; }
+.opacityVeryLight { opacity: 0.30; }
+.opacityLight { opacity: 0.40; }
+.opacityMediumLight { opacity: 0.50; }
+.opacityMedium { opacity: 0.60; }
+.opacityMediumDark { opacity: 0.70; }
+.opacityDark { opacity: 0.80; }
 
-/* Cloud directions - separate animation properties */
 .bgCloud.directionLeft {
   animation-name: cloudMoveLeft;
   animation-timing-function: linear;
@@ -214,146 +227,97 @@
   animation-iteration-count: infinite;
 }
 
-/* Cloud speeds */
 .speedSlow { animation-duration: 80s; }
 .speedNormal { animation-duration: 55s; }
 .speedFast { animation-duration: 35s; }
 
 @keyframes cloudMoveLeft {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100vw); }
+  from { transform: translateX(100vw); }
+  to   { transform: translateX(-700px); }
 }
 
 @keyframes cloudMoveRight {
-  0% { transform: translateX(100vw); }
-  100% { transform: translateX(-100%); }
+  from { transform: translateX(-700px); }
+  to   { transform: translateX(100vw); }
 }
 
 /* =============================================================================
-   BIRDS
+   BIRDS - décor de fond
    ============================================================================= */
-
 .backgroundBirds {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 2;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .flyingBird {
   position: absolute;
-  opacity: 0.6;
 }
 
-.flyingBird.directionRight {
-  animation: flyRight linear infinite;
+.birdSvg {
+  display: block;
 }
 
 .flyingBird.directionLeft {
-  animation: flyLeft linear infinite;
+  animation-name: birdFlyLeft;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
-@keyframes flyRight {
-  0% { transform: translateX(-50px) translateY(0); }
-  25% { transform: translateX(25vw) translateY(-20px); }
-  50% { transform: translateX(50vw) translateY(10px); }
-  75% { transform: translateX(75vw) translateY(-15px); }
+.flyingBird.directionRight {
+  animation-name: birdFlyRight;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.birdWingLeft, .birdWingRight {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transform-origin: 20px 10px;
+}
+
+.birdWingLeft { animation-name: flapLeft; }
+.birdWingRight { animation-name: flapRight; }
+
+@keyframes birdFlyLeft {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-25vw) translateY(-15px); }
+  50%  { transform: translateX(-50vw) translateY(10px); }
+  75%  { transform: translateX(-75vw) translateY(-20px); }
+  100% { transform: translateX(-110vw); }
+}
+
+@keyframes birdFlyRight {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(25vw) translateY(-20px); }
+  50%  { transform: translateX(50vw) translateY(10px); }
+  75%  { transform: translateX(75vw) translateY(-15px); }
   100% { transform: translateX(110vw) translateY(5px); }
-}
-
-@keyframes flyLeft {
-  0% { transform: translateX(50px) translateY(0); }
-  25% { transform: translateX(-25vw) translateY(-15px); }
-  50% { transform: translateX(-50vw) translateY(10px); }
-  75% { transform: translateX(-75vw) translateY(-20px); }
-  100% { transform: translateX(-110vw) translateY(0); }
-}
-
-/* Wing animations with d: path() */
-.birdWingLeft {
-  animation: flapLeft 0.3s ease-in-out infinite;
-  transform-origin: 20px 10px;
-}
-
-.birdWingRight {
-  animation: flapRight 0.3s ease-in-out infinite;
-  transform-origin: 20px 10px;
 }
 
 @keyframes flapLeft {
   0%, 100% { d: path("M20 10 Q10 2, 2 8"); }
-  50% { d: path("M20 10 Q10 14, 2 12"); }
+  50%      { d: path("M20 10 Q10 14, 2 12"); }
 }
 
 @keyframes flapRight {
   0%, 100% { d: path("M20 10 Q30 2, 38 8"); }
-  50% { d: path("M20 10 Q30 14, 38 12"); }
+  50%      { d: path("M20 10 Q30 14, 38 12"); }
 }
 
 /* =============================================================================
    RESPONSIVE
    ============================================================================= */
-
-@media (max-width: 900px) {
-  .projectsTitle { font-size: 2rem; }
-  
-  .projectSection {
-    margin-bottom: 100px;
-  }
-
-    .projectSection:first-child {
-    margin-top: 80px;
-  }
-
-  .projectCard {
-    width: calc(100% - 60px);
-    max-width: 400px;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  /* Reduce cloud sizes */
-  .sizeXsmall { width: 50px; }
-  .sizeSmall { width: 90px; }
-  .sizeMedium { width: 140px; }
-  .sizeLarge { width: 200px; }
-  .sizeXlarge { width: 280px; }
-  .sizeXxlarge { width: 380px; }
-}
-
-@media (max-width: 600px) {
-  .projectsTitleContainer {
-    padding: 5rem 0 3rem;
-  }
-
-  .projectsTitle { font-size: 1.6rem; }
-  
-  .projectSection {
-    margin-bottom: 120px;
-  }
-
-  .projectSection:first-child {
-    margin-top: 60px;
-  }
-
-  .balloonContainer { top: -55px; }
-  .projectImage { height: 150px; }
-  
-  .projectCard {
-    width: calc(100% - 40px);
-    max-width: 350px;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  /* Further reduce cloud sizes */
-  .sizeXsmall { width: 35px; }
-  .sizeSmall { width: 60px; }
-  .sizeMedium { width: 100px; }
-  .sizeLarge { width: 150px; }
-  .sizeXlarge { width: 200px; }
-  .sizeXxlarge { width: 260px; }
+@media (max-width: 768px) {
+  .projectsTitleContainer { padding: 6rem 1rem 3rem; }
+  .projectsGrid { grid-template-columns: 1fr; gap: 90px; padding: 30px 18px 4rem; }
+  .cardContent { padding: 24px 22px 22px; }
+  .cardTitle { font-size: 22px; }
+  .cardDesc { font-size: 14px; }
 }
