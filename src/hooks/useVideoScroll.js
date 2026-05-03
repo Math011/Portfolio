@@ -6,6 +6,7 @@ const VIDEO_TIME_KEY = 'portfolio_video_time';
 /**
  * Lance video.play() en ignorant proprement les erreurs liées à un pause()
  * qui arriverait avant que la promesse de play() soit résolue.
+ * (Erreur classique : "The play() request was interrupted by a call to pause()".)
  */
 const safePlay = (video) => {
   if (!video || !video.paused) return;
@@ -95,15 +96,29 @@ const useVideoScroll = (videoRef) => {
     return () => {
       clearInterval(saveInterval);
       window.removeEventListener('beforeunload', handleBeforeUnload);
+      // Sauvegarder la position courante au démontage (navigation React Router)
+      try {
+        if (video && !isNaN(video.currentTime)) {
+          localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+          localStorage.setItem(STORAGE_KEY, progressRef.current.toString());
+        }
+      } catch (e) {}
     };
   }, [videoRef]);
 
   // Calcule le multiplicateur de vitesse selon la section.
+  // Avant, on ralentissait dans la section Projets pour laisser le temps à
+  // chaque projet d'apparaître un par un. Maintenant qu'on n'affiche plus
+  // qu'une seule carte "Voir tous mes projets", la section va à vitesse
+  // normale comme les autres.
   const getSectionSpeedModifier = (currentProgress) => {
     return 1;
   };
 
   // Fonction pour naviguer vers une section : SAUT DIRECT (téléportation).
+  // On met immédiatement progressRef, smoothProgressRef, et setProgress à la
+  // valeur cible, et on synchronise la vidéo à la frame correspondante.
+  // Le petit "fondu" visuel se fait côté CSS (transition d'opacité du conteneur).
   const navigateToSection = (targetPosition) => {
     const video = videoRef.current;
     if (!video) return;
@@ -153,18 +168,24 @@ const useVideoScroll = (videoRef) => {
         isAtEndRef.current = true;
       }
 
-      // Synchronise la vidéo avec le temps sauvegardé
+      // Synchronise la vidéo avec le temps sauvegardé.
+      // Si la vidéo est déjà proche de la valeur sauvée (cas d'un remount React
+      // Router où la vidéo n'a pas été démontée), on ne touche pas à currentTime
+      // pour éviter le saut visuel.
       const syncVideoTime = () => {
-        if (video.readyState >= 1) {
-          // Vidéo prête, on peut changer le currentTime
-          video.currentTime = savedVideoTime % video.duration;
+        const setTimeIfNeeded = () => {
+          const target = savedVideoTime % video.duration;
+          const current = video.currentTime;
+          if (Math.abs(current - target) > 0.5) {
+            video.currentTime = target;
+          }
           isInitializedRef.current = true;
+        };
+
+        if (video.readyState >= 1) {
+          setTimeIfNeeded();
         } else {
-          // Attendre que la vidéo soit chargée
-          video.addEventListener('loadedmetadata', () => {
-            video.currentTime = savedVideoTime % video.duration;
-            isInitializedRef.current = true;
-          }, { once: true });
+          video.addEventListener('loadedmetadata', setTimeIfNeeded, { once: true });
         }
       };
       
@@ -300,6 +321,11 @@ const useVideoScroll = (videoRef) => {
       window.removeEventListener('wheel', handleWheel);
       cancelAnimationFrame(animationId);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      // Quand HomePage se démonte (navigation vers une autre page), on met
+      // la vidéo en pause pour qu'elle reste à sa position actuelle.
+      if (video) {
+        try { video.pause(); } catch (e) {}
+      }
     };
   }, [videoRef]);
 

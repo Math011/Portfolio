@@ -1,19 +1,19 @@
 import React, { forwardRef } from 'react';
 import styles from './BackgroundVideo.module.css';
 
-const BackgroundVideo = forwardRef(({ src }, ref) => {
-  return (
-    <section className="video-section">
-      <video
-        ref={ref}
-        className={styles.backgroundVideo}
-        src={src}
-        muted
-        loop
-      />
-    </section>
-  );
-});
+const BackgroundVideo = forwardRef(({ src }, ref) => (
+  <section className="video-section">
+    <video
+      ref={ref}
+      className={styles.backgroundVideo}
+      src={src}
+      muted
+      loop
+      playsInline
+      preload="auto"
+    />
+  </section>
+));
 
 BackgroundVideo.displayName = 'BackgroundVideo';
 

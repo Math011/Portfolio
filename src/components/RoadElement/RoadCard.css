@@ -49,7 +49,10 @@
     0 10px 0 #C59A5C,
     0 18px 30px rgba(0, 0, 0, 0.18);
 
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  /* Pas de transition sur transform : on veut que les sauts (clic sur les nœuds
+     de la barre de progression) soient instantanés, pas animés. L'apparition
+     fluide est gérée par les valeurs `progress` qui changent au scroll. */
+  transition: box-shadow 200ms ease;
 
   will-change: transform, opacity;
   pointer-events: auto;
@@ -66,7 +69,7 @@
 
 /* ----------------------------------------------------------------------------
    Épingle de fixation en haut à droite — comme si la carte était punaisée
-   sur un mur.
+   sur un mur. On simule la 3D avec un radial-gradient + une ombre portée.
    ---------------------------------------------------------------------------- */
 .roadCard::after {
   content: "";

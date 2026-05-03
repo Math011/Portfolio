@@ -1,33 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import Header from '../../components/Header';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import ContactForm from './ContactForm';
 import { Campfire, WoodenSign, Person, Log } from './SceneElements';
-import Clouds from './Clouds';
+import { Stars, ShootingStar, Moon, Lantern } from './NightElements';
+import { useInitialLoading } from '../../hooks/useFirstLoad';
 import styles from './ContactPage.module.css';
 
 const ContactPage = () => {
   const { t, language } = useLanguage();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
+  const isLoading = useInitialLoading();
 
   return (
     <>
+      <LoadingScreen isLoading={isLoading} />
       <div className={styles.contactPage}>
-        {/* Décor */}
-        <div className={styles.sky} />
-        <Clouds />
-        <img src="/images/tout-sol.svg" alt="" className={styles.groundBackground} />
+        {/* Ciel nocturne en dégradé */}
+        <div className={styles.nightSky} />
+
+        {/* Étoiles + étoile filante + lune */}
+        <Stars count={90} />
+        <ShootingStar />
+        <Moon />
+
+        {/* Paysage SVG existant, assombri par filter CSS pour paraître nocturne */}
+        <img
+          src="/images/tout-sol.svg"
+          alt=""
+          className={styles.groundBackground}
+        />
+
+        {/* Overlay sombre par-dessus le paysage pour renforcer l'effet nuit */}
+        <div className={styles.nightOverlay} />
 
         {/* Navigation */}
         <Header />
 
-        {/* Panneau */}
+        {/* Panneau bois avec lanterne suspendue */}
         <div className={styles.signSection}>
+          <Lantern className={styles.signLantern} />
           <WoodenSign text={t('letsWorkTogether')} />
         </div>
 
@@ -40,7 +52,7 @@ const ContactPage = () => {
           </div>
         </div>
 
-        {/* Feu de camp */}
+        {/* Feu de camp + 2 personnages autour */}
         <div className={styles.fireSection}>
           <div className={styles.fireGroup}>
             <div className={styles.personWrapper}>

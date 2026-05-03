@@ -71,15 +71,6 @@ const ProjectDetailPage = () => {
           />
         </div>
 
-        {/* Galerie */}
-        <ProjectGallery 
-          gallery={project.gallery}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
-          projectTitle={projectTitle}
-          t={t}
-        />
-
         {/* Infos du projet */}
         <div className={styles.projectInfoSection}>
           <div className={styles.projectDescription}>
@@ -90,7 +81,11 @@ const ProjectDetailPage = () => {
             <h3>{t('technologiesUsed')}</h3>
             <div className={styles.techTags}>
               {project.tags.map((tag, index) => (
-                <span key={index} className={styles.techTag}>
+                <span
+                  key={index}
+                  className={styles.techTag}
+                  style={{ backgroundColor: project.color }}
+                >
                   {tag}
                 </span>
               ))}
@@ -122,6 +117,17 @@ const ProjectDetailPage = () => {
             )}
           </div>
         </div>
+
+        {/* Galerie (placée après les infos pour aérer la zone du dessus) */}
+        {project.gallery && project.gallery.length > 1 && (
+          <ProjectGallery 
+            gallery={project.gallery}
+            selectedImage={selectedImage}
+            setSelectedImage={setSelectedImage}
+            projectTitle={projectTitle}
+            t={t}
+          />
+        )}
 
         {/* Navigation entre projets */}
         <ProjectNavigation 

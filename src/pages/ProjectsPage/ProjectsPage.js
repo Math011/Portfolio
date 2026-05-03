@@ -7,6 +7,7 @@ import ProjectCard from './ProjectCard';
 import { Bird } from './SvgElements';
 import { generateBirds, generateClouds, SIZE_TO_CLASS, OPACITY_TO_CLASS, SPEED_TO_CLASS } from './generators';
 import { projects } from './ProjectsData';
+import { useInitialLoading } from '../../hooks/useFirstLoad';
 import styles from './ProjectsPage.module.css';
 
 const ProjectsPage = () => {
@@ -15,17 +16,7 @@ const ProjectsPage = () => {
   const pageRef = useRef(null);
   const [animationOffset, setAnimationOffset] = useState(0);
 
-  const isReturningFromProject = sessionStorage.getItem('projectsPage_fromProject') === 'true';
-  const [isLoading, setIsLoading] = useState(!isReturningFromProject);
-
-  // Loading screen
-  useEffect(() => {
-    sessionStorage.removeItem('projectsPage_fromProject');
-    if (isReturningFromProject) return;
-
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, [isReturningFromProject]);
+  const isLoading = useInitialLoading();
 
   // Animation offset
   useEffect(() => {
