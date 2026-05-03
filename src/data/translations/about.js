@@ -31,31 +31,43 @@ export const aboutTranslations = {
 
     education: [
       {
-        years: "2021 - 2023",
-        title: "Master Développement Web",
-        school: "Université de Paris",
+        years: "2023 - 2025",
+        title: "Master Manager en architecture et applications logicielles des systèmes d'information (En alternance)",
+        school: "MAALSI Lingolsheim",
         desc: "Spécialisation en technologies JavaScript et architectures modernes.",
       },
       {
-        years: "2018 - 2021",
-        title: "Licence Informatique",
-        school: "Université de Lyon",
+        years: "2022 - 2023",
+        title: "Bachelor développement web ( En alternance)",
+        school: "SupDeWeb3 Strasbourg",
+        desc: "Fondamentaux de la programmation et des systèmes d'information.",
+      },
+      {
+        years: "2020 - 2022",
+        title: "BTS SIO option SLAM",
+        school: "IRIS Strasbourg",
         desc: "Fondamentaux de la programmation et des systèmes d'information.",
       },
     ],
 
     experience: [
       {
-        years: "2023 - Présent",
+        years: "Septembre 2022 - Octobre 2025",
         title: "Développeur Full Stack",
-        company: "StartupTech",
-        desc: "Développement d'applications web avec React et Node.js. CI/CD et MongoDB.",
+        company: "CPAM du Bas-Rhin",
+        desc: "Développement full stack dans un environnement Symfony (PHP, JavaScript, CSS, HTML, PostgreSQL, Docker, Linux, GitLab, CI/CD, tests et déploiement)",
       },
       {
-        years: "2022 - 2023",
+        years: "Janvier 2022 - Février 2022",
         title: "Stage Développeur",
-        company: "AgenceWeb",
-        desc: "Création de sites vitrines et e-commerce. Intégration de maquettes et frontend.",
+        company: "Studio Ikadia",
+        desc: "Développement full stack dans un environnement WordPress (PHP, CSS et HTML).",
+      },
+      {
+        years: "Mai 2021 - Juilet 2021",
+        title: "Stage informatique",
+        company: "Acces-Bureautique",
+        desc: "Maintenance, surveillance et installation de systèmes informatiques et de réseaux.",
       },
     ],
   },
@@ -92,31 +104,43 @@ export const aboutTranslations = {
 
     education: [
       {
-        years: "2021 - 2023",
-        title: "Master's in Web Development",
-        school: "University of Paris",
+        years: "2023 - 2025",
+        title: "Master Manager in information systems architecture and software applications (in apprenticeship)",
+        school: "MAALSI Lingolsheim",
         desc: "Specialization in JavaScript technologies and modern architectures.",
       },
       {
-        years: "2018 - 2021",
-        title: "Bachelor's in Computer Science",
-        school: "University of Lyon",
+        years: "2022 - 2023",
+        title: "Bachelor web developtment( in apprenticeship)",
+        school: "SupDeWeb3 Strasbourg",
         desc: "Fundamentals of programming and information systems.",
+      },
+      {
+        years: "2020 - 2022",
+        title: "BTS SIO option SLAM",
+        school: "IRIS Strasbourg",
+        desc: "Fondamentaux de la programmation et des systèmes d'information.",
       },
     ],
 
     experience: [
       {
-        years: "2023 - Present",
+        years: "September 2022 - October 2025",
         title: "Full Stack Developer",
-        company: "StartupTech",
-        desc: "Web app development with React and Node.js. CI/CD and MongoDB.",
+        company: "CPAM du Bas-Rhin",
+        desc: "Full stack development in a Symfony environment (PHP, JavaScript, CSS, HTML, PostgreSQL, Docker, Linux, GitLab, CI/CD, testing & deployment).",
       },
       {
-        years: "2022 - 2023",
-        title: "Developer Intern",
-        company: "AgenceWeb",
-        desc: "Showcase websites and e-commerce. Mockup integration and frontend.",
+        years: "January 2022 - February 2022",
+        title: "Internship Development",
+        company: "Studio Ikadia",
+        desc: " Full stack development in a WordPress environment (PHP, CSS and HTML).",
+      },
+      {
+        years: "May 2021 - July 2021",
+        title: "IT internship",
+        company: "Acces-Bureautique",
+        desc: "Maintenance, monitoring and installation of computer systems and networks.",
       },
     ],
   },
