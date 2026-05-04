@@ -34,7 +34,7 @@ const ProjectDetailPage = () => {
   // Projet non trouvé
   if (!project) {
     return (
-      <div className={styles.projectDetailPage}>
+      <div className={`${styles.projectDetailPage}`}>
         <Header />
         <div className={styles.projectNotFound}>
           <h1>Projet non trouvé</h1>
@@ -47,7 +47,7 @@ const ProjectDetailPage = () => {
   const projectTitle = t(project.titleKey);
 
   return (
-    <div className={styles.projectDetailPage}>
+    <div className={`${styles.projectDetailPage}`}>
       <DecorativeBackground birds={decorativeBirds} clouds={decorativeClouds} />
       <Header />
 

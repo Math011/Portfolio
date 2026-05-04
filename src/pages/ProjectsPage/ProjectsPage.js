@@ -86,7 +86,7 @@ const ProjectsPage = () => {
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
-      <div className={`${styles.projectsPage} page-fade-in`} ref={pageRef}>
+      <div className={`${styles.projectsPage}`} ref={pageRef}>
         {/* Birds */}
         <div className={styles.backgroundBirds}>
           {decorativeBirds.map((bird) => (

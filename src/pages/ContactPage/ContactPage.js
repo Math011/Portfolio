@@ -19,7 +19,7 @@ const ContactPage = () => {
 
   return (
     <>
-      <div className={`${styles.contactPage} page-fade-in`}>
+      <div className={`${styles.contactPage}`}>
         {/* Décor nuit en arrière-plan */}
         <div className={styles.nightSky} />
         <Stars count={90} />

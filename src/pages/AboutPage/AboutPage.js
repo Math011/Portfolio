@@ -131,6 +131,12 @@ function AboutPage() {
 
   return (
     <div className={styles.page}>
+      <img
+        src="/images/nouveau-paysage.svg"
+        alt=""
+        className={styles.paysageBg}
+        aria-hidden="true"
+      />
       <Header />
 
       <main className={styles.main}>

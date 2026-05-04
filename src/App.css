@@ -1,7 +1,24 @@
-body, html, #root {
+html, body, #root {
   margin: 0;
   padding: 0;
 }
+
+/* Fond beige paper sur le body : évite le flash blanc entre pages.
+   La vidéo de la HomePage est en z-index: 0 donc s'affiche au-dessus
+   (le body est implicitement à z-index: auto). */
+body {
+  background: #F0D890;
+}
+
+/* Toujours réserver la place de la scrollbar pour stabiliser le layout entre
+   pages (sinon le contenu se décale visuellement quand on passe d'une page
+   scrollable à une page non-scrollable comme Contact). */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Sur la page Contact, le fond est sombre. On n'a pas besoin de l'override
+   ici car ContactPage a déjà son propre fond couvrant. */
 
 /* La HomePage bloque le scroll natif (la "scroll capture" est gérée par le hook).
    Les autres pages peuvent scroller normalement. */
@@ -13,13 +30,5 @@ body.no-scroll {
   min-height: 100vh;
 }
 
-/* Fade-in léger à l'arrivée d'une page : laisse aux éléments le temps de se
-   placer avant de devenir visible, évite les flashs. */
-@keyframes pageFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-.page-fade-in {
-  animation: pageFadeIn 350ms ease-out;
-}
+/* Pas de fade-in : il créait un délai visible (page invisible 350ms).
+   La transition entre pages est instantanée, le fond body évite le flash. */
