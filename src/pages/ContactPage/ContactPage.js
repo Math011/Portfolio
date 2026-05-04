@@ -52,21 +52,21 @@ const ContactPage = () => {
             {/* Liens sociaux directement sous le hero (3 lignes compactes) */}
             <div className={styles.socialsBlock}>
               <div className={styles.socialsTitle}>{t('socialsTitle')}</div>
-              <a className={styles.socialRow} href={`mailto:${CONTACT_EMAIL || 'hello@portfolio.dev'}`}>
+              <a className={styles.socialRow} href={`mailto:${CONTACT_EMAIL || 'hello@portfolio.dev'}`} aria-label="Email">
                 <span className={styles.socialIcon}><MailIcon /></span>
                 <div>
                   <div className={styles.socialLabel}>Email</div>
                   <div className={styles.socialHandle}>{CONTACT_EMAIL || 'hello@portfolio.dev'}</div>
                 </div>
               </a>
-              <a className={styles.socialRow} href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">
+              <a className={styles.socialRow} href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <span className={styles.socialIcon}><GitHubIcon /></span>
                 <div>
                   <div className={styles.socialLabel}>GitHub</div>
                   <div className={styles.socialHandle}>{getHandle(SOCIAL_LINKS.github)}</div>
                 </div>
               </a>
-              <a className={styles.socialRow} href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
+              <a className={styles.socialRow} href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <span className={styles.socialIcon}><LinkedInIcon /></span>
                 <div>
                   <div className={styles.socialLabel}>LinkedIn</div>

@@ -186,20 +186,20 @@ describe('useVideoScroll - navigateToSection', () => {
   });
 
   test.each([
-    ['plays video when navigating', 0, 50, true],
-    ['does nothing if same target', 50, 50, false],
-  ])('%s', (_, initial, target, shouldPlay) => {
+    ['pauses video when navigating', 0, 50, true],
+    ['still pauses if same target', 50, 50, true],
+  ])('%s', (_, initial, target, shouldPause) => {
     const { result, videoRef } = setup({ progress: initial });
-    videoRef.current.play.mockClear();
+    videoRef.current.pause.mockClear();
 
     act(() => {
       result.current.navigateToSection(target);
     });
 
-    if (shouldPlay) {
-      expect(videoRef.current.play).toHaveBeenCalled();
+    if (shouldPause) {
+      expect(videoRef.current.pause).toHaveBeenCalled();
     } else {
-      expect(videoRef.current.play).not.toHaveBeenCalled();
+      expect(videoRef.current.pause).not.toHaveBeenCalled();
     }
   });
 
@@ -213,7 +213,7 @@ describe('useVideoScroll - navigateToSection', () => {
   test('resets isAtEnd when navigating to < 100', () => {
     const { result, videoRef } = setup({ progress: 100 });
     act(() => result.current.navigateToSection(0));
-    expect(videoRef.current.play).toHaveBeenCalled();
+    expect(videoRef.current.pause).toHaveBeenCalled();
   });
 
 });

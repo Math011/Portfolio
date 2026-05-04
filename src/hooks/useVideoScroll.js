@@ -76,18 +76,25 @@ const useVideoScroll = (videoRef) => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Sauvegarde toutes les 500ms
+    // Sauvegarde toutes les 500ms (uniquement si la vidéo joue vraiment,
+    // pour éviter d'écraser la valeur sauvée par un 0 parasite au boot).
     const saveInterval = setInterval(() => {
       try {
-        localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+        if (video.currentTime > 0.1) {
+          localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+        }
       } catch (e) {}
     }, 500);
 
-    // Sauvegarde avant de quitter la page
+    // Sauvegarde avant de quitter la page (refresh F5, fermeture de l'onglet).
+    // Cette sauvegarde-ci EST autorisée même si currentTime est petit, car
+    // l'utilisateur a peut-être juste regardé le tout début.
     const handleBeforeUnload = () => {
       try {
-        localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
-        localStorage.setItem(STORAGE_KEY, progressRef.current.toString());
+        if (video.currentTime > 0.1) {
+          localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+          localStorage.setItem(STORAGE_KEY, progressRef.current.toString());
+        }
       } catch (e) {}
     };
 
@@ -96,9 +103,14 @@ const useVideoScroll = (videoRef) => {
     return () => {
       clearInterval(saveInterval);
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      // Sauvegarder la position courante au démontage (navigation React Router)
+      // Sauvegarder la position courante au démontage (navigation React Router).
+      // IMPORTANT : on ne sauvegarde que si la vidéo a vraiment chargé et que
+      // currentTime est cohérent (>0.1s). Sinon on risque d'écraser une bonne
+      // valeur sauvegardée par un "0" parasite (cas du refresh + StrictMode où
+      // le cleanup s'exécute avant que la vidéo n'ait eu le temps de se
+      // positionner sur savedVideoTime).
       try {
-        if (video && !isNaN(video.currentTime)) {
+        if (video && !isNaN(video.currentTime) && video.currentTime > 0.1) {
           localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
           localStorage.setItem(STORAGE_KEY, progressRef.current.toString());
         }
