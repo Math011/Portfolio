@@ -411,11 +411,11 @@
 
 .fireSection {
   position: absolute;
-  left: 50%;
+  left: 38%;
   bottom: 4%;
   transform: translateX(-50%) scale(1.4);
   transform-origin: bottom center;
-  z-index: 10;
+  z-index: 5;
   pointer-events: none;
 }
 
@@ -425,9 +425,143 @@
   gap: 5px;
 }
 .personWrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* Le personnage est en flux + margin négatif pour descendre sur la bûche.
+     La bûche reste en bas, comme avant. */
+}
+
+/* Personnage : margin-bottom négatif pour qu'il chevauche la bûche.
+   La valeur correspond à environ 1/3 de la hauteur de la bûche
+   (bûche ~25px, on chevauche ~14px). */
+.personWrapper > svg:first-child {
+  margin-bottom: -24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* =============================================================================
+   ANIMATIONS DU FEU DE CAMP — flammes vacillantes + étincelles + lueur
+   ============================================================================= */
+
+/* Halo orange chaud autour du feu (glow doux qui pulse) */
+.campfire {
+  filter: drop-shadow(0 0 18px rgba(255, 140, 50, 0.55))
+          drop-shadow(0 0 38px rgba(255, 110, 30, 0.30));
+  animation: campfireGlow 2.4s ease-in-out infinite;
+}
+@keyframes campfireGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 18px rgba(255, 140, 50, 0.55))
+            drop-shadow(0 0 38px rgba(255, 110, 30, 0.30));
+  }
+  50% {
+    filter: drop-shadow(0 0 26px rgba(255, 160, 60, 0.75))
+            drop-shadow(0 0 55px rgba(255, 120, 40, 0.45));
+  }
+}
+
+/* Toutes les flammes ont leur transform-origin au pied (80 108) pour que
+   les déformations partent du bas, comme un vrai feu. */
+.flames path {
+  transform-origin: 80px 108px;
+  transform-box: fill-box;
+  will-change: transform;
+}
+
+/* Flamme principale : vacille en hauteur et se penche légèrement */
+.flame1 {
+  animation: flameFlicker1 1.1s ease-in-out infinite;
+}
+@keyframes flameFlicker1 {
+  0%, 100% { transform: scaleY(1)    scaleX(1)    rotate(0deg); }
+  25%      { transform: scaleY(1.08) scaleX(0.92) rotate(-2deg); }
+  50%      { transform: scaleY(0.94) scaleX(1.06) rotate(1deg); }
+  75%      { transform: scaleY(1.05) scaleX(0.96) rotate(-1deg); }
+}
+
+/* Flammes latérales (déphasées pour ne pas synchroniser visuellement) */
+.flame2 {
+  animation: flameFlicker2 0.9s ease-in-out infinite;
+  transform-origin: 62px 105px;
+}
+@keyframes flameFlicker2 {
+  0%, 100% { transform: scaleY(1)    scaleX(1)    rotate(0deg); }
+  33%      { transform: scaleY(1.15) scaleX(0.88) rotate(3deg); }
+  66%      { transform: scaleY(0.88) scaleX(1.10) rotate(-2deg); }
+}
+
+.flame3 {
+  animation: flameFlicker3 1.3s ease-in-out infinite;
+  transform-origin: 98px 105px;
+}
+@keyframes flameFlicker3 {
+  0%, 100% { transform: scaleY(1)    scaleX(1)    rotate(0deg); }
+  40%      { transform: scaleY(0.90) scaleX(1.08) rotate(-3deg); }
+  70%      { transform: scaleY(1.12) scaleX(0.92) rotate(2deg); }
+}
+
+/* Cœur jaune et blanc : pulsent avec un timing différent */
+.flameInner {
+  animation: flameInner 0.7s ease-in-out infinite;
+}
+@keyframes flameInner {
+  0%, 100% { transform: scaleY(1)    scaleX(1);    opacity: 0.95; }
+  50%      { transform: scaleY(1.15) scaleX(0.85); opacity: 1;    }
+}
+
+.flameCore {
+  animation: flameCore 0.5s ease-in-out infinite;
+}
+@keyframes flameCore {
+  0%, 100% { transform: scaleY(1)    scaleX(1);    opacity: 0.85; }
+  50%      { transform: scaleY(1.20) scaleX(0.80); opacity: 1;    }
+}
+
+/* Braises rougeoyantes au pied du feu (oscillation d'opacité) */
+.embers ellipse {
+  animation: emberGlow 1.4s ease-in-out infinite;
+}
+.embers ellipse:nth-child(2) { animation-delay: 0.4s; }
+.embers ellipse:nth-child(3) { animation-delay: 0.8s; }
+@keyframes emberGlow {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1;   }
+}
+
+/* Étincelles : montent et disparaissent en boucle */
+.sparks circle {
+  transform-origin: center;
+  transform-box: fill-box;
+  will-change: transform, opacity;
+}
+
+.spark1 { animation: sparkRise1 1.8s ease-out infinite; }
+.spark2 { animation: sparkRise2 2.2s ease-out infinite; animation-delay: 0.3s; }
+.spark3 { animation: sparkRise3 1.6s ease-out infinite; animation-delay: 0.7s; }
+.spark4 { animation: sparkRise4 2.5s ease-out infinite; animation-delay: 1.1s; }
+
+@keyframes sparkRise1 {
+  0%   { transform: translate(0, 0)     scale(1);   opacity: 1; }
+  60%  { transform: translate(-3px, -25px) scale(0.8); opacity: 0.7; }
+  100% { transform: translate(2px, -45px)  scale(0.2); opacity: 0; }
+}
+@keyframes sparkRise2 {
+  0%   { transform: translate(0, 0)    scale(1);   opacity: 1; }
+  60%  { transform: translate(4px, -28px) scale(0.7); opacity: 0.6; }
+  100% { transform: translate(-2px, -50px) scale(0.2); opacity: 0; }
+}
+@keyframes sparkRise3 {
+  0%   { transform: translate(0, 0)    scale(1);   opacity: 1; }
+  60%  { transform: translate(-2px, -20px) scale(0.7); opacity: 0.6; }
+  100% { transform: translate(3px, -38px) scale(0.2); opacity: 0; }
+}
+@keyframes sparkRise4 {
+  0%   { transform: translate(0, 0)    scale(1);   opacity: 1; }
+  60%  { transform: translate(3px, -30px) scale(0.8); opacity: 0.5; }
+  100% { transform: translate(-3px, -55px) scale(0.2); opacity: 0; }
 }
 
 /* =============================================================================

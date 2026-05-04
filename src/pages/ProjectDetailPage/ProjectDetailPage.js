@@ -71,6 +71,18 @@ const ProjectDetailPage = () => {
           />
         </div>
 
+        {/* Galerie (juste sous l'image principale pour qu'on voie tout de suite
+            qu'elle permet de changer l'image affichée) */}
+        {project.gallery && project.gallery.length > 1 && (
+          <ProjectGallery 
+            gallery={project.gallery}
+            selectedImage={selectedImage}
+            setSelectedImage={setSelectedImage}
+            projectTitle={projectTitle}
+            t={t}
+          />
+        )}
+
         {/* Infos du projet */}
         <div className={styles.projectInfoSection}>
           <div className={styles.projectDescription}>
@@ -117,17 +129,6 @@ const ProjectDetailPage = () => {
             )}
           </div>
         </div>
-
-        {/* Galerie (placée après les infos pour aérer la zone du dessus) */}
-        {project.gallery && project.gallery.length > 1 && (
-          <ProjectGallery 
-            gallery={project.gallery}
-            selectedImage={selectedImage}
-            setSelectedImage={setSelectedImage}
-            projectTitle={projectTitle}
-            t={t}
-          />
-        )}
 
         {/* Navigation entre projets */}
         <ProjectNavigation 
