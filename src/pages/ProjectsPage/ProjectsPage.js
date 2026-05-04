@@ -16,7 +16,7 @@ const ProjectsPage = () => {
   const pageRef = useRef(null);
   const [animationOffset, setAnimationOffset] = useState(0);
 
-  const isLoading = useInitialLoading();
+  const isLoading = useInitialLoading('projects');
 
   // Animation offset
   useEffect(() => {
@@ -86,7 +86,7 @@ const ProjectsPage = () => {
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
-      <div className={styles.projectsPage} ref={pageRef}>
+      <div className={`${styles.projectsPage} page-fade-in`} ref={pageRef}>
         {/* Birds */}
         <div className={styles.backgroundBirds}>
           {decorativeBirds.map((bird) => (

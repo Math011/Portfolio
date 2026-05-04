@@ -20,8 +20,11 @@ const Header = () => {
     return location.pathname.startsWith(path);
   };
 
+  // Sur fond sombre (page Contact nuit), on inverse les couleurs du brand/liens
+  const isDarkBg = location.pathname === '/contact';
+
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isDarkBg ? styles.darkBg : ''}`}>
       <div className={styles.inner}>
         <nav className={styles.bar}>
           <span className={styles.brand}>

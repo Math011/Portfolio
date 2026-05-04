@@ -12,3 +12,14 @@ body.no-scroll {
 .app-container {
   min-height: 100vh;
 }
+
+/* Fade-in léger à l'arrivée d'une page : laisse aux éléments le temps de se
+   placer avant de devenir visible, évite les flashs. */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.page-fade-in {
+  animation: pageFadeIn 350ms ease-out;
+}

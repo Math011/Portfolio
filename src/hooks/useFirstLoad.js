@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 
-// Détecte si la page actuelle a été chargée via refresh/arrivée initiale.
-// La valeur est calculée une fois au chargement du module JS et reste stable
-// jusqu'au prochain refresh.
-const computeIsInitial = () => {
+// Détecte un refresh ou un chargement initial direct.
+const computeIsInitialLoad = () => {
   if (typeof window === 'undefined' || !window.performance) return false;
   try {
     const navEntries = window.performance.getEntriesByType('navigation');
@@ -16,30 +14,32 @@ const computeIsInitial = () => {
 };
 
 const APP_START_TIME = Date.now();
-const INITIAL_LOAD = computeIsInitial();
-const LOADING_DURATION = 1500; // ms
+const INITIAL_LOAD = computeIsInitialLoad();
+const LOADING_DURATION = 1500;
 
-// Hook qui retourne true si on est encore dans la fenêtre de loading initial.
-// Robuste à React StrictMode car basé sur le temps écoulé, pas sur un compteur
-// de mount.
-export const useInitialLoading = () => {
+/**
+ * Retourne true si on est dans la fenêtre de loading initial après un refresh.
+ *
+ * Logique :
+ *   - Au refresh (F5), le module JS est rechargé : APP_START_TIME = now,
+ *     INITIAL_LOAD = true. Pendant 1500ms le hook retourne true.
+ *   - Au-delà de 1500ms (navigation interne), le hook retourne toujours false.
+ */
+export const useInitialLoading = (routeKey) => {
   const [isLoading, setIsLoading] = useState(() => {
+    if (!routeKey) return false;
     if (!INITIAL_LOAD) return false;
     const elapsed = Date.now() - APP_START_TIME;
     return elapsed < LOADING_DURATION;
   });
 
   useEffect(() => {
-    if (!INITIAL_LOAD) return;
+    if (!isLoading) return;
     const elapsed = Date.now() - APP_START_TIME;
-    const remaining = LOADING_DURATION - elapsed;
-    if (remaining <= 0) {
-      setIsLoading(false);
-      return;
-    }
+    const remaining = Math.max(0, LOADING_DURATION - elapsed);
     const t = setTimeout(() => setIsLoading(false), remaining);
     return () => clearTimeout(t);
-  }, []);
+  }, [isLoading]);
 
   return isLoading;
 };

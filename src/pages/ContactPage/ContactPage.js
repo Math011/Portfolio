@@ -1,58 +1,91 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import Header from '../../components/Header';
-import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import ContactForm from './ContactForm';
-import { Campfire, WoodenSign, Person, Log } from './SceneElements';
-import { Stars, ShootingStar, Moon, Lantern } from './NightElements';
-import { useInitialLoading } from '../../hooks/useFirstLoad';
+import { Campfire, Person, Log } from './SceneElements';
+import { Stars, ShootingStar, Moon } from './NightElements';
+import { LinkedInIcon, GitHubIcon, MailIcon } from './SocialIcons';
+import { SOCIAL_LINKS, CONTACT_EMAIL } from './config';
 import styles from './ContactPage.module.css';
 
 const ContactPage = () => {
   const { t, language } = useLanguage();
-  const isLoading = useInitialLoading();
+
+  const getHandle = (url) => {
+    if (!url) return '';
+    const match = url.match(/\/([^/]+)\/?$/);
+    return match ? '@' + match[1] : url;
+  };
 
   return (
     <>
-      <LoadingScreen isLoading={isLoading} />
-      <div className={styles.contactPage}>
-        {/* Ciel nocturne en dégradé */}
+      <div className={`${styles.contactPage} page-fade-in`}>
+        {/* Décor nuit en arrière-plan */}
         <div className={styles.nightSky} />
-
-        {/* Étoiles + étoile filante + lune */}
         <Stars count={90} />
         <ShootingStar />
         <Moon />
 
-        {/* Paysage SVG existant, assombri par filter CSS pour paraître nocturne */}
+        {/* Paysage SVG existant, assombri par filter CSS */}
         <img
           src="/images/tout-sol.svg"
           alt=""
           className={styles.groundBackground}
         />
-
-        {/* Overlay sombre par-dessus le paysage pour renforcer l'effet nuit */}
         <div className={styles.nightOverlay} />
 
         {/* Navigation */}
         <Header />
 
-        {/* Panneau bois avec lanterne suspendue */}
-        <div className={styles.signSection}>
-          <Lantern className={styles.signLantern} />
-          <WoodenSign text={t('letsWorkTogether')} />
-        </div>
+        {/* Layout principal : hero à gauche, formulaire à droite */}
+        <div className={styles.contactLayout}>
+          {/* Hero */}
+          <div className={styles.contactHero}>
+            <div className={styles.eyebrow}>{t('contactPageEyebrow')}</div>
+            <h1 className={styles.heroTitle}>{t('contactPageTitle')}</h1>
+            <p className={styles.heroSub}>{t('contactPageIntro')}</p>
+            <div className={styles.statusPill}>
+              <span className={styles.dotPulse} />
+              {t('availableForProjects')}
+            </div>
 
-        {/* Formulaire */}
-        <div className={styles.formSection}>
+            {/* Liens sociaux directement sous le hero (3 lignes compactes) */}
+            <div className={styles.socialsBlock}>
+              <div className={styles.socialsTitle}>{t('socialsTitle')}</div>
+              <a className={styles.socialRow} href={`mailto:${CONTACT_EMAIL || 'hello@portfolio.dev'}`}>
+                <span className={styles.socialIcon}><MailIcon /></span>
+                <div>
+                  <div className={styles.socialLabel}>Email</div>
+                  <div className={styles.socialHandle}>{CONTACT_EMAIL || 'hello@portfolio.dev'}</div>
+                </div>
+              </a>
+              <a className={styles.socialRow} href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">
+                <span className={styles.socialIcon}><GitHubIcon /></span>
+                <div>
+                  <div className={styles.socialLabel}>GitHub</div>
+                  <div className={styles.socialHandle}>{getHandle(SOCIAL_LINKS.github)}</div>
+                </div>
+              </a>
+              <a className={styles.socialRow} href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
+                <span className={styles.socialIcon}><LinkedInIcon /></span>
+                <div>
+                  <div className={styles.socialLabel}>LinkedIn</div>
+                  <div className={styles.socialHandle}>{getHandle(SOCIAL_LINKS.linkedin)}</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          {/* Formulaire (carte papier ambré) */}
           <div className={styles.formCard}>
-            <h1>{t('contactPageTitle')}</h1>
-            <p className={styles.formIntro}>{t('contactPageIntro')}</p>
+            <h2 className={styles.formTitle}>
+              {language === 'fr' ? 'Carnet de voyage' : 'Travel journal'}
+            </h2>
             <ContactForm t={t} language={language} />
           </div>
         </div>
 
-        {/* Feu de camp + 2 personnages autour */}
+        {/* Feu de camp + 2 personnages — ancrés au bas */}
         <div className={styles.fireSection}>
           <div className={styles.fireGroup}>
             <div className={styles.personWrapper}>

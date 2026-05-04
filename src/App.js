@@ -23,7 +23,7 @@ import './App.css';
 function HomePage({ videoRef }) {
   const { progress, navigateToSection } = useVideoScroll(videoRef);
   const [activeSection, setActiveSection] = useState('accueil');
-  const isLoading = useInitialLoading();
+  const isLoading = useInitialLoading('home');
 
   // Bloque le scroll natif uniquement sur la HomePage
   useEffect(() => {

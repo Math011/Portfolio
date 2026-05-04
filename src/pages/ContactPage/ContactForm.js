@@ -22,7 +22,7 @@ const ContactForm = ({ t, language }) => {
     name: '',
     email: '',
     message: '',
-    website: '' // Honeypot field - should remain empty
+    website: ''
   });
   const [status, setStatus] = useState('idle');
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
@@ -32,6 +32,69 @@ const ContactForm = ({ t, language }) => {
 
   // Charger le script reCAPTCHA une seule fois
   useEffect(() => {
+    // === Strategy 1 : silencer les erreurs reCAPTCHA dans la console
+    const isRecaptchaMsg = (str) => {
+      if (typeof str !== 'string') return false;
+      return (
+        str.includes('reCAPTCHA') ||
+        str.includes('Timeout (b)') ||
+        str.includes('gstatic.com/recaptcha') ||
+        str.includes('google.com/recaptcha')
+      );
+    };
+
+    const originalConsoleError = console.error;
+    console.error = (...args) => {
+      const text = args.map(a => {
+        if (a == null) return '';
+        if (typeof a === 'string') return a;
+        if (a instanceof Error) return a.message + ' ' + (a.stack || '');
+        try { return JSON.stringify(a); } catch (e) { return String(a); }
+      }).join(' ');
+      if (isRecaptchaMsg(text)) return;
+      originalConsoleError.apply(console, args);
+    };
+
+    const handleRecaptchaError = (event) => {
+      const msg = event.error?.message || event.message || '';
+      const src = event.filename || '';
+      const isRecaptchaError =
+        msg.includes('Timeout') ||
+        msg.includes('reCAPTCHA') ||
+        isRecaptchaMsg(src);
+      if (isRecaptchaError) {
+        try {
+          if (window.grecaptcha && window.grecaptcha.reset) {
+            window.grecaptcha.reset();
+          }
+        } catch (e) {}
+        setRecaptchaToken(null);
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return true;
+      }
+    };
+    const handleUnhandledRejection = (event) => {
+      const msg = event.reason?.message || event.reason || '';
+      if (typeof msg === 'string' && (msg.includes('Timeout') || msg.includes('reCAPTCHA'))) {
+        event.preventDefault();
+        event.stopImmediatePropagation && event.stopImmediatePropagation();
+      }
+    };
+    window.addEventListener('error', handleRecaptchaError, true);
+    window.addEventListener('unhandledrejection', handleUnhandledRejection, true);
+
+    // === Strategy 2 : reset périodique du widget ===
+    // Le token reCAPTCHA expire à 120s. On reset le widget toutes les 100s
+    const resetInterval = setInterval(() => {
+      try {
+        if (window.grecaptcha && window.grecaptcha.reset) {
+          window.grecaptcha.reset();
+          setRecaptchaToken(null);
+        }
+      } catch (e) {}
+    }, 100000);
+
     // Callbacks globaux
     window.onRecaptchaChange = (token) => {
       setRecaptchaToken(token);
@@ -39,6 +102,30 @@ const ContactForm = ({ t, language }) => {
 
     window.onRecaptchaExpired = () => {
       setRecaptchaToken(null);
+      setStatus('captchaExpired');
+      setTimeout(() => setStatus('idle'), 8000);
+      try {
+        if (window.grecaptcha && window.grecaptcha.reset) {
+          window.grecaptcha.reset();
+        }
+        // Scroll vers le widget pour que l'utilisateur le voie immédiatement
+        const el = document.getElementById(recaptchaContainerId);
+        if (el && el.scrollIntoView) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } catch (e) {}
+    };
+
+    // Erreur réseau du captcha (timeout, blocage, connexion lente)
+    window.onRecaptchaError = () => {
+      setRecaptchaToken(null);
+      setStatus('captchaError');
+      setTimeout(() => setStatus('idle'), 4000);
+      try {
+        if (window.grecaptcha && window.grecaptcha.reset) {
+          window.grecaptcha.reset();
+        }
+      } catch (e) {}
     };
 
     window.onRecaptchaLoad = () => {
@@ -57,8 +144,13 @@ const ContactForm = ({ t, language }) => {
     }
 
     return () => {
+      console.error = originalConsoleError;
+      clearInterval(resetInterval);
+      window.removeEventListener('error', handleRecaptchaError, true);
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection, true);
       delete window.onRecaptchaChange;
       delete window.onRecaptchaExpired;
+      delete window.onRecaptchaError;
       delete window.onRecaptchaLoad;
     };
   }, []);
@@ -79,6 +171,7 @@ const ContactForm = ({ t, language }) => {
         sitekey: RECAPTCHA_SITE_KEY,
         callback: 'onRecaptchaChange',
         'expired-callback': 'onRecaptchaExpired',
+        'error-callback': 'onRecaptchaError',
         hl: language
       });
     } catch (e) {
@@ -103,9 +196,29 @@ const ContactForm = ({ t, language }) => {
     }
 
     // ===== RECAPTCHA CHECK =====
-    if (!recaptchaToken) {
+    // Le token peut être dans le state OU directement récupérable via l'API
+    // (cas de race condition entre la validation et le submit).
+    let tokenToUse = recaptchaToken;
+    if (!tokenToUse && window.grecaptcha && window.grecaptcha.getResponse) {
+      try {
+        const apiToken = window.grecaptcha.getResponse();
+        if (apiToken) tokenToUse = apiToken;
+      } catch (e) {}
+    }
+
+    if (!tokenToUse) {
       setStatus('captchaRequired');
-      setTimeout(() => setStatus('idle'), 3000);
+      setTimeout(() => setStatus('idle'), 6000);
+      // Reset le widget pour forcer une nouvelle validation et scroll vers lui
+      try {
+        if (window.grecaptcha && window.grecaptcha.reset) {
+          window.grecaptcha.reset();
+        }
+        const el = document.getElementById(recaptchaContainerId);
+        if (el && el.scrollIntoView) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } catch (e) {}
       return;
     }
 
@@ -287,39 +400,15 @@ ${replyMessages.closing}`;
         {status === 'captchaRequired' && (
           <p className={styles.warningMessage}>{t('captchaRequired')}</p>
         )}
+
+        {status === 'captchaExpired' && (
+          <p className={styles.warningMessage}>{t('captchaExpired')}</p>
+        )}
+
+        {status === 'captchaError' && (
+          <p className={styles.warningMessage}>{t('captchaError')}</p>
+        )}
       </form>
-      
-      {/* Réseaux sociaux */}
-      <div className={styles.socialLinks}>
-        <span className={styles.socialLabel}>{t('orContactVia')}</span>
-        <div className={styles.socialIcons}>
-          <a 
-            href={SOCIAL_LINKS.linkedin} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.socialIcon}
-            aria-label="LinkedIn"
-          >
-            <LinkedInIcon />
-          </a>
-          <a 
-            href={SOCIAL_LINKS.github} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.socialIcon}
-            aria-label="GitHub"
-          >
-            <GitHubIcon />
-          </a>
-          <a 
-            href={`mailto:${CONTACT_EMAIL}`}
-            className={styles.socialIcon}
-            aria-label="Email"
-          >
-            <MailIcon />
-          </a>
-        </div>
-      </div>
     </>
   );
 };

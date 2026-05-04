@@ -1,491 +1,516 @@
 /* =============================================================================
-    CONTACT PAGE - Refonte cohérente
-    ============================================================================= */
+   CONTACT PAGE — Scène nuit, non scrollable, formulaire en haut
+   ============================================================================= */
 
+.contactPage {
+  --color-primary: #D9732D;
+  --color-primary-dark: #B85F1E;
+  --color-text: #3A2E2A;
+  --color-text-light: #6B5A4F;
+  --color-success: #5A7046;
+  --color-error: #B33A1F;
+  --color-warning: #D9732D;
+
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+/* =============================================================================
+   DÉCOR NUIT (ciel, étoiles, lune, paysage assombri)
+   ============================================================================= */
+
+.nightSky {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 20%, #2a2f55 0%, #1d2240 40%, #14182f 100%);
+  z-index: 0;
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.star {
+  position: absolute;
+  background: #FFF4D4;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(255, 244, 212, 0.8);
+  animation: twinkle 3.5s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.shootingStar {
+  position: absolute;
+  top: 14%;
+  left: 8%;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff4d4 40%, #fff4d4);
+  border-radius: 2px;
+  transform: rotate(20deg);
+  opacity: 0;
+  z-index: 1;
+  animation: shoot 7s ease-in-out infinite;
+}
+@keyframes shoot {
+  0%, 80% { opacity: 0; transform: rotate(20deg) translateX(0); }
+  85% { opacity: 1; transform: rotate(20deg) translateX(0); }
+  100% { opacity: 0; transform: rotate(20deg) translateX(400px); }
+}
+
+.moon {
+  position: absolute;
+  top: 8%;
+  right: 8%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff4d4 0%, #f6e3a8 60%, #d9c389 100%);
+  box-shadow:
+    0 0 50px rgba(255, 244, 212, 0.35),
+    0 0 120px rgba(255, 244, 212, 0.15);
+  z-index: 2;
+}
+.moonCrater {
+  position: absolute;
+  background: rgba(138, 120, 96, 0.35);
+  border-radius: 50%;
+}
+.crater1 { width: 12px; height: 12px; top: 30%; left: 28%; }
+.crater2 { width: 8px;  height: 8px;  top: 55%; left: 60%; }
+.crater3 { width: 6px;  height: 6px;  top: 22%; left: 65%; }
+
+/* Paysage SVG existant, assombri pour effet nuit. Paramètres simples
+   pour garder le ratio naturel sans zoomer. */
+.groundBackground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+  filter: brightness(0.45) saturate(0.6) hue-rotate(200deg);
+}
+
+.nightOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(20, 24, 47, 0) 0%,
+    rgba(20, 24, 47, 0.05) 60%,
+    rgba(20, 24, 47, 0.4) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   LAYOUT PRINCIPAL : hero à gauche, formulaire à droite
+   ============================================================================= */
+
+.contactLayout {
+  position: relative;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 40px;
+  padding: 110px 28px 40px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* =============================================================================
+   HERO (eyebrow + titre + sub + status + socials)
+   ============================================================================= */
+
+.contactHero {
+  color: var(--paper);
+  max-width: 480px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #f6d27a;
+  margin-bottom: 14px;
+}
+
+.heroTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: #FFF8E7;
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+}
+
+.heroSub {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: rgba(255, 248, 231, 0.82);
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(247, 240, 221, 0.08);
+  border: 1px solid rgba(247, 240, 221, 0.2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFF8E7;
+  margin-bottom: 28px;
+}
+
+.dotPulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8ab26b;
+  box-shadow: 0 0 0 0 rgba(138, 178, 107, 0.6);
+  animation: pulse 1.6s ease-out infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(138, 178, 107, 0.6); }
+  70%  { box-shadow: 0 0 0 12px rgba(138, 178, 107, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(138, 178, 107, 0); }
+}
+
+/* =============================================================================
+   SOCIALS sous le hero (compacts)
+   ============================================================================= */
+
+.socialsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.socialsTitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 231, 0.55);
+  margin-bottom: 10px;
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--paper);
+  transition: background 180ms ease, transform 180ms ease;
+}
+.socialRow:hover {
+  background: rgba(255, 248, 231, 0.08);
+  transform: translateX(2px);
+}
+
+.socialIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(246, 210, 122, 0.15);
+  color: #f6d27a;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.socialIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.socialLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 231, 0.55);
+}
+.socialHandle {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: #FFF8E7;
+  margin-top: 1px;
+}
+
+/* =============================================================================
+   FORMULAIRE (carte papier ambré, sans punaise ni ombre épaisse)
+   ============================================================================= */
+
+.formCard {
+  position: relative;
+  background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
+  border-radius: 14px;
+  border: 2px solid var(--paper-edge);
+  padding: 28px 30px 24px;
+  /* Plus de "0 10px 0 #C59A5C" épais ni de punaise */
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.35),
+    0 0 60px rgba(246, 210, 122, 0.18);
+}
+
+.formTitle {
+  font-family: var(--font-serif);
+  color: var(--accent);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0 0 18px 0;
+  line-height: 1.1;
+}
+
+/* =============================================================================
+   FORM CONTROLS (héritage ContactForm)
+   ============================================================================= */
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.formGroup label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  color: var(--ink);
+  transition: border-color 200ms ease, background 200ms ease;
+  background: rgba(255, 248, 231, 0.7);
+  box-sizing: border-box;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #FFF8E7;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.6;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.submitBtn {
+  width: 100%;
+  background: var(--accent);
+  color: var(--paper);
+  border: 1.5px solid var(--accent);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  box-shadow: 0 6px 16px -4px rgba(217, 115, 45, 0.55);
+  margin-top: 8px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -6px rgba(217, 115, 45, 0.65);
+}
+
+.submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.successMessage, .errorMessage, .warningMessage {
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.85rem;
+  margin: 0;
+}
+.successMessage { color: var(--color-success); background: rgba(200, 230, 201, 0.9); }
+.errorMessage { color: var(--color-error); background: rgba(255, 205, 210, 0.9); }
+.warningMessage { color: var(--color-warning); background: rgba(255, 224, 178, 0.9); }
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.recaptchaWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0;
+  transform: scale(0.85);
+  transform-origin: center;
+}
+
+/* =============================================================================
+   FEU DE CAMP + PERSONNAGES (ancrés au bas)
+   ============================================================================= */
+
+.fireSection {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%) scale(1.4);
+  transform-origin: bottom center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.fireGroup {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+.personWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =============================================================================
+   RESPONSIVE
+   ============================================================================= */
+
+@media (max-width: 1100px) {
+  .contactLayout {
+    grid-template-columns: 1fr 420px;
+    gap: 30px;
+    padding: 100px 24px 30px;
+  }
+  .fireSection { transform: translateX(-50%) scale(1); }
+}
+
+@media (max-width: 900px) {
+  /* En-dessous de 900px, on empile : hero en haut, form en bas */
   .contactPage {
-    --color-primary: #D9732D;
-    --color-primary-dark: #B85F1E;
-    --color-text: #3A2E2A;
-    --color-text-light: #6B5A4F;
-    --color-success: #5A7046;
-    --color-error: #B33A1F;
-    --color-warning: #D9732D;
-    
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-  }
-
-  /* =============================================================================
-    CIEL & NUAGES
-    ============================================================================= */
-
-  .sky {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 70% 20%, #2a2f55 0%, #1d2240 40%, #14182f 100%);
-    z-index: 0;
-  }
-
-  /* Nouveau ciel nuit (priorité plus haute) */
-  .nightSky {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 70% 20%, #2a2f55 0%, #1d2240 40%, #14182f 100%);
-    z-index: 0;
-  }
-
-  /* Overlay sombre par-dessus le paysage SVG pour renforcer l'effet nuit */
-  .nightOverlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg,
-        rgba(20, 24, 47, 0) 0%,
-        rgba(20, 24, 47, 0.05) 50%,
-        rgba(20, 24, 47, 0.35) 100%
-      );
-    z-index: 3;
-    pointer-events: none;
-  }
-
-  /* Étoiles */
-  .stars {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-  .star {
-    position: absolute;
-    background: #FFF4D4;
-    border-radius: 50%;
-    box-shadow: 0 0 4px rgba(255, 244, 212, 0.8);
-    animation: twinkle 3.5s ease-in-out infinite;
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
-
-  .shootingStar {
-    position: absolute;
-    top: 18%;
-    left: 10%;
-    width: 100px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #fff4d4 40%, #fff4d4);
-    border-radius: 2px;
-    transform: rotate(20deg);
-    opacity: 0;
-    z-index: 1;
-    animation: shoot 7s ease-in-out infinite;
-  }
-  @keyframes shoot {
-    0%, 80% { opacity: 0; transform: rotate(20deg) translateX(0); }
-    85% { opacity: 1; transform: rotate(20deg) translateX(0); }
-    100% { opacity: 0; transform: rotate(20deg) translateX(400px); }
-  }
-
-  /* Lune avec cratères */
-  .moon {
-    position: absolute;
-    top: 12%;
-    right: 10%;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #fff4d4 0%, #f6e3a8 60%, #d9c389 100%);
-    box-shadow:
-      0 0 50px rgba(255, 244, 212, 0.35),
-      0 0 120px rgba(255, 244, 212, 0.15);
-    z-index: 2;
-  }
-  .moonCrater {
-    position: absolute;
-    background: rgba(138, 120, 96, 0.35);
-    border-radius: 50%;
-  }
-  .crater1 { width: 14px; height: 14px; top: 30%; left: 28%; }
-  .crater2 { width: 9px;  height: 9px;  top: 55%; left: 60%; }
-  .crater3 { width: 7px;  height: 7px;  top: 22%; left: 65%; }
-
-  /* Lanterne suspendue (sur le panneau) */
-  .lantern {
-    filter: drop-shadow(0 0 12px rgba(246, 210, 122, 0.6));
-  }
-  .signLantern {
-    position: absolute;
-    top: -10px;
-    right: 30px;
-    z-index: 6;
-  }
-
-  .cloudsRow1, .cloudsRow2, .cloudsRow3 {
-    position: absolute;
-    left: 0;
-    width: 200%;
-    z-index: 1;
-  }
-
-  .cloudsRow1 { top: 3%; height: 100px; animation: moveRight 120s linear infinite; }
-  .cloudsRow2 { top: 15%; height: 80px; left: -100%; animation: moveLeft 90s linear infinite; }
-  .cloudsRow3 { top: 28%; height: 70px; animation: moveRight 150s linear infinite; }
-
-  .cloudRow1, .cloudRow2, .cloudRow3 {
-    position: absolute;
-    width: auto;
-    filter: brightness(1.5) saturate(0);
-  }
-
-  .cloudRow1 { height: 70px; opacity: 0.9; }
-  .cloudRow2 { height: 55px; opacity: 0.85; }
-  .cloudRow3 { height: 50px; opacity: 0.8; filter: brightness(1.4) saturate(0); }
-
-  .cloudRow1:nth-child(1) { left: 5%; }
-  .cloudRow1:nth-child(2) { left: 40%; }
-  .cloudRow1:nth-child(3) { left: 75%; }
-  .cloudRow2:nth-child(1) { left: 15%; }
-  .cloudRow2:nth-child(2) { left: 50%; }
-  .cloudRow2:nth-child(3) { left: 85%; }
-  .cloudRow3:nth-child(1) { left: 10%; }
-  .cloudRow3:nth-child(2) { left: 45%; }
-  .cloudRow3:nth-child(3) { left: 80%; }
-
-  @keyframes moveRight { to { transform: translateX(-50%); } }
-  @keyframes moveLeft { to { transform: translateX(50%); } }
-
-  /* =============================================================================
-    SOL
-    ============================================================================= */
-
-  .groundBackground {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     height: auto;
-    z-index: 2;
-    pointer-events: none;
-    /* Effet "nuit" sur le SVG paysage existant : on assombrit, on diminue
-       la saturation et on tire vers le bleu pour matcher l'ambiance nocturne. */
-    filter: brightness(0.45) saturate(0.6) hue-rotate(200deg);
-  }
-
-  /* =============================================================================
-    PANNEAU & FEU DE CAMP
-    ============================================================================= */
-
-  .signSection {
-    position: absolute;
-    left: 15%;
-    bottom: 26%;
-    z-index: 60;
-    transform: scale(0.8);
-    transform-origin: bottom center;
-  }
-
-  .woodenSign text { font-family: 'Caveat', 'Segoe UI', cursive; }
-
-  .fireSection {
-    position: absolute;
-    right: 12%;
-    bottom: 22%;
-    z-index: 10;
-  }
-
-  .fireGroup { display: flex; align-items: flex-end; gap: 5px; }
-  .personWrapper { display: flex; flex-direction: column; align-items: center; }
-  .person { margin-bottom: -8px; }
-  .log { filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.15)); }
-  .campfire { filter: drop-shadow(0 0 20px rgba(255, 150, 0, 0.5)); }
-
-  /* Animations flammes */
-  .flame1 { animation: flicker1 0.4s ease-in-out infinite; }
-  .flame2 { animation: flicker2 0.5s ease-in-out infinite; }
-  .flame3 { animation: flicker3 0.45s ease-in-out infinite; }
-  .flameInner { animation: flickerInner 0.35s ease-in-out infinite; }
-  .flameCore { animation: flickerCore 0.3s ease-in-out infinite; }
-
-  @keyframes flicker1 { 50% { transform: scaleY(1.08) scaleX(0.96); } }
-  @keyframes flicker2 { 50% { transform: scaleY(0.92) translateX(-2px); } }
-  @keyframes flicker3 { 0%, 100% { transform: scaleY(0.95); } 50% { transform: scaleY(1.05) translateX(2px); } }
-  @keyframes flickerInner { 50% { opacity: 1; transform: scaleY(1.08); } }
-  @keyframes flickerCore { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
-
-  .spark1, .spark2, .spark3, .spark4 { animation: spark ease-out infinite; }
-  .spark1 { animation-duration: 1.2s; }
-  .spark2 { animation-duration: 1.5s; animation-delay: 0.2s; }
-  .spark3 { animation-duration: 1.3s; animation-delay: 0.4s; }
-  .spark4 { animation-duration: 1.6s; animation-delay: 0.6s; }
-
-  @keyframes spark { to { opacity: 0; transform: translateY(-35px) scale(0); } }
-
-  /* =============================================================================
-    FORMULAIRE
-    ============================================================================= */
-
-  .formSection {
-    position: absolute;
-    left: 50%;
-    top: 55%;
-    transform: translate(-50%, -50%);
-    z-index: 50;
-  }
-
-  .formCard {
+    min-height: 100vh;
     position: relative;
-    background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
-    border-radius: 12px;
-    border: 2px solid var(--paper-edge);
-    padding: 28px 32px 26px;
-    width: 400px;
-    box-shadow:
-      0 10px 0 #C59A5C,
-      0 18px 30px rgba(43, 36, 29, 0.18),
-      0 0 80px rgba(246, 210, 122, 0.25);
+    overflow-y: auto;
+    overflow-x: hidden;
   }
-
-  /* Punaise en haut à droite (cohérence cartes du parcours) */
-  .formCard::after {
-    content: "";
-    position: absolute;
-    top: 12px;
-    right: 14px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #F0975F 0%, var(--accent) 40%, #A04515 100%);
-    box-shadow:
-      0 2px 3px rgba(43, 36, 29, 0.45),
-      inset -1px -2px 2px rgba(0, 0, 0, 0.20);
+  .contactLayout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 90px 24px 40px;
+    height: auto;
+    align-items: stretch;
+    max-width: 600px;
   }
-
-  .formCard h1 {
-    font-family: var(--font-serif);
-    color: var(--ink);
-    font-size: 32px;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    margin: 0 0 10px 0;
-    line-height: 1.1;
+  .contactHero {
+    max-width: 100%;
+    text-align: left;
   }
-
-  .formIntro {
-    font-family: var(--font-sans);
-    color: var(--ink-soft);
-    margin-bottom: 18px;
-    font-size: 14px;
-    line-height: 1.5;
+  .heroTitle { font-size: 32px; margin-bottom: 10px; }
+  .heroSub { font-size: 15px; margin-bottom: 14px; }
+  .statusPill { margin-bottom: 18px; }
+  .formCard {
+    padding: 22px 22px 20px;
   }
+  .formTitle { font-size: 22px; margin-bottom: 14px; }
+  .fireSection { display: none; }
+  .groundBackground { max-height: 25vh; }
 
-  .contactForm { display: flex; flex-direction: column; gap: 14px; }
-  .formGroup { display: flex; flex-direction: column; gap: 5px; }
-
-  .formGroup label {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
+  /* Socials passent en ligne horizontale compacte */
+  .socialsBlock { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .socialsTitle { width: 100%; margin-bottom: 6px; }
+  .socialRow {
+    flex: 1 1 calc(33% - 8px);
+    min-width: 0;
+    padding: 8px 10px;
   }
-
-  .formGroup input,
-  .formGroup textarea {
-    padding: 11px 14px;
-    border: 1.5px solid rgba(43, 36, 29, 0.20);
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: var(--font-sans);
-    color: var(--ink);
-    transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
-    background: rgba(255, 255, 255, 0.55);
-  }
-
-  .formGroup input:focus,
-  .formGroup textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-pale);
-    background: rgba(255, 255, 255, 0.85);
-  }
-
-  .formGroup input::placeholder,
-  .formGroup textarea::placeholder { color: var(--ink-muted); }
-
-  .formGroup textarea { resize: vertical; min-height: 80px; }
-
-  .submitBtn {
-    background: var(--accent);
-    color: var(--paper);
-    border: 1.5px solid var(--accent);
-    padding: 12px 24px;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
-    box-shadow: 0 6px 16px -4px rgba(217, 115, 45, 0.55);
-    margin-top: 6px;
-  }
-
-  .submitBtn:hover:not(:disabled) {
-    background: var(--accent-soft);
-    border-color: var(--accent-soft);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 22px -6px rgba(217, 115, 45, 0.65);
-  }
-
-  .submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-  /* Messages */
-  .successMessage, .errorMessage, .warningMessage {
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: 500;
-    font-size: 0.85rem;
-    margin: 0;
-  }
-
-  .successMessage { color: var(--color-success); background: rgba(200, 230, 201, 0.9); }
-  .errorMessage { color: var(--color-error); background: rgba(255, 205, 210, 0.9); }
-  .warningMessage { color: var(--color-warning); background: rgba(255, 224, 178, 0.9); }
-
-  .honeypot {
-    position: absolute;
-    left: -9999px;
-    opacity: 0;
-    height: 0;
-    width: 0;
+  .socialRow > div { min-width: 0; overflow: hidden; }
+  .socialHandle {
+    font-size: 13px;
+    white-space: nowrap;
     overflow: hidden;
-    pointer-events: none;
+    text-overflow: ellipsis;
   }
+}
 
-  .recaptchaWrapper {
-    display: flex;
-    justify-content: center;
-    margin: 6px 0;
-    transform: scale(0.85);
-    transform-origin: center;
+@media (max-width: 560px) {
+  .contactLayout {
+    padding: 80px 16px 30px;
+    gap: 16px;
   }
+  .heroTitle { font-size: 26px; }
+  .heroSub { font-size: 14px; line-height: 1.5; margin-bottom: 12px; }
+  .statusPill { font-size: 10px; padding: 6px 12px; margin-bottom: 14px; }
 
-  /* =============================================================================
-    RÉSEAUX SOCIAUX
-    ============================================================================= */
+  /* Sur très petit écran, socials repassent en colonne mais compacts */
+  .socialsBlock { flex-direction: column; gap: 2px; }
+  .socialRow { flex: 1 1 100%; padding: 6px 8px; gap: 10px; }
+  .socialIcon { width: 32px; height: 32px; }
+  .socialIcon svg { width: 14px; height: 14px; }
+  .socialHandle { font-size: 13px; }
 
-  .socialLinks {
-    margin-top: 20px;
-    padding-top: 18px;
-    border-top: 1.5px dashed rgba(43, 36, 29, 0.20);
-    text-align: center;
-  }
-
-  .socialLabel {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 14px;
-  }
-
-  .socialIcons { display: flex; justify-content: center; gap: 14px; }
-
-  .socialIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--ink);
-    color: var(--paper);
-    transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
-    box-shadow: 0 3px 10px rgba(43, 36, 29, 0.25);
-  }
-
-  .socialIcon:hover {
-    background: var(--accent);
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 6px 15px rgba(217, 115, 45, 0.45);
-  }
-
-  .socialIcon svg { width: 22px; height: 22px; }
-
-  /* =============================================================================
-    RESPONSIVE
-    ============================================================================= */
-
-  @media (max-width: 1200px) {
-    .signSection { left: 5%; bottom: 18%; transform: scale(0.55); }
-    .fireSection { right: 5%; transform: scale(0.55); transform-origin: bottom right; }
-  }
-
-  @media (max-width: 1024px) {
-    .formCard { width: 380px; }
-    .signSection { left: 3%; bottom: 12%; transform: scale(0.5); }
-    .fireSection { right: 3%; bottom: 10%; transform: scale(0.5); transform-origin: bottom right; }
-    .groundBackground { height: 50vh; object-fit: cover; object-position: top center; }
-  }
-
-  @media (max-width: 768px) {
-    .sky { position: fixed; width: 100vw; height: 100vh; }
-    
-    .groundBackground {
-      position: fixed;
-      bottom: 0;
-      height: 50vh;
-      object-fit: cover;
-      object-position: top center;
-      z-index: 1;
-    }
-
-    .cloudsRow1, .cloudsRow2, .cloudsRow3 { position: fixed; z-index: 2; }
-    .cloudsRow1 { top: 1%; height: 60px; }
-    .cloudsRow2 { top: 12%; height: 50px; }
-    .cloudsRow3 { top: 24%; height: 45px; }
-    .cloudRow1 { height: 40px; }
-    .cloudRow2 { height: 30px; }
-    .cloudRow3 { height: 28px; }
-
-    .formSection {
-      left: 0;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      justify-content: center;
-      padding: 0 20px;
-    }
-    
-    .formCard { width: 100%; max-width: 360px; padding: 16px 18px; }
-    .formCard h1 { font-size: 1.3rem; margin-bottom: 4px; }
-    .formIntro { font-size: 0.78rem; margin-bottom: 10px; line-height: 1.3; }
-    .contactForm { gap: 10px; }
-    .formGroup { gap: 3px; }
-    .formGroup label { font-size: 0.75rem; }
-    .formGroup input, .formGroup textarea { padding: 8px 10px; font-size: 0.85rem; }
-    .formGroup textarea { min-height: 60px; }
-    .submitBtn { padding: 10px 20px; font-size: 0.9rem; }
-    .recaptchaWrapper { margin: 4px 0; }
-    .socialLinks { margin-top: 14px; padding-top: 12px; }
-    .socialLabel { font-size: 0.78rem; margin-bottom: 8px; }
-    .socialIcon { width: 38px; height: 38px; }
-    .signSection, .fireSection { display: none; }
-  }
-
-  @media (max-width: 480px) {
-    .formSection { padding: 65px 15px 30px; }
-    .formCard { padding: 18px 16px; }
-    .recaptchaWrapper { transform: scale(0.77); }
-    .socialIcons { gap: 12px; }
-    .socialIcon { width: 40px; height: 40px; }
-  }
+  .formCard { padding: 18px 18px 16px; }
+  .formTitle { font-size: 20px; margin-bottom: 12px; }
+  .formGroup input, .formGroup textarea { padding: 9px 11px; font-size: 13px; }
+  .submitBtn { padding: 10px 20px; font-size: 13px; }
+  .recaptchaWrapper { transform: scale(0.78); }
+  .moon { width: 60px; height: 60px; top: 6%; right: 6%; }
+}
