@@ -346,7 +346,7 @@
 }
 
 .formGroup textarea {
-  resize: vertical;
+  resize: none;
   min-height: 70px;
 }
 
@@ -412,8 +412,8 @@
 .fireSection {
   position: absolute;
   left: 38%;
-  bottom: 4%;
-  transform: translateX(-50%) scale(1.4);
+  bottom: 10%;
+  transform: translateX(-50%) scale(1.3);
   transform-origin: bottom center;
   z-index: 5;
   pointer-events: none;
@@ -424,34 +424,48 @@
   align-items: flex-end;
   gap: 5px;
 }
+
+/* Le campfire (feu + bûches dessous) est réduit indépendamment des
+   personnages et de leurs bûches. On utilise width/height direct (qui prime
+   sur les attributs HTML width/height du SVG) plutôt que transform: scale,
+   pour éviter tout conflit avec les animations enfants (flammes/sparks). */
+.campfire {
+  width: 105px;
+  height: 90px;
+  /* Halo orange chaud autour du feu (glow doux qui pulse) */
+  filter: drop-shadow(0 0 18px rgba(255, 140, 50, 0.55))
+          drop-shadow(0 0 38px rgba(255, 110, 30, 0.30));
+  animation: campfireGlow 2.4s ease-in-out infinite;
+}
+
 .personWrapper {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Le personnage est en flux + margin négatif pour descendre sur la bûche.
-     La bûche reste en bas, comme avant. */
 }
 
-/* Personnage : margin-bottom négatif pour qu'il chevauche la bûche.
-   La valeur correspond à environ 1/3 de la hauteur de la bûche
-   (bûche ~25px, on chevauche ~14px). */
+/* Personnage (1er SVG du wrapper) : agrandi (~30% plus grand) +
+   margin-bottom négatif pour qu'il chevauche la bûche. */
 .personWrapper > svg:first-child {
+  width: 60px;
+  height: 88px;
   margin-bottom: -24px;
   position: relative;
   z-index: 2;
+}
+
+/* Bûche (2e SVG du wrapper, sur laquelle le personnage est assis) :
+   agrandie aussi (~30% plus large). */
+.personWrapper > svg:nth-child(2) {
+  width: 90px;
+  height: 32px;
 }
 
 /* =============================================================================
    ANIMATIONS DU FEU DE CAMP — flammes vacillantes + étincelles + lueur
    ============================================================================= */
 
-/* Halo orange chaud autour du feu (glow doux qui pulse) */
-.campfire {
-  filter: drop-shadow(0 0 18px rgba(255, 140, 50, 0.55))
-          drop-shadow(0 0 38px rgba(255, 110, 30, 0.30));
-  animation: campfireGlow 2.4s ease-in-out infinite;
-}
 @keyframes campfireGlow {
   0%, 100% {
     filter: drop-shadow(0 0 18px rgba(255, 140, 50, 0.55))
@@ -574,7 +588,7 @@
     gap: 30px;
     padding: 100px 24px 30px;
   }
-  .fireSection { transform: translateX(-50%) scale(1); }
+  .fireSection { transform: translateX(-50%) scale(1.05); }
 }
 
 @media (max-width: 900px) {

@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { LinkedInIcon, GitHubIcon, MailIcon } from './SocialIcons';
 import { 
   EMAILJS_CONFIG, 
   RECAPTCHA_SITE_KEY, 
   AUTO_REPLY_MESSAGES, 
-  CONTACT_EMAIL, 
-  SOCIAL_LINKS, 
   RATE_LIMIT 
 } from './config';
 import styles from './ContactPage.module.css';
@@ -18,11 +15,17 @@ import styles from './ContactPage.module.css';
 const ContactForm = ({ t, language }) => {
   const formRef = useRef();
   const recaptchaContainerId = `recaptcha-container-${language}`;
+  // Ref synchronisée pour pouvoir lire la valeur courante depuis les listeners
+  // globaux sans avoir à les déclarer en dépendance du useEffect.
+  const recaptchaContainerIdRef = useRef(recaptchaContainerId);
+  useEffect(() => {
+    recaptchaContainerIdRef.current = recaptchaContainerId;
+  }, [recaptchaContainerId]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
-    website: ''
+    website: '' // Honeypot field - should remain empty
   });
   const [status, setStatus] = useState('idle');
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
@@ -32,7 +35,10 @@ const ContactForm = ({ t, language }) => {
 
   // Charger le script reCAPTCHA une seule fois
   useEffect(() => {
-    // === Strategy 1 : silencer les erreurs reCAPTCHA dans la console
+    // === Strategy 1 : silencer les erreurs reCAPTCHA dans la console ===
+    // L'overlay d'erreur React (react-error-overlay) se base sur console.error
+    // ET sur window.onerror. On patche les deux pour ignorer les erreurs
+    // "Timeout (b)" jetées par le script Google en interne.
     const isRecaptchaMsg = (str) => {
       if (typeof str !== 'string') return false;
       return (
@@ -86,6 +92,7 @@ const ContactForm = ({ t, language }) => {
 
     // === Strategy 2 : reset périodique du widget ===
     // Le token reCAPTCHA expire à 120s. On reset le widget toutes les 100s
+    // pour qu'il ne soit jamais en état "timeout" interne.
     const resetInterval = setInterval(() => {
       try {
         if (window.grecaptcha && window.grecaptcha.reset) {
@@ -109,7 +116,7 @@ const ContactForm = ({ t, language }) => {
           window.grecaptcha.reset();
         }
         // Scroll vers le widget pour que l'utilisateur le voie immédiatement
-        const el = document.getElementById(recaptchaContainerId);
+        const el = document.getElementById(recaptchaContainerIdRef.current);
         if (el && el.scrollIntoView) {
           el.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }

@@ -143,25 +143,16 @@ const useVideoScroll = (videoRef) => {
     isAtEndRef.current = target >= 100;
     directionRef.current = target >= progressRef.current ? 1 : -1;
 
-    // Téléportation immédiate de la progression
+    // Téléportation immédiate de la progression (= la barre de menu, les sections
+    // actives, l'apparition des cartes). On NE TOUCHE PAS à video.currentTime
+    // pour que la vidéo de fond reste sur sa frame actuelle, comme un décor
+    // statique — l'utilisateur garde son repère visuel pendant la navigation.
     progressRef.current = target;
     smoothProgressRef.current = target;
     setProgress(target);
 
-    // Synchronisation de la vidéo sur la frame correspondante
-    if (video.duration) {
-      // 0%   → currentTime = 0
-      // 100% → currentTime = duration
-      const targetTime = (target / 100) * video.duration;
-      try {
-        video.currentTime = targetTime;
-      } catch (e) {
-        // Certains navigateurs jettent si la vidéo n'est pas seekable
-      }
-    }
-
-    // On met la vidéo en pause après le saut (l'utilisateur reprendra avec
-    // la molette quand il voudra)
+    // On met la vidéo en pause au cas où elle serait en lecture (la molette
+    // pourra la relancer ensuite si besoin).
     video.pause();
   };
 

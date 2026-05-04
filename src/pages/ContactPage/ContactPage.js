@@ -11,10 +11,28 @@ import styles from './ContactPage.module.css';
 const ContactPage = () => {
   const { t, language } = useLanguage();
 
-  const getHandle = (url) => {
+  // Extrait un handle lisible depuis une URL.
+  // - GitHub : "@username"
+  // - LinkedIn : "Prénom Nom" (on retire le suffixe LinkedIn ajouté à la création
+  //   du compte, du genre "-4a9b90230", et on capitalize chaque mot)
+  const getHandle = (url, platform = '') => {
     if (!url) return '';
     const match = url.match(/\/([^/]+)\/?$/);
-    return match ? '@' + match[1] : url;
+    if (!match) return url;
+    let slug = match[1];
+
+    if (platform === 'linkedin') {
+      // Retire le suffixe alphanumérique de fin (ex: "-4a9b90230", "-12abc34")
+      slug = slug.replace(/-[a-z0-9]{6,}$/i, '');
+      // "mathieu-raudin" → "Mathieu Raudin"
+      return slug
+        .split('-')
+        .filter(Boolean)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+    }
+
+    return '@' + slug;
   };
 
   return (
@@ -70,7 +88,7 @@ const ContactPage = () => {
                 <span className={styles.socialIcon}><LinkedInIcon /></span>
                 <div>
                   <div className={styles.socialLabel}>LinkedIn</div>
-                  <div className={styles.socialHandle}>{getHandle(SOCIAL_LINKS.linkedin)}</div>
+                  <div className={styles.socialHandle}>{getHandle(SOCIAL_LINKS.linkedin, 'linkedin')}</div>
                 </div>
               </a>
             </div>

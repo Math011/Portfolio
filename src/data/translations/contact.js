@@ -7,7 +7,7 @@ export const contactTranslations = {
     contactLink: "Me contacter →",
     
     // Page Contact complète
-    contactPageEyebrow: "04 — CONTACT",
+    contactPageEyebrow: "Carnet de route — Chapitre 04",
     contactPageTitle: "Vous voilà arrivé.",
     contactPageIntro: "Posons le sac. Asseyons-nous autour du feu. Parlez-moi de votre projet.",
     letsWorkTogether: "Let's work together!",
