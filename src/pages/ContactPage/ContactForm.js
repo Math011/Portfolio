@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { LinkedInIcon, GitHubIcon, MailIcon } from './SocialIcons';
 import { 
   EMAILJS_CONFIG, 
   RECAPTCHA_SITE_KEY, 
   AUTO_REPLY_MESSAGES, 
-  CONTACT_EMAIL, 
-  SOCIAL_LINKS, 
   RATE_LIMIT 
 } from './config';
 import styles from './ContactPage.module.css';
@@ -18,6 +15,12 @@ import styles from './ContactPage.module.css';
 const ContactForm = ({ t, language }) => {
   const formRef = useRef();
   const recaptchaContainerId = `recaptcha-container-${language}`;
+  // Ref synchronisée pour pouvoir lire la valeur courante depuis les listeners
+  // globaux sans avoir à les déclarer en dépendance du useEffect.
+  const recaptchaContainerIdRef = useRef(recaptchaContainerId);
+  useEffect(() => {
+    recaptchaContainerIdRef.current = recaptchaContainerId;
+  }, [recaptchaContainerId]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -32,6 +35,73 @@ const ContactForm = ({ t, language }) => {
 
   // Charger le script reCAPTCHA une seule fois
   useEffect(() => {
+    // === Strategy 1 : silencer les erreurs reCAPTCHA dans la console ===
+    // L'overlay d'erreur React (react-error-overlay) se base sur console.error
+    // ET sur window.onerror. On patche les deux pour ignorer les erreurs
+    // "Timeout (b)" jetées par le script Google en interne.
+    const isRecaptchaMsg = (str) => {
+      if (typeof str !== 'string') return false;
+      return (
+        str.includes('reCAPTCHA') ||
+        str.includes('Timeout (b)') ||
+        str.includes('gstatic.com/recaptcha') ||
+        str.includes('google.com/recaptcha')
+      );
+    };
+
+    const originalConsoleError = console.error;
+    console.error = (...args) => {
+      const text = args.map(a => {
+        if (a == null) return '';
+        if (typeof a === 'string') return a;
+        if (a instanceof Error) return a.message + ' ' + (a.stack || '');
+        try { return JSON.stringify(a); } catch (e) { return String(a); }
+      }).join(' ');
+      if (isRecaptchaMsg(text)) return;
+      originalConsoleError.apply(console, args);
+    };
+
+    const handleRecaptchaError = (event) => {
+      const msg = event.error?.message || event.message || '';
+      const src = event.filename || '';
+      const isRecaptchaError =
+        msg.includes('Timeout') ||
+        msg.includes('reCAPTCHA') ||
+        isRecaptchaMsg(src);
+      if (isRecaptchaError) {
+        try {
+          if (window.grecaptcha && window.grecaptcha.reset) {
+            window.grecaptcha.reset();
+          }
+        } catch (e) {}
+        setRecaptchaToken(null);
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return true;
+      }
+    };
+    const handleUnhandledRejection = (event) => {
+      const msg = event.reason?.message || event.reason || '';
+      if (typeof msg === 'string' && (msg.includes('Timeout') || msg.includes('reCAPTCHA'))) {
+        event.preventDefault();
+        event.stopImmediatePropagation && event.stopImmediatePropagation();
+      }
+    };
+    window.addEventListener('error', handleRecaptchaError, true);
+    window.addEventListener('unhandledrejection', handleUnhandledRejection, true);
+
+    // === Strategy 2 : reset périodique du widget ===
+    // Le token reCAPTCHA expire à 120s. On reset le widget toutes les 100s
+    // pour qu'il ne soit jamais en état "timeout" interne.
+    const resetInterval = setInterval(() => {
+      try {
+        if (window.grecaptcha && window.grecaptcha.reset) {
+          window.grecaptcha.reset();
+          setRecaptchaToken(null);
+        }
+      } catch (e) {}
+    }, 100000);
+
     // Callbacks globaux
     window.onRecaptchaChange = (token) => {
       setRecaptchaToken(token);
@@ -39,6 +109,30 @@ const ContactForm = ({ t, language }) => {
 
     window.onRecaptchaExpired = () => {
       setRecaptchaToken(null);
+      setStatus('captchaExpired');
+      setTimeout(() => setStatus('idle'), 8000);
+      try {
+        if (window.grecaptcha && window.grecaptcha.reset) {
+          window.grecaptcha.reset();
+        }
+        // Scroll vers le widget pour que l'utilisateur le voie immédiatement
+        const el = document.getElementById(recaptchaContainerIdRef.current);
+        if (el && el.scrollIntoView) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } catch (e) {}
+    };
+
+    // Erreur réseau du captcha (timeout, blocage, connexion lente)
+    window.onRecaptchaError = () => {
+      setRecaptchaToken(null);
+      setStatus('captchaError');
+      setTimeout(() => setStatus('idle'), 4000);
+      try {
+        if (window.grecaptcha && window.grecaptcha.reset) {
+          window.grecaptcha.reset();
+        }
+      } catch (e) {}
     };
 
     window.onRecaptchaLoad = () => {
@@ -57,8 +151,13 @@ const ContactForm = ({ t, language }) => {
     }
 
     return () => {
+      console.error = originalConsoleError;
+      clearInterval(resetInterval);
+      window.removeEventListener('error', handleRecaptchaError, true);
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection, true);
       delete window.onRecaptchaChange;
       delete window.onRecaptchaExpired;
+      delete window.onRecaptchaError;
       delete window.onRecaptchaLoad;
     };
   }, []);
@@ -79,6 +178,7 @@ const ContactForm = ({ t, language }) => {
         sitekey: RECAPTCHA_SITE_KEY,
         callback: 'onRecaptchaChange',
         'expired-callback': 'onRecaptchaExpired',
+        'error-callback': 'onRecaptchaError',
         hl: language
       });
     } catch (e) {
@@ -103,9 +203,29 @@ const ContactForm = ({ t, language }) => {
     }
 
     // ===== RECAPTCHA CHECK =====
-    if (!recaptchaToken) {
+    // Le token peut être dans le state OU directement récupérable via l'API
+    // (cas de race condition entre la validation et le submit).
+    let tokenToUse = recaptchaToken;
+    if (!tokenToUse && window.grecaptcha && window.grecaptcha.getResponse) {
+      try {
+        const apiToken = window.grecaptcha.getResponse();
+        if (apiToken) tokenToUse = apiToken;
+      } catch (e) {}
+    }
+
+    if (!tokenToUse) {
       setStatus('captchaRequired');
-      setTimeout(() => setStatus('idle'), 3000);
+      setTimeout(() => setStatus('idle'), 6000);
+      // Reset le widget pour forcer une nouvelle validation et scroll vers lui
+      try {
+        if (window.grecaptcha && window.grecaptcha.reset) {
+          window.grecaptcha.reset();
+        }
+        const el = document.getElementById(recaptchaContainerId);
+        if (el && el.scrollIntoView) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } catch (e) {}
       return;
     }
 
@@ -287,39 +407,15 @@ ${replyMessages.closing}`;
         {status === 'captchaRequired' && (
           <p className={styles.warningMessage}>{t('captchaRequired')}</p>
         )}
+
+        {status === 'captchaExpired' && (
+          <p className={styles.warningMessage}>{t('captchaExpired')}</p>
+        )}
+
+        {status === 'captchaError' && (
+          <p className={styles.warningMessage}>{t('captchaError')}</p>
+        )}
       </form>
-      
-      {/* Réseaux sociaux */}
-      <div className={styles.socialLinks}>
-        <span className={styles.socialLabel}>{t('orContactVia')}</span>
-        <div className={styles.socialIcons}>
-          <a 
-            href={SOCIAL_LINKS.linkedin} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.socialIcon}
-            aria-label="LinkedIn"
-          >
-            <LinkedInIcon />
-          </a>
-          <a 
-            href={SOCIAL_LINKS.github} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.socialIcon}
-            aria-label="GitHub"
-          >
-            <GitHubIcon />
-          </a>
-          <a 
-            href={`mailto:${CONTACT_EMAIL}`}
-            className={styles.socialIcon}
-            aria-label="Email"
-          >
-            <MailIcon />
-          </a>
-        </div>
-      </div>
     </>
   );
 };

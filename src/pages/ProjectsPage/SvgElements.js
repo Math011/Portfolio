@@ -3,7 +3,7 @@ import styles from './ProjectsPage.module.css';
 
 // Composant Ballon SVG pour les cartes
 export const Balloon = ({ color = '#7CB342' }) => (
-  <svg width="40" height="70" viewBox="0 0 40 70" className={styles.balloonSvg}>
+  <svg width="56" height="96" viewBox="0 0 40 70" className={styles.balloonSvg}>
     <ellipse cx="20" cy="22" rx="18" ry="22" fill={color} />
     <ellipse cx="20" cy="22" rx="18" ry="22" fill="url(#balloonShine)" />
     <polygon points="17,43 20,48 23,43" fill={color} />

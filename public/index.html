@@ -16,6 +16,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;600&display=swap">
 
+    <!-- Préchargement des assets utilisés dans plusieurs pages pour accélérer
+         la navigation interne (l'asset est en cache avant qu'on en ait besoin) -->
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/tout-sol.svg" type="image/svg+xml">
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/nouveau-paysage.svg" type="image/svg+xml">
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/face.jpg" type="image/jpeg">
+    <link rel="preload" as="video" href="%PUBLIC_URL%/paysages_tout_9sec.mp4" type="video/mp4">
+
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/

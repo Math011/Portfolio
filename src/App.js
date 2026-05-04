@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { 
   ProgressBar, 
@@ -16,38 +16,16 @@ import {
 import { ProjectsPage, ProjectDetailPage, ContactPage, AboutPage, NotFoundPage } from './pages';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
+import { useInitialLoading } from './hooks/useFirstLoad';
 import './App.css';
 
-// Composant pour la page d'accueil
-function HomePage() {
-  const videoRef = useRef(null);
+// HomePage : reçoit videoRef en props (la vidéo elle-même est montée au niveau App)
+function HomePage({ videoRef }) {
   const { progress, navigateToSection } = useVideoScroll(videoRef);
   const [activeSection, setActiveSection] = useState('accueil');
-  const [isLoading, setIsLoading] = useState(true);
+  const isLoading = useInitialLoading('home');
 
-  // Masque le loading screen une fois la vidéo prête
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleCanPlay = () => {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 300);
-    };
-
-    if (video.readyState >= 3) {
-      handleCanPlay();
-    } else {
-      video.addEventListener('canplay', handleCanPlay, { once: true });
-    }
-
-    return () => {
-      video.removeEventListener('canplay', handleCanPlay);
-    };
-  }, []);
-
-  // Bloque le scroll natif uniquement sur la HomePage (la vidéo gère son propre scroll)
+  // Bloque le scroll natif uniquement sur la HomePage
   useEffect(() => {
     document.body.classList.add('no-scroll');
     return () => {
@@ -57,18 +35,17 @@ function HomePage() {
 
   // Mise à jour de la section active
   useEffect(() => {
-    // À 100%, aucune section n'est active (on est à l'arrivée)
     if (progress >= 100) {
       setActiveSection(null);
       return;
     }
-    
     const currentStep = journeySteps
       .slice()
       .reverse()
       .find(step => progress >= step.position);
-
-    setActiveSection(currentStep?.id || 'accueil');
+    if (currentStep) {
+      setActiveSection(currentStep.id);
+    }
   }, [progress]);
 
   return (
@@ -82,21 +59,43 @@ function HomePage() {
         onNavigate={navigateToSection}
       />
       
-      {/* Éléments de la route */}
       <HomeMenu progress={progress} />
       <AboutMenu progress={progress} />
       <ProjectsMenu progress={progress} />
       <ContactMenu progress={progress} />
       <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
       
-      {/* Indice "scrollez pour avancer" — apparaît après inactivité */}
       <ScrollHint progress={progress} />
-      
-      <BackgroundVideo 
-        ref={videoRef}
-        src="/paysages_tout_9sec.mp4"
-      />
     </>
+  );
+}
+
+// Composant qui contient la vidéo + les routes. La vidéo n'est affichée que sur "/"
+// mais reste montée en permanence pour ne pas perdre sa position.
+function AppContent() {
+  const videoRef = useRef(null);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  return (
+    <div className="app-container">
+      {/* Vidéo de fond toujours montée, masquée si on n'est pas sur "/" */}
+      <div style={{ display: isHome ? 'block' : 'none' }}>
+        <BackgroundVideo 
+          ref={videoRef}
+          src="/paysages_tout_9sec.mp4"
+        />
+      </div>
+
+      <Routes>
+        <Route path="/" element={<HomePage videoRef={videoRef} />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/project/:id" element={<ProjectDetailPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </div>
   );
 }
 
@@ -104,16 +103,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
-        <div className="app-container">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/project/:id" element={<ProjectDetailPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </div>
+        <AppContent />
       </Router>
     </LanguageProvider>
   );

@@ -1,14 +1,10 @@
 /* Page détail projet — cohérence chaleureuse */
 .projectDetailPage {
   min-height: 100vh;
-  height: 100vh;
-  background: var(--sky);
+  background: #ffe993;
   color: var(--ink);
-  overflow-y: auto;
+  position: relative;
   overflow-x: hidden;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
 }
 
 /* =============================================================================
@@ -91,7 +87,7 @@
   z-index: 10;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 110px 32px 4rem;
+  padding: 90px 32px 4rem;
 }
 
 /* En-tête : ballon + titre côte à côte (compact) */
@@ -155,10 +151,11 @@
    ============================================================================= */
 .projectMainImage {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 7;
+  max-height: 280px;
   border-radius: 12px;
   overflow: hidden;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   background: rgba(43, 36, 29, 0.08);
   border: 2px solid var(--paper-edge);
   box-shadow: 0 18px 30px rgba(43, 36, 29, 0.18);
@@ -290,14 +287,17 @@
 .techTag {
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(43, 36, 29, 0.12);
-  color: var(--ink);
-  padding: 6px 12px;
+  color: #FFF8E7;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  background: var(--accent);
+  padding: 6px 14px;
   border-radius: var(--radius-pill);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 2px 6px rgba(43, 36, 29, 0.15);
 }
 
 /* Boutons d'action */
@@ -359,30 +359,33 @@
   flex-wrap: wrap;
 }
 
-/* Précédent / Suivant : pastilles fines, discrètes */
+/* Précédent / Suivant : pastilles claires sur fond papier (plus visibles) */
 .navProject {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 12px 22px;
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 11.5px;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink-soft);
-  background: transparent;
-  border: 1px dashed rgba(43, 36, 29, 0.30);
+  color: var(--ink);
+  background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
+  border: 1.5px solid var(--paper-edge);
   border-radius: var(--radius-pill);
   text-decoration: none;
-  transition: color 200ms ease, border-color 200ms ease, transform 200ms ease;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  box-shadow: 0 4px 12px rgba(43, 36, 29, 0.15);
 }
 
 .navProject:hover {
-  color: var(--accent);
+  color: var(--paper);
+  background: var(--accent);
   border-color: var(--accent);
-  border-style: solid;
   transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(217, 115, 45, 0.4);
 }
 
 .navProjectEmpty { visibility: hidden; }

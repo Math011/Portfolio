@@ -34,7 +34,7 @@ const ProjectDetailPage = () => {
   // Projet non trouvé
   if (!project) {
     return (
-      <div className={styles.projectDetailPage}>
+      <div className={`${styles.projectDetailPage}`}>
         <Header />
         <div className={styles.projectNotFound}>
           <h1>Projet non trouvé</h1>
@@ -47,7 +47,7 @@ const ProjectDetailPage = () => {
   const projectTitle = t(project.titleKey);
 
   return (
-    <div className={styles.projectDetailPage}>
+    <div className={`${styles.projectDetailPage}`}>
       <DecorativeBackground birds={decorativeBirds} clouds={decorativeClouds} />
       <Header />
 
@@ -71,14 +71,17 @@ const ProjectDetailPage = () => {
           />
         </div>
 
-        {/* Galerie */}
-        <ProjectGallery 
-          gallery={project.gallery}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
-          projectTitle={projectTitle}
-          t={t}
-        />
+        {/* Galerie (juste sous l'image principale pour qu'on voie tout de suite
+            qu'elle permet de changer l'image affichée) */}
+        {project.gallery && project.gallery.length > 1 && (
+          <ProjectGallery 
+            gallery={project.gallery}
+            selectedImage={selectedImage}
+            setSelectedImage={setSelectedImage}
+            projectTitle={projectTitle}
+            t={t}
+          />
+        )}
 
         {/* Infos du projet */}
         <div className={styles.projectInfoSection}>
@@ -90,7 +93,11 @@ const ProjectDetailPage = () => {
             <h3>{t('technologiesUsed')}</h3>
             <div className={styles.techTags}>
               {project.tags.map((tag, index) => (
-                <span key={index} className={styles.techTag}>
+                <span
+                  key={index}
+                  className={styles.techTag}
+                  style={{ backgroundColor: project.color }}
+                >
                   {tag}
                 </span>
               ))}

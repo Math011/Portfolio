@@ -1,5 +1,4 @@
 // Liste des projets — couleurs des ballons depuis la palette du site
-
 export const projects = [
   {
     id: 1,
@@ -13,7 +12,7 @@ export const projects = [
       '/images/projects/project1-3.jpg',
     ],
     tags: ['React', 'Node.js', 'MongoDB'],
-    githubLink: 'https://github.com/username/project1',
+    githubLink: 'https://github.com/Math011/project1',
     liveLink: '#',
     color: '#D9732D'
   },
@@ -28,7 +27,7 @@ export const projects = [
       '/images/projects/project2-2.jpg',
     ],
     tags: ['Vue.js', 'Firebase'],
-    githubLink: 'https://github.com/username/project2',
+    githubLink: 'https://github.com/Math011/project2',
     liveLink: '#',
     color: '#5A7046'
   },
@@ -42,7 +41,7 @@ export const projects = [
       '/images/projects/project3.jpg',
     ],
     tags: ['Next.js', 'Tailwind CSS'],
-    githubLink: 'https://github.com/username/project3',
+    githubLink: 'https://github.com/Math011/project3',
     liveLink: '#',
     color: '#8B5A2B'
   },
@@ -56,7 +55,7 @@ export const projects = [
       '/images/projects/project4.jpg',
     ],
     tags: ['React Native', 'Express'],
-    githubLink: 'https://github.com/username/project4',
+    githubLink: 'https://github.com/Math011/project4',
     liveLink: '#',
     color: '#C5542B'
   },

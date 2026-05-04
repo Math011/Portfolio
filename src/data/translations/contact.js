@@ -7,9 +7,12 @@ export const contactTranslations = {
     contactLink: "Me contacter →",
     
     // Page Contact complète
-    contactPageTitle: "Me Contacter",
-    contactPageIntro: "Le voyage touche à sa fin... Mais une nouvelle aventure peut commencer ! Laissez-moi un message.",
+    contactPageEyebrow: "Carnet de route — Chapitre 04",
+    contactPageTitle: "Vous voilà arrivé.",
+    contactPageIntro: "Posons le sac. Asseyons-nous autour du feu. Parlez-moi de votre projet.",
     letsWorkTogether: "Let's work together!",
+    availableForProjects: "Disponible pour de nouveaux projets",
+    socialsTitle: "Ou retrouvez-moi",
     
     // Formulaire de contact
     nameLabel: "Nom",
@@ -24,7 +27,9 @@ export const contactTranslations = {
     messageError: "Erreur lors de l'envoi. Veuillez réessayer.",
     tooFast: "Veuillez patienter 30 secondes avant de renvoyer un message.",
     rateLimited: "Trop de messages envoyés. Réessayez dans 5 minutes.",
-    captchaRequired: "Veuillez cocher le captcha.",
+    captchaRequired: "La vérification anti-robot a expiré ou n'a pas été cochée. Merci de la valider à nouveau.",
+    captchaExpired: "Captcha expiré, merci de le re-valider.",
+    captchaError: "Erreur captcha. Vérifiez votre connexion ou rechargez la page.",
     
     // Informations de contact
     emailTitle: "Email",
@@ -43,9 +48,12 @@ export const contactTranslations = {
     contactLink: "Get in touch →",
     
     // Page Contact complète
-    contactPageTitle: "Contact Me",
-    contactPageIntro: "The journey comes to an end... But a new adventure can begin! Leave me a message.",
+    contactPageEyebrow: "04 — CONTACT",
+    contactPageTitle: "You've arrived.",
+    contactPageIntro: "Drop the pack. Sit by the fire. Tell me about your project.",
     letsWorkTogether: "Let's work together!",
+    availableForProjects: "Available for new projects",
+    socialsTitle: "Or find me at",
     
     // Formulaire de contact
     nameLabel: "Name",
@@ -60,7 +68,9 @@ export const contactTranslations = {
     messageError: "Error sending message. Please try again.",
     tooFast: "Please wait 30 seconds before sending another message.",
     rateLimited: "Too many messages sent. Please try again in 5 minutes.",
-    captchaRequired: "Please check the captcha.",
+    captchaRequired: "The anti-bot verification has expired or was not checked. Please validate it again.",
+    captchaExpired: "Captcha expired, please re-validate.",
+    captchaError: "Captcha error. Check your connection or reload the page.",
     
     // Informations de contact
     emailTitle: "Email",

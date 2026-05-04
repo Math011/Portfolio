@@ -39,8 +39,8 @@ export const CONTACT_EMAIL = process.env.REACT_APP_CONTACT_EMAIL;
 
 // URLs des réseaux sociaux
 export const SOCIAL_LINKS = {
-  linkedin: 'https://linkedin.com/in/ton-profil',
-  github: 'https://github.com/ton-profil'
+  linkedin: 'https://linkedin.com/in/mathieu-raudin-4a9b90230',
+  github: 'https://github.com/Math011'
 };
 
 // Rate limiting config

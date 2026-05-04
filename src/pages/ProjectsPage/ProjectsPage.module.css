@@ -1,18 +1,10 @@
 /* Page Projets — polaroïds éparpillés sur le ciel */
 .projectsPage {
-  position: relative;
-
-  /* couvre toute la page */
   min-height: 100vh;
-  width: 100%;
-
-  background: var(--sky);
+  background: #ffe993;
   color: var(--ink);
-
+  position: relative;
   overflow-x: hidden;
-
-  /* 👇 IMPORTANT : espace après les projets */
-  padding-bottom: 50px;
 }
 
 /* =============================================================================
@@ -50,10 +42,10 @@
 .projectsGrid {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 32px 6rem;
+  padding: 60px 32px 6rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 110px 60px;
+  gap: 130px 60px;
   position: relative;
   z-index: 10;
 }
@@ -68,7 +60,7 @@
 
 .balloonContainer {
   position: absolute;
-  top: -76px;
+  top: -96px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
@@ -191,9 +183,10 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 1;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .bgCloud {

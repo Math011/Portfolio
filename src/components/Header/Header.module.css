@@ -48,6 +48,7 @@
   color: var(--ink);
   letter-spacing: -0.01em;
   line-height: 1;
+  transition: color 200ms ease, text-shadow 200ms ease;
 }
 
 .brandSep {
@@ -101,6 +102,29 @@
   height: 4px;
   border-radius: 50%;
   background: var(--accent);
+}
+
+/* ---------- Mode fond sombre (page Contact nuit) ---------- */
+.darkBg .brandName {
+  color: #FFF8E7;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+.darkBg .brandSep {
+  background: rgba(255, 248, 231, 0.4);
+}
+.darkBg .navLink {
+  color: rgba(255, 248, 231, 0.85);
+  background: rgba(255, 248, 231, 0.08);
+  border-color: rgba(255, 248, 231, 0.2);
+}
+.darkBg .navLink:hover {
+  color: #FFF8E7;
+  background: rgba(255, 248, 231, 0.15);
+}
+.darkBg .navLink.active {
+  color: #FFF8E7;
+  background: rgba(217, 115, 45, 0.25);
+  border-color: rgba(217, 115, 45, 0.5);
 }
 
 /* ---------- Responsive ---------- */

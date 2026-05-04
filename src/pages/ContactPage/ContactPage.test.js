@@ -182,7 +182,7 @@ describe('ContactForm - Accessibility', () => {
   });
 
   test('social links open in new tab with security attributes', () => {
-    renderContactForm();
+    renderContactPage();
     
     const linkedinLink = screen.getByRole('link', { name: 'LinkedIn' });
     const githubLink = screen.getByRole('link', { name: 'GitHub' });

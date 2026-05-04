@@ -6,6 +6,7 @@ const VIDEO_TIME_KEY = 'portfolio_video_time';
 /**
  * Lance video.play() en ignorant proprement les erreurs liées à un pause()
  * qui arriverait avant que la promesse de play() soit résolue.
+ * (Erreur classique : "The play() request was interrupted by a call to pause()".)
  */
 const safePlay = (video) => {
   if (!video || !video.paused) return;
@@ -75,18 +76,25 @@ const useVideoScroll = (videoRef) => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Sauvegarde toutes les 500ms
+    // Sauvegarde toutes les 500ms (uniquement si la vidéo joue vraiment,
+    // pour éviter d'écraser la valeur sauvée par un 0 parasite au boot).
     const saveInterval = setInterval(() => {
       try {
-        localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+        if (video.currentTime > 0.1) {
+          localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+        }
       } catch (e) {}
     }, 500);
 
-    // Sauvegarde avant de quitter la page
+    // Sauvegarde avant de quitter la page (refresh F5, fermeture de l'onglet).
+    // Cette sauvegarde-ci EST autorisée même si currentTime est petit, car
+    // l'utilisateur a peut-être juste regardé le tout début.
     const handleBeforeUnload = () => {
       try {
-        localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
-        localStorage.setItem(STORAGE_KEY, progressRef.current.toString());
+        if (video.currentTime > 0.1) {
+          localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+          localStorage.setItem(STORAGE_KEY, progressRef.current.toString());
+        }
       } catch (e) {}
     };
 
@@ -95,15 +103,34 @@ const useVideoScroll = (videoRef) => {
     return () => {
       clearInterval(saveInterval);
       window.removeEventListener('beforeunload', handleBeforeUnload);
+      // Sauvegarder la position courante au démontage (navigation React Router).
+      // IMPORTANT : on ne sauvegarde que si la vidéo a vraiment chargé et que
+      // currentTime est cohérent (>0.1s). Sinon on risque d'écraser une bonne
+      // valeur sauvegardée par un "0" parasite (cas du refresh + StrictMode où
+      // le cleanup s'exécute avant que la vidéo n'ait eu le temps de se
+      // positionner sur savedVideoTime).
+      try {
+        if (video && !isNaN(video.currentTime) && video.currentTime > 0.1) {
+          localStorage.setItem(VIDEO_TIME_KEY, video.currentTime.toString());
+          localStorage.setItem(STORAGE_KEY, progressRef.current.toString());
+        }
+      } catch (e) {}
     };
   }, [videoRef]);
 
   // Calcule le multiplicateur de vitesse selon la section.
+  // Avant, on ralentissait dans la section Projets pour laisser le temps à
+  // chaque projet d'apparaître un par un. Maintenant qu'on n'affiche plus
+  // qu'une seule carte "Voir tous mes projets", la section va à vitesse
+  // normale comme les autres.
   const getSectionSpeedModifier = (currentProgress) => {
     return 1;
   };
 
   // Fonction pour naviguer vers une section : SAUT DIRECT (téléportation).
+  // On met immédiatement progressRef, smoothProgressRef, et setProgress à la
+  // valeur cible, et on synchronise la vidéo à la frame correspondante.
+  // Le petit "fondu" visuel se fait côté CSS (transition d'opacité du conteneur).
   const navigateToSection = (targetPosition) => {
     const video = videoRef.current;
     if (!video) return;
@@ -116,25 +143,16 @@ const useVideoScroll = (videoRef) => {
     isAtEndRef.current = target >= 100;
     directionRef.current = target >= progressRef.current ? 1 : -1;
 
-    // Téléportation immédiate de la progression
+    // Téléportation immédiate de la progression (= la barre de menu, les sections
+    // actives, l'apparition des cartes). On NE TOUCHE PAS à video.currentTime
+    // pour que la vidéo de fond reste sur sa frame actuelle, comme un décor
+    // statique — l'utilisateur garde son repère visuel pendant la navigation.
     progressRef.current = target;
     smoothProgressRef.current = target;
     setProgress(target);
 
-    // Synchronisation de la vidéo sur la frame correspondante
-    if (video.duration) {
-      // 0%   → currentTime = 0
-      // 100% → currentTime = duration
-      const targetTime = (target / 100) * video.duration;
-      try {
-        video.currentTime = targetTime;
-      } catch (e) {
-        // Certains navigateurs jettent si la vidéo n'est pas seekable
-      }
-    }
-
-    // On met la vidéo en pause après le saut (l'utilisateur reprendra avec
-    // la molette quand il voudra)
+    // On met la vidéo en pause au cas où elle serait en lecture (la molette
+    // pourra la relancer ensuite si besoin).
     video.pause();
   };
 
@@ -153,18 +171,24 @@ const useVideoScroll = (videoRef) => {
         isAtEndRef.current = true;
       }
 
-      // Synchronise la vidéo avec le temps sauvegardé
+      // Synchronise la vidéo avec le temps sauvegardé.
+      // Si la vidéo est déjà proche de la valeur sauvée (cas d'un remount React
+      // Router où la vidéo n'a pas été démontée), on ne touche pas à currentTime
+      // pour éviter le saut visuel.
       const syncVideoTime = () => {
-        if (video.readyState >= 1) {
-          // Vidéo prête, on peut changer le currentTime
-          video.currentTime = savedVideoTime % video.duration;
+        const setTimeIfNeeded = () => {
+          const target = savedVideoTime % video.duration;
+          const current = video.currentTime;
+          if (Math.abs(current - target) > 0.5) {
+            video.currentTime = target;
+          }
           isInitializedRef.current = true;
+        };
+
+        if (video.readyState >= 1) {
+          setTimeIfNeeded();
         } else {
-          // Attendre que la vidéo soit chargée
-          video.addEventListener('loadedmetadata', () => {
-            video.currentTime = savedVideoTime % video.duration;
-            isInitializedRef.current = true;
-          }, { once: true });
+          video.addEventListener('loadedmetadata', setTimeIfNeeded, { once: true });
         }
       };
       
@@ -300,6 +324,11 @@ const useVideoScroll = (videoRef) => {
       window.removeEventListener('wheel', handleWheel);
       cancelAnimationFrame(animationId);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      // Quand HomePage se démonte (navigation vers une autre page), on met
+      // la vidéo en pause pour qu'elle reste à sa position actuelle.
+      if (video) {
+        try { video.pause(); } catch (e) {}
+      }
     };
   }, [videoRef]);
 
