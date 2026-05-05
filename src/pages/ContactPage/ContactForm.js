@@ -25,7 +25,7 @@ const ContactForm = ({ t, language }) => {
     name: '',
     email: '',
     message: '',
-    website: '' // Honeypot field - should remain empty
+    website: ''
   });
   const [status, setStatus] = useState('idle');
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
@@ -35,10 +35,7 @@ const ContactForm = ({ t, language }) => {
 
   // Charger le script reCAPTCHA une seule fois
   useEffect(() => {
-    // === Strategy 1 : silencer les erreurs reCAPTCHA dans la console ===
-    // L'overlay d'erreur React (react-error-overlay) se base sur console.error
-    // ET sur window.onerror. On patche les deux pour ignorer les erreurs
-    // "Timeout (b)" jetées par le script Google en interne.
+    // === Strategy 1 : silencer les erreurs reCAPTCHA dans la console
     const isRecaptchaMsg = (str) => {
       if (typeof str !== 'string') return false;
       return (
@@ -92,7 +89,6 @@ const ContactForm = ({ t, language }) => {
 
     // === Strategy 2 : reset périodique du widget ===
     // Le token reCAPTCHA expire à 120s. On reset le widget toutes les 100s
-    // pour qu'il ne soit jamais en état "timeout" interne.
     const resetInterval = setInterval(() => {
       try {
         if (window.grecaptcha && window.grecaptcha.reset) {
