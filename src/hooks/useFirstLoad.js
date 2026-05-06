@@ -15,7 +15,7 @@ const computeIsInitialLoad = () => {
 
 const APP_START_TIME = Date.now();
 const INITIAL_LOAD = computeIsInitialLoad();
-const LOADING_DURATION = 800;
+const LOADING_DURATION = 200;
 
 /**
  * Retourne true si on est dans la fenêtre de loading initial après un refresh.

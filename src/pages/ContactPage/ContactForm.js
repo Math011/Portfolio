@@ -187,9 +187,42 @@ const ContactForm = ({ t, language }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Validation côté client : longueurs raisonnables + format email +
+  // détection de patterns suspects.
+  const validateInput = () => {
+    const errors = [];
+    const { name, email, message } = formData;
+
+    // Longueurs
+    if (!name.trim() || name.trim().length < 2) errors.push('nameInvalid');
+    if (name.length > 100) errors.push('nameTooLong');
+    if (!email.trim()) errors.push('emailInvalid');
+    if (email.length > 254) errors.push('emailTooLong');
+    if (!message.trim() || message.trim().length < 10) errors.push('messageInvalid');
+    if (message.length > 5000) errors.push('messageTooLong');
+
+    // Format email basique mais robuste (RFC 5322 simplifié)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (email && !emailRegex.test(email)) errors.push('emailFormatInvalid');
+
+    // Détection liens suspects dans le message (spam classique)
+    const urlCount = (message.match(/https?:\/\//gi) || []).length;
+    if (urlCount > 3) errors.push('tooManyLinks');
+
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    // ===== VALIDATION CÔTÉ CLIENT =====
+    const validationErrors = validateInput();
+    if (validationErrors.length > 0) {
+      setStatus('validationError');
+      setTimeout(() => setStatus('idle'), 5000);
+      return;
+    }
+
     // ===== HONEYPOT CHECK =====
     if (formData.website) {
       console.log('Bot detected via honeypot');
@@ -339,6 +372,8 @@ ${replyMessages.closing}`;
             onChange={handleChange}
             placeholder={t('namePlaceholder')}
             required
+            minLength={2}
+            maxLength={100}
             disabled={status === 'sending'}
           />
         </div>
@@ -353,6 +388,7 @@ ${replyMessages.closing}`;
             onChange={handleChange}
             placeholder={t('emailPlaceholder')}
             required
+            maxLength={254}
             disabled={status === 'sending'}
           />
         </div>
@@ -367,6 +403,8 @@ ${replyMessages.closing}`;
             placeholder={t('messagePlaceholder')}
             rows="4"
             required
+            minLength={10}
+            maxLength={5000}
             disabled={status === 'sending'}
           />
         </div>
@@ -390,6 +428,10 @@ ${replyMessages.closing}`;
         
         {status === 'error' && (
           <p className={styles.errorMessage}>{t('messageError')}</p>
+        )}
+
+        {status === 'validationError' && (
+          <p className={styles.errorMessage}>{t('validationError') || 'Veuillez vérifier vos informations.'}</p>
         )}
         
         {status === 'tooFast' && (

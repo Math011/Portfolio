@@ -2,6 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+
+    <!-- =====================================================================
+         Content Security Policy (CSP)
+         ----------------------------------------------------------------------
+         Limite les sources autorisées pour scripts/styles/images/connexions.
+
+         Domaines autorisés :
+         - 'self'                              : Mon propre domaine
+         - https://www.google.com              : reCAPTCHA (script + iframe)
+         - https://www.gstatic.com             : reCAPTCHA (script statique)
+         - https://cdn.jsdelivr.net            : icônes devicons (skills About)
+         - https://fonts.googleapis.com        : feuille de style Google Fonts
+         - https://fonts.gstatic.com           : fichiers de polices Google Fonts
+         - https://api.emailjs.com             : envoi du formulaire de contact
+         - data: / blob:                       : images SVG/data URIs et videos
+         ===================================================================== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.emailjs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://cdn.jsdelivr.net https://via.placeholder.com; media-src 'self' blob:; connect-src 'self' https://api.emailjs.com https://www.google.com; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
@@ -21,7 +39,7 @@
     <link rel="preload" as="image" href="%PUBLIC_URL%/images/tout-sol.svg" type="image/svg+xml">
     <link rel="preload" as="image" href="%PUBLIC_URL%/images/nouveau-paysage.svg" type="image/svg+xml">
     <link rel="preload" as="image" href="%PUBLIC_URL%/images/face.jpg" type="image/jpeg">
-    <link rel="preload" as="video" href="%PUBLIC_URL%/paysages_tout_9sec.mp4" type="video/mp4">
+    <link rel="preload" as="video" href="%PUBLIC_URL%/paysages_tout.mp4" type="video/mp4">
 
     <!--
       manifest.json provides metadata used when your web app is installed on a

@@ -1,6 +1,8 @@
 // =============================================================================
 // CONFIGURATION - ContactPage
-// Pour plus de sécurité, utilise des variables d'environnement (.env)
+//
+// ⚠️ IMPORTANT — sécurité des clés d'API
+// -----------------------------------------------------------------------------
 // =============================================================================
 
 // EmailJS Configuration
@@ -43,9 +45,13 @@ export const SOCIAL_LINKS = {
   github: 'https://github.com/Math011'
 };
 
-// Rate limiting config
+// =============================================================================
+// Rate limiting côté client
+// -----------------------------------------------------------------------------
+// Sans backend, c'est la seule barrière contre un spam massif depuis le
+// =============================================================================
 export const RATE_LIMIT = {
-  minInterval: 30000, // 30 secondes minimum entre chaque envoi
-  maxSubmits: 3,      // Maximum 3 envois
-  resetTime: 300000   // Reset après 5 minutes
+  minInterval: 60000,   // 1 minute minimum entre chaque envoi
+  maxSubmits: 3,        // Maximum 3 envois
+  resetTime: 3600000    // Reset après 1 heure (au lieu de 5 minutes)
 };

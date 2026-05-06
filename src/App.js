@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { 
@@ -13,11 +13,19 @@ import {
   FinishMenu,
   ScrollHint
 } from './components';
-import { ProjectsPage, ProjectDetailPage, ContactPage, AboutPage, NotFoundPage } from './pages';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
 import { useInitialLoading } from './hooks/useFirstLoad';
 import './App.css';
+
+// Pages chargées à la demande (code splitting). Chaque page devient son propre
+// chunk JS qui n'est téléchargé que quand l'utilisateur y navigue. Réduit le
+// bundle initial de ~50% car la HomePage n'a pas besoin de leur code au boot.
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage/ProjectsPage'));
+const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage/ProjectDetailPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 // HomePage : reçoit videoRef en props (la vidéo elle-même est montée au niveau App)
 function HomePage({ videoRef }) {
@@ -87,14 +95,26 @@ function AppContent() {
         />
       </div>
 
-      <Routes>
-        <Route path="/" element={<HomePage videoRef={videoRef} />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/project/:id" element={<ProjectDetailPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      {/* Fallback Suspense minimal pendant le chargement async des chunks
+          de pages (code splitting). On affiche juste un fond beige cohérent
+          plutôt que le LoadingScreen complet, pour ne pas avoir l'écran de
+          chargement à chaque navigation. Le vrai LoadingScreen reste géré
+          par useInitialLoading sur Home et Projects au refresh. */}
+      <Suspense fallback={<div style={{
+        position: 'fixed',
+        inset: 0,
+        background: '#F0D890',
+        zIndex: 9999
+      }} />}>
+        <Routes>
+          <Route path="/" element={<HomePage videoRef={videoRef} />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/project/:id" element={<ProjectDetailPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }
