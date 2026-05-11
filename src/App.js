@@ -18,9 +18,7 @@ import useVideoScroll from './hooks/useVideoScroll';
 import { useInitialLoading } from './hooks/useFirstLoad';
 import './App.css';
 
-// Pages chargées à la demande (code splitting). Chaque page devient son propre
-// chunk JS qui n'est téléchargé que quand l'utilisateur y navigue. Réduit le
-// bundle initial de ~50% car la HomePage n'a pas besoin de leur code au boot.
+// Réduit le bundle initial de ~50% car la HomePage n'a pas besoin de leur code au boot.
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage/ProjectsPage'));
 const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage/ProjectDetailPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
@@ -95,11 +93,6 @@ function AppContent() {
         />
       </div>
 
-      {/* Fallback Suspense minimal pendant le chargement async des chunks
-          de pages (code splitting). On affiche juste un fond beige cohérent
-          plutôt que le LoadingScreen complet, pour ne pas avoir l'écran de
-          chargement à chaque navigation. Le vrai LoadingScreen reste géré
-          par useInitialLoading sur Home et Projects au refresh. */}
       <Suspense fallback={<div style={{
         position: 'fixed',
         inset: 0,
@@ -122,7 +115,7 @@ function AppContent() {
 function App() {
   return (
     <LanguageProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AppContent />
       </Router>
     </LanguageProvider>

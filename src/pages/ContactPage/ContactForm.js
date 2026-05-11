@@ -281,10 +281,15 @@ const ContactForm = ({ t, language }) => {
     
     try {
       // 1. Envoyer le message principal
-      await emailjs.sendForm(
+      await emailjs.send(
         EMAILJS_CONFIG.serviceId,
         EMAILJS_CONFIG.templateId,
-        formRef.current,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          'g-recaptcha-response': tokenToUse
+        },
         EMAILJS_CONFIG.publicKey
       );
       
