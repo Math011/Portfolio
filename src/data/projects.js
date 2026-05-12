@@ -1,6 +1,4 @@
 // Liste des projets — couleurs des ballons depuis la palette du site
-import { GITHUB_PROFILE } from './constants';
-
 export const projects = [
   {
     id: 1,
@@ -9,12 +7,12 @@ export const projects = [
     fullDescriptionKey: 'project1_fullDescription',
     image: '/images/projects/project1.jpg',
     gallery: [
-      '/images/projects/project1.jpg',
-      '/images/projects/project1-2.jpg',
-      '/images/projects/project1-3.jpg',
+      '/images/projets/portfolio/portfolio-home.jpg',
+      '/images/projets/portfolio/portfolio-about.jpg',
+      '/images/projets/portfolio/portfolio-contact.jpg'
     ],
-    tags: ['React', 'Node.js', 'MongoDB'],
-    githubLink: 'https://github.com/username/project1',
+    tags: ['React'],
+    githubLink: 'https://github.com/Math011/Portfolio ',
     liveLink: '#',
     color: '#D9732D'
   },
@@ -28,8 +26,8 @@ export const projects = [
       '/images/projects/project2.jpg',
       '/images/projects/project2-2.jpg',
     ],
-    tags: ['Vue.js', 'Firebase'],
-    githubLink: 'https://github.com/username/project2',
+    tags: ['React'],
+    githubLink: 'https://github.com/Math011/news',
     liveLink: '#',
     color: '#5A7046'
   },
@@ -42,8 +40,8 @@ export const projects = [
     gallery: [
       '/images/projects/project3.jpg',
     ],
-    tags: ['Next.js', 'Tailwind CSS'],
-    githubLink: 'https://github.com/username/project3',
+    tags: ['Shell'],
+    githubLink: 'https://github.com/Math011/docker-symfony-template',
     liveLink: '#',
     color: '#8B5A2B'
   },
@@ -56,8 +54,8 @@ export const projects = [
     gallery: [
       '/images/projects/project4.jpg',
     ],
-    tags: ['React Native', 'Express'],
-    githubLink: 'https://github.com/username/project4',
+    tags: ['Symfony', 'React', 'PostgreSQL'],
+    githubLink: 'https://github.com/Math011/project4',
     liveLink: '#',
     color: '#C5542B'
   },

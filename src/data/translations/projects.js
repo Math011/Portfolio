@@ -21,19 +21,19 @@ export const projectsTranslations = {
     project1_fullDescription: "Description complète du projet 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
 
     // Projet 2
-    project2_title: "Projet 2",
+    project2_title: 'Projet "News"',
     project2_description: "Description courte du deuxième projet.",
     project2_fullDescription: "Description complète du projet 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     
     // Projet 3
-    project3_title: "Projet 3",
+    project3_title: "Script de création de projet Symfony",
     project3_description: "Description courte du troisième projet.",
     project3_fullDescription: "Description complète du projet 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     
     // Projet 4
-    project4_title: "Projet 4",
-    project4_description: "Description courte du quatrième projet.",
-    project4_fullDescription: "Description complète du projet 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    project4_title: "En cours de construction",
+    project4_description: "En cours de construction.",
+    project4_fullDescription: "En cours de construction.",
     
     // Labels
     technologiesLabel: "Technologies",
@@ -62,19 +62,19 @@ export const projectsTranslations = {
     project1_fullDescription: "Full description of project 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     
     // Projet 2
-    project2_title: "Project 2",
+    project2_title: 'Project "News ',
     project2_description: "Short description of the second project.",
     project2_fullDescription: "Full description of project 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     
     // Projet 3
-    project3_title: "Project 3",
+    project3_title: "Symfony project creation script",
     project3_description: "Short description of the third project.",
     project3_fullDescription: "Full description of project 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     
     // Projet 4
-    project4_title: "Project 4",
-    project4_description: "Short description of the fourth project.",
-    project4_fullDescription: "Full description of project 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    project4_title: "Currently building ",
+    project4_description: "currently building.",
+    project4_fullDescription: "currently building.",
     
     // Labels
     technologiesLabel: "Technologies",

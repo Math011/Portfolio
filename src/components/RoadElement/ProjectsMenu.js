@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { projects } from '../../pages/ProjectsPage/ProjectsData';
+import { projects } from '../../data/projects';
 
 const ProjectsMenu = ({ progress }) => {
   const { t } = useLanguage();

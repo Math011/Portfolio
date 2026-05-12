@@ -6,7 +6,7 @@ import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import ProjectCard from './ProjectCard';
 import { Bird } from './SvgElements';
 import { generateBirds, generateClouds, SIZE_TO_CLASS, OPACITY_TO_CLASS, SPEED_TO_CLASS } from './generators';
-import { projects } from './ProjectsData';
+import { projects } from '../../data/projects';
 import { useInitialLoading } from '../../hooks/useFirstLoad';
 import styles from './ProjectsPage.module.css';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { projects } from '../ProjectsPage/ProjectsData';
+import { projects } from '../../data/projects';
 import Header from '../../components/Header';
 import DecorativeBackground from './DecorativeBackground';
 import Balloon from './Balloon';
