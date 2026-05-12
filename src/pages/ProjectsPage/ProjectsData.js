@@ -7,9 +7,9 @@ export const projects = [
     fullDescriptionKey: 'project1_fullDescription',
     image: '/images/projects/project1.jpg',
     gallery: [
-      '/images/projects/project1.jpg',
-      '/images/projects/project1-2.jpg',
-      '/images/projects/project1-3.jpg',
+      '/images/projets/portfolio/portfolio-home.jpg',
+      '/images/projets/portfolio/portfolio-about.jpg',
+      '/images/projets/portfolio/portfolio-contact.jpg'
     ],
     tags: ['React', 'Node.js', 'MongoDB'],
     githubLink: 'https://github.com/Math011/project1',

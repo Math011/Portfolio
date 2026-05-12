@@ -1,11 +1,6 @@
 // Traductions de la page Contact
 export const contactTranslations = {
   fr: {
-    // ContactMenu - Aperçu sur la home
-    contactTitle: "Mes Contacts",
-    contactDescription: "Vous avez un projet en tête ? N'hésitez pas à me contacter pour en discuter.",
-    contactLink: "Me contacter →",
-    
     // Page Contact complète
     contactPageEyebrow: "Carnet de route — Chapitre 04",
     contactPageTitle: "Vous voilà arrivé.",
@@ -42,11 +37,6 @@ export const contactTranslations = {
   },
   
   en: {
-    // ContactMenu - Aperçu sur la home
-    contactTitle: "Contact Me",
-    contactDescription: "Have a project in mind? Feel free to contact me to discuss it.",
-    contactLink: "Get in touch →",
-    
     // Page Contact complète
     contactPageEyebrow: "04 — CONTACT",
     contactPageTitle: "You've arrived.",

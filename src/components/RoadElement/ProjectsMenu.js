@@ -64,12 +64,10 @@ const ProjectsMenu = ({ progress }) => {
       {/* Carte unique "Voir tous mes projets" */}
       {cardStyles && (
         <div className="roadCard" style={cardStyles}>
-          <p className="roadKicker">— 03 {t('projects')}</p>
+          <p className="roadKicker">— 03 {t('projects')} · {projectCount}</p>
           <h2 className="roadTitle">{t('projectsTitle')}</h2>
           <p className="roadDescription">
-            {projectCount > 0
-              ? `${projectCount} ${t('projectsTeaser') || 'réalisations à découvrir'}`
-              : t('projectsTeaser') || 'Découvrez l\'ensemble de mes réalisations'}
+            {t('projectsTeaser')}
           </p>
           <Link to="/projects" className="roadLink">
             {t('viewAllProjects')} →

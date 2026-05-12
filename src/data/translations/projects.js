@@ -1,11 +1,11 @@
 // Traductions des projets (source unique pour toutes les pages)
 export const projectsTranslations = {
   fr: {
-    // Titres de section
+     // Titres de section
     projectsPageKicker: "Carnet de route — Chapitre 03",
     projectsPageTitle: "Mes Projets",
     projectLink: "Voir le projet →",
-    
+
     // Page détail projet
     backToProjects: "← Retour aux projets",
     previousProject: "← Précédent",
@@ -16,10 +16,10 @@ export const projectsTranslations = {
     projectGallery: "Galerie",
     
     // Projet 1
-    project1_title: "Projet 1",
+    project1_title: "Mon Portfolio",
     project1_description: "Description courte du premier projet.",
     project1_fullDescription: "Description complète du projet 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    
+
     // Projet 2
     project2_title: "Projet 2",
     project2_description: "Description courte du deuxième projet.",
@@ -57,7 +57,7 @@ export const projectsTranslations = {
     projectGallery: "Gallery",
     
     // Projet 1
-    project1_title: "Project 1",
+    project1_title: "My Portfolio",
     project1_description: "Short description of the first project.",
     project1_fullDescription: "Full description of project 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     
