@@ -8,7 +8,7 @@
 }
 
 /* =============================================================================
-   DÉCOR DE FOND (clouds + birds — inchangé)
+   DÉCOR DE FOND (clouds + birds)
    ============================================================================= */
 .backgroundBirds, .backgroundClouds {
   position: absolute;
@@ -121,7 +121,7 @@
   margin: 0;
 }
 
-/* Lien retour : pastille papier (cohérence Header) */
+/* Lien retour : pastille papier */
 .backLink {
   display: inline-flex;
   align-items: center;
@@ -147,12 +147,10 @@
 }
 
 /* =============================================================================
-   IMAGE PRINCIPALE
-   Ratio 16:10 (compact, mais l'image remplit tout le cadre). max-height
-   évite que sur un grand écran le cadre prenne toute la hauteur visible.
-   object-fit: cover garantit le remplissage complet du cadre.
+   IMAGE PRINCIPALE + FLÈCHES + COMPTEUR
    ============================================================================= */
 .projectMainImage {
+  position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
   max-height: 440px;
@@ -162,6 +160,7 @@
   background: rgba(43, 36, 29, 0.08);
   border: 2px solid var(--paper-edge);
   box-shadow: 0 18px 30px rgba(43, 36, 29, 0.18);
+  cursor: zoom-in;
 }
 
 .projectMainImage img {
@@ -169,6 +168,53 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Flèches de navigation sur l'image principale */
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(244, 230, 200, 0.92);
+  border: 1.5px solid var(--paper-edge);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  box-shadow: 0 4px 10px rgba(43, 36, 29, 0.25);
+  z-index: 2;
+}
+
+.navArrow:hover {
+  background: var(--accent);
+  color: var(--paper);
+  border-color: var(--accent);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.navArrowLeft  { left: 14px; }
+.navArrowRight { right: 14px; }
+
+/* Compteur "1 / 3" en bas à droite */
+.imageCounter {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  padding: 5px 12px;
+  background: rgba(43, 36, 29, 0.78);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-pill);
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* =============================================================================
@@ -192,16 +238,19 @@
   flex-wrap: wrap;
 }
 
+/* Thumbnail : bouton sans style natif, image qui remplit complètement */
 .thumbnail {
   width: 120px;
   height: 80px;
+  padding: 0;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.65;
   border: 2px solid var(--paper-edge);
   background: rgba(43, 36, 29, 0.08);
   transition: opacity 200ms ease, transform 200ms ease, border-color 200ms ease;
+  display: block;
 }
 
 .thumbnail:hover { transform: translateY(-3px); opacity: 1; }
@@ -209,6 +258,7 @@
 .thumbnail.active {
   opacity: 1;
   border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .thumbnail img {
@@ -216,6 +266,97 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* =============================================================================
+   LIGHTBOX PLEIN ÉCRAN
+   ============================================================================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(20, 14, 8, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  cursor: zoom-out;
+  animation: fadeIn 200ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lightboxImage {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+.lightboxClose {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(244, 230, 200, 0.15);
+  border: 1.5px solid rgba(244, 230, 200, 0.4);
+  color: var(--paper);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.lightboxClose:hover {
+  background: rgba(244, 230, 200, 0.3);
+  transform: rotate(90deg);
+}
+
+.lightboxArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(244, 230, 200, 0.15);
+  border: 1.5px solid rgba(244, 230, 200, 0.4);
+  color: var(--paper);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.lightboxArrow:hover {
+  background: rgba(244, 230, 200, 0.3);
+}
+
+.lightboxArrowLeft  { left: 24px; }
+.lightboxArrowRight { right: 24px; }
+
+.lightboxCounter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  padding: 6px 16px;
+  background: rgba(244, 230, 200, 0.15);
+  border-radius: var(--radius-pill);
+  pointer-events: none;
 }
 
 /* =============================================================================
@@ -268,6 +409,17 @@
   color: var(--accent);
 }
 
+/* Quand le projet utilise customContent (contenu enrichi JSX), on neutralise
+   la lettrine du parent : le composant enrichi gère sa propre typographie. */
+.projectDescription > div:first-child p:first-child::first-letter {
+  font-family: inherit;
+  font-size: inherit;
+  float: none;
+  line-height: inherit;
+  margin: 0;
+  color: inherit;
+}
+
 /* Technologies */
 .projectTechnologies { margin-bottom: 2rem; }
 
@@ -287,20 +439,47 @@
   gap: 8px;
 }
 
+/* Tech tag : style "stamp" papier crème avec bordure foncée + accent.
+   On retire la couleur de fond inline du JS (project.color) qui rendait
+   le texte parfois illisible. Couleur uniforme cohérente avec le design. */
 .techTag {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #FFF8E7;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
-  background: var(--accent);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1.5px solid var(--paper-edge);
   padding: 6px 14px;
   border-radius: var(--radius-pill);
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.12),
-    0 2px 6px rgba(43, 36, 29, 0.15);
+  position: relative;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+  cursor: default;
+}
+
+.techTag::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.techTag:hover {
+  background: var(--accent);
+  color: var(--paper);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.techTag:hover::before {
+  background: var(--paper);
 }
 
 /* Boutons d'action */
@@ -350,7 +529,7 @@
 }
 
 /* =============================================================================
-   NAVIGATION ENTRE PROJETS — 3 styles distincts
+   NAVIGATION ENTRE PROJETS
    ============================================================================= */
 .projectNavigation {
   display: flex;
@@ -362,7 +541,6 @@
   flex-wrap: wrap;
 }
 
-/* Précédent / Suivant : pastilles claires sur fond papier (plus visibles) */
 .navProject {
   display: inline-flex;
   align-items: center;
@@ -393,7 +571,6 @@
 
 .navProjectEmpty { visibility: hidden; }
 
-/* Retour aux projets : bouton orange accent (call-to-action principal) */
 .navBackBtn {
   display: inline-flex;
   align-items: center;
@@ -444,9 +621,16 @@
 @media (max-width: 768px) {
   .projectDetailContent { padding: 6rem 18px 3rem; }
   .projectInfoSection { padding: 2rem 1.5rem 1.75rem; }
-  .projectTitle { font-size: clamp(32px, 8vw, 48px); }
+  .projectTitle { font-size: clamp(28px, 7vw, 40px); }
   .thumbnail { width: 90px; height: 60px; }
   .projectLinks { gap: 10px; }
   .projectBtn { padding: 10px 18px; font-size: 13px; }
   .projectNavigation { justify-content: center; }
+  .navArrow { width: 38px; height: 38px; }
+  .navArrowLeft  { left: 8px; }
+  .navArrowRight { right: 8px; }
+  .lightboxArrow { width: 44px; height: 44px; }
+  .lightboxArrowLeft  { left: 8px; }
+  .lightboxArrowRight { right: 8px; }
+  .lightbox { padding: 16px; }
 }

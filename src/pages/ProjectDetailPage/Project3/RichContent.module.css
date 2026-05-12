@@ -1,0 +1,196 @@
+/* =============================================================================
+   RICH CONTENT — style "carnet de voyage" pour les projets détaillés
+   Cohérent avec le design papier ambré du portfolio.
+   ============================================================================= */
+
+.richContent {
+  font-family: var(--font-sans);
+  color: var(--ink-soft);
+}
+
+/* Paragraphe d'intro avec lettrine */
+.lead {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0 0 1.25rem;
+}
+
+.lead::first-letter {
+  font-family: var(--font-serif);
+  font-size: 56px;
+  float: left;
+  line-height: 0.9;
+  margin: 8px 12px -6px 0;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Séparateur ornemental */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.divider::before {
+  content: "";
+  flex: 0 0 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--paper-edge), transparent);
+}
+
+.dividerOrnament {
+  color: var(--accent);
+  font-size: 18px;
+  letter-spacing: 4px;
+  margin: 0 12px;
+}
+
+/* Sous-intro */
+.subLead {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+}
+
+/* Liste de features (Symfony+Twig, Symfony API+React) */
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+}
+
+.featureList li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 0 12px 28px;
+  position: relative;
+}
+
+.featureList li::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 20px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(217, 115, 45, 0.18);
+}
+
+.featureList strong {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.featureDesc {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+/* Titre de section avec ornement */
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 2rem 0 1.25rem;
+  letter-spacing: -0.01em;
+  padding-bottom: 8px;
+  border-bottom: 1.5px dashed rgba(43, 36, 29, 0.25);
+}
+
+.headingOrnament {
+  color: var(--accent);
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+/* Tableau des modules */
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1.5px solid var(--paper-edge);
+  background: rgba(255, 248, 231, 0.5);
+  box-shadow: inset 0 2px 6px rgba(43, 36, 29, 0.06);
+}
+
+.modulesTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
+.modulesTable thead tr {
+  background: linear-gradient(180deg, rgba(217, 115, 45, 0.12) 0%, rgba(217, 115, 45, 0.06) 100%);
+  border-bottom: 1.5px solid var(--paper-edge);
+}
+
+.modulesTable th {
+  text-align: left;
+  padding: 12px 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.modulesTable tbody tr {
+  border-bottom: 1px dashed rgba(43, 36, 29, 0.15);
+  transition: background 180ms ease;
+}
+
+.modulesTable tbody tr:last-child {
+  border-bottom: none;
+}
+
+.modulesTable tbody tr:hover {
+  background: rgba(244, 230, 200, 0.5);
+}
+
+.modulesTable td {
+  padding: 14px 18px;
+  color: var(--ink);
+  vertical-align: middle;
+}
+
+.modulesTable td:first-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.modulesTable strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.moduleIcon {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .lead { font-size: 16px; }
+  .lead::first-letter { font-size: 44px; }
+  .sectionHeading { font-size: 22px; }
+  .modulesTable { font-size: 14px; }
+  .modulesTable th, .modulesTable td { padding: 10px 12px; }
+}

@@ -152,9 +152,6 @@ const JourneyBlock = ({ t }) => {
 function AboutPage() {
   const { t, language } = useLanguage();
 
-  // CV adapté à la langue active
-  const cvHref = language === 'en' ? '/cv-mathieu-raudin-en.pdf' : '/cv-mathieu-raudin-fr.pdf';
-
   // Stats dynamiques : projets compté depuis ProjectsData, skills compté
   // depuis SKILLS. Évite de devoir mettre à jour les chiffres à la main
   // quand on ajoute un projet ou une compétence.
@@ -207,7 +204,7 @@ function AboutPage() {
               {(Array.isArray(t('bioParagraphs')) ? t('bioParagraphs') : []).map((p, i) => (
                 <p key={i} className={styles.bioParagraph}>{p}</p>
               ))}
-              <a href={cvHref} download className={styles.cvButton}>
+              <a href={t('cvFile')} target="_blank" rel="noopener noreferrer" className={styles.cvButton}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="7 10 12 15 17 10" />

@@ -28,8 +28,8 @@ export const aboutTranslations = {
     statSkills: "Technologies",
     statCoffee: "Café / jour",
 
-    cvDownload: "Télécharger mon CV",
-    cvFile: "/cv-mathieu-raudin-fr.pdf",
+    cvDownload: "Voir mon CV",
+    cvFile: "/cv/cv-mathieu-raudin-fr.pdf",
 
     education: [
       {
@@ -103,8 +103,8 @@ export const aboutTranslations = {
     statSkills: "Technologies",
     statCoffee: "Coffee / day",
 
-    cvDownload: "Download my CV",
-    cvFile: "/cv-mathieu-raudin-en.pdf",
+    cvDownload: "View my CV",
+    cvFile: "/cv/cv-mathieu-raudin-en.pdf",
 
     education: [
       {

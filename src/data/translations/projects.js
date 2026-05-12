@@ -83,13 +83,13 @@ Modules optionnels disponibles :
     
     // Projet 3
     project3_title: "Symfony project creation script",
-    project3_description: "Short description of the third project.",
+    project3_description: "Reusable Docker template designed to spin up Symfony projects with PostgreSQL in just a few minutes.",
     project3_fullDescription: "Full description of project 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     
     // Projet 4
     project4_title: "Currently building ",
-    project4_description: "currently building.",
-    project4_fullDescription: "currently building.",
+    project4_description: "Currently building.",
+    project4_fullDescription: "Currently building.",
     
     // Labels
     technologiesLabel: "Technologies",
