@@ -17,8 +17,8 @@ export const projectsTranslations = {
     
     // Projet 1
     project1_title: "Mon Portfolio",
-    project1_description: "Description courte du premier projet.",
-    project1_fullDescription: "Description complète du projet 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    project1_description: "Portfolio personnel sur le thème du voyage et du road trip.",
+    project1_fullDescription: ' Portfolio personnel sur le thème du voyage et du road trip. Le visiteur défile à travers un paysage qui se déroule au scroll, et découvre les différentes "étapes" du parcours : qui je suis, mes projets, et comment me contacter.',
 
     // Projet 2
     project2_title: 'Projet "News"',
@@ -27,8 +27,23 @@ export const projectsTranslations = {
     
     // Projet 3
     project3_title: "Script de création de projet Symfony",
-    project3_description: "Description courte du troisième projet.",
-    project3_fullDescription: "Description complète du projet 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    project3_description: "Template Docker réutilisable pour créer des projets Symfony avec PostgreSQL en quelques minutes.",
+    project3_fullDescription: `
+Template Docker réutilisable conçu pour créer des projets Symfony avec PostgreSQL en quelques minutes.
+
+Le projet supporte deux architectures :
+
+• Symfony + Twig --- Application server-side classique avec rendu Twig.
+
+• Symfony API + React/TypeScript --- API Platform et frontend React.
+
+Modules optionnels disponibles :
+
+| Module | Description |
+| PHPUnit | Framework de tests avec un test d’exemple |
+| GrumPHP | PHPStan, PHP CS Fixer, Twig CS Fixer, YAML Lint, Composer Normalize |
+| CI | GitHub Actions — qualité, tests, build et sécurité |
+`,
     
     // Projet 4
     project4_title: "En cours de construction",
@@ -58,8 +73,8 @@ export const projectsTranslations = {
     
     // Projet 1
     project1_title: "My Portfolio",
-    project1_description: "Short description of the first project.",
-    project1_fullDescription: "Full description of project 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    project1_description: "A personal portfolio exploring the themes of travel and road trips.",
+    project1_fullDescription: "A personal portfolio exploring the themes of travel and road trips. Visitors scroll through a landscape that unfolds as they navigate the page, discovering the various ‘stops’ along the way: who I am, my projects, and how to contact me.",
     
     // Projet 2
     project2_title: 'Project "News ',

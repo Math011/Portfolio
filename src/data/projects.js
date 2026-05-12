@@ -54,7 +54,7 @@ export const projects = [
     gallery: [
     ],
     tags: ['Symfony', 'React', 'PostgreSQL'],
-    githubLink: 'https://github.com/Math011/project4',
+    githubLink: 'https://github.com/Math011/',
     liveLink: '#',
     color: '#C5542B'
   },

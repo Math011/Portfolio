@@ -14,6 +14,8 @@ export const aboutTranslations = {
     skillsLabel: "Compétences",
     skillsFrontend: "Frontend",
     skillsBackend: "Backend",
+    skillsDatabase: "Base de données",
+    skillsTesting: "Testing",
     skillsTools: "Outils",
 
     journeyLabel: "Parcours",
@@ -87,6 +89,8 @@ export const aboutTranslations = {
     skillsLabel: "Skills",
     skillsFrontend: "Frontend",
     skillsBackend: "Backend",
+    skillsDatabase: "Database",
+    skillsTesting: "Testing",
     skillsTools: "Tools",
 
     journeyLabel: "Journey",
