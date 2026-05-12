@@ -52,7 +52,6 @@ export const projects = [
     fullDescriptionKey: 'project4_fullDescription',
     image: '/images/projects/project4.jpg',
     gallery: [
-      '/images/projects/project4.jpg',
     ],
     tags: ['Symfony', 'React', 'PostgreSQL'],
     githubLink: 'https://github.com/Math011/project4',

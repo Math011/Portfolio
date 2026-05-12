@@ -21,6 +21,7 @@ export const homeTranslations = {
     contactLink: "Me contacter →",
     
     // FinishMenu
+    finishKicker: "Fin",
     finishTitle: "Vous êtes arrivé à destination !",
     finishSubtitle: "Merci d'avoir parcouru mon portfolio",
     finishRestart: "Recommencer le voyage",

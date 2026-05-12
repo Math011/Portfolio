@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { projects } from '../../data/projects';
 import Header from '../../components/Header';
 import styles from './AboutPage.module.css';
 
@@ -12,24 +13,30 @@ const SKILLS = {
     { name: 'CSS3',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
   ],
   backend: [
-    { name: 'Node.js',  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-    { name: 'PHP',  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg' },
-    { name: 'Symfony',  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/symfony/symfony-original.svg' },
+    { name: 'PHP',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg' },
+    { name: 'Symfony', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/symfony/symfony-original.svg' },
+  ],
+  database: [
+    { name: 'MySQL',      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+    { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+  ],
+  testing: [
+    // PHPUnit n'a pas d'icône Devicon claire. On laisse l'icon vide :
+    // le SkillChip détecte ce cas et n'affiche que le nom (style "puce texte")
+    // au lieu d'un placeholder cassé.
+    { name: 'PHPUnit', icon: null },
   ],
   tools: [
-    { name: 'Git',    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-    { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
-    { name: 'GitLab', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg' },
-    { name: 'Figma',  icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+    { name: 'Git',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+    { name: 'GitHub',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+    { name: 'GitLab',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg' },
+    { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg' },
+    { name: 'Docker',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
   ],
 };
 
-const STATS = [
-  { key: 'statYears',    value: '3+'  },
-  { key: 'statProjects', value: '12'  },
-  { key: 'statSkills',   value: '11'  },
-  { key: 'statCoffee',   value: '3'   },
-];
+// Compte le total de skills à travers toutes les catégories (dynamique)
+const TOTAL_SKILLS = Object.values(SKILLS).reduce((sum, list) => sum + list.length, 0);
 
 // Compass : aiguille orientée vers le NE (l'horizon)
 const Compass = () => (
@@ -60,6 +67,30 @@ const Polaroid = ({ initials = 'MR', photoUrl }) => {
   );
 };
 
+// Affiche une skill. Si pas d'icône fournie OU si le chargement échoue,
+// on retombe sur un style "puce texte" propre (juste le nom, sans logo cassé).
+const SkillChip = ({ skill }) => {
+  const [iconFailed, setIconFailed] = useState(false);
+  const hasIcon = skill.icon && !iconFailed;
+
+  return (
+    <span
+      className={`${styles.skillChip} ${!hasIcon ? styles.skillChipTextOnly : ''}`}
+      title={skill.name}
+    >
+      {hasIcon && (
+        <img
+          src={skill.icon}
+          alt=""
+          loading="lazy"
+          onError={() => setIconFailed(true)}
+        />
+      )}
+      <span>{skill.name}</span>
+    </span>
+  );
+};
+
 const SkillsBlock = ({ t }) => (
   <div className={styles.skillsBlock}>
     <div className={styles.blockHeader}>
@@ -70,12 +101,7 @@ const SkillsBlock = ({ t }) => (
       <div key={cat} className={styles.skillsRow}>
         <span className={styles.skillsCat}>{t(`skills${cat[0].toUpperCase() + cat.slice(1)}`)}</span>
         <div className={styles.skillsList}>
-          {list.map(s => (
-            <span key={s.name} className={styles.skillChip} title={s.name}>
-              <img src={s.icon} alt="" loading="lazy" />
-              <span>{s.name}</span>
-            </span>
-          ))}
+          {list.map(s => <SkillChip key={s.name} skill={s} />)}
         </div>
       </div>
     ))}
@@ -128,6 +154,16 @@ function AboutPage() {
 
   // CV adapté à la langue active
   const cvHref = language === 'en' ? '/cv-mathieu-raudin-en.pdf' : '/cv-mathieu-raudin-fr.pdf';
+
+  // Stats dynamiques : projets compté depuis ProjectsData, skills compté
+  // depuis SKILLS. Évite de devoir mettre à jour les chiffres à la main
+  // quand on ajoute un projet ou une compétence.
+  const STATS = [
+    { key: 'statYears',    value: '3+' },
+    { key: 'statProjects', value: String(projects.length) },
+    { key: 'statSkills',   value: String(TOTAL_SKILLS) },
+    { key: 'statCoffee',   value: '3' },
+  ];
 
   return (
     <div className={styles.page}>

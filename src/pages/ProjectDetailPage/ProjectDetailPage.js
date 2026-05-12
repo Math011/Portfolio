@@ -45,6 +45,12 @@ const ProjectDetailPage = () => {
   }
 
   const projectTitle = t(project.titleKey);
+  
+  // Détermine si on a des images à afficher. Sans images → on n'affiche ni l'image principale
+  // ni la galerie.
+  const hasImages = project.gallery
+    && project.gallery.length > 0
+    && project.gallery.some(img => img && img.trim() !== '');
 
   return (
     <div className={`${styles.projectDetailPage}`}>
@@ -60,27 +66,30 @@ const ProjectDetailPage = () => {
           <h1 className={styles.projectTitle}>{projectTitle}</h1>
         </div>
 
-        {/* Image principale */}
-        <div className={styles.projectMainImage} data-testid="main-project-image">
-          <img 
-            src={project.gallery[selectedImage]} 
-            alt={projectTitle}
-            onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/800x500/FFEA93/4A3728?text=Image+Projet';
-            }}
-          />
-        </div>
+        {/* Image principale et galerie : uniquement si le projet a des images */}
+        {hasImages && (
+          <>
+            <div className={styles.projectMainImage} data-testid="main-project-image">
+              <img 
+                src={project.gallery[selectedImage]} 
+                alt={projectTitle}
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/800x500/FFEA93/4A3728?text=Image+Projet';
+                }}
+              />
+            </div>
 
-        {/* Galerie (juste sous l'image principale pour qu'on voie tout de suite
-            qu'elle permet de changer l'image affichée) */}
-        {project.gallery && project.gallery.length > 1 && (
-          <ProjectGallery 
-            gallery={project.gallery}
-            selectedImage={selectedImage}
-            setSelectedImage={setSelectedImage}
-            projectTitle={projectTitle}
-            t={t}
-          />
+            {/* Galerie thumbnails uniquement s'il y a plus d'une image */}
+            {project.gallery.length > 1 && (
+              <ProjectGallery 
+                gallery={project.gallery}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
+                projectTitle={projectTitle}
+                t={t}
+              />
+            )}
+          </>
         )}
 
         {/* Infos du projet */}
