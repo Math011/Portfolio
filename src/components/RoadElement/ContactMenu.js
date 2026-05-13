@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const ContactMenu = ({ progress }) => {
@@ -62,9 +63,9 @@ const ContactMenu = ({ progress }) => {
           <p className="roadKicker">— 04 {t('contact')}</p>
           <h2 className="roadTitle">{t('contact')}</h2>
           <p className="roadDescription">{t('contactDescription')}</p>
-          <a href="/contact" className="roadLink">
+          <Link to="/contact" className="roadLink">
             {t('contactLink')}
-          </a>
+          </Link>
         </div>
       )}
     </div>
