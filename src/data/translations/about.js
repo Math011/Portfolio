@@ -7,13 +7,17 @@ export const aboutTranslations = {
     bioName: "Mathieu Raudin",
     bioRole: "Développeur Web",
     bioParagraphs: [
-      "Je suis développeur web, passionné par les interfaces nettes et les architectures simples. Mon terrain de jeu : React, JavaScript, Node, et tout ce qui rend une expérience plus claire pour celui qui s'en sert.",
-      "Toujours en quête de nouveaux défis, je cherche à rejoindre une équipe dynamique où je pourrai continuer à apprendre, à construire et à grandir.",
+      "Passionné par l’informatique et les nouvelles technologies, j’ai obtenu en 2025 un <strong>Master en développement logiciel</strong>.",
+      "J’ai effectué <strong>trois années</strong> de mes études en alternance à la <strong>CPAM du Bas-Rhin</strong>, où j’ai principalement travaillé avec <strong>Symfony</strong> et acquis une solide expérience du développement web sur des projets concrets.",
+      "Aujourd’hui, je continue de développer des projets avec <strong>Symfony</strong>, <strong>React</strong> et <strong>TypeScript</strong>, avec un intérêt particulier pour les applications <strong>fullstack</strong> et <strong>backend</strong>.",
+      "Toujours en quête de nouveaux défis, je souhaite continuer à progresser techniquement et rejoindre une équipe avec laquelle contribuer à des projets ambitieux.",
     ],
 
     skillsLabel: "Compétences",
     skillsFrontend: "Frontend",
     skillsBackend: "Backend",
+    skillsDatabase: "Base de données",
+    skillsTesting: "Testing",
     skillsTools: "Outils",
 
     journeyLabel: "Parcours",
@@ -26,8 +30,8 @@ export const aboutTranslations = {
     statSkills: "Technologies",
     statCoffee: "Café / jour",
 
-    cvDownload: "Télécharger mon CV",
-    cvFile: "/cv-mathieu-raudin-fr.pdf",
+    cvDownload: "Voir mon CV",
+    cvFile: "/cv/cv-mathieu-raudin-fr.pdf",
 
     education: [
       {
@@ -80,13 +84,17 @@ export const aboutTranslations = {
     bioName: "Mathieu Raudin",
     bioRole: "Web Developer",
     bioParagraphs: [
-      "I'm a web developer, passionate about clean interfaces and simple architectures. My playground: React, JavaScript, Node, and anything that makes the experience clearer for the user.",
-      "Always looking for new challenges, I seek to join a dynamic team where I can keep learning, building and growing.",
+      "Passionate about computer science and new technologies, I earned a <strong>Master's degree in software development</strong> in 2025.",
+      "I spent <strong>three years</strong> of my studies on a work-study programme at the <strong>CPAM in Bas-Rhin</strong>, where I mainly worked with <strong>Symfony</strong> and gained solid experience in web development on real-world projects.",
+      "Today, I continue building projects with <strong>Symfony</strong>, <strong>React</strong> and <strong>TypeScript</strong>, with a strong interest in <strong>fullstack</strong> and <strong>backend</strong> applications.",
+      "Always looking for new challenges, I aim to keep improving my technical skills and join a team where I can contribute to ambitious projects.",
     ],
 
     skillsLabel: "Skills",
     skillsFrontend: "Frontend",
     skillsBackend: "Backend",
+    skillsDatabase: "Database",
+    skillsTesting: "Testing",
     skillsTools: "Tools",
 
     journeyLabel: "Journey",
@@ -99,8 +107,8 @@ export const aboutTranslations = {
     statSkills: "Technologies",
     statCoffee: "Coffee / day",
 
-    cvDownload: "Download my CV",
-    cvFile: "/cv-mathieu-raudin-en.pdf",
+    cvDownload: "View my CV",
+    cvFile: "/cv/cv-mathieu-raudin-en.pdf",
 
     education: [
       {

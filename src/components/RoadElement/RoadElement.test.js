@@ -2,8 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { LanguageProvider } from '../../contexts/LanguageContext';
 
 // Mock <Link> de react-router-dom pour qu'il se rende comme un <a> simple.
-// Évite d'avoir besoin d'un MemoryRouter ; les tests deviennent plus rapides
-// et plus isolés (on teste les menus, pas le routing).
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   Link: ({ to, children, ...props }) => (

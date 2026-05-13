@@ -1,10 +1,10 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import Header from '../../components/Header';
-import ContactForm from './ContactForm';
-import { Campfire, Person, Log } from './SceneElements';
-import { Stars, ShootingStar, Moon } from './NightElements';
-import { LinkedInIcon, GitHubIcon, MailIcon } from './SocialIcons';
+import ContactForm from './components/ContactForm';
+import { Campfire, Person, Log } from './components/SceneElements';
+import { Stars, ShootingStar, Moon } from './components/NightElements';
+import { LinkedInIcon, GitHubIcon, MailIcon } from './components/SocialIcons';
 import { SOCIAL_LINKS, CONTACT_EMAIL } from './config';
 import styles from './ContactPage.module.css';
 

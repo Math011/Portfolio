@@ -1,20 +1,22 @@
-// Liste des projets — couleurs des ballons depuis la palette du site
-import { GITHUB_PROFILE } from './constants';
+import Project2Content from '../pages/ProjectDetailPage/projectContents/Project2Content';
+import Project3Content from '../pages/ProjectDetailPage/projectContents/Project3Content';
 
+
+// Liste des projets — couleurs des ballons depuis la palette du site
 export const projects = [
   {
     id: 1,
-    titleKey: 'project1_title',
+    titleKey: 'project1_title', 
     descriptionKey: 'project1_description',
     fullDescriptionKey: 'project1_fullDescription',
     image: '/images/projects/project1.jpg',
     gallery: [
-      '/images/projects/project1.jpg',
-      '/images/projects/project1-2.jpg',
-      '/images/projects/project1-3.jpg',
+      '/images/projects/portfolio/portfolio-home.jpg',
+      '/images/projects/portfolio/portfolio-about.jpg',
+      '/images/projects/portfolio/portfolio-contact.jpg'
     ],
-    tags: ['React', 'Node.js', 'MongoDB'],
-    githubLink: 'https://github.com/username/project1',
+    tags: ['React', 'CSS Modules', 'EmailJS'],
+    githubLink: 'https://github.com/Math011/Portfolio ',
     liveLink: '#',
     color: '#D9732D'
   },
@@ -25,11 +27,13 @@ export const projects = [
     fullDescriptionKey: 'project2_fullDescription',
     image: '/images/projects/project2.jpg',
     gallery: [
-      '/images/projects/project2.jpg',
-      '/images/projects/project2-2.jpg',
+      '/images/projects/news/news-home.jpg',
+      '/images/projects/news/news-in-game.jpg',
+      '/images/projects/news/news-resultats.jpg',
     ],
-    tags: ['Vue.js', 'Firebase'],
-    githubLink: 'https://github.com/username/project2',
+    customContent: Project2Content,
+    tags: ['Vanilla Js'],
+    githubLink: 'https://github.com/Math011/news',
     liveLink: '#',
     color: '#5A7046'
   },
@@ -40,10 +44,12 @@ export const projects = [
     fullDescriptionKey: 'project3_fullDescription',
     image: '/images/projects/project3.jpg',
     gallery: [
-      '/images/projects/project3.jpg',
+      '/images/projects/docker-symfony-template/docker-symfony-react.jpg',
+      '/images/projects/docker-symfony-template/docker-symfony.jpg',
     ],
-    tags: ['Next.js', 'Tailwind CSS'],
-    githubLink: 'https://github.com/username/project3',
+    customContent: Project3Content,
+    tags: ['Shell'],
+    githubLink: 'https://github.com/Math011/docker-symfony-template',
     liveLink: '#',
     color: '#8B5A2B'
   },
@@ -54,10 +60,9 @@ export const projects = [
     fullDescriptionKey: 'project4_fullDescription',
     image: '/images/projects/project4.jpg',
     gallery: [
-      '/images/projects/project4.jpg',
     ],
-    tags: ['React Native', 'Express'],
-    githubLink: 'https://github.com/username/project4',
+    tags: ['Symfony', 'React', 'PostgreSQL'],
+    githubLink: 'https://github.com/Math011/',
     liveLink: '#',
     color: '#C5542B'
   },

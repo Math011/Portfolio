@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { projects } from '../ProjectsPage/ProjectsData';
+import { projects } from '../../data/projects';
 import Header from '../../components/Header';
-import DecorativeBackground from './DecorativeBackground';
-import Balloon from './Balloon';
-import ProjectGallery from './ProjectGallery';
-import ProjectNavigation from './ProjectNavigation';
-import { generateBirds, generateClouds } from './generators';
+import DecorativeBackground from './components/DecorativeBackground';
+import Balloon from './components/Balloon';
+import ProjectMainImage from './components/ProjectMainImage';
+import ProjectGallery from './components/ProjectGallery';
+import ProjectNavigation from './components/ProjectNavigation';
+import { generateBirds, generateClouds } from './utils/generators';
 import styles from './ProjectDetailPage.module.css';
 
 // Générer les éléments décoratifs une seule fois
@@ -25,12 +26,12 @@ const ProjectDetailPage = () => {
   const { id } = useParams();
   const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState(0);
-  
+
   const projectIndex = projects.findIndex(p => p.id === parseInt(id));
   const project = projects[projectIndex];
   const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null;
   const nextProject = projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
-  
+
   // Projet non trouvé
   if (!project) {
     return (
@@ -46,6 +47,14 @@ const ProjectDetailPage = () => {
 
   const projectTitle = t(project.titleKey);
 
+  // Filtre la gallery : on ignore les chaînes vides ou absentes pour ne pas
+  // afficher de placeholder cassé.
+  const cleanGallery = (project.gallery || []).filter(img => img && img.trim() !== '');
+  const hasImages = cleanGallery.length > 0;
+
+  // Composant de contenu enrichi (si défini sur ce projet) ou null
+  const CustomContent = project.customContent || null;
+
   return (
     <div className={`${styles.projectDetailPage}`}>
       <DecorativeBackground birds={decorativeBirds} clouds={decorativeClouds} />
@@ -60,44 +69,44 @@ const ProjectDetailPage = () => {
           <h1 className={styles.projectTitle}>{projectTitle}</h1>
         </div>
 
-        {/* Image principale */}
-        <div className={styles.projectMainImage} data-testid="main-project-image">
-          <img 
-            src={project.gallery[selectedImage]} 
-            alt={projectTitle}
-            onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/800x500/FFEA93/4A3728?text=Image+Projet';
-            }}
-          />
-        </div>
-
-        {/* Galerie (juste sous l'image principale pour qu'on voie tout de suite
-            qu'elle permet de changer l'image affichée) */}
-        {project.gallery && project.gallery.length > 1 && (
-          <ProjectGallery 
-            gallery={project.gallery}
-            selectedImage={selectedImage}
-            setSelectedImage={setSelectedImage}
-            projectTitle={projectTitle}
-            t={t}
-          />
+        {/* Galerie : image principale + thumbnails (uniquement si images) */}
+        {hasImages && (
+          <>
+            <ProjectMainImage
+              gallery={cleanGallery}
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+              projectTitle={projectTitle}
+              t={t}
+            />
+            {cleanGallery.length > 1 && (
+              <ProjectGallery
+                gallery={cleanGallery}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
+                projectTitle={projectTitle}
+                t={t}
+              />
+            )}
+          </>
         )}
 
         {/* Infos du projet */}
         <div className={styles.projectInfoSection}>
           <div className={styles.projectDescription}>
-            <p>{t(project.fullDescriptionKey)}</p>
+            {/* Contenu enrichi si défini, sinon paragraphe texte simple */}
+            {CustomContent ? (
+              <CustomContent />
+            ) : (
+              <p>{t(project.fullDescriptionKey)}</p>
+            )}
           </div>
 
           <div className={styles.projectTechnologies}>
             <h3>{t('technologiesUsed')}</h3>
             <div className={styles.techTags}>
               {project.tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className={styles.techTag}
-                  style={{ backgroundColor: project.color }}
-                >
+                <span key={index} className={styles.techTag}>
                   {tag}
                 </span>
               ))}
@@ -106,9 +115,9 @@ const ProjectDetailPage = () => {
 
           <div className={styles.projectLinks}>
             {project.githubLink && (
-              <a 
-                href={project.githubLink} 
-                target="_blank" 
+              <a
+                href={project.githubLink}
+                target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.projectBtn} ${styles.githubBtn}`}
               >
@@ -117,9 +126,9 @@ const ProjectDetailPage = () => {
               </a>
             )}
             {project.liveLink && project.liveLink !== '#' && (
-              <a 
-                href={project.liveLink} 
-                target="_blank" 
+              <a
+                href={project.liveLink}
+                target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.projectBtn} ${styles.liveBtn}`}
                 style={{ backgroundColor: project.color }}
@@ -131,7 +140,7 @@ const ProjectDetailPage = () => {
         </div>
 
         {/* Navigation entre projets */}
-        <ProjectNavigation 
+        <ProjectNavigation
           prevProject={prevProject}
           nextProject={nextProject}
           t={t}

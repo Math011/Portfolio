@@ -7,19 +7,21 @@ export const homeTranslations = {
     
     // AboutMenu
     aboutTitle: "À propos de moi",
-    aboutDescription: "Passionné par le développement web, je crée des expériences digitales uniques et innovantes.",
+    aboutDescription: "Construire, apprendre et explorer à travers le développement web.",
     aboutLink: "En savoir plus →",
         
     // ProjectsMenu
     projectsTitle: "Mes Projets",
     projectLink: "Voir le projet →",
+    projectsTeaser: "Voici quelques projets que j'ai eu l'occasion de réaliser.",
     
     // ContactMenu
     contactTitle: "Mes Contacts",
-    contactDescription: "Vous avez un projet en tête ? N'hésitez pas à me contacter pour en discuter.",
+    contactDescription: "Vous avez un projet en tête ou simplement besoin d'informations ? N'hésitez pas à me contacter.",
     contactLink: "Me contacter →",
     
     // FinishMenu
+    finishKicker: "Fin",
     finishTitle: "Vous êtes arrivé à destination !",
     finishSubtitle: "Merci d'avoir parcouru mon portfolio",
     finishRestart: "Recommencer le voyage",
@@ -33,12 +35,17 @@ export const homeTranslations = {
     
     // AboutMenu
     aboutTitle: "About Me",
-    aboutDescription: "Passionate about web development, I create unique and innovative digital experiences.",
+    aboutDescription: "Building, learning and exploring through sofware development",
     aboutLink: "Learn more →",
+
+    // ProjectsMenu
+    projectsTitle: "My Projects",
+    projectLink: "View project →",
+    projectsTeaser: "Here are a few projects I've had the opportunity to work on.",
     
     // ContactMenu
     contactTitle: "Contact Me",
-    contactDescription: "Have a project in mind? Feel free to contact me to discuss it.",
+    contactDescription: "You have a project in your mind or just need some information? Feel free to contact me to discuss it.",
     contactLink: "Get in touch →",
     
     // FinishMenu

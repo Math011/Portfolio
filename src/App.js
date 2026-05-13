@@ -89,7 +89,7 @@ function AppContent() {
       <div style={{ display: isHome ? 'block' : 'none' }}>
         <BackgroundVideo 
           ref={videoRef}
-          src="/paysages_tout_9sec.mp4"
+          src="/videos/paysages_tout.mp4"
         />
       </div>
 
