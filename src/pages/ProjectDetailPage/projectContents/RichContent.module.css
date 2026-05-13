@@ -1,6 +1,5 @@
 /* =============================================================================
    RICH CONTENT — style "carnet de voyage" pour les projets détaillés
-   Cohérent avec le design papier ambré du portfolio.
    ============================================================================= */
 
 .richContent {
@@ -8,9 +7,13 @@
   color: var(--ink-soft);
 }
 
-/* Paragraphe d'intro avec lettrine — VALEURS IDENTIQUES à celles utilisées
-   dans .projectDescription p:first-child::first-letter de ProjectDetailPage.module.css.
-   Cohérence visuelle avec les projets sans contenu enrichi. */
+/* -----------------------------------------------------------------------------
+   PARAGRAPHE D'INTRO AVEC LETTRINE
+   ----------------------------------------------------------------------------
+   Lettrine identique à celle des projets simples : 44px, orange, flottée à
+   gauche, collée au texte. !important utilisé pour s'assurer qu'aucune règle
+   externe (ex: neutralisation de lettrine côté ProjectDetailPage) ne l'écrase.
+   ----------------------------------------------------------------------------- */
 .lead {
   font-family: var(--font-sans);
   font-size: 16px;
@@ -20,15 +23,18 @@
 }
 
 .lead::first-letter {
-  font-family: var(--font-serif);
-  font-size: 44px;
-  float: left;
-  line-height: 0.9;
-  margin: 6px 8px -4px 0;
-  color: var(--accent);
+  font-family: var(--font-serif) !important;
+  font-size: 44px !important;
+  float: left !important;
+  line-height: 0.9 !important;
+  margin: 0 4px -4px 0 !important;
+  color: var(--accent) !important;
+  font-weight: 500;
 }
 
-/* Séparateur ornemental */
+/* -----------------------------------------------------------------------------
+   SÉPARATEUR ORNEMENTAL ⋄⋄
+   ----------------------------------------------------------------------------- */
 .divider {
   display: flex;
   align-items: center;
@@ -51,7 +57,9 @@
   margin: 0 12px;
 }
 
-/* Sous-intro */
+/* -----------------------------------------------------------------------------
+   SOUS-INTRO
+   ----------------------------------------------------------------------------- */
 .subLead {
   font-size: 16px;
   line-height: 1.7;
@@ -59,7 +67,9 @@
   color: var(--ink-soft);
 }
 
-/* Liste de features (Symfony+Twig, Symfony API+React) */
+/* -----------------------------------------------------------------------------
+   LISTE DE FEATURES
+   ----------------------------------------------------------------------------- */
 .featureList {
   list-style: none;
   padding: 0;
@@ -99,7 +109,18 @@
   line-height: 1.6;
 }
 
-/* Titre de section avec ornement */
+/* Strong inline dans les paragraphes : met en avant les mots clés
+   sans casser le rythme typographique. */
+.featureDesc strong,
+.subLead strong,
+.lead strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* -----------------------------------------------------------------------------
+   TITRE DE SECTION
+   ----------------------------------------------------------------------------- */
 .sectionHeading {
   display: flex;
   align-items: center;
@@ -120,7 +141,9 @@
   flex-shrink: 0;
 }
 
-/* Tableau des modules */
+/* -----------------------------------------------------------------------------
+   TABLEAU DES MODULES / EXPÉRIENCES
+   ----------------------------------------------------------------------------- */
 .tableWrapper {
   overflow-x: auto;
   border-radius: 10px;
@@ -188,10 +211,12 @@
   vertical-align: middle;
 }
 
-/* Responsive */
+/* -----------------------------------------------------------------------------
+   RESPONSIVE
+   ----------------------------------------------------------------------------- */
 @media (max-width: 600px) {
   .lead { font-size: 16px; }
-  .lead::first-letter { font-size: 44px; }
+  .lead::first-letter { font-size: 38px !important; }
   .sectionHeading { font-size: 22px; }
   .modulesTable { font-size: 14px; }
   .modulesTable th, .modulesTable td { padding: 10px 12px; }

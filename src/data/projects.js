@@ -1,4 +1,6 @@
+import Project2Content from '../pages/ProjectDetailPage/projectContents/Project2Content';
 import Project3Content from '../pages/ProjectDetailPage/projectContents/Project3Content';
+
 
 // Liste des projets — couleurs des ballons depuis la palette du site
 export const projects = [
@@ -29,7 +31,8 @@ export const projects = [
       '/images/projects/news/news-in-game.jpg',
       '/images/projects/news/news-resultats.jpg',
     ],
-    tags: ['React'],
+    customContent: Project2Content,
+    tags: ['Vanilla Js'],
     githubLink: 'https://github.com/Math011/news',
     liveLink: '#',
     color: '#5A7046'

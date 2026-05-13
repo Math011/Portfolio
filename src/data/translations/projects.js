@@ -25,11 +25,39 @@ export const projectsTranslations = {
     project1_fullDescription: "Portfolio personnel sur le thème du voyage et du road trip. Le visiteur défile à travers un paysage qui se déroule au scroll, et découvre les différentes \"étapes\" du parcours : qui je suis, mes projets, et comment me contacter.",
 
     // ---------------------------------------------------------------------
-    // Projet 2 — News (texte simple)
+    // Projet 2 — InfoSpread Lab (contenu enrichi via Project2Content.js)
     // ---------------------------------------------------------------------
-project2_title: 'InfoSpread Lab',  // ou garder 'Projet "News"' si vous préférez
-project2_description: "Simulateur interactif qui modélise la propagation d'une information dans une population.",
-project2_fullDescription: "InfoSpread Lab est un simulateur scientifique qui visualise comment une information — vraie ou fausse — se propage dans une population. Le projet explore les dynamiques sociales : effet des personnalités (réceptifs, sceptiques, bavards), influence des bulles sociales, déformation progressive de l'information et impact des événements aléatoires comme la censure ou les fact-checks. Plusieurs expériences préconfigurées permettent d'étudier la viralité, le rôle des super-diffuseurs, ou la différence de propagation entre une info véridique et une fake news.",
+    project2_title: "InfoSpread Lab",
+    project2_description: "Simulateur interactif qui modélise la propagation d'une information dans une population.",
+
+    // Paragraphe d'intro (avec lettrine)
+    project2_fullDescription: "InfoSpread Lab est un simulateur scientifique qui visualise en temps réel comment une information — vraie ou fausse — se propage dans une population. Construit en JavaScript vanilla et rendu via Canvas, il offre une expérience interactive où l'on peut observer l'émergence de comportements collectifs à partir de règles simples.",
+
+    // Sous-section "dimensions sociales modélisées"
+    project2_subLead: "Le simulateur modélise plusieurs dimensions sociales :",
+    project2_feature1_title: "Personnalités diverses",
+    project2_feature1_desc: "Réceptifs, sceptiques, bavards, introvertis — chaque agent réagit différemment à l'information selon son profil.",
+    project2_feature2_title: "Bulles sociales",
+    project2_feature2_desc: "La population est divisée en groupes : la transmission est facilitée à l'intérieur d'un groupe et freinée entre groupes.",
+    project2_feature3_title: "Déformation progressive",
+    project2_feature3_desc: "L'information se transforme en circulant, gagnant en viralité mais perdant en crédibilité.",
+    project2_feature4_title: "Événements aléatoires",
+    project2_feature4_desc: "Médias, censure, fact-checks, scandales : autant d'événements qui modifient la dynamique en cours de simulation.",
+
+    // Tableau des expériences
+    project2_experimentsTitle: "Expériences disponibles",
+    project2_experimentsColName: "Expérience",
+    project2_experimentsColQuestion: "Question explorée",
+    project2_exp1_name: "Viralité explosive",
+    project2_exp1_desc: "Quel seuil de viralité déclenche une propagation massive ?",
+    project2_exp2_name: "Société sceptique",
+    project2_exp2_desc: "Les sceptiques peuvent-ils bloquer les fake news ?",
+    project2_exp3_name: "Bulles sociales",
+    project2_exp3_desc: "Les groupes isolés ralentissent-ils la diffusion ?",
+    project2_exp4_name: "Influenceurs",
+    project2_exp4_desc: "Quel impact a un super-diffuseur sur la population ?",
+    project2_exp5_name: "Vérité vs Fake",
+    project2_exp5_desc: "Une info vraie se propage-t-elle différemment d'une fake news ?",
 
     // ---------------------------------------------------------------------
     // Projet 3 — Script Symfony (contenu enrichi via Project3Content.js)
@@ -46,7 +74,7 @@ project2_fullDescription: "InfoSpread Lab est un simulateur scientifique qui vis
     project3_feature1_desc: "Application server-side classique avec rendu Twig.",
     project3_feature2_title: "Symfony API + React/TypeScript",
     project3_feature2_desc: "SPA moderne avec API Platform et frontend React.",
-    
+
     // Tableau des modules
     project3_modulesTitle: "Modules optionnels disponibles",
     project3_modulesColModule: "Module",
@@ -91,11 +119,39 @@ project2_fullDescription: "InfoSpread Lab est un simulateur scientifique qui vis
     project1_fullDescription: "A personal portfolio exploring the themes of travel and road trips. Visitors scroll through a landscape that unfolds as they navigate the page, discovering the various 'stops' along the way: who I am, my projects, and how to contact me.",
 
     // ---------------------------------------------------------------------
-    // Project 2 — News (plain text)
+    // Project 2 — InfoSpread Lab (rich content via Project2Content.js)
     // ---------------------------------------------------------------------
-    project2_title: 'Project "News"',
-    project2_description: "Short description of the second project.",
-    project2_fullDescription: "Full description of project 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    project2_title: "InfoSpread Lab",
+    project2_description: "Interactive simulator modeling how information spreads through a population.",
+
+    // Intro paragraph (rendered with drop cap)
+    project2_fullDescription: "InfoSpread Lab is a scientific simulator that visualizes in real time how information — true or false — spreads through a population. Built in vanilla JavaScript and rendered via the Canvas API, it offers an interactive experience where collective behaviors emerge from simple rules.",
+
+    // "Social dimensions modeled" sub-section
+    project2_subLead: "The simulator models several social dimensions:",
+    project2_feature1_title: "Diverse personalities",
+    project2_feature1_desc: "Receptive, skeptical, talkative, introverted — each agent reacts differently to information based on its profile.",
+    project2_feature2_title: "Social bubbles",
+    project2_feature2_desc: "The population is split into groups: transmission is boosted within a group and slowed between groups.",
+    project2_feature3_title: "Progressive distortion",
+    project2_feature3_desc: "Information transforms as it circulates, gaining virality but losing credibility.",
+    project2_feature4_title: "Random events",
+    project2_feature4_desc: "Media, censorship, fact-checks, scandals: events that alter the dynamics mid-simulation.",
+
+    // experiments table
+    project2_experimentsTitle: "Built-in experiments",
+    project2_experimentsColName: "Experiment",
+    project2_experimentsColQuestion: "Research question",
+    project2_exp1_name: "Explosive virality",
+    project2_exp1_desc: "What virality threshold triggers massive propagation?",
+    project2_exp2_name: "Skeptical society",
+    project2_exp2_desc: "Can skeptics block fake news?",
+    project2_exp3_name: "Social bubbles",
+    project2_exp3_desc: "Do isolated groups slow down diffusion?",
+    project2_exp4_name: "Influencers",
+    project2_exp4_desc: "How does a super-spreader impact the population?",
+    project2_exp5_name: "Truth vs Fake",
+    project2_exp5_desc: "Does truthful information spread differently than fake news?",
 
     // ---------------------------------------------------------------------
     // Project 3 — Symfony script (rich content via Project3Content.js)
