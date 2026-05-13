@@ -37,6 +37,29 @@
          à la demande, et leurs images se chargent en parallèle du chunk JS,
          donc l'impact perçu est négligeable. -->
 
+    <!-- =====================================================================
+         Hack SPA pour GitHub Pages — récupération de la route
+         ----------------------------------------------------------------------
+         Lorsqu'un utilisateur refresh sur une route (ex: /Portfolio/contact),
+         GitHub Pages renvoie une 404 qui est interceptée par notre 404.html.
+         Ce dernier redirige vers /Portfolio/?/contact. Le script ci-dessous
+         détecte cette query, reconstruit la vraie URL et la pousse dans
+         l'historique du navigateur AVANT que React ne démarre, pour que
+         React Router voie la bonne route et affiche la page attendue.
+         ===================================================================== -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
+
     <title>Mathieu Raudin — Portfolio</title>
   </head>
   <body>
