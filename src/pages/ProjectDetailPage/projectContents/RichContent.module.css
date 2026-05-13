@@ -8,22 +8,24 @@
   color: var(--ink-soft);
 }
 
-/* Paragraphe d'intro avec lettrine */
+/* Paragraphe d'intro avec lettrine — VALEURS IDENTIQUES à celles utilisées
+   dans .projectDescription p:first-child::first-letter de ProjectDetailPage.module.css.
+   Cohérence visuelle avec les projets sans contenu enrichi. */
 .lead {
-  font-size: 17px;
+  font-family: var(--font-sans);
+  font-size: 16px;
   line-height: 1.7;
-  color: var(--ink);
+  color: var(--ink-soft);
   margin: 0 0 1.25rem;
 }
 
 .lead::first-letter {
   font-family: var(--font-serif);
-  font-size: 56px;
+  font-size: 44px;
   float: left;
   line-height: 0.9;
-  margin: 8px 12px -6px 0;
+  margin: 6px 8px -4px 0;
   color: var(--accent);
-  font-weight: 500;
 }
 
 /* Séparateur ornemental */

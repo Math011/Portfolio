@@ -1,7 +1,7 @@
 import React from 'react';
 import Bird from './Bird';
-import { SIZE_TO_CLASS, SPEED_TO_CLASS } from './generators';
-import styles from './ProjectDetailPage.module.css';
+import { SIZE_TO_CLASS, SPEED_TO_CLASS } from '../utils/generators';
+import styles from '../ProjectDetailPage.module.css';
 
 const DecorativeBackground = ({ birds, clouds }) => (
   <>

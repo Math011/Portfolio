@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { projects } from '../../data/projects';
 import Header from '../../components/Header';
-import DecorativeBackground from './DecorativeBackground';
-import Balloon from './Balloon';
-import ProjectNavigation from './ProjectNavigation';
-import { generateBirds, generateClouds } from './generators';
+import DecorativeBackground from './components/DecorativeBackground';
+import Balloon from './components/Balloon';
+import ProjectMainImage from './components/ProjectMainImage';
+import ProjectGallery from './components/ProjectGallery';
+import ProjectNavigation from './components/ProjectNavigation';
+import { generateBirds, generateClouds } from './utils/generators';
 import styles from './ProjectDetailPage.module.css';
 
 // Générer les éléments décoratifs une seule fois
@@ -20,175 +22,10 @@ const GitHubIcon = () => (
   </svg>
 );
 
-// Flèches gauche / droite pour navigation
-const ArrowIcon = ({ direction }) => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-       stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-       style={{ transform: direction === 'right' ? 'rotate(180deg)' : 'none' }}>
-    <polyline points="15 18 9 12 15 6" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-       stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18" />
-    <line x1="6" y1="6" x2="18" y2="18" />
-  </svg>
-);
-
-// Galerie complète : image principale + flèches + thumbnails + lightbox
-const ProjectGalleryFull = ({ gallery, projectTitle, t }) => {
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-
-  const total = gallery.length;
-
-  const goPrev = useCallback(() => {
-    setSelectedImage(i => (i - 1 + total) % total);
-  }, [total]);
-
-  const goNext = useCallback(() => {
-    setSelectedImage(i => (i + 1) % total);
-  }, [total]);
-
-  // Navigation clavier dans la lightbox (et sur l'image principale)
-  useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === 'ArrowLeft') goPrev();
-      else if (e.key === 'ArrowRight') goNext();
-      else if (e.key === 'Escape' && lightboxOpen) setLightboxOpen(false);
-    };
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [goPrev, goNext, lightboxOpen]);
-
-  // Empêche le scroll de la page derrière la lightbox
-  useEffect(() => {
-    if (lightboxOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [lightboxOpen]);
-
-  const hasMany = total > 1;
-
-  return (
-    <>
-      {/* Cadre principal avec flèches */}
-      <div className={styles.projectMainImage} data-testid="main-project-image">
-        <img
-          src={gallery[selectedImage]}
-          alt={`${projectTitle} — image ${selectedImage + 1}`}
-          onClick={() => setLightboxOpen(true)}
-          onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/800x500/FFEA93/4A3728?text=Image+Projet';
-          }}
-        />
-
-        {hasMany && (
-          <>
-            <button
-              type="button"
-              className={`${styles.navArrow} ${styles.navArrowLeft}`}
-              onClick={goPrev}
-              aria-label={t('previousImage') || 'Image précédente'}
-            >
-              <ArrowIcon direction="left" />
-            </button>
-            <button
-              type="button"
-              className={`${styles.navArrow} ${styles.navArrowRight}`}
-              onClick={goNext}
-              aria-label={t('nextImage') || 'Image suivante'}
-            >
-              <ArrowIcon direction="right" />
-            </button>
-            <div className={styles.imageCounter}>
-              {selectedImage + 1} / {total}
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* Thumbnails sous l'image principale */}
-      {hasMany && (
-        <div className={styles.projectGallery}>
-          <h3>{t('projectGallery') || 'Galerie'}</h3>
-          <div className={styles.galleryThumbnails}>
-            {gallery.map((img, i) => (
-              <button
-                key={i}
-                type="button"
-                className={`${styles.thumbnail} ${i === selectedImage ? styles.active : ''}`}
-                onClick={() => setSelectedImage(i)}
-                aria-label={`Voir image ${i + 1}`}
-              >
-                <img src={img} alt="" loading="lazy" />
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Lightbox plein écran */}
-      {lightboxOpen && (
-        <div
-          className={styles.lightbox}
-          onClick={() => setLightboxOpen(false)}
-          role="dialog"
-          aria-modal="true"
-        >
-          <button
-            type="button"
-            className={styles.lightboxClose}
-            onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
-            aria-label="Fermer"
-          >
-            <CloseIcon />
-          </button>
-
-          <img
-            className={styles.lightboxImage}
-            src={gallery[selectedImage]}
-            alt={`${projectTitle} — image ${selectedImage + 1}`}
-            onClick={(e) => e.stopPropagation()}
-          />
-
-          {hasMany && (
-            <>
-              <button
-                type="button"
-                className={`${styles.lightboxArrow} ${styles.lightboxArrowLeft}`}
-                onClick={(e) => { e.stopPropagation(); goPrev(); }}
-                aria-label="Image précédente"
-              >
-                <ArrowIcon direction="left" />
-              </button>
-              <button
-                type="button"
-                className={`${styles.lightboxArrow} ${styles.lightboxArrowRight}`}
-                onClick={(e) => { e.stopPropagation(); goNext(); }}
-                aria-label="Image suivante"
-              >
-                <ArrowIcon direction="right" />
-              </button>
-              <div className={styles.lightboxCounter}>
-                {selectedImage + 1} / {total}
-              </div>
-            </>
-          )}
-        </div>
-      )}
-    </>
-  );
-};
-
 const ProjectDetailPage = () => {
   const { id } = useParams();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
+  const [selectedImage, setSelectedImage] = useState(0);
 
   const projectIndex = projects.findIndex(p => p.id === parseInt(id));
   const project = projects[projectIndex];
@@ -210,11 +47,13 @@ const ProjectDetailPage = () => {
 
   const projectTitle = t(project.titleKey);
 
-  // Détermine si on a des images à afficher. Si gallery est absent, vide,
-  // ou ne contient que des chaînes vides → on n'affiche rien.
-  const hasImages = project.gallery
-    && project.gallery.length > 0
-    && project.gallery.some(img => img && img.trim() !== '');
+  // Filtre la gallery : on ignore les chaînes vides ou absentes pour ne pas
+  // afficher de placeholder cassé.
+  const cleanGallery = (project.gallery || []).filter(img => img && img.trim() !== '');
+  const hasImages = cleanGallery.length > 0;
+
+  // Composant de contenu enrichi (si défini sur ce projet) ou null
+  const CustomContent = project.customContent || null;
 
   return (
     <div className={`${styles.projectDetailPage}`}>
@@ -230,22 +69,34 @@ const ProjectDetailPage = () => {
           <h1 className={styles.projectTitle}>{projectTitle}</h1>
         </div>
 
-        {/* Galerie complète (image principale + flèches + thumbnails + lightbox) */}
+        {/* Galerie : image principale + thumbnails (uniquement si images) */}
         {hasImages && (
-          <ProjectGalleryFull
-            gallery={project.gallery.filter(img => img && img.trim() !== '')}
-            projectTitle={projectTitle}
-            t={t}
-          />
+          <>
+            <ProjectMainImage
+              gallery={cleanGallery}
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+              projectTitle={projectTitle}
+              t={t}
+            />
+            {cleanGallery.length > 1 && (
+              <ProjectGallery
+                gallery={cleanGallery}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
+                projectTitle={projectTitle}
+                t={t}
+              />
+            )}
+          </>
         )}
 
         {/* Infos du projet */}
         <div className={styles.projectInfoSection}>
           <div className={styles.projectDescription}>
-            {/* Si le projet a un composant de contenu enrichi (customContent),
-                on l'utilise. Sinon, on retombe sur la traduction texte simple. */}
-            {project.customContent ? (
-              <project.customContent language={language} />
+            {/* Contenu enrichi si défini, sinon paragraphe texte simple */}
+            {CustomContent ? (
+              <CustomContent />
             ) : (
               <p>{t(project.fullDescriptionKey)}</p>
             )}
@@ -264,9 +115,9 @@ const ProjectDetailPage = () => {
 
           <div className={styles.projectLinks}>
             {project.githubLink && (
-              <a 
-                href={project.githubLink} 
-                target="_blank" 
+              <a
+                href={project.githubLink}
+                target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.projectBtn} ${styles.githubBtn}`}
               >
@@ -275,9 +126,9 @@ const ProjectDetailPage = () => {
               </a>
             )}
             {project.liveLink && project.liveLink !== '#' && (
-              <a 
-                href={project.liveLink} 
-                target="_blank" 
+              <a
+                href={project.liveLink}
+                target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.projectBtn} ${styles.liveBtn}`}
                 style={{ backgroundColor: project.color }}
@@ -289,7 +140,7 @@ const ProjectDetailPage = () => {
         </div>
 
         {/* Navigation entre projets */}
-        <ProjectNavigation 
+        <ProjectNavigation
           prevProject={prevProject}
           nextProject={nextProject}
           t={t}

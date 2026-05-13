@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ProjectDetailPage.module.css';
+import styles from '../ProjectDetailPage.module.css';
 
 const Balloon = ({ color }) => (
   <svg width="60" height="100" viewBox="0 0 40 70" className={styles.headerBalloon}>

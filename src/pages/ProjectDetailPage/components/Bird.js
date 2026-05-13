@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ProjectDetailPage.module.css';
+import styles from '../ProjectDetailPage.module.css';
 
 // Oiseau SVG animé (partagé avec ProjectsPage)
 const Bird = ({ size = 30, color = '#4A3728', direction = 'right' }) => (

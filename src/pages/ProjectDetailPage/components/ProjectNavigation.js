@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './ProjectDetailPage.module.css';
+import styles from '../ProjectDetailPage.module.css';
 
 const ProjectNavigation = ({ prevProject, nextProject, t }) => (
   <div className={styles.projectNavigation}>
