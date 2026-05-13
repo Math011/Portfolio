@@ -1,3 +1,5 @@
+const BASE = process.env.PUBLIC_URL;
+
 export const aboutTranslations = {
   fr: {
     aboutKicker: "Carnet de route — Chapitre 02",
@@ -31,7 +33,7 @@ export const aboutTranslations = {
     statCoffee: "Café / jour",
 
     cvDownload: "Voir mon CV",
-    cvFile: "/cv/cv-mathieu-raudin-fr.pdf",
+    cvFile: `${BASE}/cv/cv-mathieu-raudin-fr.pdf`,
 
     education: [
       {
@@ -108,7 +110,7 @@ export const aboutTranslations = {
     statCoffee: "Coffee / day",
 
     cvDownload: "View my CV",
-    cvFile: "/cv/cv-mathieu-raudin-en.pdf",
+    cvFile: `${BASE}/cv/cv-mathieu-raudin-fr.pdf`,
 
     education: [
       {

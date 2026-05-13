@@ -46,7 +46,7 @@ const ContactPage = () => {
 
         {/* Paysage SVG existant, assombri par filter CSS */}
         <img
-          src="/images/tout-sol.svg"
+          src={`${process.env.PUBLIC_URL}/images/tout-sol.svg`}
           alt=""
           className={styles.groundBackground}
         />
