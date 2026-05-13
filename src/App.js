@@ -116,7 +116,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router 
-      basename={process.env.NODE_ENV === 'production' ? '/portfolio' : '/'}
+      basename={process.env.NODE_ENV === 'production' ? '/Portfolio' : '/'}
       future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AppContent />
       </Router>
