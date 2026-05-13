@@ -66,7 +66,11 @@ function AboutPage() {
               <h2 className={styles.bioName}>{t('bioName')}</h2>
               <p className={styles.bioRole}>{t('bioRole')}</p>
               {(Array.isArray(t('bioParagraphs')) ? t('bioParagraphs') : []).map((p, i) => (
-                <p key={i} className={styles.bioParagraph}>{p}</p>
+                <p
+                  key={i}
+                  className={styles.bioParagraph}
+                  dangerouslySetInnerHTML={{ __html: p }}
+                />
               ))}
               <CvDownloadButton />
             </div>

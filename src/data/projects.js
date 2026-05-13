@@ -1,4 +1,4 @@
-import Project3Content from '../pages/ProjectDetailPage/Project3/Project3Content';
+import Project3Content from '../pages/ProjectDetailPage/projectContents/Project3Content';
 
 // Liste des projets — couleurs des ballons depuis la palette du site
 export const projects = [
@@ -13,7 +13,7 @@ export const projects = [
       '/images/projects/portfolio/portfolio-about.jpg',
       '/images/projects/portfolio/portfolio-contact.jpg'
     ],
-    tags: ['React'],
+    tags: ['React', 'CSS Modules', 'EmailJS'],
     githubLink: 'https://github.com/Math011/Portfolio ',
     liveLink: '#',
     color: '#D9732D'

@@ -7,7 +7,7 @@ export const homeTranslations = {
     
     // AboutMenu
     aboutTitle: "À propos de moi",
-    aboutDescription: "Passionné par le développement web, je crée des expériences digitales uniques et innovantes.",
+    aboutDescription: "Construire, apprendre et explorer à travers le développement web.",
     aboutLink: "En savoir plus →",
         
     // ProjectsMenu
@@ -35,7 +35,7 @@ export const homeTranslations = {
     
     // AboutMenu
     aboutTitle: "About Me",
-    aboutDescription: "Passionate about web development, I create unique and innovative digital experiences.",
+    aboutDescription: "Building, learning and exploring through sofware development",
     aboutLink: "Learn more →",
 
     // ProjectsMenu

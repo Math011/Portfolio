@@ -27,9 +27,9 @@ export const projectsTranslations = {
     // ---------------------------------------------------------------------
     // Projet 2 — News (texte simple)
     // ---------------------------------------------------------------------
-    project2_title: 'Projet "News"',
-    project2_description: "Description courte du deuxième projet.",
-    project2_fullDescription: "Description complète du projet 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+project2_title: 'InfoSpread Lab',  // ou garder 'Projet "News"' si vous préférez
+project2_description: "Simulateur interactif qui modélise la propagation d'une information dans une population.",
+project2_fullDescription: "InfoSpread Lab est un simulateur scientifique qui visualise comment une information — vraie ou fausse — se propage dans une population. Le projet explore les dynamiques sociales : effet des personnalités (réceptifs, sceptiques, bavards), influence des bulles sociales, déformation progressive de l'information et impact des événements aléatoires comme la censure ou les fact-checks. Plusieurs expériences préconfigurées permettent d'étudier la viralité, le rôle des super-diffuseurs, ou la différence de propagation entre une info véridique et une fake news.",
 
     // ---------------------------------------------------------------------
     // Projet 3 — Script Symfony (contenu enrichi via Project3Content.js)
