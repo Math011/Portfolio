@@ -5,8 +5,8 @@ import {
   RECAPTCHA_SITE_KEY, 
   AUTO_REPLY_MESSAGES, 
   RATE_LIMIT 
-} from './config';
-import styles from './ContactPage.module.css';
+} from '../config';
+import styles from '../ContactPage.module.css';
 
 // =============================================================================
 // CONTACT FORM COMPONENT WITH EMAILJS + SECURITY

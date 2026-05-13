@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Balloon } from './SvgElements';
-import { useFloatingAnimation } from './hooks';
-import styles from './ProjectsPage.module.css';
+import { useFloatingAnimation } from '../utils/hooks';
+import styles from '../ProjectsPage.module.css';
 
 const ProjectCard = ({ project, index, t }) => {
   const cardRef = useRef(null);

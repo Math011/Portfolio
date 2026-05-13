@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ContactPage.module.css';
+import styles from '../ContactPage.module.css';
 
 const CLOUDS_CONFIG = [
   { row: 1, images: ['nuage1.svg', 'nuage3.svg', 'nuage5.svg'] },

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ContactPage.module.css';
+import styles from '../ContactPage.module.css';
 
 // =============================================================================
 // SVG COMPONENTS - Éléments de la scène

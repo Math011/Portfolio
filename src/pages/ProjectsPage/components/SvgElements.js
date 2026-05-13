@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ProjectsPage.module.css';
+import styles from '../ProjectsPage.module.css';
 
 // Composant Ballon SVG pour les cartes
 export const Balloon = ({ color = '#7CB342' }) => (

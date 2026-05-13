@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import styles from './ContactPage.module.css';
+import styles from '../ContactPage.module.css';
 
 // Étoiles avec scintillement
 export const Stars = ({ count = 80 }) => {
