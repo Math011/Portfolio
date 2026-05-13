@@ -115,7 +115,9 @@ function AppContent() {
 function App() {
   return (
     <LanguageProvider>
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <Router 
+      basename={process.env.NODE_ENV === 'production' ? '/portfolio' : '/'}
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AppContent />
       </Router>
     </LanguageProvider>
