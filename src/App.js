@@ -89,7 +89,7 @@ function AppContent() {
       <div style={{ display: isHome ? 'block' : 'none' }}>
         <BackgroundVideo 
           ref={videoRef}
-          src="/videos/paysages_tout.mp4"
+          src={`${process.env.PUBLIC_URL}/videos/paysages_tout.mp4`}
         />
       </div>
 
