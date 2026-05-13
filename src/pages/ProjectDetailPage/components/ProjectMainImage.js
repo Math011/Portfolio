@@ -64,7 +64,7 @@ const ProjectMainImage = ({ gallery, selectedImage, setSelectedImage, projectTit
       <div className={styles.projectMainImage} data-testid="main-project-image">
         <img
           src={gallery[selectedImage]}
-          alt={`${projectTitle} — image ${selectedImage + 1}`}
+          alt={`${projectTitle} — vue ${selectedImage + 1}`}
           onClick={() => setLightboxOpen(true)}
           onError={(e) => {
             e.target.src = 'https://via.placeholder.com/800x500/FFEA93/4A3728?text=Image+Projet';
@@ -116,7 +116,7 @@ const ProjectMainImage = ({ gallery, selectedImage, setSelectedImage, projectTit
           <img
             className={styles.lightboxImage}
             src={gallery[selectedImage]}
-            alt={`${projectTitle} — image ${selectedImage + 1}`}
+            alt={`${projectTitle} — vue ${selectedImage + 1}`}
             onClick={(e) => e.stopPropagation()}
           />
 
