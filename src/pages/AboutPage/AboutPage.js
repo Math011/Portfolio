@@ -29,7 +29,7 @@ function AboutPage() {
   return (
     <div className={styles.page}>
       <img
-        src="/images/nouveau-paysage.svg"
+        src={`${process.env.PUBLIC_URL}/images/nouveau-paysage.svg`}
         alt=""
         className={styles.paysageBg}
         aria-hidden="true"
@@ -60,7 +60,7 @@ function AboutPage() {
 
           {/* Bio + polaroid */}
           <section className={styles.bioRow}>
-            <Polaroid initials="MR" photoUrl="/images/face.jpg" />
+            <Polaroid initials="MR" photoUrl={`${process.env.PUBLIC_URL}/images/face.jpg`} />
 
             <div className={styles.bioContent}>
               <h2 className={styles.bioName}>{t('bioName')}</h2>

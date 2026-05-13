@@ -10,17 +10,17 @@ const NotFoundPage = () => {
     <div className={styles.container}>
       {/* Nuages décoratifs */}
       <img 
-        src="/images/nuage1.svg" 
+        src={`${process.env.PUBLIC_URL}/images/nuage1.svg`} 
         alt="" 
         className={`${styles.cloud} ${styles.cloud1}`} 
       />
       <img 
-        src="/images/nuage2.svg" 
+        src={`${process.env.PUBLIC_URL}/images/nuage2.svg`} 
         alt="" 
         className={`${styles.cloud} ${styles.cloud2}`} 
       />
       <img 
-        src="/images/nuage3.svg" 
+        src={`${process.env.PUBLIC_URL}/images/nuage3.svg`} 
         alt="" 
         className={`${styles.cloud} ${styles.cloud3}`} 
       />
