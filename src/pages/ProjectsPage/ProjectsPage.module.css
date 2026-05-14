@@ -172,7 +172,7 @@
 }
 
 /* =============================================================================
-   CLOUDS (inchangé)
+   CLOUDS
    ============================================================================= */
 .backgroundClouds {
   position: absolute;
@@ -231,12 +231,7 @@
 }
 
 /* =============================================================================
-   BIRDS — animation path() (battement d'aile réaliste)
-   -----------------------------------------------------------------------------
-   Cette technique anime l'attribut `d` du SVG, ce qui donne le plus beau
-   battement d'aile. Compatible Chrome (desktop+mobile) et Firefox.
-   NON supportée sur Safari iOS — pour ça, on utilise SMIL (balise <animate>
-   directement dans le JSX SVG de Bird.js).
+   BIRDS — battement d'ailes via path() (desktop + Chrome mobile)
    ============================================================================= */
 .backgroundBirds {
   position: absolute;
@@ -317,7 +312,7 @@
   }
 }
 
-/* Mobile : ballons presque collés à la carte */
+/* Mobile : ballon avec la ficelle qui touche le haut de la carte */
 @media (max-width: 768px) {
   .projectsTitleContainer {
     padding: 6rem 1rem 3rem;
@@ -325,15 +320,28 @@
 
   .projectsGrid {
     grid-template-columns: 1fr;
-    gap: 130px;
+    gap: 110px;
     padding: 40px 20px 4rem;
     max-width: 480px;
   }
 
-  /* Ballon collé : top -40px (vs -60 avant) */
+  /* PRINCIPE : on positionne le balloonContainer en top: 0 de la carte (donc
+     à la limite supérieure), puis translateY(-100%) le remonte de sa propre
+     hauteur, ce qui place le BAS du ballon (= la ficelle) pile au niveau du
+     HAUT de la carte. transform-origin: bottom center pour que le scale ne
+     déplace pas ce point d'ancrage. */
   .balloonContainer {
-    top: -40px;
-    transform: translateX(-50%) scale(0.85);
+    top: 0;
+    transform: translateX(-50%) translateY(-100%) scale(0.85);
+    transform-origin: bottom center;
+  }
+
+  /* OISEAUX PLUS RAPIDES sur mobile.
+     Les durations sont définies en style inline via React (bird.duration),
+     donc on doit utiliser !important pour surcharger.
+     ~14s en mobile vs 25-35s par défaut (env. 2x plus rapide). */
+  .flyingBird {
+    animation-duration: 14s !important;
   }
 
   .cardContent {
@@ -349,21 +357,28 @@
   }
 }
 
-/* Très petit mobile : ballon vraiment posé sur la carte */
+/* Très petit mobile : ballon plus petit, ficelle toujours sur la carte */
 @media (max-width: 480px) {
   .projectsTitleContainer {
     padding: 5rem 1rem 2.5rem;
   }
 
   .projectsGrid {
-    gap: 110px;
+    gap: 90px;
     padding: 40px 16px 3rem;
   }
 
-  /* Ballon collé à la carte, à peine au-dessus */
+  /* Même technique : la ficelle reste collée au haut de la carte même si
+     on réduit le scale. translateY(-100%) s'adapte automatiquement. */
   .balloonContainer {
-    top: -30px;
-    transform: translateX(-50%) scale(0.7);
+    top: 0;
+    transform: translateX(-50%) translateY(-100%) scale(0.7);
+    transform-origin: bottom center;
+  }
+
+  /* Oiseaux encore plus rapides sur très petit écran */
+  .flyingBird {
+    animation-duration: 12s !important;
   }
 
   .cardContent {
