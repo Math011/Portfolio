@@ -70,7 +70,6 @@
   filter: drop-shadow(2px 4px 6px rgba(43, 36, 29, 0.25));
 }
 
-/* Carte papier ambré */
 .cardContent {
   position: relative;
   background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
@@ -90,7 +89,6 @@
     0 24px 36px rgba(43, 36, 29, 0.22);
 }
 
-/* Punaise en haut à droite */
 .cardContent::after {
   content: "";
   position: absolute;
@@ -106,7 +104,6 @@
     inset -1px -2px 2px rgba(0, 0, 0, 0.20);
 }
 
-/* Contenu */
 .cardKicker {
   font-family: var(--font-mono);
   font-size: 10.5px;
@@ -155,7 +152,6 @@
   border-radius: var(--radius-pill);
 }
 
-/* Bouton "Voir le projet" : style éditorial */
 .cardLink {
   display: inline-flex;
   align-items: center;
@@ -176,7 +172,7 @@
 }
 
 /* =============================================================================
-   CLOUDS - décor de fond (inchangé)
+   CLOUDS
    ============================================================================= */
 .backgroundClouds {
   position: absolute;
@@ -235,7 +231,7 @@
 }
 
 /* =============================================================================
-   BIRDS - décor de fond
+   BIRDS — battement d'ailes via path() (desktop + Chrome mobile)
    ============================================================================= */
 .backgroundBirds {
   position: absolute;
@@ -307,10 +303,98 @@
 /* =============================================================================
    RESPONSIVE
    ============================================================================= */
+
+/* Tablette portrait */
+@media (max-width: 900px) {
+  .projectsGrid {
+    gap: 110px 40px;
+    padding: 50px 24px 5rem;
+  }
+}
+
+/* Mobile : ballon avec la ficelle qui touche le haut de la carte */
 @media (max-width: 768px) {
-  .projectsTitleContainer { padding: 6rem 1rem 3rem; }
-  .projectsGrid { grid-template-columns: 1fr; gap: 90px; padding: 30px 18px 4rem; }
-  .cardContent { padding: 24px 22px 22px; }
-  .cardTitle { font-size: 22px; }
-  .cardDesc { font-size: 14px; }
+  .projectsTitleContainer {
+    padding: 6rem 1rem 3rem;
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: 110px;
+    padding: 40px 20px 4rem;
+    max-width: 480px;
+  }
+
+  /* PRINCIPE : on positionne le balloonContainer en top: 0 de la carte (donc
+     à la limite supérieure), puis translateY(-100%) le remonte de sa propre
+     hauteur, ce qui place le BAS du ballon (= la ficelle) pile au niveau du
+     HAUT de la carte. transform-origin: bottom center pour que le scale ne
+     déplace pas ce point d'ancrage. */
+  .balloonContainer {
+    top: 0;
+    transform: translateX(-50%) translateY(-100%) scale(0.85);
+    transform-origin: bottom center;
+  }
+
+  /* OISEAUX PLUS RAPIDES sur mobile.
+     Les durations sont définies en style inline via React (bird.duration),
+     donc on doit utiliser !important pour surcharger.
+     ~14s en mobile vs 25-35s par défaut (env. 2x plus rapide). */
+  .flyingBird {
+    animation-duration: 14s !important;
+  }
+
+  .cardContent {
+    padding: 24px 22px 22px;
+  }
+
+  .cardTitle {
+    font-size: 22px;
+  }
+
+  .cardDesc {
+    font-size: 14px;
+  }
+}
+
+/* Très petit mobile : ballon plus petit, ficelle toujours sur la carte */
+@media (max-width: 480px) {
+  .projectsTitleContainer {
+    padding: 5rem 1rem 2.5rem;
+  }
+
+  .projectsGrid {
+    gap: 90px;
+    padding: 40px 16px 3rem;
+  }
+
+  /* Même technique : la ficelle reste collée au haut de la carte même si
+     on réduit le scale. translateY(-100%) s'adapte automatiquement. */
+  .balloonContainer {
+    top: 0;
+    transform: translateX(-50%) translateY(-100%) scale(0.7);
+    transform-origin: bottom center;
+  }
+
+  /* Oiseaux encore plus rapides sur très petit écran */
+  .flyingBird {
+    animation-duration: 12s !important;
+  }
+
+  .cardContent {
+    padding: 22px 18px 20px;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+  }
+
+  .cardDesc {
+    font-size: 13.5px;
+    margin-bottom: 16px;
+  }
+
+  .cardTags {
+    margin-bottom: 18px;
+  }
 }

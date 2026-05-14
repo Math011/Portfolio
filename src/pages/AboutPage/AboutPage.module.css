@@ -570,6 +570,6 @@
   .nailTL, .nailBL { left: 8px; }
   .nailTR, .nailBR { right: 8px; }
   .timeline { padding-left: 22px; }
-  .timelineDot { left: -18px; }
+  .timelineDot { left: -22px !important; }
   .statsRow { gap: 14px; }
 }
