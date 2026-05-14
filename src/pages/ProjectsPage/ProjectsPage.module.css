@@ -305,12 +305,79 @@
 }
 
 /* =============================================================================
-   RESPONSIVE
+   RESPONSIVE — tablette portrait et mobile
+   -----------------------------------------------------------------------------
    ============================================================================= */
+
+/* Tablette portrait : on garde 2 colonnes mais on resserre */
+@media (max-width: 900px) {
+  .projectsGrid {
+    gap: 110px 40px;
+    padding: 50px 24px 5rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .projectsTitleContainer { padding: 6rem 1rem 3rem; }
-  .projectsGrid { grid-template-columns: 1fr; gap: 90px; padding: 30px 18px 4rem; }
-  .cardContent { padding: 24px 22px 22px; }
-  .cardTitle { font-size: 22px; }
-  .cardDesc { font-size: 14px; }
+  .projectsTitleContainer {
+    padding: 6rem 1rem 3rem;
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: 160px;
+    padding: 40px 20px 4rem;
+    max-width: 480px;
+  }
+
+  /* Ballon légèrement remonté ET un peu plus petit pour éviter de prendre
+     toute la largeur en mobile. */
+  .balloonContainer {
+    top: -80px;
+    transform: translateX(-50%) scale(0.85);
+  }
+
+  .cardContent {
+    padding: 24px 22px 22px;
+  }
+
+  .cardTitle {
+    font-size: 22px;
+  }
+
+  .cardDesc {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .projectsTitleContainer {
+    padding: 5rem 1rem 2.5rem;
+  }
+
+  .projectsGrid {
+    gap: 140px;
+    padding: 50px 16px 3rem;
+  }
+
+  .balloonContainer {
+    top: -88px;
+    transform: translateX(-50%) scale(0.75);
+  }
+
+  .cardContent {
+    padding: 22px 18px 20px;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+  }
+
+  .cardDesc {
+    font-size: 13.5px;
+    margin-bottom: 16px;
+  }
+
+  .cardTags {
+    margin-bottom: 18px;
+  }
 }

@@ -1,37 +1,45 @@
 import React, { useRef, useEffect, useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
-import { 
-  ProgressBar, 
-  BackgroundVideo, 
-  LoadingScreen, 
+import {
+  ProgressBar,
+  BackgroundVideo,
+  LoadingScreen,
   LanguageSwitcher,
-  HomeMenu, 
-  AboutMenu, 
-  ProjectsMenu, 
-  ContactMenu, 
+  HomeMenu,
+  AboutMenu,
+  ProjectsMenu,
+  ContactMenu,
   FinishMenu,
   ScrollHint
 } from './components';
 import { journeySteps } from './data/journeySteps';
 import useVideoScroll from './hooks/useVideoScroll';
+import useTouchScroll from './hooks/UseTouchScroll';
 import { useInitialLoading } from './hooks/useFirstLoad';
 import './App.css';
 
-// Réduit le bundle initial de ~50% car la HomePage n'a pas besoin de leur code au boot.
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage/ProjectsPage'));
 const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage/ProjectDetailPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
-// HomePage : reçoit videoRef en props (la vidéo elle-même est montée au niveau App)
+// =============================================================================
+// HomePage
+// -----------------------------------------------------------------------------
+// Scroll-jacking : useVideoScroll écoute la molette desktop, useTouchScroll
+// convertit les gestes tactiles en événements wheel synthétiques pour mobile.
+// =============================================================================
 function HomePage({ videoRef }) {
   const { progress, navigateToSection } = useVideoScroll(videoRef);
+
+  useTouchScroll({ enabled: true, sensitivity: 3.5 });
+
   const [activeSection, setActiveSection] = useState('accueil');
   const isLoading = useInitialLoading('home');
 
-  // Bloque le scroll natif uniquement sur la HomePage
+  // Bloque le scroll natif sur la HomePage
   useEffect(() => {
     document.body.classList.add('no-scroll');
     return () => {
@@ -58,26 +66,24 @@ function HomePage({ videoRef }) {
     <>
       <LoadingScreen isLoading={isLoading} />
       <LanguageSwitcher fixed />
-      
-      <ProgressBar 
+
+      <ProgressBar
         progress={progress}
         activeSection={activeSection}
         onNavigate={navigateToSection}
       />
-      
+
       <HomeMenu progress={progress} />
       <AboutMenu progress={progress} />
       <ProjectsMenu progress={progress} />
       <ContactMenu progress={progress} />
       <FinishMenu progress={progress} onRestart={() => navigateToSection(0)} />
-      
+
       <ScrollHint progress={progress} />
     </>
   );
 }
 
-// Composant qui contient la vidéo + les routes. La vidéo n'est affichée que sur "/"
-// mais reste montée en permanence pour ne pas perdre sa position.
 function AppContent() {
   const videoRef = useRef(null);
   const location = useLocation();
@@ -85,9 +91,8 @@ function AppContent() {
 
   return (
     <div className="app-container">
-      {/* Vidéo de fond toujours montée, masquée si on n'est pas sur "/" */}
       <div style={{ display: isHome ? 'block' : 'none' }}>
-        <BackgroundVideo 
+        <BackgroundVideo
           ref={videoRef}
           src={`${process.env.PUBLIC_URL}/videos/paysages_tout.mp4`}
         />
@@ -115,9 +120,10 @@ function AppContent() {
 function App() {
   return (
     <LanguageProvider>
-      <Router 
-      basename={process.env.NODE_ENV === 'production' ? '/Portfolio' : '/'}
-      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <Router
+        basename={process.env.NODE_ENV === 'production' ? '/Portfolio' : '/'}
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <AppContent />
       </Router>
     </LanguageProvider>
