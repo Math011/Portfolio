@@ -32,7 +32,7 @@
   pointer-events: none;
 }
 
-/* ---- CARTE (nouveau style immersif) ---- */
+/* ---- CARTE (style immersif) ---- */
 .roadCard {
   position: absolute;
 
@@ -49,16 +49,12 @@
     0 10px 0 #C59A5C,
     0 18px 30px rgba(0, 0, 0, 0.18);
 
-  /* Pas de transition sur transform : on veut que les sauts (clic sur les nœuds
-     de la barre de progression) soient instantanés, pas animés. L'apparition
-     fluide est gérée par les valeurs `progress` qui changent au scroll. */
   transition: box-shadow 200ms ease;
 
   will-change: transform, opacity;
   pointer-events: auto;
 }
 
-/* texture légère */
 .roadCard::before {
   content: "";
   position: absolute;
@@ -67,10 +63,7 @@
   pointer-events: none;
 }
 
-/* ----------------------------------------------------------------------------
-   Épingle de fixation en haut à droite — comme si la carte était punaisée
-   sur un mur. On simule la 3D avec un radial-gradient + une ombre portée.
-   ---------------------------------------------------------------------------- */
+/* Épingle de fixation en haut à droite */
 .roadCard::after {
   content: "";
   position: absolute;
@@ -79,24 +72,18 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-
-  /* Tête de l'épingle bombée : highlight en haut-gauche, dégradé vers ombre
-     en bas-droite pour faire la rondeur 3D. */
   background:
     radial-gradient(
       circle at 35% 30%,
-      #F0975F 0%,           /* reflet clair (la lumière qui tape la tête) */
-      var(--accent) 40%,    /* couleur principale de la tête */
-      #A04515 100%          /* ombre interne sur le côté opposé */
+      #F0975F 0%,
+      var(--accent) 40%,
+      #A04515 100%
     );
-
-  /* Ombre portée sur le papier + insertion sombre pour l'effet "enfoncée" */
   box-shadow:
     0 2px 3px rgba(43, 36, 29, 0.45),
     inset -1px -2px 2px rgba(0, 0, 0, 0.20);
 }
 
-/* hover */
 .roadCard:hover {
   transform: translateY(-6px);
   box-shadow:
@@ -104,7 +91,6 @@
     0 26px 40px rgba(0, 0, 0, 0.22);
 }
 
-/* ---- Kicker ---- */
 .roadKicker {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -115,7 +101,6 @@
   margin: 0 0 14px;
 }
 
-/* ---- Titre ---- */
 .roadTitle {
   font-family: var(--font-serif);
   font-size: 40px;
@@ -126,7 +111,6 @@
   margin: 0 0 14px;
 }
 
-/* ---- Description ---- */
 .roadDescription {
   font-family: var(--font-sans);
   font-size: 17px;
@@ -135,22 +119,17 @@
   margin: 0 0 24px;
 }
 
-/* ---- Lien ---- */
 .roadLink {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 500;
-
   color: var(--ink);
   text-decoration: none;
-
   border-bottom: 2px solid var(--accent);
   padding-bottom: 3px;
-
   transition: color 200ms ease, gap 200ms ease;
 }
 
@@ -214,14 +193,57 @@
    RESPONSIVE
    ============================================================================ */
 
+/* Mobile : cartes plus petites et marges latérales confortables.
+   max-width passe à calc(100vw - 60px) (vs 40px avant) → 30px de chaque côté */
 @media (max-width: 768px) {
   .roadCard {
-    width: 340px;
-    padding: 28px 26px 24px;
+    width: 300px;
+    max-width: calc(100vw - 60px);
+    padding: 24px 22px 22px;
   }
 
-  .roadTitle { font-size: 34px; }
-  .roadDescription { font-size: 15px; line-height: 1.55; }
-  .roadKicker { font-size: 10px; margin-bottom: 12px; }
-  .roadLink { font-size: 13px; }
+  .roadTitle { font-size: 28px; line-height: 1.15; margin-bottom: 12px; }
+  .roadDescription { font-size: 14px; line-height: 1.55; margin-bottom: 18px; }
+  .roadKicker { font-size: 9.5px; margin-bottom: 10px; letter-spacing: 0.18em; }
+  .roadLink { font-size: 12.5px; }
+
+  /* Punaise un peu plus petite pour rester proportionnée */
+  .roadCard::after {
+    width: 12px;
+    height: 12px;
+    top: 10px;
+    right: 12px;
+  }
+}
+
+/* Petit mobile : cartes encore plus compactes */
+@media (max-width: 480px) {
+  .roadCard {
+    width: 270px;
+    max-width: calc(100vw - 50px);
+    padding: 20px 18px 18px;
+  }
+
+  .roadTitle { font-size: 24px; margin-bottom: 10px; }
+  .roadDescription { font-size: 13.5px; line-height: 1.5; margin-bottom: 16px; }
+  .roadKicker { font-size: 9px; margin-bottom: 8px; }
+  .roadLink { font-size: 12px; }
+
+  .roadCard::after {
+    width: 10px;
+    height: 10px;
+    top: 9px;
+    right: 10px;
+  }
+}
+
+/* Très petit mobile (iPhone SE 360px) */
+@media (max-width: 380px) {
+  .roadCard {
+    width: 250px;
+    padding: 18px 16px 16px;
+  }
+
+  .roadTitle { font-size: 22px; }
+  .roadDescription { font-size: 13px; margin-bottom: 14px; }
 }

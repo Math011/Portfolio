@@ -17,14 +17,10 @@
   gap: 20px;
 }
 
-/* Tous les enfants de .inner ré-activent les clics (le wrapper .header a
-   pointer-events: none pour laisser passer les clics dans le vide entre les
-   îlots). */
 .inner > * {
   pointer-events: auto;
 }
 
-/* Bar : juste les liens, sans pastille papier en fond */
 .bar {
   pointer-events: auto;
   display: flex;
@@ -32,7 +28,6 @@
   gap: 6px;
 }
 
-/* Brand intégré dans la barre */
 .brand {
   display: inline-flex;
   align-items: center;
@@ -60,7 +55,6 @@
   margin-left: 4px;
 }
 
-/* Liens : pastille papier individuelle (comme les labels de la progress bar) */
 .navLink {
   position: relative;
   padding: 6px 14px;
@@ -77,6 +71,8 @@
   transition: color 200ms ease,
               border-color 200ms ease,
               transform 200ms ease;
+  /* Empêche le wrap du texte (ex: "À propos" ne doit pas passer sur 2 lignes) */
+  white-space: nowrap;
 }
 
 .navLink:hover {
@@ -91,7 +87,6 @@
   font-weight: 600;
 }
 
-/* Petit point sous le lien actif (cohérent avec le dot du brand) */
 .navLink.active::after {
   content: "";
   position: absolute;
@@ -104,7 +99,7 @@
   background: var(--accent);
 }
 
-/* ---------- Mode fond sombre (page Contact nuit) ---------- */
+/* ---------- Mode fond sombre (Contact nuit) ---------- */
 .darkBg .brandName {
   color: #FFF8E7;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
@@ -128,17 +123,54 @@
 }
 
 /* ---------- Responsive ---------- */
+
+/* Tablette : padding réduit, gap resserré, texte un peu plus petit */
 @media (max-width: 900px) {
   .inner { padding: 18px 20px; gap: 14px; }
   .brandName { font-size: 15px; }
   .navLink { padding: 5px 12px; font-size: 10px; letter-spacing: 0.14em; }
 }
 
+/* Mobile : on cache la marque (Mathieu Raudin) pour laisser la place au menu */
 @media (max-width: 640px) {
   .brand { display: none; }
+  .inner { padding: 14px 14px; gap: 8px; }
+  .bar { gap: 5px; }
+  .navLink {
+    padding: 5px 9px;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+  }
 }
 
+/* Petit mobile : on resserre encore pour faire tenir À PROPOS sur 1 ligne en FR */
 @media (max-width: 480px) {
-  .navLink { padding: 5px 10px; font-size: 9.5px; letter-spacing: 0.1em; }
-  .bar { gap: 4px; }
+  .inner {
+    padding: 12px 10px;
+    gap: 6px;
+  }
+  .bar { gap: 3px; }
+  .navLink {
+    padding: 4px 7px;
+    font-size: 8.5px;
+    letter-spacing: 0.05em;
+  }
+  .navLink.active::after {
+    bottom: -4px;
+    width: 3px;
+    height: 3px;
+  }
+}
+
+/* Très petit (iPhone SE en mode portrait, 360px) */
+@media (max-width: 380px) {
+  .inner {
+    padding: 10px 6px;
+    gap: 4px;
+  }
+  .navLink {
+    padding: 3px 6px;
+    font-size: 8px;
+    letter-spacing: 0.03em;
+  }
 }

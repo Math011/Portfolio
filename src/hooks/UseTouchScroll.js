@@ -3,20 +3,17 @@ import { useEffect, useRef } from 'react';
 // =============================================================================
 // useTouchScroll
 // -----------------------------------------------------------------------------
-// Hook qui simule des événements `wheel` à partir de gestes tactiles, pour que
+// Simule des évènements `wheel` à partir de gestes tactiles, pour que
 // useVideoScroll (qui écoute uniquement `wheel`) fonctionne sur mobile.
 //
-// Principe :
-//   1. Capture touchstart pour mémoriser la position Y initiale
-//   2. À chaque touchmove, calcule le delta Y depuis le dernier point
-//   3. Dispatche un WheelEvent synthétique avec ce deltaY (× sensitivity)
-//   4. useVideoScroll le reçoit comme un scroll molette
+// sensitivity 6.0 par défaut : tres rapide. Sur mobile avec peu de course
+// de doigt, on amplifie fort pour traverser la vidéo en quelques swipes.
 //
-// `preventDefault()` sur touchmove bloque le scroll natif pendant qu'on
-// contrôle la vidéo (sinon double effet : page qui scroll + vidéo qui avance).
+// debug=true affiche les events dans la console (à activer temporairement
+// pour vérifier que le hook tourne bien sur iPhone).
 // =============================================================================
 
-const useTouchScroll = ({ enabled = true, sensitivity = 3.5 } = {}) => {
+const useTouchScroll = ({ enabled = true, sensitivity = 6.0, debug = false } = {}) => {
   const lastTouchYRef = useRef(0);
   const isTouchingRef = useRef(false);
 
@@ -27,6 +24,7 @@ const useTouchScroll = ({ enabled = true, sensitivity = 3.5 } = {}) => {
       if (e.touches && e.touches.length > 0) {
         lastTouchYRef.current = e.touches[0].clientY;
         isTouchingRef.current = true;
+        if (debug) console.log('[touchscroll] start y=', lastTouchYRef.current);
       }
     };
 
@@ -40,12 +38,13 @@ const useTouchScroll = ({ enabled = true, sensitivity = 3.5 } = {}) => {
       // Bloque le scroll natif pour éviter le double effet
       e.preventDefault();
 
-      // sensitivity élevée (3.5 par défaut) : un swipe court = beaucoup de
-      // progression vidéo. Sur mobile les écrans sont petits, donc on a
-      // peu de "course de doigt" — on amplifie pour traverser la vidéo
-      // en quelques swipes.
+      const amplifiedDelta = deltaY * sensitivity;
+
+      if (debug) console.log('[touchscroll] dy=', deltaY, 'amp=', amplifiedDelta);
+
+      // WheelEvent synthétique — useVideoScroll le recevra comme un scroll molette
       const wheelEvent = new WheelEvent('wheel', {
-        deltaY: deltaY * sensitivity,
+        deltaY: amplifiedDelta,
         deltaMode: 0,
         bubbles: true,
         cancelable: true,
@@ -55,10 +54,10 @@ const useTouchScroll = ({ enabled = true, sensitivity = 3.5 } = {}) => {
 
     const handleTouchEnd = () => {
       isTouchingRef.current = false;
+      if (debug) console.log('[touchscroll] end');
     };
 
-    // passive: false OBLIGATOIRE pour que preventDefault fonctionne sur les
-    // navigateurs modernes (Chrome 56+, iOS Safari).
+    // passive: false OBLIGATOIRE pour pouvoir preventDefault sur Chrome 56+ et iOS
     window.addEventListener('touchstart', handleTouchStart, { passive: false });
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
@@ -70,7 +69,7 @@ const useTouchScroll = ({ enabled = true, sensitivity = 3.5 } = {}) => {
       window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('touchcancel', handleTouchEnd);
     };
-  }, [enabled, sensitivity]);
+  }, [enabled, sensitivity, debug]);
 };
 
 export default useTouchScroll;

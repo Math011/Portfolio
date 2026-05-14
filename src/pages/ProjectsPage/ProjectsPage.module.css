@@ -70,7 +70,6 @@
   filter: drop-shadow(2px 4px 6px rgba(43, 36, 29, 0.25));
 }
 
-/* Carte papier ambré */
 .cardContent {
   position: relative;
   background: linear-gradient(180deg, #F4E6C8 0%, #EAD7B1 100%);
@@ -90,7 +89,6 @@
     0 24px 36px rgba(43, 36, 29, 0.22);
 }
 
-/* Punaise en haut à droite */
 .cardContent::after {
   content: "";
   position: absolute;
@@ -106,7 +104,6 @@
     inset -1px -2px 2px rgba(0, 0, 0, 0.20);
 }
 
-/* Contenu */
 .cardKicker {
   font-family: var(--font-mono);
   font-size: 10.5px;
@@ -155,7 +152,6 @@
   border-radius: var(--radius-pill);
 }
 
-/* Bouton "Voir le projet" : style éditorial */
 .cardLink {
   display: inline-flex;
   align-items: center;
@@ -176,7 +172,7 @@
 }
 
 /* =============================================================================
-   CLOUDS - décor de fond (inchangé)
+   CLOUDS (inchangé)
    ============================================================================= */
 .backgroundClouds {
   position: absolute;
@@ -235,7 +231,12 @@
 }
 
 /* =============================================================================
-   BIRDS - décor de fond
+   BIRDS — animation path() (battement d'aile réaliste)
+   -----------------------------------------------------------------------------
+   Cette technique anime l'attribut `d` du SVG, ce qui donne le plus beau
+   battement d'aile. Compatible Chrome (desktop+mobile) et Firefox.
+   NON supportée sur Safari iOS — pour ça, on utilise SMIL (balise <animate>
+   directement dans le JSX SVG de Bird.js).
    ============================================================================= */
 .backgroundBirds {
   position: absolute;
@@ -305,11 +306,10 @@
 }
 
 /* =============================================================================
-   RESPONSIVE — tablette portrait et mobile
-   -----------------------------------------------------------------------------
+   RESPONSIVE
    ============================================================================= */
 
-/* Tablette portrait : on garde 2 colonnes mais on resserre */
+/* Tablette portrait */
 @media (max-width: 900px) {
   .projectsGrid {
     gap: 110px 40px;
@@ -317,6 +317,7 @@
   }
 }
 
+/* Mobile : ballons presque collés à la carte */
 @media (max-width: 768px) {
   .projectsTitleContainer {
     padding: 6rem 1rem 3rem;
@@ -324,15 +325,14 @@
 
   .projectsGrid {
     grid-template-columns: 1fr;
-    gap: 160px;
+    gap: 130px;
     padding: 40px 20px 4rem;
     max-width: 480px;
   }
 
-  /* Ballon légèrement remonté ET un peu plus petit pour éviter de prendre
-     toute la largeur en mobile. */
+  /* Ballon collé : top -40px (vs -60 avant) */
   .balloonContainer {
-    top: -80px;
+    top: -40px;
     transform: translateX(-50%) scale(0.85);
   }
 
@@ -349,19 +349,21 @@
   }
 }
 
+/* Très petit mobile : ballon vraiment posé sur la carte */
 @media (max-width: 480px) {
   .projectsTitleContainer {
     padding: 5rem 1rem 2.5rem;
   }
 
   .projectsGrid {
-    gap: 140px;
-    padding: 50px 16px 3rem;
+    gap: 110px;
+    padding: 40px 16px 3rem;
   }
 
+  /* Ballon collé à la carte, à peine au-dessus */
   .balloonContainer {
-    top: -88px;
-    transform: translateX(-50%) scale(0.75);
+    top: -30px;
+    transform: translateX(-50%) scale(0.7);
   }
 
   .cardContent {
