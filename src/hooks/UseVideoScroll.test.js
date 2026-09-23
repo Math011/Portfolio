@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
+import { vi } from 'vitest';
 import { fireEvent } from '@testing-library/react';
 import useVideoScroll from './useVideoScroll';
 
@@ -35,10 +36,10 @@ const createMockVideo = (overrides = {}) => {
       set currentTime(val) { currentTime = val; },
       get paused() { return paused; },
       readyState: overrides.readyState ?? 4,
-      play: jest.fn(() => { paused = false; }),
-      pause: jest.fn(() => { paused = true; }),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
+      play: vi.fn(() => { paused = false; }),
+      pause: vi.fn(() => { paused = true; }),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
       ...overrides,
     },
   };
@@ -80,16 +81,16 @@ let perfSpy;
 
 beforeEach(() => {
   localStorage.clear();
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   rafCallbacks = [];
   rafId = 0;
   mockNow = 0;
   
-  window.requestAnimationFrame = jest.fn(mockRaf);
-  window.cancelAnimationFrame = jest.fn((id) => {
+  window.requestAnimationFrame = vi.fn(mockRaf);
+  window.cancelAnimationFrame = vi.fn((id) => {
     rafCallbacks = rafCallbacks.filter(item => item.id !== id);
   });
-  perfSpy = jest.spyOn(performance, 'now').mockImplementation(() => mockNow);
+  perfSpy = vi.spyOn(performance, 'now').mockImplementation(() => mockNow);
 });
 
 afterEach(() => {
@@ -230,7 +231,7 @@ describe('useVideoScroll - video sync', () => {
   });
 
   test('waits for loadedmetadata when not ready', () => {
-    const addEventListener = jest.fn();
+    const addEventListener = vi.fn();
     setup({ videoTime: 3, video: { readyState: 0, addEventListener } });
     expect(addEventListener).toHaveBeenCalledWith('loadedmetadata', expect.any(Function), { once: true });
   });
@@ -271,8 +272,8 @@ describe('useVideoScroll - progress', () => {
 describe('useVideoScroll - cleanup', () => {
 
   test('cleans up listeners and animation frames', () => {
-    const removeSpy = jest.spyOn(window, 'removeEventListener');
-    const addSpy = jest.spyOn(window, 'addEventListener');
+    const removeSpy = vi.spyOn(window, 'removeEventListener');
+    const addSpy = vi.spyOn(window, 'addEventListener');
 
     const { unmount } = setup();
     unmount();

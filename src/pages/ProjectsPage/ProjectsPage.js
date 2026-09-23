@@ -111,7 +111,7 @@ const ProjectsPage = () => {
           {decorativeClouds.map((cloud) => (
             <img
               key={cloud.id}
-              src={`${process.env.PUBLIC_URL}/images/${cloud.image}`}
+              src={`${import.meta.env.BASE_URL}/images/${cloud.image}`}
               alt=""
               className={`${styles.bgCloud} ${styles[SIZE_TO_CLASS[cloud.size]]} ${styles[OPACITY_TO_CLASS[cloud.opacity]]} ${cloud.direction === 'left' ? styles.directionLeft : styles.directionRight} ${styles[SPEED_TO_CLASS[cloud.speed]]}`}
               style={{

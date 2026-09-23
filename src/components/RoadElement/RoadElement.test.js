@@ -1,9 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 import { LanguageProvider } from '../../contexts/LanguageContext';
 
 // Mock <Link> de react-router-dom pour qu'il se rende comme un <a> simple.
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+vi.mock('react-router-dom', () => ({
+  ...vi.requireActual('react-router-dom'),
   Link: ({ to, children, ...props }) => (
     <a href={to} {...props}>{children}</a>
   ),
@@ -140,7 +141,7 @@ describe('RoadElement menus', () => {
     });
 
     test('calls onRestart when clicking the restart button', () => {
-      const onRestart = jest.fn();
+      const onRestart = vi.fn();
       renderMenu(FinishMenu, 95, 'fr', { onRestart });
 
       const button = screen.getByRole('button');

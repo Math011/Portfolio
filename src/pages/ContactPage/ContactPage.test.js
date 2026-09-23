@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { LanguageProvider } from '../../contexts/LanguageContext';
@@ -7,15 +8,15 @@ import { LanguageProvider } from '../../contexts/LanguageContext';
 // MOCKS
 // =============================================================================
 
-jest.mock('@emailjs/browser', () => ({
-  sendForm: jest.fn(() => Promise.resolve({ status: 200 })),
-  send: jest.fn(() => Promise.resolve({ status: 200 })),
+vi.mock('@emailjs/browser', () => ({
+  sendForm: vi.fn(() => Promise.resolve({ status: 200 })),
+  send: vi.fn(() => Promise.resolve({ status: 200 })),
 }));
 
 beforeAll(() => {
   window.grecaptcha = {
-    render: jest.fn(() => 1),
-    reset: jest.fn(),
+    render: vi.fn(() => 1),
+    reset: vi.fn(),
   };
 });
 
@@ -104,7 +105,7 @@ describe('ContactPage', () => {
 
 describe('ContactForm - Security', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('submits form successfully when captcha is completed', async () => {

@@ -7,14 +7,14 @@
 
 // EmailJS Configuration
 export const EMAILJS_CONFIG = {
-  serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID,
-  templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-  autoReplyTemplateId: process.env.REACT_APP_EMAILJS_AUTOREPLY_ID,
-  publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+  serviceId: process.env.VITE_APP_EMAILJS_SERVICE_ID,
+  templateId: process.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+  autoReplyTemplateId: process.env.VITE_APP_EMAILJS_AUTOREPLY_ID,
+  publicKey: process.env.VITE_APP_EMAILJS_PUBLIC_KEY
 };
 
 // reCAPTCHA Configuration
-export const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+export const RECAPTCHA_SITE_KEY = process.env.VITE_APP_RECAPTCHA_SITE_KEY;
 
 // Messages de confirmation selon la langue
 export const AUTO_REPLY_MESSAGES = {
@@ -37,7 +37,7 @@ export const AUTO_REPLY_MESSAGES = {
 };
 
 // Email pour le lien mailto
-export const CONTACT_EMAIL = process.env.REACT_APP_CONTACT_EMAIL;
+export const CONTACT_EMAIL = process.env.VITE_APP_CONTACT_EMAIL;
 
 // URLs des réseaux sociaux
 export const SOCIAL_LINKS = {

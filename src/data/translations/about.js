@@ -1,4 +1,4 @@
-const BASE = process.env.PUBLIC_URL;
+const BASE = import.meta.env.BASE_URL;
 
 export const aboutTranslations = {
   fr: {

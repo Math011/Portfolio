@@ -1,7 +1,7 @@
 import Project2Content from '../pages/ProjectDetailPage/projectContents/Project2Content';
 import Project3Content from '../pages/ProjectDetailPage/projectContents/Project3Content';
 
-const BASE = process.env.PUBLIC_URL;
+const BASE = import.meta.env.BASE_URL;
 
 // Liste des projets — couleurs des ballons depuis la palette du site
 export const projects = [
