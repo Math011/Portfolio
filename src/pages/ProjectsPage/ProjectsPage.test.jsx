@@ -52,7 +52,7 @@ describe('ProjectsPage', () => {
     test('displays technology tags for each project', () => {
       projects.forEach(project => {
         project.tags.forEach(tag => {
-          expect(screen.getByText(tag)).toBeInTheDocument();
+          expect(screen.getAllByText(tag).length).toBeGreaterThan(0);
         });
       });
     });
