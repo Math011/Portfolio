@@ -121,7 +121,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router
-        basename={import.meta.env.PROD ? '/Portfolio' : '/'}
+        basename={import.meta.env.BASE_URL}
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
       >
         <AppContent />
