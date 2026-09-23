@@ -58,13 +58,13 @@ cp .env.example .env.local
 
 ```env
 # EmailJS — créer un compte sur https://www.emailjs.com/
-REACT_APP_EMAILJS_SERVICE_ID=service_xxxxxxx
-REACT_APP_EMAILJS_TEMPLATE_ID=template_xxxxxxx
-REACT_APP_EMAILJS_AUTOREPLY_ID=template_xxxxxxx
-REACT_APP_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxxx
+VITE_APP_EMAILJS_SERVICE_ID=service_xxxxxxx
+VITE_APP_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+VITE_APP_EMAILJS_AUTOREPLY_ID=template_xxxxxxx
+VITE_APP_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxxx
 
 # Google reCAPTCHA v2 — créer une clé sur https://www.google.com/recaptcha/admin
-REACT_APP_RECAPTCHA_SITE_KEY=6Lcxxxxxxxxxxxxxxxxxxxxxxxxx
+VITE_APP_RECAPTCHA_SITE_KEY=6Lcxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # Email de contact affiché sur la page Contact
 [email protected]

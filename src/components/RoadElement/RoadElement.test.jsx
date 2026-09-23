@@ -1,22 +1,28 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { vi, describe, test, expect } from 'vitest';
 import { LanguageProvider } from '../../contexts/LanguageContext';
 
 // Mock <Link> de react-router-dom pour qu'il se rende comme un <a> simple.
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  Link: ({ to, children, ...props }) => (
-    <a href={to} {...props}>{children}</a>
-  ),
-}));
+// Vitest : on récupère le vrai module avec importOriginal (équivalent de jest.requireActual).
+// vi.mock est automatiquement remonté en haut du fichier, donc il s'applique
+// aussi aux imports ci-dessous.
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    Link: ({ to, children, ...props }) => (
+      <a href={to} {...props}>{children}</a>
+    ),
+  };
+});
 
-// On importe les composants APRÈS le mock pour que le mock soit pris en compte.
-const {
+import {
   HomeMenu,
   AboutMenu,
   ProjectsMenu,
   ContactMenu,
   FinishMenu,
-} = require('./index');
+} from './index';
 
 // =============================================================================
 // SETUP
@@ -140,7 +146,7 @@ describe('RoadElement menus', () => {
     });
 
     test('calls onRestart when clicking the restart button', () => {
-      const onRestart = jest.fn();
+      const onRestart = vi.fn();
       renderMenu(FinishMenu, 95, 'fr', { onRestart });
 
       const button = screen.getByRole('button');

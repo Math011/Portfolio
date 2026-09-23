@@ -94,7 +94,7 @@ function AppContent() {
       <div style={{ display: isHome ? 'block' : 'none' }}>
         <BackgroundVideo
           ref={videoRef}
-          src={`${process.env.PUBLIC_URL}/videos/paysages_tout.mp4`}
+          src={`${import.meta.env.BASE_URL}/videos/paysages_tout.mp4`}
         />
       </div>
 
@@ -121,7 +121,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router
-        basename={process.env.NODE_ENV === 'production' ? '/Portfolio' : '/'}
+        basename={import.meta.env.BASE_URL}
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
       >
         <AppContent />

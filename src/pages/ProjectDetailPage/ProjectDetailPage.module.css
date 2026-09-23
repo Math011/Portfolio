@@ -409,7 +409,7 @@
   color: var(--accent);
 }
 
-/* Quand le projet utilise customContent (contenu enrichi JSX), on neutralise
+/* Quand le projet utilise customContent, on neutralise
    la lettrine du parent : le composant enrichi gère sa propre typographie. */
 .projectDescription > div:first-child p:first-child::first-letter {
   font-family: inherit;

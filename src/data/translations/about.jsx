@@ -1,4 +1,4 @@
-const BASE = process.env.PUBLIC_URL;
+const BASE = import.meta.env.BASE_URL;
 
 export const aboutTranslations = {
   fr: {
@@ -33,7 +33,7 @@ export const aboutTranslations = {
     statCoffee: "Café / jour",
 
     cvDownload: "Voir mon CV",
-    cvFile: `${BASE}/cv/cv-mathieu-raudin-fr.pdf`,
+    cvFile: `${import.meta.env.BASE_URL}cv/cv-mathieu-raudin-fr.pdf`,
 
     education: [
       {
@@ -110,7 +110,7 @@ export const aboutTranslations = {
     statCoffee: "Coffee / day",
 
     cvDownload: "View my CV",
-    cvFile: `${BASE}/cv/cv-mathieu-raudin-fr.pdf`,
+    cvFile: `${import.meta.env.BASE_URL}cv/cv-mathieu-raudin-en.pdf`,
 
     education: [
       {

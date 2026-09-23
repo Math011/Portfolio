@@ -14,7 +14,7 @@ const Clouds = () => (
         {images.map((img, i) => (
           <img
             key={i}
-            src={`${process.env.PUBLIC_URL}/images/${img}`}
+            src={`${import.meta.env.BASE_URL}/images/${img}`}
             alt=""
             className={styles[`cloudRow${row}`]}
           />
