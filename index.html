@@ -1,1 +1,72 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.emailjs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://cdn.jsdelivr.net https://via.placeholder.com; media-src 'self' blob:; connect-src 'self' https://api.emailjs.com https://www.google.com; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';"><link rel="icon" href="/Portfolio/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Portfolio de Mathieu Raudin — Développeur Web"/><link rel="apple-touch-icon" href="/Portfolio/logo192.png"/><link rel="manifest" href="/Portfolio/manifest.json"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;600&display=swap"><script type="text/javascript">!function(n){if("/"===n.search[1]){var a=n.search.slice(1).split("&").map((function(n){return n.replace(/~and~/g,"&")})).join("?");window.history.replaceState(null,null,n.pathname.slice(0,-1)+a+n.hash)}}(window.location)</script><title>Mathieu Raudin — Portfolio</title><script defer="defer" src="/Portfolio/static/js/main.345f06b1.js"></script><link href="/Portfolio/static/css/main.7cee0a8a.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- =====================================================================
+         Content Security Policy (CSP)
+         ----------------------------------------------------------------------
+         Limite les sources autorisées pour scripts/styles/images/connexions.
+         Réduit la surface d'attaque en cas de XSS.
+         ===================================================================== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.emailjs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://cdn.jsdelivr.net https://via.placeholder.com; media-src 'self' blob:; connect-src 'self' https://api.emailjs.com https://www.google.com; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+
+    <link rel="icon" href="/Portfolio/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/Portfolio/favicon.svg" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F9E3A0" />
+    <meta
+      name="description"
+      content="Portfolio de Mathieu Raudin — Développeur Web"
+    />
+    <link rel="apple-touch-icon" href="logo192.png" />
+    <link rel="manifest" href="/Portfolio/manifest.json" />
+
+    <!-- =====================================================================
+         Polices : Fraunces (titres), Manrope (corps),
+         JetBrains Mono (kickers/labels), Caveat (manuscrit)
+         preconnect ouvre la connexion à l'avance pour gagner ~100ms
+         ===================================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;600&display=swap">
+
+    <!-- Note : on a retiré les preload d'images (face.jpg, nouveau-paysage.svg,
+         tout-sol.svg) car elles ne sont utilisées que sur les pages About et
+         Contact, ce qui générait des warnings "preloaded but not used" sur
+         la HomePage. Le code splitting (lazy() dans App.js) charge ces pages
+         à la demande, et leurs images se chargent en parallèle du chunk JS,
+         donc l'impact perçu est négligeable. -->
+
+    <!-- =====================================================================
+         Hack SPA pour GitHub Pages — récupération de la route
+         ----------------------------------------------------------------------
+         Lorsqu'un utilisateur refresh sur une route (ex: /Portfolio/contact),
+         GitHub Pages renvoie une 404 qui est interceptée par notre 404.html.
+         Ce dernier redirige vers /Portfolio/?/contact. Le script ci-dessous
+         détecte cette query, reconstruit la vraie URL et la pousse dans
+         l'historique du navigateur AVANT que React ne démarre, pour que
+         React Router voie la bonne route et affiche la page attendue.
+         ===================================================================== -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
+
+    <title>Mathieu Raudin — Portfolio</title>
+    <script type="module" crossorigin src="/Portfolio/assets/index-Pk-0BM1Y.js"></script>
+    <link rel="stylesheet" crossorigin href="/Portfolio/assets/index--3mVqqTe.css">
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
