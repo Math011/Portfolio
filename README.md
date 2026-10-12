@@ -1,208 +1,223 @@
 # 🎒 Portfolio — Mathieu Raudin
 
-Portfolio personnel sur le thème du voyage et du road trip. Le visiteur défile à travers un paysage qui se déroule au scroll, et découvre les différentes "étapes" du parcours : qui je suis, mes projets, et comment me contacter.
+🇬🇧 **English** · 🇫🇷 [Français](README.fr.md)
 
-🌐 **Live demo** : [mathieu-raudin.com](https://mathieu-raudin.com) *(à adapter avec votre URL)*
+A personal portfolio built around a travel and road-trip theme. Visitors scroll through a landscape that unfolds as they go, discovering each "stop" along the journey: who I am, my projects, and how to get in touch.
 
-![Portfolio preview](public/images/portfolio-preview.jpg)
-
----
-
-## ✨ Fonctionnalités
-
-- 🎬 **Animation au scroll** : vidéo de paysage qui défile en arrière-plan, synchronisée avec la progression
-- 🗺️ **Carte de route interactive** : étapes Accueil → À propos → Projets → Contact → Arrivée
-- 🌍 **Bilingue** : français/anglais avec basculement instantané (contexte React)
-- 📧 **Formulaire de contact sécurisé** : EmailJS + reCAPTCHA v2 + honeypot + timing check anti-bot
-- 🎨 **Design "carnet de voyage"** : papier ambré, polices Fraunces/Manrope/Caveat, illustrations vectorielles
-- 🌙 **Scène de nuit sur la page Contact** : feu de camp animé, étoiles scintillantes, lune avec cratères
-- ⚡ **Performances optimisées** : code splitting, lazy loading, compression vidéo, preconnect
+🌐 **Live demo**: [math011.github.io/Portfolio](https://math011.github.io/Portfolio/)
 
 ---
 
-## 🛠️ Stack technique
+## ✨ Features
 
-| Catégorie | Technologies |
+- 🎬 **Scroll-driven animation**: a landscape video plays in the background, synced with the visitor's progress (mouse wheel and touch screens)
+- 🗺️ **Interactive road map**: stops Home → About → Projects → Contact → Finish line
+- 🌍 **Bilingual**: French/English with instant switching (React context)
+- 📧 **Secure contact form**: EmailJS + reCAPTCHA v2 + honeypot + anti-bot timing check
+- 🎨 **"Travel journal" design**: amber paper, Fraunces/Manrope/Caveat fonts, vector illustrations
+- 🌙 **Night scene on the Contact page**: animated campfire, twinkling stars, cratered moon
+- ⚡ **Optimized performance**: code splitting, lazy loading, video compression, preconnect
+
+---
+
+## 🛠️ Tech stack
+
+| Category | Technologies |
 |---|---|
-| **Front-end** | React 18, React Router v6, CSS Modules |
-| **Outils** | Create React App, Jest, Testing Library |
-| **Services** | EmailJS (envoi d'emails), Google reCAPTCHA v2 |
-| **Hébergement** | (à adapter : Vercel / Netlify / etc.) |
-| **Polices** | Fraunces, Manrope, JetBrains Mono, Caveat (Google Fonts) |
+| **Front-end** | React 18, React Router v7, CSS Modules |
+| **Tooling** | Vite, Vitest, Testing Library |
+| **Services** | EmailJS (email delivery), Google reCAPTCHA v2 |
+| **Hosting** | GitHub Pages |
+| **Fonts** | Fraunces, Manrope, JetBrains Mono, Caveat (Google Fonts) |
 
 ---
 
-## 🚀 Installation
+## 🚀 Getting started
 
-### Prérequis
+### Prerequisites
 
-- Node.js ≥ 16.x
-- npm ≥ 8.x
+- Node.js ≥ 20.19 (22 recommended)
+- npm ≥ 10
 
-### Étapes
+### Steps
 
 ```bash
-# 1. Cloner le repo
-git clone https://github.com/Math011/portfolio.git
-cd portfolio
+# 1. Clone the repo
+git clone https://github.com/Math011/Portfolio.git
+cd Portfolio
 
-# 2. Installer les dépendances
+# 2. Install dependencies
 npm install
 
-# 3. Configurer les variables d'environnement
-cp .env.example .env.local
-# Puis ouvrir .env.local et remplir avec vos vraies clés
+# 3. Set up environment variables
+cp .env .env.local
+# Then open .env.local and fill in your real keys
 ```
 
-### Variables d'environnement (`.env.local`)
+### Environment variables (`.env.local`)
 
 ```env
-# EmailJS — créer un compte sur https://www.emailjs.com/
+# EmailJS — create an account at https://www.emailjs.com/
 VITE_APP_EMAILJS_SERVICE_ID=service_xxxxxxx
 VITE_APP_EMAILJS_TEMPLATE_ID=template_xxxxxxx
 VITE_APP_EMAILJS_AUTOREPLY_ID=template_xxxxxxx
 VITE_APP_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxxx
 
-# Google reCAPTCHA v2 — créer une clé sur https://www.google.com/recaptcha/admin
+# Google reCAPTCHA v2 — create a key at https://www.google.com/recaptcha/admin
 VITE_APP_RECAPTCHA_SITE_KEY=6Lcxxxxxxxxxxxxxxxxxxxxxxxxx
 
-# Email de contact affiché sur la page Contact
-[email protected]
+# Contact email shown on the Contact page
+VITE_APP_CONTACT_EMAIL=you@example.com
 ```
+
+> Vite only exposes variables prefixed with `VITE_` to the code. Restart the dev server after editing the file.
 
 ---
 
-## 💻 Commandes disponibles
+## 💻 Available scripts
 
 ```bash
-# Lancer le serveur de dev (http://localhost:3000)
+# Start the dev server (http://localhost:3000/Portfolio/)
 npm start
 
-# Lancer les tests unitaires
+# Run unit tests (watch mode)
 npm test
 
-# Lancer les tests en mode CI (une seule passe)
-npm test -- --watchAll=false
+# Run tests once (CI)
+npx vitest run
 
-# Build de production (dossier build/)
+# Production build (dist/ folder)
 npm run build
+
+# Preview the production build locally
+npm run preview
+
+# Publish to GitHub Pages (build + push to the gh-pages branch)
+npm run deploy
 ```
 
 ---
 
-## 📁 Structure du projet
+## 📁 Project structure
 
 ```
-portfolio/
-├── public/
-│   ├── images/                  # Assets statiques (SVG, JPG, vidéo)
-│   │   └── projets/             # Captures d'écran des projets
-│   ├── index.html               # Template HTML (CSP, preloads, polices)
-│   └── manifest.json
+Portfolio/
+├── public/                      # Files copied as-is into dist/
+│   ├── cv/                      # Résumé as PDF (FR / EN)
+│   ├── images/                  # Static assets (SVG, JPG)
+│   │   └── projets/             # Project screenshots
+│   ├── videos/                  # Journey background videos
+│   ├── 404.html                 # SPA redirect for GitHub Pages
+│   ├── favicon.svg / favicon.ico
+│   └── robots.txt
 │
 ├── src/
-│   ├── components/              # Composants réutilisables
-│   │   ├── BackgroundVideo/     # Vidéo de fond du scroll
-│   │   ├── Header/              # Navigation principale
+│   ├── components/              # Reusable components
+│   │   ├── BackgroundVideo/     # Scroll-driven background video
+│   │   ├── Header/              # Main navigation
 │   │   ├── LanguageSwitcher/    # FR / EN
-│   │   ├── LoadingScreen/       # Écran de chargement initial
-│   │   ├── ProgressBar/         # Barre de progression du voyage
-│   │   ├── RoadElement/         # Cartes flottantes (HomeMenu, AboutMenu, etc.)
-│   │   └── ScrollHint/          # Indicateur "scroller pour découvrir"
+│   │   ├── LoadingScreen/       # Initial loading screen
+│   │   ├── ProgressBar/         # Journey progress bar
+│   │   ├── RoadElement/         # Floating cards (HomeMenu, AboutMenu, etc.)
+│   │   └── ScrollHint/          # "Scroll to explore" hint
 │   │
 │   ├── contexts/
-│   │   └── LanguageContext.js   # Gestion FR/EN
+│   │   └── LanguageContext.jsx  # FR/EN handling
 │   │
 │   ├── data/
-│   │   └── journeySteps.js      # Définition des étapes du voyage
+│   │   └── journeySteps.js      # Journey stop definitions
 │   │
 │   ├── hooks/
-│   │   ├── useFirstLoad.js      # Loading screen au premier visit
-│   │   └── useVideoScroll.js    # Synchronisation scroll ↔ vidéo
+│   │   ├── useFirstLoad.js      # Loading screen on first visit
+│   │   ├── useTouchScroll.js    # Turns touch gestures into scrolling
+│   │   └── useVideoScroll.js    # Scroll ↔ video sync
 │   │
 │   ├── pages/
-│   │   ├── AboutPage/           # Page "À propos"
-│   │   ├── ContactPage/         # Page "Contact" (scène nuit + formulaire)
-│   │   ├── ProjectsPage/        # Liste des projets
-│   │   ├── ProjectDetailPage/   # Détail d'un projet
+│   │   ├── AboutPage/           # "About" page
+│   │   ├── ContactPage/         # "Contact" page (night scene + form)
+│   │   ├── ProjectsPage/        # Project list
+│   │   ├── ProjectDetailPage/   # Project details
 │   │   └── NotFoundPage/        # 404
 │   │
-│   ├── translations/            # Fichiers de traduction FR/EN
-│   ├── App.js                   # Routes + Suspense (code splitting)
-│   ├── App.css                  # Styles globaux
-│   └── index.js                 # Point d'entrée
+│   ├── translations/            # FR/EN translation files
+│   ├── App.jsx                  # Routes + Suspense (code splitting)
+│   ├── App.css                  # Global styles
+│   └── index.jsx                # Entry point
 │
-├── .env.example                 # Template des variables d'env
-├── .gitignore
+├── index.html                   # HTML template (CSP, preloads, fonts)
+├── vite.config.js               # Vite + Vitest configuration
+├── .env                         # Environment variable template (no values)
 ├── package.json
-└── README.md
+├── README.md                    # English version
+└── README.fr.md                 # French version
 ```
 
 ---
 
-## 🔒 Sécurité
+## 🔒 Security
 
-Le formulaire de contact est protégé par plusieurs couches :
+The contact form is protected by several layers:
 
-1. **reCAPTCHA v2** — vérification côté Google (avec whitelist de domaine activée)
-2. **Honeypot** — champ caché `website` qui ne devrait jamais être rempli (détection des bots automatiques)
-3. **Timing check** — vérification que l'utilisateur a passé au moins 3 secondes sur le formulaire (filtrage des bots ultra-rapides)
-4. **Rate limiting client** — maximum 3 envois par heure, intervalle minimum d'1 minute entre 2 envois
-5. **Validation côté client** — longueurs, format email, détection de spam URL
-6. **CSP (Content Security Policy)** — limite les sources autorisées pour scripts/styles/images
-7. **EmailJS** — quota naturel de 200 emails/mois, captcha verification activée sur le template principal
+1. **reCAPTCHA v2** — verified by Google (with domain allowlist enabled)
+2. **Honeypot** — a hidden `website` field that should never be filled in (catches automated bots)
+3. **Timing check** — makes sure the user spent at least 3 seconds on the form (filters out ultra-fast bots)
+4. **Client-side rate limiting** — at most 3 submissions per hour, with at least 1 minute between two submissions
+5. **Client-side validation** — field lengths, email format, spam URL detection
+6. **CSP (Content Security Policy)** — restricts the allowed sources for scripts/styles/images
+7. **EmailJS** — built-in quota of 200 emails/month, captcha verification enabled on the main template
 
-⚠️ **Note importante** : les clés EmailJS et reCAPTCHA sont exposées dans le bundle JS public (inhérent à toute SPA sans backend). La protection principale vient de la whitelist de domaine côté reCAPTCHA.
-
----
-
-## ⚡ Performances
-
-- **Code splitting** : chaque page est chargée à la demande via `React.lazy()` → bundle initial ~50% plus léger
-- **Compression vidéo** : MP4 H.264 CRF 28 + WebM en fallback pour les navigateurs modernes
-- **Polices préconnectées** : `<link rel="preconnect">` sur Google Fonts pour gagner ~100ms
-- **Loading screen rapide** : 900ms uniquement sur le premier load (Home + Projects)
+⚠️ **Important note**: the EmailJS and reCAPTCHA keys are exposed in the public JS bundle (inherent to any SPA without a backend). The main protection comes from the reCAPTCHA domain allowlist.
 
 ---
 
-## 🧪 Tests
+## ⚡ Performance
 
-Tests unitaires avec **Jest** + **React Testing Library**.
+- **Code splitting**: each page is loaded on demand with `React.lazy()` → ~50% lighter initial bundle
+- **Video compression**: MP4 H.264 CRF 28 + WebM fallback for modern browsers
+- **Preconnected fonts**: `<link rel="preconnect">` to Google Fonts saves ~100ms
+- **Fast loading screen**: 900ms, only on first load (Home + Projects)
+
+---
+
+## 🧪 Testing
+
+Unit tests with **Vitest** + **React Testing Library** (103 tests).
 
 ```bash
 npm test
 ```
 
-Couverture actuelle :
-- `AboutPage` (13 tests)
-- `ContactPage` + `ContactForm` (sécurité, accessibilité)
-- `ProjectsPage`
-- `ProjectDetailPage`
+Current coverage:
+- `useVideoScroll` (25 tests)
+- `ProjectDetailPage` (21 tests)
 - `RoadElement` menus (15 tests)
-- Routes principales
+- `ProjectsPage` (14 tests)
+- `AboutPage` (11 tests)
+- Main routes (9 tests)
+- `ContactPage` + `ContactForm` — security, accessibility (8 tests)
 
 ---
 
-## 🎨 Crédits & inspirations
+## 🎨 Credits & inspiration
 
-- **Concept "voyage / road trip"** : design et illustrations personnels
-- **Polices** : [Google Fonts](https://fonts.google.com/) (Fraunces, Manrope, JetBrains Mono, Caveat)
-- **Icônes développeur** : [Devicons](https://devicon.dev/) (CDN jsDelivr)
+- **"Travel / road trip" concept**: original design and illustrations
+- **Fonts**: [Google Fonts](https://fonts.google.com/) (Fraunces, Manrope, JetBrains Mono, Caveat)
+- **Developer icons**: [Devicons](https://devicon.dev/) (jsDelivr CDN)
 
 ---
 
-## 👤 Auteur
+## 👤 Author
 
 **Mathieu Raudin**
 
-- 🌐 [Portfolio](https://mathieu-raudin.com) *(à adapter)*
+- 🌐 [Portfolio](https://math011.github.io/Portfolio/)
 - 💼 [LinkedIn](https://linkedin.com/in/mathieu-raudin-4a9b90230)
 - 💻 [GitHub](https://github.com/Math011)
 
 ---
 
-## 📝 Licence
+## 📝 License
 
-Ce projet est personnel — code disponible à des fins éducatives et d'inspiration uniquement.
+This is a personal project — the code is available for educational and inspiration purposes only.
 
-Les éléments graphiques et le contenu (textes, illustrations, captures d'écran) ne sont pas réutilisables sans autorisation.
+Graphic assets and content (text, illustrations, screenshots) may not be reused without permission.
